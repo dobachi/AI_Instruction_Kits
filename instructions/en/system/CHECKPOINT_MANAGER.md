@@ -4,12 +4,19 @@
 Effectively track and report task progress with minimal output
 
 ## Basic Rules
-**Display the following 2 lines at the beginning of every response:**
+**Execute the following in every response:**
 
+1. **Display the following 2 lines at the beginning**
 ```
 `[Current Step/Total Steps] Current Status | Next: Next Action`
 `📌 Log→checkpoint.log: [YYYY-MM-DD HH:MM:SS][TaskID][Status] Message`
 ```
+
+2. **Actually append the content shown in line 2 to the checkpoint.log file**
+   - Task start (START): Always append
+   - Error occurrence (ERROR): Always append
+   - Task completion (COMPLETE): Always append
+   - Normal progress: No append needed (display only)
 
 ### Line 2 Details
 - Task start: `📌 Log→checkpoint.log: [Time][TASK###][START] Task name (N steps estimated)`
