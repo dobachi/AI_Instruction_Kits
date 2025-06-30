@@ -8,8 +8,14 @@ Effectively track and report task progress with minimal output
 
 ```
 `[Current Step/Total Steps] Current Status | Next: Next Action`
-`📌Rule: Report progress at each step | Log: checkpoint.log`
+`📌 Log→checkpoint.log: [YYYY-MM-DD HH:MM:SS][TaskID][Status] Message`
 ```
+
+### Line 2 Details
+- Task start: `📌 Log→checkpoint.log: [Time][TASK###][START] Task name (N steps estimated)`
+- Normal progress: `📌 Log→checkpoint.log: Log only at start/error/completion`
+- Error occurrence: `📌 Log→checkpoint.log: [Time][TASK###][ERROR] Error details`
+- Task completion: `📌 Log→checkpoint.log: [Time][TASK###][COMPLETE] Result: details`
 
 ### File Logging Rules
 Log important checkpoints to `checkpoint.log`:
@@ -61,20 +67,20 @@ Log important checkpoints to `checkpoint.log`:
 ### Coding Task Example
 ```
 `[1/4] Requirements analyzed | Next: Implementation`
-`📌Rule: Report progress at each step | Log: checkpoint.log`
+`📌 Log→checkpoint.log: [2025-06-30 14:00:00][TASK001][START] Python function implementation (4 steps)`
 I've understood the requirements. I'll implement data processing functions in Python.
 
 `[2/4] Implementation complete | Next: Testing`
-`📌Rule: Report progress at each step | Log: checkpoint.log`
+`📌 Log→checkpoint.log: Log only at start/error/completion`
 I've created the following code:
 [Code]
 
 `[3/4] Testing complete | Next: Documentation`
-`📌Rule: Report progress at each step | Log: checkpoint.log`
+`📌 Log→checkpoint.log: Log only at start/error/completion`
 All tests passed successfully.
 
 `[4/4] All done | Result: 1 function, 3 tests`
-`📌Rule: Report progress at each step | Log: checkpoint.log`
+`📌 Log→checkpoint.log: [2025-06-30 14:15:00][TASK001][COMPLETE] Result: 1 function, 3 tests`
 Implementation is complete.
 ```
 
