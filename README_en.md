@@ -7,27 +7,27 @@ This repository manages instruction sheets for AI systems.
 ## Directory Structure
 
 ```
-instructions/
-├── ja/            # Japanese instructions
-│   ├── general/   # General instructions
-│   ├── coding/    # Coding-related instructions
-│   ├── writing/   # Writing-related instructions
-│   ├── analysis/  # Analysis-related instructions
-│   └── creative/  # Creative-related instructions
-└── en/            # English instructions
-    ├── general/   # General instructions
-    ├── coding/    # Coding-related instructions
-    ├── writing/   # Writing-related instructions
-    ├── analysis/  # Analysis-related instructions
-    └── creative/  # Creative-related instructions
-
-examples/          # Usage examples
-├── ja/            # Japanese examples
-└── en/            # English examples
-
-templates/         # Instruction templates
-├── ja/            # Japanese templates
-└── en/            # English templates
+.
+├── docs/          # Human-readable documentation
+├── instructions/  # AI instruction sheets
+│   ├── ja/        # Japanese instructions
+│   │   ├── general/   # General instructions
+│   │   ├── coding/    # Coding-related instructions
+│   │   ├── writing/   # Writing-related instructions
+│   │   ├── analysis/  # Analysis-related instructions
+│   │   └── creative/  # Creative-related instructions
+│   └── en/        # English instructions
+│       ├── general/   # General instructions
+│       ├── coding/    # Coding-related instructions
+│       ├── writing/   # Writing-related instructions
+│       ├── analysis/  # Analysis-related instructions
+│       └── creative/  # Creative-related instructions
+├── examples/      # Usage examples
+│   ├── ja/        # Japanese examples
+│   └── en/        # English examples
+└── templates/     # Instruction templates
+    ├── ja/        # Japanese templates
+    └── en/        # English templates
 ```
 
 ## Key Files
