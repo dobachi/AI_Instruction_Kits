@@ -9,7 +9,7 @@
 1. **応答の冒頭に以下の2行を表示**
 ```
 `[現在ステップ/全体ステップ] 現在の状態 | 次: 次のアクション`
-`📌 記録→checkpoint.log: [YYYY-MM-DD HH:MM:SS][タスクID][状態] メッセージ`
+`📌 記録→checkpoint.log: [YYYY-MM-DD HH:MM:SS][TASK-xxxxxx][状態] メッセージ`
 ```
 
 2. **2行目に表示した内容を実際にcheckpoint.logファイルに追記する**
@@ -19,10 +19,10 @@
    - 通常進行時: 追記不要（表示のみ）
 
 ### 2行目の詳細
-- タスク開始時: `📌 記録→checkpoint.log: [時刻][TASK###][START] タスク名 (推定Nステップ)`
+- タスク開始時: `📌 記録→checkpoint.log: [時刻][TASK-xxxxxx][START] タスク名 (推定Nステップ)`
 - 通常進行時: `📌 記録→checkpoint.log: 開始時/エラー時/完了時のみ記録`
-- エラー発生時: `📌 記録→checkpoint.log: [時刻][TASK###][ERROR] エラー内容`
-- タスク完了時: `📌 記録→checkpoint.log: [時刻][TASK###][COMPLETE] 成果: 内容`
+- エラー発生時: `📌 記録→checkpoint.log: [時刻][TASK-xxxxxx][ERROR] エラー内容`
+- タスク完了時: `📌 記録→checkpoint.log: [時刻][TASK-xxxxxx][COMPLETE] 成果: 内容`
 
 ### ファイル記録ルール
 重要なチェックポイントは `checkpoint.log` ファイルに追記する：
@@ -59,14 +59,14 @@
 
 ### checkpoint.log の記録形式
 ```
-[YYYY-MM-DD HH:MM:SS] [タスクID] [ステータス] メッセージ
+[YYYY-MM-DD HH:MM:SS] [TASK-xxxxxx] [ステータス] メッセージ
 ```
 
 ### 記録例
 ```
-[2025-06-30 14:30:00] [TASK001] [START] Webアプリケーション開発開始 (推定5ステップ)
-[2025-06-30 14:35:00] [TASK001] [ERROR] 依存関係エラー: パッケージ不足
-[2025-06-30 14:45:00] [TASK001] [COMPLETE] 完了: API 3つ、テスト10個作成
+[2025-06-30 14:30:00] [TASK-8a3f2c] [START] Webアプリケーション開発開始 (推定5ステップ)
+[2025-06-30 14:35:00] [TASK-8a3f2c] [ERROR] 依存関係エラー: パッケージ不足
+[2025-06-30 14:45:00] [TASK-8a3f2c] [COMPLETE] 完了: API 3つ、テスト10個作成
 ```
 
 ## 実装例
@@ -74,7 +74,7 @@
 ### コーディングタスクの場合
 ```
 `[1/4] 要件分析完了 | 次: 実装`
-`📌 記録→checkpoint.log: [2025-06-30 14:00:00][TASK001][START] Python関数実装 (4ステップ)`
+`📌 記録→checkpoint.log: [2025-06-30 14:00:00][TASK-b5d7e1][START] Python関数実装 (4ステップ)`
 コードの要件を理解しました。Pythonでデータ処理関数を実装します。
 
 `[2/4] 実装完了 | 次: テスト`
@@ -87,7 +87,7 @@
 すべてのテストが成功しました。
 
 `[4/4] 全完了 | 成果: 関数1つ、テスト3つ`
-`📌 記録→checkpoint.log: [2025-06-30 14:15:00][TASK001][COMPLETE] 成果: 関数1つ、テスト3つ`
+`📌 記録→checkpoint.log: [2025-06-30 14:15:00][TASK-b5d7e1][COMPLETE] 成果: 関数1つ、テスト3つ`
 実装が完了しました。
 ```
 

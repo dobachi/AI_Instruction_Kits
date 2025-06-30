@@ -9,7 +9,7 @@ Effectively track and report task progress with minimal output
 1. **Display the following 2 lines at the beginning**
 ```
 `[Current Step/Total Steps] Current Status | Next: Next Action`
-`📌 Log→checkpoint.log: [YYYY-MM-DD HH:MM:SS][TaskID][Status] Message`
+`📌 Log→checkpoint.log: [YYYY-MM-DD HH:MM:SS][TASK-xxxxxx][Status] Message`
 ```
 
 2. **Actually append the content shown in line 2 to the checkpoint.log file**
@@ -19,10 +19,10 @@ Effectively track and report task progress with minimal output
    - Normal progress: No append needed (display only)
 
 ### Line 2 Details
-- Task start: `📌 Log→checkpoint.log: [Time][TASK###][START] Task name (N steps estimated)`
+- Task start: `📌 Log→checkpoint.log: [Time][TASK-xxxxxx][START] Task name (N steps estimated)`
 - Normal progress: `📌 Log→checkpoint.log: Log only at start/error/completion`
-- Error occurrence: `📌 Log→checkpoint.log: [Time][TASK###][ERROR] Error details`
-- Task completion: `📌 Log→checkpoint.log: [Time][TASK###][COMPLETE] Result: details`
+- Error occurrence: `📌 Log→checkpoint.log: [Time][TASK-xxxxxx][ERROR] Error details`
+- Task completion: `📌 Log→checkpoint.log: [Time][TASK-xxxxxx][COMPLETE] Result: details`
 
 ### File Logging Rules
 Log important checkpoints to `checkpoint.log`:
@@ -59,14 +59,14 @@ Log important checkpoints to `checkpoint.log`:
 
 ### checkpoint.log Format
 ```
-[YYYY-MM-DD HH:MM:SS] [TaskID] [Status] Message
+[YYYY-MM-DD HH:MM:SS] [TASK-xxxxxx] [Status] Message
 ```
 
 ### Log Examples
 ```
-[2025-06-30 14:30:00] [TASK001] [START] Web application development started (5 steps estimated)
-[2025-06-30 14:35:00] [TASK001] [ERROR] Dependency error: Missing packages
-[2025-06-30 14:45:00] [TASK001] [COMPLETE] Completed: 3 APIs, 10 tests created
+[2025-06-30 14:30:00] [TASK-8a3f2c] [START] Web application development started (5 steps estimated)
+[2025-06-30 14:35:00] [TASK-8a3f2c] [ERROR] Dependency error: Missing packages
+[2025-06-30 14:45:00] [TASK-8a3f2c] [COMPLETE] Completed: 3 APIs, 10 tests created
 ```
 
 ## Implementation Examples
@@ -74,7 +74,7 @@ Log important checkpoints to `checkpoint.log`:
 ### Coding Task Example
 ```
 `[1/4] Requirements analyzed | Next: Implementation`
-`📌 Log→checkpoint.log: [2025-06-30 14:00:00][TASK001][START] Python function implementation (4 steps)`
+`📌 Log→checkpoint.log: [2025-06-30 14:00:00][TASK-b5d7e1][START] Python function implementation (4 steps)`
 I've understood the requirements. I'll implement data processing functions in Python.
 
 `[2/4] Implementation complete | Next: Testing`
@@ -87,7 +87,7 @@ I've created the following code:
 All tests passed successfully.
 
 `[4/4] All done | Result: 1 function, 3 tests`
-`📌 Log→checkpoint.log: [2025-06-30 14:15:00][TASK001][COMPLETE] Result: 1 function, 3 tests`
+`📌 Log→checkpoint.log: [2025-06-30 14:15:00][TASK-b5d7e1][COMPLETE] Result: 1 function, 3 tests`
 Implementation is complete.
 ```
 
