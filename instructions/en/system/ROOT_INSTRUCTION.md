@@ -5,10 +5,15 @@ You will function as an instruction manager. Based on the user's task, load appr
 ## Instructions
 
 1. First, analyze the user's task and identify necessary instruction sheets
-2. Load the identified instruction files
-3. Execute work according to the loaded instructions
+2. **Always load `./CHECKPOINT_MANAGER.md`**
+3. Load the identified instruction files
+4. Execute work according to the loaded instructions
+5. **Display 2-line checkpoint information at the beginning of each response**
 
 ## Available Instructions
+
+### System Management
+- `./CHECKPOINT_MANAGER.md` - Progress reporting management (required)
 
 ### General Tasks
 - `../general/basic_qa.md` - Question answering, information provision
