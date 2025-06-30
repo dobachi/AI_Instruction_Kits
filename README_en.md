@@ -27,9 +27,11 @@ This repository manages instruction sheets for AI systems.
 ├── examples/      # Usage examples
 │   ├── ja/        # Japanese examples
 │   └── en/        # English examples
-└── templates/     # Instruction templates
-    ├── ja/        # Japanese templates
-    └── en/        # English templates
+├── templates/     # Instruction templates
+│   ├── ja/        # Japanese templates
+│   └── en/        # English templates
+└── tools/         # Tools and utilities
+    └── setup-project.sh  # Project integration setup script
 ```
 
 ## Key Files
@@ -44,7 +46,28 @@ This repository manages instruction sheets for AI systems.
 
 ## Usage
 
-### Basic Usage
+### Project Integration (Recommended)
+
+The easiest way to integrate the AI instruction system into your project:
+
+```bash
+# Run in your project's root directory
+bash path/to/AI_Instruction_Sheet/tools/setup-project.sh
+```
+
+This automatically sets up:
+- `.ai-instructions/` submodule
+- `AI.md` - Japanese project configuration
+- `AI.en.md` - English project configuration  
+- `CLAUDE.md` symlinks for backward compatibility
+
+Usage example:
+```bash
+# Simple AI instructions
+claude "Please refer to AI.en.md and implement user authentication"
+```
+
+### Basic Usage (Manual)
 
 1. **Using a single instruction**
    ```bash

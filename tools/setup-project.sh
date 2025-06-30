@@ -31,13 +31,6 @@ cat > AI.md << 'EOF'
 このプロジェクトでは`.ai-instructions/`のAI指示書システムを使用します。
 タスク開始時は`.ai-instructions/instructions/ja/system/ROOT_INSTRUCTION.md`を読み込んでください。
 
-## 対応AI
-- Claude (Anthropic)
-- Gemini (Google)
-- ChatGPT (OpenAI)
-- Cursor
-- その他のAIツール
-
 ## プロジェクト設定
 - 言語: 日本語 (ja)
 - チェックポイント管理: 有効
@@ -61,13 +54,6 @@ cat > AI.en.md << 'EOF'
 
 This project uses the AI instruction system in `.ai-instructions/`.
 Please load `.ai-instructions/instructions/en/system/ROOT_INSTRUCTION.md` when starting a task.
-
-## Supported AI Tools
-- Claude (Anthropic)
-- Gemini (Google)
-- ChatGPT (OpenAI)
-- Cursor
-- Other AI tools
 
 ## Project Settings
 - Language: English (en)

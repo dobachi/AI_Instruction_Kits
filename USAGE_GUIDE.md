@@ -2,6 +2,16 @@
 
 ## 🚀 クイックスタート / Quick Start
 
+### 0. プロジェクトへの統合（推奨）
+```bash
+# あなたのプロジェクトで一度だけ実行
+cd ~/your-project
+bash path/to/AI_Instruction_Sheet/tools/setup-project.sh
+
+# その後は簡単に使用可能
+claude "AI.mdを参照して、ユーザー認証機能を実装して"
+```
+
 ### 1. 単一の指示書を使う場合
 ```bash
 # AIツールに直接ファイルパスを指定
