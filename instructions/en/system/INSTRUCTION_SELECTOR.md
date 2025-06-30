@@ -8,35 +8,35 @@ You will determine appropriate instruction combinations based on the user's task
 When detecting keywords: API, endpoint, frontend, backend, web development
 ```
 Required loading:
-- instructions/en/coding/basic_code_generation.md
-- instructions/en/writing/basic_text_creation.md (for API documentation)
+- ../coding/basic_code_generation.md
+- ../writing/basic_text_creation.md (for API documentation)
 ```
 
 ### Data Science Tasks
 When detecting keywords: data analysis, statistics, machine learning, visualization, insights
 ```
 Required loading:
-- instructions/en/analysis/basic_data_analysis.md
-- instructions/en/coding/basic_code_generation.md (for analysis code)
+- ../analysis/basic_data_analysis.md
+- ../coding/basic_code_generation.md (for analysis code)
 Optional:
-- instructions/en/writing/basic_text_creation.md (when creating reports)
+- ../writing/basic_text_creation.md (when creating reports)
 ```
 
 ### Content Creation Tasks
 When detecting keywords: article, blog, marketing, copy, planning
 ```
 Required loading:
-- instructions/en/writing/basic_text_creation.md
-- instructions/en/creative/basic_creative_work.md
+- ../writing/basic_text_creation.md
+- ../creative/basic_creative_work.md
 ```
 
 ### Technical Support Tasks
 When detecting keywords: question, explanation, troubleshooting, help
 ```
 Required loading:
-- instructions/en/general/basic_qa.md
+- ../general/basic_qa.md
 Optional:
-- instructions/en/writing/basic_text_creation.md (when documenting answers)
+- ../writing/basic_text_creation.md (when documenting answers)
 ```
 
 ## Execution Steps

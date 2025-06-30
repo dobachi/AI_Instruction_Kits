@@ -11,12 +11,14 @@ This repository manages instruction sheets for AI systems.
 ├── docs/          # Human-readable documentation
 ├── instructions/  # AI instruction sheets
 │   ├── ja/        # Japanese instructions
+│   │   ├── system/    # System management instructions
 │   │   ├── general/   # General instructions
 │   │   ├── coding/    # Coding-related instructions
 │   │   ├── writing/   # Writing-related instructions
 │   │   ├── analysis/  # Analysis-related instructions
 │   │   └── creative/  # Creative-related instructions
 │   └── en/        # English instructions
+│       ├── system/    # System management instructions
 │       ├── general/   # General instructions
 │       ├── coding/    # Coding-related instructions
 │       ├── writing/   # Writing-related instructions
@@ -33,8 +35,8 @@ This repository manages instruction sheets for AI systems.
 ## Key Files
 
 ### AI Instructions
-- **[ROOT_INSTRUCTION_en.md](ROOT_INSTRUCTION_en.md)** - AI operates as instruction manager
-- **[INSTRUCTION_SELECTOR_en.md](INSTRUCTION_SELECTOR_en.md)** - Keyword-based automatic selection
+- **[instructions/en/system/ROOT_INSTRUCTION.md](instructions/en/system/ROOT_INSTRUCTION.md)** - AI operates as instruction manager
+- **[instructions/en/system/INSTRUCTION_SELECTOR.md](instructions/en/system/INSTRUCTION_SELECTOR.md)** - Keyword-based automatic selection
 
 ### Human Documentation
 - **[docs/HOW_TO_USE_en.md](docs/HOW_TO_USE_en.md)** - Detailed usage guide (for humans)
@@ -53,10 +55,10 @@ This repository manages instruction sheets for AI systems.
 2. **Using automatic selection**
    ```bash
    # Make AI operate as instruction manager
-   claude "Refer to ROOT_INSTRUCTION_en.md and analyze sales data to create a report"
+   claude "Refer to instructions/en/system/ROOT_INSTRUCTION.md and analyze sales data to create a report"
    
    # Keyword-based automatic selection
-   claude "Refer to INSTRUCTION_SELECTOR_en.md and implement a Web API"
+   claude "Refer to instructions/en/system/INSTRUCTION_SELECTOR.md and implement a Web API"
    ```
 
 ### Adding New Instructions

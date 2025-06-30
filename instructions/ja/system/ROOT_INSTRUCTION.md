@@ -11,19 +11,19 @@
 ## 利用可能な指示書
 
 ### 一般タスク
-- `instructions/ja/general/basic_qa.md` - 質問応答、情報提供
+- `../general/basic_qa.md` - 質問応答、情報提供
 
 ### コーディング
-- `instructions/ja/coding/basic_code_generation.md` - プログラム実装
+- `../coding/basic_code_generation.md` - プログラム実装
 
 ### 文章作成
-- `instructions/ja/writing/basic_text_creation.md` - ドキュメント、記事作成
+- `../writing/basic_text_creation.md` - ドキュメント、記事作成
 
 ### 分析
-- `instructions/ja/analysis/basic_data_analysis.md` - データ分析、洞察
+- `../analysis/basic_data_analysis.md` - データ分析、洞察
 
 ### クリエイティブ
-- `instructions/ja/creative/basic_creative_work.md` - アイデア生成
+- `../creative/basic_creative_work.md` - アイデア生成
 
 ## タスク分析の手順
 
@@ -44,8 +44,8 @@
 
 ユーザー: 「売上データを分析して、レポートを作成してください」
 → 必要な指示書:
-1. `instructions/ja/analysis/basic_data_analysis.md` (主)
-2. `instructions/ja/writing/basic_text_creation.md` (補助)
+1. `../analysis/basic_data_analysis.md` (主)
+2. `../writing/basic_text_creation.md` (補助)
 
 ---
 ## ライセンス情報

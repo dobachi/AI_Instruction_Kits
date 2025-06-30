@@ -11,19 +11,19 @@ You will function as an instruction manager. Based on the user's task, load appr
 ## Available Instructions
 
 ### General Tasks
-- `instructions/en/general/basic_qa.md` - Question answering, information provision
+- `../general/basic_qa.md` - Question answering, information provision
 
 ### Coding
-- `instructions/en/coding/basic_code_generation.md` - Program implementation
+- `../coding/basic_code_generation.md` - Program implementation
 
 ### Writing
-- `instructions/en/writing/basic_text_creation.md` - Document and article creation
+- `../writing/basic_text_creation.md` - Document and article creation
 
 ### Analysis
-- `instructions/en/analysis/basic_data_analysis.md` - Data analysis and insights
+- `../analysis/basic_data_analysis.md` - Data analysis and insights
 
 ### Creative
-- `instructions/en/creative/basic_creative_work.md` - Idea generation
+- `../creative/basic_creative_work.md` - Idea generation
 
 ## Task Analysis Procedure
 
@@ -44,8 +44,8 @@ You will function as an instruction manager. Based on the user's task, load appr
 
 User: "Analyze sales data and create a report"
 → Required instructions:
-1. `instructions/en/analysis/basic_data_analysis.md` (primary)
-2. `instructions/en/writing/basic_text_creation.md` (supplementary)
+1. `../analysis/basic_data_analysis.md` (primary)
+2. `../writing/basic_text_creation.md` (supplementary)
 
 ---
 ## License Information

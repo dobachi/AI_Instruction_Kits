@@ -11,12 +11,14 @@
 ├── docs/          # 人間向けドキュメント
 ├── instructions/  # AI指示書
 │   ├── ja/        # 日本語の指示書
+│   │   ├── system/    # システム管理用の指示
 │   │   ├── general/   # 一般的な指示
 │   │   ├── coding/    # コーディング関連の指示
 │   │   ├── writing/   # 文章作成関連の指示
 │   │   ├── analysis/  # 分析関連の指示
 │   │   └── creative/  # クリエイティブ関連の指示
 │   └── en/        # 英語の指示書
+│       ├── system/    # システム管理用の指示
 │       ├── general/   # 一般的な指示
 │       ├── coding/    # コーディング関連の指示
 │       ├── writing/   # 文章作成関連の指示
@@ -33,8 +35,8 @@
 ## 主要ファイル
 
 ### AIへの指示書
-- **[ROOT_INSTRUCTION.md](ROOT_INSTRUCTION.md)** - AIが指示書マネージャーとして動作
-- **[INSTRUCTION_SELECTOR.md](INSTRUCTION_SELECTOR.md)** - キーワードベースの自動選択
+- **[instructions/ja/system/ROOT_INSTRUCTION.md](instructions/ja/system/ROOT_INSTRUCTION.md)** - AIが指示書マネージャーとして動作
+- **[instructions/ja/system/INSTRUCTION_SELECTOR.md](instructions/ja/system/INSTRUCTION_SELECTOR.md)** - キーワードベースの自動選択
 
 ### 人間向けドキュメント
 - **[docs/HOW_TO_USE.md](docs/HOW_TO_USE.md)** - 詳細な使用ガイド（人間向け）
@@ -53,10 +55,10 @@
 2. **自動選択を使う場合**
    ```bash
    # AIに指示書マネージャーとして動作させる
-   claude "ROOT_INSTRUCTION.md を参照して、売上データを分析してレポートを作成"
+   claude "instructions/ja/system/ROOT_INSTRUCTION.md を参照して、売上データを分析してレポートを作成"
    
    # キーワードベースの自動選択
-   claude "INSTRUCTION_SELECTOR.md を参照して、Web APIを実装"
+   claude "instructions/ja/system/INSTRUCTION_SELECTOR.md を参照して、Web APIを実装"
    ```
 
 ### 新しい指示書の追加

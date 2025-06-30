@@ -8,35 +8,35 @@
 以下のキーワードを検出した場合：API、エンドポイント、フロントエンド、バックエンド、Web開発
 ```
 必須読み込み:
-- instructions/ja/coding/basic_code_generation.md
-- instructions/ja/writing/basic_text_creation.md (APIドキュメント用)
+- ../coding/basic_code_generation.md
+- ../writing/basic_text_creation.md (APIドキュメント用)
 ```
 
 ### データサイエンスタスク
 以下のキーワードを検出した場合：データ分析、統計、機械学習、可視化、インサイト
 ```
 必須読み込み:
-- instructions/ja/analysis/basic_data_analysis.md
-- instructions/ja/coding/basic_code_generation.md (分析コード用)
+- ../analysis/basic_data_analysis.md
+- ../coding/basic_code_generation.md (分析コード用)
 オプション:
-- instructions/ja/writing/basic_text_creation.md (レポート作成時)
+- ../writing/basic_text_creation.md (レポート作成時)
 ```
 
 ### コンテンツ作成タスク
 以下のキーワードを検出した場合：記事、ブログ、マーケティング、コピー、企画
 ```
 必須読み込み:
-- instructions/ja/writing/basic_text_creation.md
-- instructions/ja/creative/basic_creative_work.md
+- ../writing/basic_text_creation.md
+- ../creative/basic_creative_work.md
 ```
 
 ### 技術サポートタスク
 以下のキーワードを検出した場合：質問、説明、トラブルシューティング、ヘルプ
 ```
 必須読み込み:
-- instructions/ja/general/basic_qa.md
+- ../general/basic_qa.md
 オプション:
-- instructions/ja/writing/basic_text_creation.md (回答の文書化時)
+- ../writing/basic_text_creation.md (回答の文書化時)
 ```
 
 ## 実行手順
