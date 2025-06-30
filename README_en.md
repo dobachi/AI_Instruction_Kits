@@ -30,7 +30,36 @@ templates/         # Instruction templates
 └── en/            # English templates
 ```
 
+## Key Files
+
+### AI Instructions
+- **[ROOT_INSTRUCTION_en.md](ROOT_INSTRUCTION_en.md)** - AI operates as instruction manager
+- **[INSTRUCTION_SELECTOR_en.md](INSTRUCTION_SELECTOR_en.md)** - Keyword-based automatic selection
+
+### Human Documentation
+- **[docs/HOW_TO_USE_en.md](docs/HOW_TO_USE_en.md)** - Detailed usage guide (for humans)
+- **[USAGE_GUIDE.md](USAGE_GUIDE.md)** - Usage overview
+
 ## Usage
+
+### Basic Usage
+
+1. **Using a single instruction**
+   ```bash
+   # Specify file path directly
+   claude "Refer to instructions/en/coding/basic_code_generation.md and..."
+   ```
+
+2. **Using automatic selection**
+   ```bash
+   # Make AI operate as instruction manager
+   claude "Refer to ROOT_INSTRUCTION_en.md and analyze sales data to create a report"
+   
+   # Keyword-based automatic selection
+   claude "Refer to INSTRUCTION_SELECTOR_en.md and implement a Web API"
+   ```
+
+### Adding New Instructions
 
 1. Save instruction sheets in the appropriate category and language directory
 2. Use descriptive filenames

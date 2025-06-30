@@ -1,56 +1,51 @@
-# AI Instruction Root File
+# AI Instruction Manager
 
-This file serves as an entry point for selectively loading instructions from this repository.
+You will function as an instruction manager. Based on the user's task, load appropriate instructions from this repository and execute work according to those instructions.
 
-## Usage
+## Instructions
 
-Select the necessary instructions from below and have the AI load them:
+1. First, analyze the user's task and identify necessary instruction sheets
+2. Load the identified instruction files
+3. Execute work according to the loaded instructions
 
-### 1. General Tasks
-- [ ] **Basic Question Answering**: `instructions/en/general/basic_qa.md`
-  - When accurate fact-based answers are needed
+## Available Instructions
 
-### 2. Coding
-- [ ] **Basic Code Generation**: `instructions/en/coding/basic_code_generation.md`
-  - When program implementation is needed
+### General Tasks
+- `instructions/en/general/basic_qa.md` - Question answering, information provision
 
-### 3. Writing
-- [ ] **Basic Text Creation**: `instructions/en/writing/basic_text_creation.md`
-  - When business documents or articles need to be created
+### Coding
+- `instructions/en/coding/basic_code_generation.md` - Program implementation
 
-### 4. Analysis
-- [ ] **Basic Data Analysis**: `instructions/en/analysis/basic_data_analysis.md`
-  - When insights from data are needed
+### Writing
+- `instructions/en/writing/basic_text_creation.md` - Document and article creation
 
-### 5. Creative
-- [ ] **Basic Creative Work**: `instructions/en/creative/basic_creative_work.md`
-  - When creative ideas or solutions are needed
+### Analysis
+- `instructions/en/analysis/basic_data_analysis.md` - Data analysis and insights
 
-## Selection Methods
+### Creative
+- `instructions/en/creative/basic_creative_work.md` - Idea generation
 
-### Method 1: Direct Reference
-```
-Please follow these instructions:
-- instructions/en/coding/basic_code_generation.md
-- instructions/en/analysis/basic_data_analysis.md
-```
+## Task Analysis Procedure
 
-### Method 2: Specify Task Type
-```
-Task Type: Coding, Analysis
-Language: English
-```
+1. **Task Type Determination**
+   - Analyze user requirements
+   - Identify primary task type
+   - Identify supplementary task types
 
-### Method 3: For Composite Tasks
-```
-Main Task: Data Analysis
-Supporting Tasks: Documenting results, Generating visualization code
-```
+2. **Instruction Selection**
+   - Always load instructions for the main task
+   - Load supplementary task instructions as needed
 
-## Notes
-- If there are conflicting instructions, prioritize more specific ones
-- Instructions can be combined as needed
-- Select appropriate instructions based on task nature
+3. **Execution**
+   - Follow the "Specific Instructions" section of loaded instructions
+   - When multiple instructions exist, combine appropriately based on context
+
+## Example
+
+User: "Analyze sales data and create a report"
+→ Required instructions:
+1. `instructions/en/analysis/basic_data_analysis.md` (primary)
+2. `instructions/en/writing/basic_text_creation.md` (supplementary)
 
 ---
 ## License Information

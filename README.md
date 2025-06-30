@@ -30,7 +30,36 @@ templates/         # 指示書のテンプレート
 └── en/            # 英語テンプレート
 ```
 
+## 主要ファイル
+
+### AIへの指示書
+- **[ROOT_INSTRUCTION.md](ROOT_INSTRUCTION.md)** - AIが指示書マネージャーとして動作
+- **[INSTRUCTION_SELECTOR.md](INSTRUCTION_SELECTOR.md)** - キーワードベースの自動選択
+
+### 人間向けドキュメント
+- **[docs/HOW_TO_USE.md](docs/HOW_TO_USE.md)** - 詳細な使用ガイド（人間向け）
+- **[USAGE_GUIDE.md](USAGE_GUIDE.md)** - 使用方法の概要
+
 ## 使い方
+
+### 基本的な使用方法
+
+1. **単一の指示書を使う場合**
+   ```bash
+   # ファイルパスを直接指定
+   claude "instructions/ja/coding/basic_code_generation.md を参照して..."
+   ```
+
+2. **自動選択を使う場合**
+   ```bash
+   # AIに指示書マネージャーとして動作させる
+   claude "ROOT_INSTRUCTION.md を参照して、売上データを分析してレポートを作成"
+   
+   # キーワードベースの自動選択
+   claude "INSTRUCTION_SELECTOR.md を参照して、Web APIを実装"
+   ```
+
+### 新しい指示書の追加
 
 1. 適切なカテゴリと言語のディレクトリに指示書を保存
 2. ファイル名は内容が分かりやすい名前を使用

@@ -1,56 +1,51 @@
-# AI指示書ルートファイル
+# AI指示書マネージャー
 
-このファイルは、本リポジトリの指示書を選択的に読み込むためのエントリーポイントです。
+あなたは指示書マネージャーとして機能します。ユーザーのタスクに基づいて、このリポジトリから適切な指示書を読み込み、それらの指示に従って作業を実行してください。
 
-## 使い方
+## 指示
 
-以下の指示書から必要なものを選択し、AIに読み込ませてください：
+1. まず、ユーザーのタスクを分析し、必要な指示書を特定してください
+2. 特定した指示書ファイルを読み込んでください
+3. 読み込んだ指示書の内容に従って作業を実行してください
 
-### 1. 一般的なタスク (General)
-- [ ] **基本的な質問応答**: `instructions/ja/general/basic_qa.md`
-  - 事実に基づいた正確な回答が必要な場合
+## 利用可能な指示書
 
-### 2. コーディング (Coding)
-- [ ] **基本的なコード生成**: `instructions/ja/coding/basic_code_generation.md`
-  - プログラムの実装が必要な場合
+### 一般タスク
+- `instructions/ja/general/basic_qa.md` - 質問応答、情報提供
 
-### 3. 文章作成 (Writing)
-- [ ] **基本的な文章作成**: `instructions/ja/writing/basic_text_creation.md`
-  - ビジネス文書や記事の作成が必要な場合
+### コーディング
+- `instructions/ja/coding/basic_code_generation.md` - プログラム実装
 
-### 4. 分析 (Analysis)
-- [ ] **基本的なデータ分析**: `instructions/ja/analysis/basic_data_analysis.md`
-  - データから洞察を得る必要がある場合
+### 文章作成
+- `instructions/ja/writing/basic_text_creation.md` - ドキュメント、記事作成
 
-### 5. クリエイティブ (Creative)
-- [ ] **基本的なクリエイティブ作業**: `instructions/ja/creative/basic_creative_work.md`
-  - 創造的なアイデアや解決策が必要な場合
+### 分析
+- `instructions/ja/analysis/basic_data_analysis.md` - データ分析、洞察
 
-## 選択方法
+### クリエイティブ
+- `instructions/ja/creative/basic_creative_work.md` - アイデア生成
 
-### 方法1: 直接参照
-```
-以下の指示書に従ってください：
-- instructions/ja/coding/basic_code_generation.md
-- instructions/ja/analysis/basic_data_analysis.md
-```
+## タスク分析の手順
 
-### 方法2: タスクタイプを指定
-```
-タスクタイプ: コーディング、分析
-言語: 日本語
-```
+1. **タスクタイプの判定**
+   - ユーザーの要求を分析
+   - 主要なタスクタイプを特定
+   - 補助的なタスクタイプを特定
 
-### 方法3: 複合タスクの場合
-```
-主タスク: データ分析
-補助タスク: 結果の文章化、視覚化コードの生成
-```
+2. **指示書の選択**
+   - 主タスクに対応する指示書を必ず読み込む
+   - 必要に応じて補助タスクの指示書も読み込む
 
-## 注意事項
-- 矛盾する指示がある場合は、より具体的な指示を優先
-- 必要に応じて指示書を組み合わせて使用可能
-- タスクの性質に応じて適切な指示書を選択
+3. **実行**
+   - 読み込んだ指示書の「具体的な指示」セクションに従う
+   - 複数の指示書がある場合は、文脈に応じて適切に組み合わせる
+
+## 例
+
+ユーザー: 「売上データを分析して、レポートを作成してください」
+→ 必要な指示書:
+1. `instructions/ja/analysis/basic_data_analysis.md` (主)
+2. `instructions/ja/writing/basic_text_creation.md` (補助)
 
 ---
 ## ライセンス情報
