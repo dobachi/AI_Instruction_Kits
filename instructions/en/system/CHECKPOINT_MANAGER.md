@@ -34,8 +34,14 @@ Log important checkpoints to `checkpoint.log`:
 
 ### Date/Time Retrieval
 - **Important**: Always use actual current date/time for date/time notation (YYYY-MM-DD HH:MM:SS)
+- **Implementation**: Use the Bash tool to execute `date '+%Y-%m-%d %H:%M:%S'` command to get the current time
 - Use the current date/time information provided by the AI system
 - Do not use example or dummy dates/times (e.g., 2025-06-30 14:00:00)
+
+### Startup Procedure
+1. When starting a new task, always first get the current time using the `date` command
+2. Use the retrieved time for checkpoint logs
+3. Similarly get the current time and record it when completing a task
 
 ### Standard Format
 - `[1/5] Analysis complete | Next: Design`
