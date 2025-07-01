@@ -32,6 +32,11 @@ Log important checkpoints to `checkpoint.log`:
 
 ## Format Details
 
+### Date/Time Retrieval
+- **Important**: Always use actual current date/time for date/time notation (YYYY-MM-DD HH:MM:SS)
+- Use the current date/time information provided by the AI system
+- Do not use example or dummy dates/times (e.g., 2025-06-30 14:00:00)
+
 ### Standard Format
 - `[1/5] Analysis complete | Next: Design`
 - `[3/5] Implementing | Next: Create tests`
@@ -62,11 +67,11 @@ Log important checkpoints to `checkpoint.log`:
 [YYYY-MM-DD HH:MM:SS] [TASK-xxxxxx] [Status] Message
 ```
 
-### Log Examples
+### Log Examples (Use actual date/time)
 ```
-[2025-06-30 14:30:00] [TASK-8a3f2c] [START] Web application development started (5 steps estimated)
-[2025-06-30 14:35:00] [TASK-8a3f2c] [ERROR] Dependency error: Missing packages
-[2025-06-30 14:45:00] [TASK-8a3f2c] [COMPLETE] Completed: 3 APIs, 10 tests created
+[Actual date/time] [TASK-8a3f2c] [START] Web application development started (5 steps estimated)
+[Actual date/time] [TASK-8a3f2c] [ERROR] Dependency error: Missing packages
+[Actual date/time] [TASK-8a3f2c] [COMPLETE] Completed: 3 APIs, 10 tests created
 ```
 
 ## Implementation Examples
@@ -74,7 +79,7 @@ Log important checkpoints to `checkpoint.log`:
 ### Coding Task Example
 ```
 `[1/4] Requirements analyzed | Next: Implementation`
-`📌 Log→checkpoint.log: [2025-06-30 14:00:00][TASK-b5d7e1][START] Python function implementation (4 steps)`
+`📌 Log→checkpoint.log: [Actual date/time][TASK-b5d7e1][START] Python function implementation (4 steps)`
 I've understood the requirements. I'll implement data processing functions in Python.
 
 `[2/4] Implementation complete | Next: Testing`
@@ -87,7 +92,7 @@ I've created the following code:
 All tests passed successfully.
 
 `[4/4] All done | Result: 1 function, 3 tests`
-`📌 Log→checkpoint.log: [2025-06-30 14:15:00][TASK-b5d7e1][COMPLETE] Result: 1 function, 3 tests`
+`📌 Log→checkpoint.log: [Actual date/time][TASK-b5d7e1][COMPLETE] Result: 1 function, 3 tests`
 Implementation is complete.
 ```
 
