@@ -16,7 +16,8 @@
 │   │   ├── coding/    # コーディング関連の指示
 │   │   ├── writing/   # 文章作成関連の指示
 │   │   ├── analysis/  # 分析関連の指示
-│   │   └── creative/  # クリエイティブ関連の指示
+│   │   ├── creative/  # クリエイティブ関連の指示
+│   │   └── agent/     # エージェント型指示書
 │   └── en/        # 英語の指示書
 │       ├── system/    # システム管理用の指示
 │       ├── general/   # 一般的な指示
@@ -31,7 +32,8 @@
 │   ├── ja/        # 日本語テンプレート
 │   └── en/        # 英語テンプレート
 └── tools/         # ツール・ユーティリティ
-    └── setup-project.sh  # プロジェクト統合用セットアップスクリプト
+    ├── setup-project.sh  # プロジェクト統合用セットアップスクリプト
+    └── checkpoint.sh     # チェックポイント管理スクリプト
 ```
 
 ## 主要ファイル
@@ -56,10 +58,19 @@ bash path/to/ai_instruction_kits/tools/setup-project.sh
 ```
 
 これにより以下が自動的に設定されます：
-- `instructions/ai_instruction_kits/` サブモジュール
-- `instructions/PROJECT.md` - 日本語のプロジェクト設定
-- `instructions/PROJECT.en.md` - 英語のプロジェクト設定
-- AI製品別シンボリックリンク（CLAUDE.md, GEMINI.md, CURSOR.md） → instructions/PROJECT.md
+
+```
+あなたのプロジェクト/
+├── scripts/
+│   └── checkpoint.sh → ../instructions/ai_instruction_kits/tools/checkpoint.sh
+├── instructions/
+│   ├── ai_instruction_kits/  # サブモジュール（このリポジトリ）
+│   ├── PROJECT.md            # プロジェクト固有の設定（日本語）
+│   └── PROJECT.en.md         # プロジェクト固有の設定（英語）
+├── CLAUDE.md → instructions/PROJECT.md
+├── GEMINI.md → instructions/PROJECT.md
+└── CURSOR.md → instructions/PROJECT.md
+```
 
 使用例：
 ```bash

@@ -31,7 +31,8 @@ This repository manages instruction sheets for AI systems.
 │   ├── ja/        # Japanese templates
 │   └── en/        # English templates
 └── tools/         # Tools and utilities
-    └── setup-project.sh  # Project integration setup script
+    ├── setup-project.sh  # Project integration setup script
+    └── checkpoint.sh     # Checkpoint management script
 ```
 
 ## Key Files
