@@ -1,4 +1,4 @@
-# AI Instruction Sheet Repository
+# AI Instruction Kits Repository
 
 English | [日本語](README.md)
 
@@ -52,19 +52,19 @@ The easiest way to integrate the AI instruction system into your project:
 
 ```bash
 # Run in your project's root directory
-bash path/to/AI_Instruction_Sheet/tools/setup-project.sh
+bash path/to/AI_Instruction_Kits/tools/setup-project.sh
 ```
 
 This automatically sets up:
-- `.ai-instructions/` submodule
-- `AI.md` - Japanese project configuration
-- `AI.en.md` - English project configuration  
-- `CLAUDE.md` symlinks for backward compatibility
+- `instructions/ai_instruction_kits/` submodule
+- `instructions/PROJECT.md` - Japanese project configuration
+- `instructions/PROJECT.en.md` - English project configuration
+- AI product-specific symbolic links (CLAUDE.md, GEMINI.md, CURSOR.md)
 
 Usage example:
 ```bash
 # Simple AI instructions
-claude "Please refer to AI.en.md and implement user authentication"
+claude "Please refer to CLAUDE.en.md and implement user authentication"
 ```
 
 ### Basic Usage (Manual)

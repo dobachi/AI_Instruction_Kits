@@ -1,4 +1,4 @@
-# AI Instruction Sheet Repository
+# AI Instruction Kits Repository
 
 [English](README_en.md) | 日本語
 
@@ -52,19 +52,19 @@ AI指示書システムをプロジェクトに統合する最も簡単な方法
 
 ```bash
 # あなたのプロジェクトのルートディレクトリで実行
-bash path/to/AI_Instruction_Sheet/tools/setup-project.sh
+bash path/to/ai_instruction_kits/tools/setup-project.sh
 ```
 
 これにより以下が自動的に設定されます：
-- `.ai-instructions/` サブモジュール
-- `AI.md` - 日本語のプロジェクト設定
-- `AI.en.md` - 英語のプロジェクト設定
-- 後方互換性のための `CLAUDE.md` シンボリックリンク
+- `instructions/ai_instruction_kits/` サブモジュール
+- `instructions/PROJECT.md` - 日本語のプロジェクト設定
+- `instructions/PROJECT.en.md` - 英語のプロジェクト設定
+- AI製品別シンボリックリンク（CLAUDE.md, GEMINI.md, CURSOR.md） → instructions/PROJECT.md
 
 使用例：
 ```bash
 # AIへの指示がシンプルに
-claude "AI.mdを参照して、ユーザー認証機能を実装して"
+claude "CLAUDE.mdを参照して、ユーザー認証機能を実装して"
 ```
 
 ### 基本的な使用方法（手動）

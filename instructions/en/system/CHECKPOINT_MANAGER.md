@@ -1,129 +1,74 @@
-# Checkpoint Management System (Compact Version)
+# Checkpoint Management System (Flexible Configuration)
 
 ## Purpose
-Effectively track and report task progress with minimal output
+Track and report task progress concisely and consistently
 
 ## Basic Rules
-**Execute the following in every response:**
+**[CRITICAL] Execute the following in every response:**
 
-1. **Display the following 2 lines at the beginning**
-```
-`[Current Step/Total Steps] Current Status | Next: Next Action`
-`📌 Log→checkpoint.log: [YYYY-MM-DD HH:MM:SS][TASK-xxxxxx][Status] Message`
-```
+1. **Always execute `scripts/checkpoint.sh` at the very beginning and display its 2-line output**
+   - Execute without exception in all responses
+   - Mandatory for answering questions, code generation, analysis, and all tasks
+   - AI response quality is considered degraded if script execution is forgotten
 
-2. **Actually append the content shown in line 2 to the checkpoint.log file**
-   - Task start (START): Always append
-   - Error occurrence (ERROR): Always append
-   - Task completion (COMPLETE): Always append
-   - Normal progress: No append needed (display only)
+2. **Task start/error/completion are automatically logged to file**
 
-### Line 2 Details
-- Task start: `📌 Log→checkpoint.log: [Time][TASK-xxxxxx][START] Task name (N steps estimated)`
-- Normal progress: `📌 Log→checkpoint.log: Log only at start/error/completion`
-- Error occurrence: `📌 Log→checkpoint.log: [Time][TASK-xxxxxx][ERROR] Error details`
-- Task completion: `📌 Log→checkpoint.log: [Time][TASK-xxxxxx][COMPLETE] Result: details`
+## Script Usage
 
-### File Logging Rules
-Log important checkpoints to `checkpoint.log`:
-- Task start
-- Error occurrence
-- Task completion
-
-## Format Details
-
-### Date/Time Retrieval
-- **Important**: Always use actual current date/time for date/time notation (YYYY-MM-DD HH:MM:SS)
-- **Implementation**: Use the Bash tool to execute `date '+%Y-%m-%d %H:%M:%S'` command to get the current time
-- Use the current date/time information provided by the AI system
-- Do not use example or dummy dates/times (e.g., 2025-06-30 14:00:00)
-
-### Startup Procedure
-1. When starting a new task, always first get the current time using the `date` command
-2. Use the retrieved time for checkpoint logs
-3. Similarly get the current time and record it when completing a task
-
-### Standard Format
-- `[1/5] Analysis complete | Next: Design`
-- `[3/5] Implementing | Next: Create tests`
-- `[5/5] All done | Result: 3 features implemented`
-
-### Special Situations
-- Error: `[2/4] ⚠️ Error occurred | Action: Check dependencies`
-- Plan change: `[3/6] Plan revised | Added: Data validation step`
-- Waiting: `[2/3] ⏸️ Awaiting confirmation | Need: User decision`
-
-## When to Apply
-
-### Required Display
-1. Task start
-2. Major step completion
-3. Problem occurrence
-4. Task completion
-
-### Can Be Omitted
-- Small tasks within the same step
-- Simple Q&A responses
-- Single-step simple tasks
-
-## Log File Format
-
-### checkpoint.log Format
-```
-[YYYY-MM-DD HH:MM:SS] [TASK-xxxxxx] [Status] Message
+### Task Start
+```bash
+scripts/checkpoint.sh start <task-id> <task-name> <total-steps>
+# Example: scripts/checkpoint.sh start TASK-abc123 "Web app development" 5
 ```
 
-### Log Examples (Use actual date/time)
-```
-[Actual date/time] [TASK-8a3f2c] [START] Web application development started (5 steps estimated)
-[Actual date/time] [TASK-8a3f2c] [ERROR] Dependency error: Missing packages
-[Actual date/time] [TASK-8a3f2c] [COMPLETE] Completed: 3 APIs, 10 tests created
+### Progress Report
+```bash
+scripts/checkpoint.sh progress <current-step> <total-steps> <status> <next-action>
+# Example: scripts/checkpoint.sh progress 2 5 "Implementation done" "Create tests"
 ```
 
-## Implementation Examples
-
-### Coding Task Example
+### Error Occurrence
+```bash
+scripts/checkpoint.sh error <task-id> <error-message>
+# Example: scripts/checkpoint.sh error TASK-abc123 "Dependency error"
 ```
-`[1/4] Requirements analyzed | Next: Implementation`
-`📌 Log→checkpoint.log: [Actual date/time][TASK-b5d7e1][START] Python function implementation (4 steps)`
-I've understood the requirements. I'll implement data processing functions in Python.
 
-`[2/4] Implementation complete | Next: Testing`
+### Task Completion
+```bash
+scripts/checkpoint.sh complete <task-id> <result>
+# Example: scripts/checkpoint.sh complete TASK-abc123 "3 APIs, 10 tests created"
+```
+
+## Implementation Example
+
+```
+# Task start
+$ scripts/checkpoint.sh start TASK-7f9a2b "Python function implementation" 4
+`[1/4] Started | Next: Analysis`
+`📌 Log→checkpoint.log: [2025-07-03 19:00:00][TASK-7f9a2b][START] Python function implementation (4 steps estimated)`
+
+# Progress report
+$ scripts/checkpoint.sh progress 2 4 "Implementation done" "Create tests"
+`[2/4] Implementation done | Next: Create tests`
 `📌 Log→checkpoint.log: Log only at start/error/completion`
-I've created the following code:
-[Code]
 
-`[3/4] Testing complete | Next: Documentation`
-`📌 Log→checkpoint.log: Log only at start/error/completion`
-All tests passed successfully.
-
-`[4/4] All done | Result: 1 function, 3 tests`
-`📌 Log→checkpoint.log: [Actual date/time][TASK-b5d7e1][COMPLETE] Result: 1 function, 3 tests`
-Implementation is complete.
-```
-
-### Analysis Task Example
-```
-`[1/3] Data verified | Next: Run analysis`
-I've confirmed the data structure.
-
-`[2/3] Analysis complete | Next: Create report`
-I've discovered 3 key insights.
-
-`[3/3] All done | Result: Analysis report`
-Report has been created.
+# Task completion
+$ scripts/checkpoint.sh complete TASK-7f9a2b "1 function, 3 tests"
+`[✓] All done | Result: 1 function, 3 tests`
+`📌 Log→checkpoint.log: [2025-07-03 19:05:00][TASK-7f9a2b][COMPLETE] Result: 1 function, 3 tests`
 ```
 
 ## Important Notes
 
-1. **Keep it concise**: Status line should be one line only, about 20-30 characters
-2. **Maintain consistency**: Keep the same total step count within the same task
-3. **Prioritize readability**: Avoid jargon, use clear English
+1. **Task ID generation**: 6-character alphanumeric (e.g., 7f9a2b)
+2. **Keep it concise**: Status and actions should be short and clear
+3. **Maintain consistency**: Use the same task ID and step count for the same task
+4. **Path awareness**: `scripts/checkpoint.sh` is a relative path from project root
 
 ## Integration with Other Instructions
 
-This checkpoint management should be used in combination with all instruction sheets.
-Report progress at each major step in the "Specific Instructions" of each instruction sheet.
+This checkpoint management is used in combination with all instruction sheets.
+Execute `scripts/checkpoint.sh` for each major step in the instructions.
 
 ---
 ## License Information
@@ -131,3 +76,4 @@ Report progress at each major step in the "Specific Instructions" of each instru
 - **Source**: 
 - **Original Author**: dobachi
 - **Created**: 2025-06-30
+- **Updated**: 2025-07-03

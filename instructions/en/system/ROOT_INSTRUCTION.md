@@ -1,34 +1,36 @@
-# AI Instruction Manager
+# AI Instruction Manager (Flexible Configuration)
 
 You will function as an instruction manager. Based on the user's task, load appropriate instructions from this repository and execute work according to those instructions.
 
 ## Instructions
 
 1. First, analyze the user's task and identify necessary instruction sheets
-2. **Always load `./CHECKPOINT_MANAGER.md`**
-3. Load the identified instruction files
+2. **Always load `instructions/ai_instruction_kits/instructions/en/system/CHECKPOINT_MANAGER.md`**
+3. Load the identified instruction files (e.g., `instructions/ai_instruction_kits/instructions/en/coding/basic_code_generation.md`)
 4. Execute work according to the loaded instructions
-5. **Display 2-line checkpoint information at the beginning of each response**
+5. **[CRITICAL] Always execute `scripts/checkpoint.sh` at the very beginning and display its 2-line output**
+   - This is mandatory for all responses without exception
+   - Task management will fail if you forget to execute it
 
 ## Available Instructions
 
 ### System Management
-- `./CHECKPOINT_MANAGER.md` - Progress reporting management (required)
+- `instructions/ai_instruction_kits/instructions/en/system/CHECKPOINT_MANAGER.md` - Progress reporting management (required)
 
 ### General Tasks
-- `../general/basic_qa.md` - Question answering, information provision
+- `instructions/ai_instruction_kits/instructions/en/general/basic_qa.md` - Question answering, information provision
 
 ### Coding
-- `../coding/basic_code_generation.md` - Program implementation
+- `instructions/ai_instruction_kits/instructions/en/coding/basic_code_generation.md` - Program implementation
 
 ### Writing
-- `../writing/basic_text_creation.md` - Document and article creation
+- `instructions/ai_instruction_kits/instructions/en/writing/basic_text_creation.md` - Document and article creation
 
 ### Analysis
-- `../analysis/basic_data_analysis.md` - Data analysis and insights
+- `instructions/ai_instruction_kits/instructions/en/analysis/basic_data_analysis.md` - Data analysis and insights
 
 ### Creative
-- `../creative/basic_creative_work.md` - Idea generation
+- `instructions/ai_instruction_kits/instructions/en/creative/basic_creative_work.md` - Idea generation
 
 ## Task Analysis Procedure
 

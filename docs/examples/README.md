@@ -1,6 +1,6 @@
 # Examples / 使用例
 
-This directory contains usage examples for the AI Instruction Sheet system in both Japanese and English.
+This directory contains usage examples for the AI Instruction Kits system in both Japanese and English.
 
 このディレクトリには、AI指示書システムの使用例が日本語と英語の両方で含まれています。
 

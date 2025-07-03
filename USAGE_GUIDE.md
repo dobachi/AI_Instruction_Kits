@@ -6,10 +6,10 @@
 ```bash
 # あなたのプロジェクトで一度だけ実行
 cd ~/your-project
-bash path/to/AI_Instruction_Sheet/tools/setup-project.sh
+bash path/to/AI_Instruction_Kits/tools/setup-project.sh
 
 # その後は簡単に使用可能
-claude "AI.mdを参照して、ユーザー認証機能を実装して"
+claude "CLAUDE.mdを参照して、ユーザー認証機能を実装して"
 ```
 
 ### 1. 単一の指示書を使う場合
@@ -37,8 +37,8 @@ claude "INSTRUCTION_SELECTOR.md のWebアプリケーション開発セットを
 #### 方法1: ファイル参照
 ```markdown
 以下のファイルの指示に従ってください：
-- /path/to/AI_Instruction_Sheet/instructions/ja/coding/basic_code_generation.md
-- /path/to/AI_Instruction_Sheet/instructions/ja/writing/basic_text_creation.md
+- /path/to/AI_Instruction_Kits/instructions/ja/coding/basic_code_generation.md
+- /path/to/AI_Instruction_Kits/instructions/ja/writing/basic_text_creation.md
 
 タスク: RESTful APIのエンドポイントを実装し、APIドキュメントを作成
 ```

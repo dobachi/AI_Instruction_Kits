@@ -1,6 +1,6 @@
 # Basic Usage Examples
 
-This document demonstrates basic usage patterns for the AI Instruction Sheet Manager.
+This document demonstrates basic usage patterns for the AI Instruction Kits Manager.
 
 ## 1. Direct Instruction Reference
 
