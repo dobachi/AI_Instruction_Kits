@@ -9,6 +9,9 @@ This repository manages instruction sheets for AI systems.
 ```
 .
 ├── docs/          # Human-readable documentation
+│   └── examples/  # Usage examples
+│       ├── ja/    # Japanese examples
+│       └── en/    # English examples
 ├── instructions/  # AI instruction sheets
 │   ├── ja/        # Japanese instructions
 │   │   ├── system/    # System management instructions
@@ -24,9 +27,6 @@ This repository manages instruction sheets for AI systems.
 │       ├── writing/   # Writing-related instructions
 │       ├── analysis/  # Analysis-related instructions
 │       └── creative/  # Creative-related instructions
-├── examples/      # Usage examples
-│   ├── ja/        # Japanese examples
-│   └── en/        # English examples
 ├── templates/     # Instruction templates
 │   ├── ja/        # Japanese templates
 │   └── en/        # English templates
