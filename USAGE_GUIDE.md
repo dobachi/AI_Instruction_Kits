@@ -6,7 +6,7 @@
 ```bash
 # あなたのプロジェクトで一度だけ実行
 cd ~/your-project
-bash path/to/AI_Instruction_Kits/tools/setup-project.sh
+bash path/to/AI_Instruction_Kits/scripts/setup-project.sh
 
 # その後は簡単に使用可能
 claude "CLAUDE.mdを参照して、ユーザー認証機能を実装して"

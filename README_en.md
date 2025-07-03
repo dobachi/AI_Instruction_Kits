@@ -30,7 +30,7 @@ This repository manages instruction sheets for AI systems.
 ├── templates/     # Instruction templates
 │   ├── ja/        # Japanese templates
 │   └── en/        # English templates
-└── tools/         # Tools and utilities
+└── scripts/       # Tools and utilities
     ├── setup-project.sh  # Project integration setup script
     └── checkpoint.sh     # Checkpoint management script
 ```
@@ -53,7 +53,7 @@ The easiest way to integrate the AI instruction system into your project:
 
 ```bash
 # Run in your project's root directory
-bash path/to/AI_Instruction_Kits/tools/setup-project.sh
+bash path/to/AI_Instruction_Kits/scripts/setup-project.sh
 ```
 
 This automatically sets up:

@@ -31,7 +31,7 @@
 ├── templates/     # 指示書のテンプレート
 │   ├── ja/        # 日本語テンプレート
 │   └── en/        # 英語テンプレート
-└── tools/         # ツール・ユーティリティ
+└── scripts/       # ツール・ユーティリティ
     ├── setup-project.sh  # プロジェクト統合用セットアップスクリプト
     └── checkpoint.sh     # チェックポイント管理スクリプト
 ```
@@ -54,7 +54,7 @@ AI指示書システムをプロジェクトに統合する最も簡単な方法
 
 ```bash
 # あなたのプロジェクトのルートディレクトリで実行
-bash path/to/ai_instruction_kits/tools/setup-project.sh
+bash path/to/ai_instruction_kits/scripts/setup-project.sh
 ```
 
 これにより以下が自動的に設定されます：
@@ -62,7 +62,7 @@ bash path/to/ai_instruction_kits/tools/setup-project.sh
 ```
 あなたのプロジェクト/
 ├── scripts/
-│   └── checkpoint.sh → ../instructions/ai_instruction_kits/tools/checkpoint.sh
+│   └── checkpoint.sh → ../instructions/ai_instruction_kits/scripts/checkpoint.sh
 ├── instructions/
 │   ├── ai_instruction_kits/  # サブモジュール（このリポジトリ）
 │   ├── PROJECT.md            # プロジェクト固有の設定（日本語）
