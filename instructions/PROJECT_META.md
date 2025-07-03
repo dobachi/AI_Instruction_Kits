@@ -104,6 +104,9 @@ bash tools/setup-project.sh
 # このプロジェクト自体でのcheckpoint実行
 bash tools/checkpoint.sh
 
+# クリーンなコミット（AIメッセージなし）
+bash tools/commit.sh "コミットメッセージ"
+
 # ファイル整合性チェック（将来実装予定）
 # bash tools/validate-instructions.sh
 ```
