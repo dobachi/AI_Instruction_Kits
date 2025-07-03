@@ -23,6 +23,7 @@
 
 ### 文章作成
 - `../writing/basic_text_creation.md` - ドキュメント、記事作成
+- `../writing/presentation_creation.md` - プレゼンテーション構成、スライド設計
 
 ### 分析
 - `../analysis/basic_data_analysis.md` - データ分析、洞察

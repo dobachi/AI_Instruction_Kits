@@ -39,6 +39,16 @@
 - ../writing/basic_text_creation.md (回答の文書化時)
 ```
 
+### プレゼンテーション作成タスク
+以下のキーワードを検出した場合：プレゼン、発表、スライド、ピッチ、講演
+```
+必須読み込み:
+- ../writing/presentation_creation.md
+オプション:
+- ../creative/basic_creative_work.md (ストーリーテリング強化時)
+- ../analysis/basic_data_analysis.md (データ駆動型プレゼン時)
+```
+
 ## 実行手順
 
 1. **キーワード検出**
