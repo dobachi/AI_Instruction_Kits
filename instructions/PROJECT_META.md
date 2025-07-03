@@ -16,12 +16,11 @@ scripts/checkpoint.sh
 ### このプロジェクト自体での使用
 ```
 instructions/ja/system/ROOT_INSTRUCTION.md
-tools/checkpoint.sh
+scripts/checkpoint.sh
 ```
 
 ### パス変換ルール
 - `instructions/ai_instruction_kits/instructions/` → `instructions/`
-- `scripts/checkpoint.sh` → `tools/checkpoint.sh`
 - `instructions/ai_instruction_kits/` → ルートディレクトリ
 
 ## プロジェクト概要
@@ -99,16 +98,16 @@ cp templates/ja/instruction_template.md instructions/ja/<category>/<name>.md
 cp templates/en/instruction_template.md instructions/en/<category>/<name>.md
 
 # 統合テスト
-bash tools/setup-project.sh
+bash scripts/setup-project.sh
 
 # このプロジェクト自体でのcheckpoint実行
-bash tools/checkpoint.sh
+bash scripts/checkpoint.sh
 
 # クリーンなコミット（AIメッセージなし）
-bash tools/commit.sh "コミットメッセージ"
+bash scripts/commit.sh "コミットメッセージ"
 
 # ファイル整合性チェック（将来実装予定）
-# bash tools/validate-instructions.sh
+# bash scripts/validate-instructions.sh
 ```
 
 ## 現在の課題と今後の改善点

@@ -26,7 +26,7 @@ cd ..
 
 # checkpoint.shへのシンボリックリンク
 echo "🔗 checkpoint.shへのシンボリックリンクを作成..."
-ln -sf ../instructions/ai_instruction_kits/tools/checkpoint.sh scripts/checkpoint.sh
+ln -sf ../instructions/ai_instruction_kits/scripts/checkpoint.sh scripts/checkpoint.sh
 
 # PROJECT.md（日本語版）の作成
 echo "📝 instructions/PROJECT.md（日本語版）を作成..."
@@ -119,7 +119,7 @@ echo "  (GEMINI.en.md, CURSOR.en.md also available)"
 echo ""
 echo "📁 作成された構成:"
 echo "  scripts/"
-echo "    └── checkpoint.sh → ../instructions/ai_instruction_kits/tools/checkpoint.sh"
+echo "    └── checkpoint.sh → ../instructions/ai_instruction_kits/scripts/checkpoint.sh"
 echo "  instructions/"
 echo "    ├── ai_instruction_kits/ (サブモジュール)"
 echo "    ├── PROJECT.md (プロジェクト設定)"
