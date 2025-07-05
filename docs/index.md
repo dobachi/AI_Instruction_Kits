@@ -1,6 +1,8 @@
 ---
 layout: default
-title: AI Instruction Kits - AIへの指示書管理システム
+title: AI Instruction Kits
+description: AIへの指示を構造的に管理・提供するシステム
+lang: ja
 ---
 
 # AI Instruction Kits

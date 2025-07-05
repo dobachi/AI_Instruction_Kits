@@ -2,6 +2,7 @@
 layout: default
 title: AI Instruction Kits
 description: クイックスタートガイド - 5分で始めるAI指示書キット
+lang: ja
 ---
 
 # クイックスタートガイド

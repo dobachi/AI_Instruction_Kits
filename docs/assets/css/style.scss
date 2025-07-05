@@ -238,3 +238,24 @@ a {
     font-size: 0.9rem;
   }
 }
+
+// 言語切り替えスイッチャー
+.language-switcher {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  
+  .lang-link {
+    color: #fff;
+    text-decoration: underline;
+    opacity: 0.8;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+  
+  .current-lang {
+    color: #fff;
+    font-weight: bold;
+  }
+}

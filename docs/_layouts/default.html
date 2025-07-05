@@ -14,9 +14,24 @@
       <h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
       <h2 class="project-tagline">{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
       
-      <a href="{{ site.baseurl }}/" class="btn">ホーム</a>
-      <a href="{{ site.baseurl }}/quickstart" class="btn">クイックスタート</a>
-      <a href="{{ site.baseurl }}/features" class="btn">機能紹介</a>
+      <!-- Language switcher -->
+      <div class="language-switcher">
+        {% if page.lang == 'en' %}
+          <a href="{{ site.baseurl }}/" class="lang-link">日本語</a> | <span class="current-lang">English</span>
+        {% else %}
+          <span class="current-lang">日本語</span> | <a href="{{ site.baseurl }}/en/" class="lang-link">English</a>
+        {% endif %}
+      </div>
+      
+      {% if page.lang == 'en' %}
+        <a href="{{ site.baseurl }}/en/" class="btn">Home</a>
+        <a href="{{ site.baseurl }}/en/quickstart" class="btn">Quick Start</a>
+        <a href="{{ site.baseurl }}/en/features" class="btn">Features</a>
+      {% else %}
+        <a href="{{ site.baseurl }}/" class="btn">ホーム</a>
+        <a href="{{ site.baseurl }}/quickstart" class="btn">クイックスタート</a>
+        <a href="{{ site.baseurl }}/features" class="btn">機能紹介</a>
+      {% endif %}
       
       {% if site.github.is_project_page %}
         <a href="{{ site.github.repository_url }}" class="btn">GitHub</a>

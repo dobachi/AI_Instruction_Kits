@@ -2,6 +2,7 @@
 layout: default
 title: AI Instruction Kits
 description: 機能詳細 - すべての機能を詳しく解説
+lang: ja
 ---
 
 # 機能詳細
