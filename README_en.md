@@ -80,6 +80,19 @@ bash scripts/setup-project.sh --submodule # Submodule mode (recommended)
 | **clone** | Independent Git repository | • Freely modifiable<br>• Preserves history<br>• Custom changes | `git pull` |
 | **submodule** | Git submodule (recommended) | • Version pinning<br>• Parent repo integration<br>• Standard management | `git submodule update --remote` |
 
+#### Using Custom Repositories
+
+```bash
+# Use a forked repository
+bash scripts/setup-project.sh --url https://github.com/yourname/AI_Instruction_Kits.git --clone
+
+# Use a private repository (requires pre-authentication)
+bash scripts/setup-project.sh --url git@github.com:company/private-instructions.git --submodule
+
+# Use internal GitLab
+bash scripts/setup-project.sh --url https://gitlab.company.com/team/ai-instructions.git --submodule
+```
+
 #### Other Options
 
 ```bash

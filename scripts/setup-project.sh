@@ -4,7 +4,8 @@
 # scripts/とinstructions/ディレクトリ構成に対応
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-REPO_URL="https://github.com/dobachi/AI_Instruction_Kits.git"
+DEFAULT_REPO_URL="https://github.com/dobachi/AI_Instruction_Kits.git"
+REPO_URL="$DEFAULT_REPO_URL"
 
 # オプション解析
 FORCE_MODE=false
@@ -26,6 +27,10 @@ while [[ "$#" -gt 0 ]]; do
             ;;
         --submodule)
             INTEGRATION_MODE="submodule"
+            ;;
+        --url)
+            REPO_URL="$2"
+            shift
             ;;
         --force|-f)
             FORCE_MODE=true
@@ -49,6 +54,7 @@ AI指示書をプロジェクトに安全にセットアップします。
   --submodule     サブモジュールモード（推奨、デフォルト）
 
 オプション:
+  --url <URL>      カスタムGitリポジトリURL (デフォルト: $DEFAULT_REPO_URL)
   -f, --force      確認なしで実行（従来の動作）
   -n, --dry-run    実行内容を表示するだけで実際には実行しない
   --no-backup      既存ファイルのバックアップを作成しない
@@ -71,6 +77,16 @@ AI指示書をプロジェクトに安全にセットアップします。
               - git submodule updateで更新
 
 デフォルトでは、モード選択プロンプトが表示されます。
+
+使用例:
+  # デフォルトリポジトリを使用
+  setup-project.sh --submodule
+  
+  # フォークしたリポジトリを使用
+  setup-project.sh --url https://github.com/myname/AI_Instruction_Kits.git --clone
+  
+  # プライベートリポジトリを使用
+  setup-project.sh --url git@github.com:mycompany/private-instructions.git --submodule
 HELP
             exit 0
             ;;
@@ -251,6 +267,11 @@ setup_submodule_mode() {
 }
 
 echo "🚀 AI指示書を柔軟な構成でセットアップします..."
+
+# カスタムURLが指定された場合の通知
+if [ "$REPO_URL" != "$DEFAULT_REPO_URL" ]; then
+    echo "📌 カスタムリポジトリURL: $REPO_URL"
+fi
 
 if [ "$DRY_RUN" = true ]; then
     echo "🔍 ドライランモード: 実際の変更は行いません"

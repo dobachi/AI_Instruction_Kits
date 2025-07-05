@@ -81,6 +81,19 @@ bash scripts/setup-project.sh --submodule # サブモジュールモード（推
 | **clone** | 独立したGitリポジトリ | • 自由に変更可<br>• 履歴保持<br>• 独自カスタマイズ | `git pull` |
 | **submodule** | Gitサブモジュール（推奨） | • バージョン固定<br>• 親リポジトリと連携<br>• 標準的な管理 | `git submodule update --remote` |
 
+#### カスタムリポジトリの使用
+
+```bash
+# フォークしたリポジトリを使用
+bash scripts/setup-project.sh --url https://github.com/yourname/AI_Instruction_Kits.git --clone
+
+# プライベートリポジトリを使用（事前認証が必要）
+bash scripts/setup-project.sh --url git@github.com:company/private-instructions.git --submodule
+
+# 社内GitLabを使用
+bash scripts/setup-project.sh --url https://gitlab.company.com/team/ai-instructions.git --submodule
+```
+
 #### その他のオプション
 
 ```bash
