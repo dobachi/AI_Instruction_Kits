@@ -189,7 +189,7 @@ vi templates/en/PROJECT_TEMPLATE.md
 
 このリポジトリは複数のライセンスが混在しています：
 
-- **デフォルト**: Apache License 2.0（[LICENSE](LICENSE)参照）
+- **デフォルト**: MIT License（[LICENSE](LICENSE)参照）
 - **個別の指示書**: 各ファイルの末尾に記載されたライセンスが優先されます
 
 詳細は[LICENSE-NOTICE.md](LICENSE-NOTICE.md)をご確認ください。

@@ -179,7 +179,7 @@ For detailed information, demos, and usage examples, visit:
 
 This repository contains multiple licenses:
 
-- **Default**: Apache License 2.0 (see [LICENSE](LICENSE))
+- **Default**: MIT License (see [LICENSE](LICENSE))
 - **Individual instructions**: The license specified in each file takes precedence
 
 See [LICENSE-NOTICE.md](LICENSE-NOTICE_en.md) for details.

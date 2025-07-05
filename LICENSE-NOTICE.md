@@ -3,8 +3,8 @@
 このリポジトリは複数のライセンスが混在する構造となっています。
 
 ## デフォルトライセンス
-- リポジトリ全体のデフォルトライセンス: Apache License 2.0
-- 新規作成された指示書で特に明記がない場合は、Apache License 2.0が適用されます
+- リポジトリ全体のデフォルトライセンス: MIT License
+- 新規作成された指示書で特に明記がない場合は、MIT Licenseが適用されます
 
 ## 個別の指示書のライセンス
 各指示書は異なるライセンスを持つ場合があります：
@@ -32,8 +32,8 @@
 - 複数のソースを組み合わせる場合は、最も制限の厳しいライセンスに従ってください
 
 ## よく使用されるライセンス
-- Apache License 2.0
 - MIT License
+- Apache License 2.0
 - BSD License
 - Creative Commons (CC BY, CC BY-SA, CC BY-NC, etc.)
 - GPL/LGPL

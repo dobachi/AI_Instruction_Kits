@@ -3,8 +3,8 @@
 This repository has a structure that allows for multiple licenses.
 
 ## Default License
-- Default license for the entire repository: Apache License 2.0
-- New instruction sheets without explicit license information will be under Apache License 2.0
+- Default license for the entire repository: MIT License
+- New instruction sheets without explicit license information will be under MIT License
 
 ## Individual Instruction Licenses
 Each instruction sheet may have a different license:
@@ -32,8 +32,8 @@ Each instruction sheet may have a different license:
 - When combining multiple sources, follow the most restrictive license
 
 ## Common Licenses
-- Apache License 2.0
 - MIT License
+- Apache License 2.0
 - BSD License
 - Creative Commons (CC BY, CC BY-SA, CC BY-NC, etc.)
 - GPL/LGPL
