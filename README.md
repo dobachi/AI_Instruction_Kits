@@ -48,8 +48,10 @@
 - **[instructions/ja/system/INSTRUCTION_SELECTOR.md](instructions/ja/system/INSTRUCTION_SELECTOR.md)** - キーワードベースの自動選択
 
 ### 人間向けドキュメント
-- **[docs/HOW_TO_USE.md](docs/HOW_TO_USE.md)** - 詳細な使用ガイド（人間向け）
-- **[USAGE_GUIDE.md](USAGE_GUIDE.md)** - 使用方法の概要
+- **[プロジェクトサイト](https://dobachi.github.io/AI_Instruction_Kits/)** - 詳細なドキュメント（GitHub Pages）
+  - [クイックスタート](https://dobachi.github.io/AI_Instruction_Kits/quickstart)
+  - [使用ガイド](https://dobachi.github.io/AI_Instruction_Kits/usage)
+  - [機能詳細](https://dobachi.github.io/AI_Instruction_Kits/features)
 
 ## 使い方
 

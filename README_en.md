@@ -46,9 +46,11 @@ This repository manages instruction sheets for AI systems.
 - **[instructions/en/system/ROOT_INSTRUCTION.md](instructions/en/system/ROOT_INSTRUCTION.md)** - AI operates as instruction manager
 - **[instructions/en/system/INSTRUCTION_SELECTOR.md](instructions/en/system/INSTRUCTION_SELECTOR.md)** - Keyword-based automatic selection
 
-### Human Documentation
-- **[docs/HOW_TO_USE_en.md](docs/HOW_TO_USE_en.md)** - Detailed usage guide (for humans)
-- **[USAGE_GUIDE.md](USAGE_GUIDE.md)** - Usage overview
+### Documentation for Humans
+- **[Project Site](https://dobachi.github.io/AI_Instruction_Kits/en/)** - Detailed documentation (GitHub Pages)
+  - [Quick Start](https://dobachi.github.io/AI_Instruction_Kits/en/quickstart)
+  - [Usage Guide](https://dobachi.github.io/AI_Instruction_Kits/en/usage)
+  - [Features](https://dobachi.github.io/AI_Instruction_Kits/en/features)
 
 ## Usage
 
