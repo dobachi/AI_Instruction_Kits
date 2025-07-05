@@ -1,0 +1,219 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+// カスタムスタイル
+
+// より広い幅を設定
+.main-content {
+  max-width: 80rem;
+  padding: 2rem 4rem;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  
+  @include large {
+    max-width: 80rem;
+    padding: 2rem 6rem;
+  }
+  
+  @include medium {
+    padding: 2rem 4rem;
+  }
+  
+  @include small {
+    padding: 2rem 1rem;
+  }
+}
+
+// ヘッダーの改善
+.page-header {
+  background-color: #155799;
+  background-image: linear-gradient(120deg, #155799, #159957);
+  
+  @include large {
+    padding: 5rem 6rem;
+  }
+  
+  @include medium {
+    padding: 3rem 4rem;
+  }
+  
+  @include small {
+    padding: 2rem 1rem;
+  }
+}
+
+// プロジェクト名とタグライン
+.project-name {
+  margin-top: 0;
+  margin-bottom: 0.1rem;
+  
+  @include large {
+    font-size: 3.25rem;
+  }
+  
+  @include medium {
+    font-size: 2.25rem;
+  }
+  
+  @include small {
+    font-size: 1.75rem;
+  }
+}
+
+// ナビゲーションボタン
+.btn {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0.3rem;
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+  
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  + .btn {
+    margin-left: 1rem;
+  }
+  
+  @include large {
+    padding: 0.75rem 1rem;
+  }
+  
+  @include medium {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.9rem;
+  }
+  
+  @include small {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    
+    + .btn {
+      margin-top: 1rem;
+      margin-left: 0;
+    }
+  }
+}
+
+// コードブロックの改善
+pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  border-radius: 0.3rem;
+  background-color: #f3f4f4;
+}
+
+code {
+  padding: 2px 4px;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 0.95rem;
+  color: #383a42;
+  background-color: #f3f4f4;
+  border-radius: 0.3rem;
+}
+
+pre code {
+  padding: 0;
+  font-size: 0.95rem;
+  color: #383a42;
+  background-color: transparent;
+  border: 0;
+}
+
+// テーブルの改善
+table {
+  display: table;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+  -webkit-overflow-scrolling: touch;
+  
+  th {
+    font-weight: bold;
+    background-color: #f3f4f4;
+  }
+  
+  th,
+  td {
+    padding: 0.5rem 1rem;
+    border: 1px solid #e9ebec;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+}
+
+// 見出しの改善
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #155799;
+}
+
+h1 {
+  font-size: 2.2rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+// リンクの色
+a {
+  color: #1e6bb8;
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ボックススタイル
+.highlight-box {
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: #f0f8ff;
+  border-left: 4px solid #1e6bb8;
+  border-radius: 0.3rem;
+}
+
+// フッター
+.site-footer {
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: solid 1px #eff0f1;
+  font-size: 0.9rem;
+  
+  @include large {
+    font-size: 1rem;
+  }
+  
+  @include medium {
+    font-size: 0.95rem;
+  }
+  
+  @include small {
+    font-size: 0.9rem;
+  }
+}

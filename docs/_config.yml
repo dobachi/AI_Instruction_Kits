@@ -1,8 +1,10 @@
 # Jekyll設定ファイル - GitHub Pages用
 title: AI Instruction Kits
 description: AIに渡す指示書を構造的に管理・提供するシステム
-theme: jekyll-theme-minimal
+theme: jekyll-theme-cayman
 lang: ja
+show_downloads: true
+google_analytics:
 
 # ナビゲーション
 navigation:
