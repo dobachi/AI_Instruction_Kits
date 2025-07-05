@@ -62,8 +62,36 @@ case "$ACTION" in
         echo "[$TIMESTAMP] [$TASK_ID] [COMPLETE] 成果: $RESULT" >> "$CHECKPOINT_LOG"
         ;;
         
+    "status"|"")
+        # 引数なしまたはstatusの場合、現在の状態を表示
+        if [ -f "$CHECKPOINT_LOG" ]; then
+            # 最新のタスク情報を取得
+            LATEST_TASK=$(grep -E "\[START\]|\[COMPLETE\]|\[ERROR\]" "$CHECKPOINT_LOG" | tail -1)
+            if [ -n "$LATEST_TASK" ]; then
+                if echo "$LATEST_TASK" | grep -q "\[COMPLETE\]"; then
+                    echo "\`📊 最新タスク: 完了済み\`"
+                elif echo "$LATEST_TASK" | grep -q "\[ERROR\]"; then
+                    echo "\`📊 最新タスク: エラー発生\`"
+                else
+                    # 進行中のタスク
+                    TASK_INFO=$(echo "$LATEST_TASK" | sed 's/.*\[START\] //')
+                    echo "\`📊 現在のタスク: $TASK_INFO\`"
+                fi
+                echo "\`📌 詳細→$CHECKPOINT_LOG ($(grep -c "START" "$CHECKPOINT_LOG" 2>/dev/null || echo 0)件のタスク記録)\`"
+            else
+                echo "\`📊 タスク: 未開始\`"
+                echo "\`📌 新規タスクは 'scripts/checkpoint.sh start' で開始\`"
+            fi
+        else
+            echo "\`📊 チェックポイント: 初回起動\`"
+            echo "\`📌 ログファイル→$CHECKPOINT_LOG (作成予定)\`"
+        fi
+        ;;
+        
     "help"|*)
         echo "使用方法:"
+        echo "  $0              # 現在の状態を表示（デフォルト）"
+        echo "  $0 status       # 現在の状態を表示"
         echo "  $0 start <task-id> <task-name> <total-steps>"
         echo "  $0 progress <current-step> <total-steps> <status> <next-action>"
         echo "  $0 error <task-id> <error-message>"
