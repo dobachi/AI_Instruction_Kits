@@ -1,6 +1,6 @@
 # AI Instruction Kits Repository
 
-[English](README_en.md) | 日本語
+[English](README_en.md) | 日本語 | [📖 プロジェクトサイト](https://dobachi.github.io/AI_Instruction_Kits/)
 
 このリポジトリは、AIに渡す指示書を管理するためのものです。
 
@@ -172,6 +172,16 @@ vi templates/en/PROJECT_TEMPLATE.md
 - 期待する出力の例を含める
 - 制約条件がある場合は明記する
 - **ライセンス情報を必ず含める**（詳細は[LICENSE-NOTICE.md](LICENSE-NOTICE.md)を参照）
+
+## 📖 プロジェクトサイト
+
+詳しい情報・デモ・使用例は以下のサイトをご覧ください：
+
+🌐 **[https://dobachi.github.io/AI_Instruction_Kits/](https://dobachi.github.io/AI_Instruction_Kits/)**
+
+- クイックスタートガイド
+- 機能詳細
+- 実践的な使用例
 
 ## ライセンス
 

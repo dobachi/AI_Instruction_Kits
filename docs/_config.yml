@@ -1,0 +1,25 @@
+# Jekyll設定ファイル - GitHub Pages用
+title: AI Instruction Kits
+description: AIに渡す指示書を構造的に管理・提供するシステム
+theme: jekyll-theme-minimal
+lang: ja
+
+# ナビゲーション
+navigation:
+  - title: ホーム
+    url: /
+  - title: クイックスタート
+    url: /quickstart
+  - title: 機能紹介
+    url: /features
+  - title: GitHub
+    url: https://github.com/dobachi/AI_Instruction_Kits
+
+# プラグイン
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# 除外ファイル
+exclude:
+  - examples/

@@ -1,6 +1,6 @@
 # AI Instruction Kits Repository
 
-English | [日本語](README.md)
+English | [日本語](README.md) | [📖 Project Website](https://dobachi.github.io/AI_Instruction_Kits/)
 
 This repository manages instruction sheets for AI systems.
 
@@ -162,6 +162,16 @@ vi templates/en/PROJECT_TEMPLATE.md
 - Include examples of expected output
 - Clearly state any constraints
 - **Always include license information** (see [LICENSE-NOTICE.md](LICENSE-NOTICE_en.md) for details)
+
+## 📖 Project Website
+
+For detailed information, demos, and usage examples, visit:
+
+🌐 **[https://dobachi.github.io/AI_Instruction_Kits/](https://dobachi.github.io/AI_Instruction_Kits/)**
+
+- Quick Start Guide
+- Feature Details
+- Practical Examples
 
 ## License
 
