@@ -302,18 +302,60 @@ git commit -m "指示書をv1.1.0（安定版）にロールバック"
 ## 📊 利用統計とメトリクス
 
 ### チェックポイントログ分析
+
+作業の進捗と成果を定量的に把握できます。
+
+#### 基本的な統計情報
 ```bash
-# タスク完了率を確認
+# 完了したタスクの総数
 grep "COMPLETE" checkpoint.log | wc -l
 
-# 平均タスク時間を計算
-# 各タスクの開始・完了時刻から算出
+# 実行中のタスク（未完了）を確認
+grep "START" checkpoint.log | grep -v "COMPLETE"
+
+# 本日のタスク一覧
+grep "$(date +%Y-%m-%d)" checkpoint.log
+
+# エラーが発生したタスクを抽出
+grep "ERROR" checkpoint.log
 ```
 
-### 指示書使用頻度
-- 最も使用される指示書の特定
-- カスタマイズ箇所の分析
-- チーム内の利用パターン把握
+#### タスク分析の例
+```bash
+# タスクIDごとの所要時間を計算するスクリプト例
+#!/bin/bash
+while read -r line; do
+    if [[ $line =~ \[TASK-([a-f0-9]+)\] ]]; then
+        task_id="${BASH_REMATCH[1]}"
+        # START/COMPLETEのペアを見つけて時間差を計算
+        # （実装例は省略）
+    fi
+done < checkpoint.log
+```
+
+### プロジェクト別カスタマイズ分析
+
+PROJECT.mdの内容から、プロジェクトの特性を把握：
+
+```bash
+# プロジェクト設定の確認
+cat instructions/PROJECT.md | grep -E "(ビルドコマンド|リントコマンド|テストフレームワーク)"
+
+# カスタマイズされた項目数をカウント
+grep -v "^#" instructions/PROJECT.md | grep -v "^$" | grep -v "例：" | wc -l
+```
+
+### 成果物の定量化
+
+チェックポイントログから成果を抽出：
+
+```bash
+# 成果物のサマリーを生成
+grep "成果:" checkpoint.log | sed 's/.*成果: //' | sort | uniq -c | sort -nr
+
+# 作成されたファイル数、テスト数などを集計
+grep "成果:" checkpoint.log | grep -E "[0-9]+個|[0-9]+件|[0-9]+ファイル"
+```
 
 ## 🚀 今後の展開
 
