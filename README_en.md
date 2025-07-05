@@ -56,6 +56,42 @@ The easiest way to integrate the AI instruction system into your project:
 bash path/to/AI_Instruction_Kits/scripts/setup-project.sh
 ```
 
+#### Integration Modes (Choose from 3)
+
+```bash
+# Interactive selection (default)
+bash scripts/setup-project.sh
+
+# Direct mode specification
+bash scripts/setup-project.sh --copy      # Copy mode
+bash scripts/setup-project.sh --clone     # Clone mode
+bash scripts/setup-project.sh --submodule # Submodule mode (recommended)
+```
+
+**Mode Characteristics:**
+
+| Mode | Description | Benefits | Update Method |
+|------|-------------|----------|---------------|
+| **copy** | Direct file copy | • No Git required<br>• Simplest option<br>• Works offline | Manual re-run |
+| **clone** | Independent Git repository | • Freely modifiable<br>• Preserves history<br>• Custom changes | `git pull` |
+| **submodule** | Git submodule (recommended) | • Version pinning<br>• Parent repo integration<br>• Standard management | `git submodule update --remote` |
+
+#### Other Options
+
+```bash
+# Force mode - runs automatically without confirmation (for CI/CD)
+bash scripts/setup-project.sh --submodule --force
+
+# Dry-run mode - shows what would be done (no actual changes)
+bash scripts/setup-project.sh --dry-run
+
+# No backup mode - overwrites existing files directly
+bash scripts/setup-project.sh --force --no-backup
+
+# Show help
+bash scripts/setup-project.sh --help
+```
+
 This automatically sets up:
 - `instructions/ai_instruction_kits/` submodule
 - `instructions/PROJECT.md` - Japanese project configuration

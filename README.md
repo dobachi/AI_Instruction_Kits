@@ -57,6 +57,42 @@ AI指示書システムをプロジェクトに統合する最も簡単な方法
 bash path/to/ai_instruction_kits/scripts/setup-project.sh
 ```
 
+#### 統合モード（3つから選択）
+
+```bash
+# インタラクティブに選択（デフォルト）
+bash scripts/setup-project.sh
+
+# モードを直接指定
+bash scripts/setup-project.sh --copy      # コピーモード
+bash scripts/setup-project.sh --clone     # クローンモード
+bash scripts/setup-project.sh --submodule # サブモジュールモード（推奨）
+```
+
+**各モードの特徴：**
+
+| モード | 説明 | 利点 | 更新方法 |
+|--------|------|------|----------|
+| **copy** | ファイルを直接コピー | • Gitなし<br>• 最もシンプル<br>• オフライン可 | 手動で再実行 |
+| **clone** | 独立したGitリポジトリ | • 自由に変更可<br>• 履歴保持<br>• 独自カスタマイズ | `git pull` |
+| **submodule** | Gitサブモジュール（推奨） | • バージョン固定<br>• 親リポジトリと連携<br>• 標準的な管理 | `git submodule update --remote` |
+
+#### その他のオプション
+
+```bash
+# 強制実行モード - 確認なしで自動実行（CI/CD向け）
+bash scripts/setup-project.sh --submodule --force
+
+# ドライランモード - 実行内容を確認（実際には変更しない）
+bash scripts/setup-project.sh --dry-run
+
+# バックアップなしモード - 既存ファイルを直接上書き
+bash scripts/setup-project.sh --force --no-backup
+
+# ヘルプ表示
+bash scripts/setup-project.sh --help
+```
+
 これにより以下が自動的に設定されます：
 
 ```
