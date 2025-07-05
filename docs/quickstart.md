@@ -1,6 +1,7 @@
 ---
 layout: default
-title: クイックスタートガイド - AI Instruction Kits
+title: AI Instruction Kits
+description: クイックスタートガイド - 5分で始めるAI指示書キット
 ---
 
 # クイックスタートガイド
@@ -68,6 +69,12 @@ claude "CLAUDE.mdを参照して、ユーザー認証APIを実装して"
 ```
 
 ### ChatGPT の場合
+```bash
+# ファイルをアップロードまたはコピー＆ペースト
+"CLAUDE.mdの内容に従って、データベーススキーマを設計して"
+```
+
+### Gemini の場合
 ```bash
 # ファイルをアップロードまたはコピー＆ペースト
 "GEMINI.mdの内容に従って、データベーススキーマを設計して"

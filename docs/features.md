@@ -1,6 +1,7 @@
 ---
 layout: default
-title: 機能詳細 - AI Instruction Kits
+title: AI Instruction Kits
+description: 機能詳細 - すべての機能を詳しく解説
 ---
 
 # 機能詳細
@@ -174,14 +175,129 @@ vi templates/ja/PROJECT_TEMPLATE.md
 ## 🔒 セキュリティ機能
 
 ### プライベートリポジトリ対応
-- SSH認証サポート
-- アクセストークン利用可能
-- 社内ネットワーク対応
 
-### バージョン管理
-- 特定バージョンの固定
-- アップデート制御
-- ロールバック機能
+組織専用の非公開リポジトリから指示書を安全に取得できます。
+
+#### 実装方法
+```bash
+# 社内専用リポジトリの例
+bash setup-project.sh --url https://github.com/company/private-ai-instructions.git
+```
+
+- **利点**: 組織固有の機密性の高い指示書を安全に管理
+- **用途**: 社内コーディング規約、独自のビジネスロジック、セキュリティポリシー
+
+### SSH認証サポート
+
+SSH鍵を使用したセキュアな認証方式に対応しています。
+
+#### 実装方法
+```bash
+# SSH形式のURL使用
+bash setup-project.sh --url git@github.com:company/private-instructions.git --submodule
+```
+
+- **利点**: パスワード不要で安全な認証、CI/CD環境での自動化が容易
+- **前提**: 事前にSSH鍵の設定が必要（`ssh-keygen`と`ssh-add`）
+
+### アクセストークン利用可能
+
+GitHub/GitLab等のパーソナルアクセストークンを使った認証に対応。
+
+#### 実装方法
+```bash
+# トークンをURLに埋め込む方式
+bash setup-project.sh --url https://YOUR_TOKEN@github.com/company/repo.git
+
+# 環境変数を使う方式（より安全）
+export GIT_TOKEN=your_personal_access_token
+bash setup-project.sh --url https://${GIT_TOKEN}@github.com/company/repo.git
+```
+
+- **利点**: 細かい権限制御が可能、有効期限の設定、必要最小限のアクセス権
+- **用途**: CI/CD環境、自動化スクリプト、一時的なアクセス
+
+### 社内ネットワーク対応
+
+インターネットに公開されていない組織内部のGitサーバーもサポート。
+
+#### 実装方法
+```bash
+# 社内GitLabサーバーの例
+bash setup-project.sh --url https://gitlab.company.local/team/ai-instructions.git
+
+# 社内Giteaサーバーの例
+bash setup-project.sh --url http://git.internal:3000/dev/instructions.git
+```
+
+- **対応サーバー**: GitLab CE/EE、Gitea、Bitbucket Server、その他Git互換サーバー
+- **利点**: 完全に社内で完結、外部ネットワーク不要、高度なセキュリティ
+
+## 📦 バージョン管理
+
+### 特定バージョンの固定
+
+プロジェクトで使用する指示書のバージョンを固定し、予期しない変更を防ぎます。
+
+#### サブモジュールでの実装
+```bash
+# 特定のコミットに固定
+cd instructions/ai_instruction_kits
+git checkout v1.2.3  # または特定のコミットハッシュ
+cd ../..
+git add instructions/ai_instruction_kits
+git commit -m "指示書をv1.2.3に固定"
+```
+
+- **利点**: 再現性の確保、安定した動作、チーム間での一貫性
+- **用途**: 本番環境、重要なプロジェクト、監査が必要な環境
+
+### アップデート制御
+
+指示書の更新を計画的に管理し、テスト後に適用できます。
+
+#### 更新方法
+```bash
+# 最新版の確認（実際には更新しない）
+cd instructions/ai_instruction_kits
+git fetch
+git log HEAD..origin/main --oneline
+
+# テスト環境で検証後、更新を適用
+git pull origin main
+cd ../..
+git add instructions/ai_instruction_kits
+git commit -m "指示書を最新版に更新"
+```
+
+- **ワークフロー**: 
+  1. 開発環境で新バージョンをテスト
+  2. 変更内容を確認・レビュー
+  3. 段階的にステージング→本番へ適用
+
+### ロールバック機能
+
+問題が発生した場合、以前の安定版に即座に戻せます。
+
+#### ロールバック手順
+```bash
+# 直前のバージョンに戻す
+cd instructions/ai_instruction_kits
+git checkout HEAD~1
+cd ../..
+git add instructions/ai_instruction_kits
+git commit -m "指示書を前バージョンにロールバック"
+
+# 特定の安定版に戻す
+cd instructions/ai_instruction_kits
+git checkout v1.1.0  # 安定していた特定バージョン
+cd ../..
+git add instructions/ai_instruction_kits
+git commit -m "指示書をv1.1.0（安定版）にロールバック"
+```
+
+- **利点**: リスク管理、迅速な障害対応、安心してアップデートを試せる
+- **推奨**: ロールバック前後でテストを実施、変更履歴を記録
 
 ## 📊 利用統計とメトリクス
 
