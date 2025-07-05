@@ -27,7 +27,8 @@
 │       ├── coding/    # コーディング関連の指示
 │       ├── writing/   # 文章作成関連の指示
 │       ├── analysis/  # 分析関連の指示
-│       └── creative/  # クリエイティブ関連の指示
+│       ├── creative/  # クリエイティブ関連の指示
+│       └── agent/     # エージェント型指示書
 ├── templates/     # 各種テンプレート
 │   ├── ja/        # 日本語テンプレート
 │   │   ├── instruction_template.md  # 指示書作成用テンプレート

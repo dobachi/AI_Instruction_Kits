@@ -26,7 +26,8 @@ This repository manages instruction sheets for AI systems.
 │       ├── coding/    # Coding-related instructions
 │       ├── writing/   # Writing-related instructions
 │       ├── analysis/  # Analysis-related instructions
-│       └── creative/  # Creative-related instructions
+│       ├── creative/  # Creative-related instructions
+│       └── agent/     # Agent-type instructions
 ├── templates/     # Various templates
 │   ├── ja/        # Japanese templates
 │   │   ├── instruction_template.md  # Instruction creation template
