@@ -1,0 +1,32 @@
+id: ROOT_INSTRUCTION
+title: AI指示書マネージャー（柔軟な構成版）
+description: ユーザーのタスクに基づいて適切な指示書を自動的に選択・読み込み、それらの指示に従って作業を実行するための基本的な管理システム。必ずCHECKPOINT_MANAGERと併用します。
+category: system
+tags:
+  - system
+  - manager
+  - orchestration
+  - instruction-loader
+language: ja
+version: 1.0.0
+dependencies: []
+priority: high
+targetAI:
+  - Claude
+  - GPT-4
+  - Gemini
+useCases:
+  - 指示書システムの初期化
+  - タスクに応じた指示書の自動選択
+  - 複数指示書の組み合わせ管理
+keywords:
+  - マネージャー
+  - 管理
+  - 選択
+  - 読み込み
+  - オーケストレーション
+license: MIT
+author: dobachi
+created: 2025-06-30
+updated: 2025-01-05
+deprecated: false

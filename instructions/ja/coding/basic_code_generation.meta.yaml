@@ -1,0 +1,41 @@
+id: basic_code_generation
+title: 基本的なコード生成
+description: プログラムの実装、コード生成、バグ修正など、一般的なプログラミングタスクを効率的に実行するための指示書。構造的で保守性の高いコードを生成します。
+category: coding
+tags:
+  - programming
+  - implementation
+  - code-generation
+  - bug-fix
+  - refactoring
+language: ja
+version: 1.0.0
+dependencies:
+  - CHECKPOINT_MANAGER
+priority: high
+targetAI:
+  - Claude
+  - GPT-4
+  - Gemini
+useCases:
+  - 新しい機能の実装
+  - 既存コードのバグ修正
+  - コードのリファクタリング
+  - アルゴリズムの実装
+  - APIエンドポイントの作成
+keywords:
+  - 実装
+  - プログラム
+  - コード
+  - 開発
+  - バグ
+  - 修正
+  - リファクタリング
+  - 関数
+  - クラス
+  - API
+license: MIT
+author: dobachi
+created: 2025-06-30
+updated: 2025-01-05
+deprecated: false
