@@ -342,6 +342,14 @@ else
     fi
 fi
 
+# テンプレートのパスを決定
+PROJECT_TEMPLATE_JA=""
+if [ -f "${SCRIPT_DIR}/../templates/ja/PROJECT_TEMPLATE.md" ]; then
+    PROJECT_TEMPLATE_JA="${SCRIPT_DIR}/../templates/ja/PROJECT_TEMPLATE.md"
+elif [ -f "instructions/ai_instruction_kits/templates/ja/PROJECT_TEMPLATE.md" ]; then
+    PROJECT_TEMPLATE_JA="instructions/ai_instruction_kits/templates/ja/PROJECT_TEMPLATE.md"
+fi
+
 # PROJECT.md（日本語版）の作成
 echo ""
 echo "📝 instructions/PROJECT.md（日本語版）を作成..."
@@ -350,7 +358,11 @@ if [ -f "instructions/PROJECT.md" ]; then
     if confirm "既存のファイルをバックアップして、新しいテンプレートで上書きしますか？"; then
         backup_file "instructions/PROJECT.md"
         if [ "$DRY_RUN" = false ]; then
-            cat > instructions/PROJECT.md << 'EOF'
+            if [ -n "$PROJECT_TEMPLATE_JA" ] && [ -f "$PROJECT_TEMPLATE_JA" ]; then
+                cp "$PROJECT_TEMPLATE_JA" instructions/PROJECT.md
+            else
+                # テンプレートが見つからない場合はインライン定義
+                cat > instructions/PROJECT.md << 'EOF'
 # AI開発支援設定
 
 このプロジェクトでは`instructions/ai_instruction_kits/`のAI指示書システムを使用します。
@@ -377,14 +389,19 @@ if [ -f "instructions/PROJECT.md" ]; then
 - リントコマンド: 
 - その他の制約事項: 
 EOF
+            fi
         else
-            dry_echo "PROJECT.mdテンプレートを作成"
+            dry_echo "PROJECT.mdテンプレートをコピー"
         fi
     fi
 else
     if confirm "instructions/PROJECT.md（日本語版）を作成しますか？"; then
         if [ "$DRY_RUN" = false ]; then
-            cat > instructions/PROJECT.md << 'EOF'
+            if [ -n "$PROJECT_TEMPLATE_JA" ] && [ -f "$PROJECT_TEMPLATE_JA" ]; then
+                cp "$PROJECT_TEMPLATE_JA" instructions/PROJECT.md
+            else
+                # テンプレートが見つからない場合はインライン定義
+                cat > instructions/PROJECT.md << 'EOF'
 # AI開発支援設定
 
 このプロジェクトでは`instructions/ai_instruction_kits/`のAI指示書システムを使用します。
@@ -411,10 +428,19 @@ else
 - リントコマンド: 
 - その他の制約事項: 
 EOF
+            fi
         else
-            dry_echo "PROJECT.mdテンプレートを作成"
+            dry_echo "PROJECT.mdテンプレートをコピー"
         fi
     fi
+fi
+
+# テンプレートのパスを決定（英語版）
+PROJECT_TEMPLATE_EN=""
+if [ -f "${SCRIPT_DIR}/../templates/en/PROJECT_TEMPLATE.md" ]; then
+    PROJECT_TEMPLATE_EN="${SCRIPT_DIR}/../templates/en/PROJECT_TEMPLATE.md"
+elif [ -f "instructions/ai_instruction_kits/templates/en/PROJECT_TEMPLATE.md" ]; then
+    PROJECT_TEMPLATE_EN="instructions/ai_instruction_kits/templates/en/PROJECT_TEMPLATE.md"
 fi
 
 # PROJECT.en.md（英語版）の作成
@@ -425,7 +451,11 @@ if [ -f "instructions/PROJECT.en.md" ]; then
     if confirm "既存のファイルをバックアップして、新しいテンプレートで上書きしますか？"; then
         backup_file "instructions/PROJECT.en.md"
         if [ "$DRY_RUN" = false ]; then
-            cat > instructions/PROJECT.en.md << 'EOF'
+            if [ -n "$PROJECT_TEMPLATE_EN" ] && [ -f "$PROJECT_TEMPLATE_EN" ]; then
+                cp "$PROJECT_TEMPLATE_EN" instructions/PROJECT.en.md
+            else
+                # テンプレートが見つからない場合はインライン定義
+                cat > instructions/PROJECT.en.md << 'EOF'
 # AI Development Support Configuration
 
 This project uses the AI instruction system in `instructions/ai_instruction_kits/`.
@@ -452,14 +482,19 @@ Please load `instructions/ai_instruction_kits/instructions/en/system/ROOT_INSTRU
 - Lint Commands: 
 - Other Constraints: 
 EOF
+            fi
         else
-            dry_echo "PROJECT.en.mdテンプレートを作成"
+            dry_echo "PROJECT.en.mdテンプレートをコピー"
         fi
     fi
 else
     if confirm "instructions/PROJECT.en.md（英語版）を作成しますか？"; then
         if [ "$DRY_RUN" = false ]; then
-            cat > instructions/PROJECT.en.md << 'EOF'
+            if [ -n "$PROJECT_TEMPLATE_EN" ] && [ -f "$PROJECT_TEMPLATE_EN" ]; then
+                cp "$PROJECT_TEMPLATE_EN" instructions/PROJECT.en.md
+            else
+                # テンプレートが見つからない場合はインライン定義
+                cat > instructions/PROJECT.en.md << 'EOF'
 # AI Development Support Configuration
 
 This project uses the AI instruction system in `instructions/ai_instruction_kits/`.
@@ -486,8 +521,9 @@ Please load `instructions/ai_instruction_kits/instructions/en/system/ROOT_INSTRU
 - Lint Commands: 
 - Other Constraints: 
 EOF
+            fi
         else
-            dry_echo "PROJECT.en.mdテンプレートを作成"
+            dry_echo "PROJECT.en.mdテンプレートをコピー"
         fi
     fi
 fi

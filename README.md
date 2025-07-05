@@ -28,9 +28,13 @@
 │       ├── writing/   # 文章作成関連の指示
 │       ├── analysis/  # 分析関連の指示
 │       └── creative/  # クリエイティブ関連の指示
-├── templates/     # 指示書のテンプレート
+├── templates/     # 各種テンプレート
 │   ├── ja/        # 日本語テンプレート
+│   │   ├── instruction_template.md  # 指示書作成用テンプレート
+│   │   └── PROJECT_TEMPLATE.md      # PROJECT.md用テンプレート
 │   └── en/        # 英語テンプレート
+│       ├── instruction_template.md  # 指示書作成用テンプレート
+│       └── PROJECT_TEMPLATE.md      # PROJECT.en.md用テンプレート
 └── scripts/       # ツール・ユーティリティ
     ├── setup-project.sh  # プロジェクト統合用セットアップスクリプト
     └── checkpoint.sh     # チェックポイント管理スクリプト
@@ -136,6 +140,17 @@ claude "CLAUDE.mdを参照して、ユーザー認証機能を実装して"
 1. 適切なカテゴリと言語のディレクトリに指示書を保存
 2. ファイル名は内容が分かりやすい名前を使用
 3. Markdownフォーマット（.md）で記述することを推奨
+
+### PROJECT.mdのカスタマイズ
+
+セットアップ後、`instructions/PROJECT.md`は`templates/ja/PROJECT_TEMPLATE.md`からコピーされます。
+テンプレートを事前に編集することで、すべての新規プロジェクトに共通設定を適用できます。
+
+```bash
+# テンプレートのカスタマイズ例
+vi templates/ja/PROJECT_TEMPLATE.md
+vi templates/en/PROJECT_TEMPLATE.md
+```
 
 ## 指示書の書き方
 

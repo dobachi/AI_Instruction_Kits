@@ -27,9 +27,13 @@ This repository manages instruction sheets for AI systems.
 │       ├── writing/   # Writing-related instructions
 │       ├── analysis/  # Analysis-related instructions
 │       └── creative/  # Creative-related instructions
-├── templates/     # Instruction templates
+├── templates/     # Various templates
 │   ├── ja/        # Japanese templates
+│   │   ├── instruction_template.md  # Instruction creation template
+│   │   └── PROJECT_TEMPLATE.md      # PROJECT.md template
 │   └── en/        # English templates
+│       ├── instruction_template.md  # Instruction creation template
+│       └── PROJECT_TEMPLATE.md      # PROJECT.en.md template
 └── scripts/       # Tools and utilities
     ├── setup-project.sh  # Project integration setup script
     └── checkpoint.sh     # Checkpoint management script
@@ -126,6 +130,17 @@ claude "Please refer to CLAUDE.en.md and implement user authentication"
 1. Save instruction sheets in the appropriate category and language directory
 2. Use descriptive filenames
 3. Markdown format (.md) is recommended
+
+### Customizing PROJECT.md
+
+After setup, `instructions/PROJECT.md` is copied from `templates/en/PROJECT_TEMPLATE.md`.
+By editing the template beforehand, you can apply common settings to all new projects.
+
+```bash
+# Example of customizing templates
+vi templates/ja/PROJECT_TEMPLATE.md
+vi templates/en/PROJECT_TEMPLATE.md
+```
 
 ## How to Write Instructions
 
