@@ -110,6 +110,10 @@ bash scripts/commit.sh "コミットメッセージ"
 # bash scripts/validate-instructions.sh
 ```
 
+## コミットルール
+- **必須**: `bash scripts/commit.sh "メッセージ"` または `git commit -m "メッセージ"`
+- **禁止**: AI署名付きコミット（自動検出・拒否されます）
+
 ## 現在の課題と今後の改善点
 
 1. 指示書間の重複を減らす仕組み

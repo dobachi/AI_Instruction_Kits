@@ -14,6 +14,10 @@ Please load `instructions/ai_instruction_kits/instructions/en/system/ROOT_INSTRU
 - Checkpoint Script: `scripts/checkpoint.sh`
 - Project-Specific Configuration: This file (`instructions/PROJECT.en.md`)
 
+## Commit Rules
+- **Required**: `bash scripts/commit.sh "message"` or `git commit -m "message"`
+- **Prohibited**: AI-signed commits (auto-detected and rejected)
+
 ## Project-Specific Instructions
 <!-- Add your project-specific instructions here -->
 

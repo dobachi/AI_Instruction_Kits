@@ -609,6 +609,76 @@ for file in "${ai_files_en[@]}"; do
     fi
 done
 
+# Gitフックの設定
+echo ""
+echo "🔧 Gitフックを設定..."
+if [ -d ".git/hooks" ]; then
+    HOOK_SOURCE=""
+    if [ -f "${SCRIPT_DIR}/../templates/git-hooks/prepare-commit-msg" ]; then
+        HOOK_SOURCE="${SCRIPT_DIR}/../templates/git-hooks/prepare-commit-msg"
+    elif [ -f "instructions/ai_instruction_kits/templates/git-hooks/prepare-commit-msg" ]; then
+        HOOK_SOURCE="instructions/ai_instruction_kits/templates/git-hooks/prepare-commit-msg"
+    fi
+    
+    if [ -n "$HOOK_SOURCE" ]; then
+        if [ -e ".git/hooks/prepare-commit-msg" ]; then
+            echo "⚠️  .git/hooks/prepare-commit-msgが既に存在します"
+            if confirm "既存のフックをバックアップして、AI検出フックをインストールしますか？"; then
+                backup_file ".git/hooks/prepare-commit-msg"
+                if [ "$DRY_RUN" = true ]; then
+                    dry_echo "cp $HOOK_SOURCE .git/hooks/prepare-commit-msg && chmod +x .git/hooks/prepare-commit-msg"
+                else
+                    cp "$HOOK_SOURCE" .git/hooks/prepare-commit-msg
+                    chmod +x .git/hooks/prepare-commit-msg
+                    echo "✅ AI検出フックをインストールしました"
+                fi
+            fi
+        else
+            if confirm "AIコミットを防止するGitフックをインストールしますか？"; then
+                if [ "$DRY_RUN" = true ]; then
+                    dry_echo "cp $HOOK_SOURCE .git/hooks/prepare-commit-msg && chmod +x .git/hooks/prepare-commit-msg"
+                else
+                    cp "$HOOK_SOURCE" .git/hooks/prepare-commit-msg
+                    chmod +x .git/hooks/prepare-commit-msg
+                    echo "✅ AI検出フックをインストールしました"
+                fi
+            fi
+        fi
+    else
+        echo "⚠️  Gitフックテンプレートが見つかりません"
+    fi
+else
+    echo "⚠️  .git/hooksディレクトリが見つかりません（Gitリポジトリではない可能性があります）"
+fi
+
+# commit.shのリンク作成
+echo ""
+echo "🔗 commit.shへのシンボリックリンクを作成..."
+if [ -e "scripts/commit.sh" ]; then
+    if [ -L "scripts/commit.sh" ]; then
+        echo "✓ commit.shシンボリックリンクは既に存在します"
+    else
+        echo "⚠️  scripts/commit.shが既に存在します（シンボリックリンクではありません）"
+        if confirm "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？"; then
+            backup_file "scripts/commit.sh"
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "rm scripts/commit.sh && ln -sf ../instructions/ai_instruction_kits/scripts/commit.sh scripts/commit.sh"
+            else
+                rm scripts/commit.sh
+                ln -sf ../instructions/ai_instruction_kits/scripts/commit.sh scripts/commit.sh
+            fi
+        fi
+    fi
+else
+    if confirm "commit.shへのシンボリックリンクを作成しますか？"; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/commit.sh scripts/commit.sh"
+        else
+            ln -sf ../instructions/ai_instruction_kits/scripts/commit.sh scripts/commit.sh
+        fi
+    fi
+fi
+
 # .gitignoreに追加（サブモジュールモードの場合のみ）
 if [ "$SELECTED_MODE" = "submodule" ]; then
     echo ""
