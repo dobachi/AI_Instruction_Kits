@@ -26,6 +26,11 @@ You will function as an instruction manager. Based on the user's task, load appr
 ### Writing
 - `instructions/ai_instruction_kits/instructions/en/writing/basic_text_creation.md` - Document and article creation
 
+### Presentation
+- `instructions/ai_instruction_kits/instructions/en/presentation/marp_specialist.md` - Advanced slide creation with Marp format
+- `instructions/ai_instruction_kits/instructions/en/presentation/technical_design.md` - Visual representation of technical content
+- `instructions/ai_instruction_kits/instructions/en/presentation/accessibility.md` - Creating accessible presentations
+
 ### Analysis
 - `instructions/ai_instruction_kits/instructions/en/analysis/basic_data_analysis.md` - Data analysis and insights
 

@@ -27,6 +27,11 @@
 - `instructions/ai_instruction_kits/instructions/ja/writing/basic_text_creation.md` - ドキュメント、記事作成
 - `instructions/ai_instruction_kits/instructions/ja/writing/presentation_creation.md` - プレゼンテーション構成、スライド設計
 
+### プレゼンテーション
+- `instructions/ai_instruction_kits/instructions/ja/presentation/marp_specialist.md` - Marpフォーマットでの高度なスライド作成
+- `instructions/ai_instruction_kits/instructions/ja/presentation/technical_design.md` - 技術的コンテンツの視覚的表現
+- `instructions/ai_instruction_kits/instructions/ja/presentation/accessibility.md` - アクセシブルなプレゼンテーション作成
+
 ### 分析
 - `instructions/ai_instruction_kits/instructions/ja/analysis/basic_data_analysis.md` - データ分析、洞察
 
