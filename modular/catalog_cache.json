@@ -1,0 +1,38 @@
+{
+  "core": {},
+  "tasks": {
+    "task_example": {
+      "id": "task_example",
+      "name": "サンプルタスク",
+      "description": "モジュラーシステムのデモンストレーション用サンプル",
+      "version": "0.1.0",
+      "tags": [
+        "example",
+        "demo",
+        "sample"
+      ],
+      "category": "tasks",
+      "compatible_skills": [
+        "skill_example"
+      ],
+      "variables": [
+        {
+          "name": "demo_var",
+          "description": "デモ用変数",
+          "type": "string",
+          "default": "hello"
+        }
+      ],
+      "dependencies": [],
+      "author": "AI Instruction Kits Project",
+      "created": "2025-01-08",
+      "updated": "2025-01-08",
+      "license": "MIT",
+      "_yaml_path": "modules/tasks/example_task.yaml",
+      "_md_path": "modules/tasks/example_task.md"
+    }
+  },
+  "skills": {},
+  "quality": {},
+  "fragments": {}
+}

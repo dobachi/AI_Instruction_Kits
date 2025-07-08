@@ -11,9 +11,9 @@
    - 品質要件を確認
 
 2. **モジュール選択**
-   - `modular/catalog.yaml`を参照
+   - 利用可能なモジュールを確認: `scripts/generate-instruction.sh --list`
    - タスク、スキル、品質モジュールを選択
-   - 互換性を確認
+   - 各モジュールのメタデータファイル（.yaml）から互換性を確認
 
 3. **生成実行**
    ```bash
@@ -100,10 +100,14 @@ A: 以下の場合に使用を検討してください：
 - 既存指示書では不十分
 
 ### Q: モジュールの一覧を確認するには？
-A: `modular/catalog.yaml`を参照するか、以下を実行：
+A: 以下のコマンドで利用可能なモジュールを表示：
 ```bash
-scripts/generate-instruction.sh --help
+scripts/generate-instruction.sh --list
 ```
+
+### Q: モジュールのメタデータはどこにある？
+A: 各モジュールと同じディレクトリに同名の`.yaml`ファイルとして配置されています。
+例: `modular/modules/tasks/web_api_development.yaml`
 
 ---
 ## ライセンス情報

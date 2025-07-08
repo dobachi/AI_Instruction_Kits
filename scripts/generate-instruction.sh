@@ -14,6 +14,8 @@ MODULES=()
 PRESET=""
 VARIABLES=()
 DRY_RUN=false
+LIST_MODULES=false
+REFRESH_CACHE=false
 
 # ヘルプメッセージ
 show_help() {
@@ -26,6 +28,8 @@ show_help() {
   --output FILE                 出力ファイル名（デフォルト: 標準出力）
   --variable KEY=VALUE          変数を設定（複数指定可）
   --dry-run                     実際には生成せず、使用モジュールを表示
+  --list                        利用可能なモジュール一覧を表示
+  --refresh-cache               モジュールキャッシュを更新
   --help                        このヘルプを表示
 
 例:
@@ -66,6 +70,14 @@ while [[ $# -gt 0 ]]; do
             DRY_RUN=true
             shift
             ;;
+        --list)
+            LIST_MODULES=true
+            shift
+            ;;
+        --refresh-cache)
+            REFRESH_CACHE=true
+            shift
+            ;;
         --help)
             show_help
             exit 0
@@ -77,6 +89,17 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+# 特殊コマンドを先に処理
+if [[ "$LIST_MODULES" == "true" ]]; then
+    python3 "${MODULAR_DIR}/composer.py" --list
+    exit 0
+fi
+
+if [[ "$REFRESH_CACHE" == "true" ]]; then
+    python3 "${MODULAR_DIR}/composer.py" --refresh-cache
+    exit 0
+fi
 
 # Pythonコンポーザーを呼び出す
 ARGS=()

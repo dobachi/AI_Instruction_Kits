@@ -27,7 +27,7 @@ AI_Instruction_Kits/
 │   └── en/
 │
 ├── modular/                   # モジュラーシステム（新規）
-│   ├── catalog.yaml          # モジュールカタログ
+│   ├── catalog_cache.json    # 自動生成されるカタログキャッシュ（オプション）
 │   ├── modules/              # モジュール本体
 │   │   ├── core/            # 基本構造
 │   │   ├── tasks/           # タスク別モジュール
@@ -42,68 +42,55 @@ AI_Instruction_Kits/
     └── validate-modules.sh      # モジュール検証スクリプト
 ```
 
-### 2.2 モジュールカタログ設計
+### 2.2 モジュールメタデータ設計（分散型）
+
+各モジュールは同一ディレクトリ内の`.yaml`ファイルでメタデータを管理します：
 
 ```yaml
-# modular/catalog.yaml
-version: "1.0"
-modules:
-  # タスクモジュール（何をするか）
-  tasks:
-    web_api_development:
-      id: "task_web_api"
-      description: "RESTful Web API開発の基本構造"
-      tags: ["api", "web", "backend"]
-      compatible_skills: ["error_handling", "validation", "authentication"]
-      variables:
-        - framework: "使用するフレームワーク名"
-        - database: "データベースタイプ"
-    
-    cli_tool_development:
-      id: "task_cli"
-      description: "CLIツール開発の基本構造"
-      tags: ["cli", "tool", "command-line"]
-      compatible_skills: ["argument_parsing", "output_formatting"]
-  
-  # スキルモジュール（どのように実装するか）
-  skills:
-    test_driven_development:
-      id: "skill_tdd"
-      description: "テスト駆動開発の実践"
-      tags: ["testing", "quality", "tdd"]
-      enhances: ["code_quality", "maintainability"]
-      requires_base: true
-    
-    error_handling:
-      id: "skill_error_handling"
-      description: "堅牢なエラーハンドリング"
-      tags: ["error", "exception", "robustness"]
-      language_specific: true
-  
-  # 品質モジュール（どの程度の品質で実装するか）
-  quality:
-    production_ready:
-      id: "quality_production"
-      description: "本番環境対応の品質基準"
-      includes: ["logging", "monitoring", "security"]
-      
-    prototype:
-      id: "quality_prototype"
-      description: "プロトタイプ向けの簡易実装"
-      focus: ["speed", "flexibility"]
-
-# プリセット定義
-presets:
-  web_api_production:
-    name: "本番用Web API開発"
-    modules: ["task_web_api", "skill_tdd", "skill_error_handling", "quality_production"]
-    
-  quick_cli_tool:
-    name: "簡易CLIツール"
-    modules: ["task_cli", "quality_prototype"]
+# modules/tasks/web_api_development.yaml
+id: "task_web_api"
+name: "Web API開発"
+description: "RESTful Web API開発の基本構造"
+version: "1.0.0"
+tags: ["api", "web", "backend"]
+category: "tasks"
+compatible_skills: ["error_handling", "validation", "authentication"]
+variables:
+  - name: "framework"
+    description: "使用するフレームワーク名"
+    type: "string"
+    default: "FastAPI"
+  - name: "database"
+    description: "データベースタイプ"
+    type: "string"
+    default: "PostgreSQL"
+dependencies: []
+author: "AI Instruction Kits Project"
+created: "2025-01-08"
+updated: "2025-01-08"
+license: "MIT"
 ```
 
-### 2.3 MODULE_COMPOSER指示書
+### 2.3 プリセット定義
+
+プリセットは`templates/presets/`ディレクトリに配置します：
+
+```yaml
+# templates/presets/web_api_production.yaml
+name: "本番用Web API開発"
+description: "本番環境で使用するWeb APIの開発指示書"
+modules:
+  - "task_web_api"
+  - "skill_tdd"
+  - "skill_error_handling"
+  - "quality_production"
+variables:
+  framework: "FastAPI"
+  database: "PostgreSQL"
+  include_monitoring: true
+```
+
+### 2.4 MODULE_COMPOSER指示書
 
 ```markdown
 # instructions/ja/system/MODULE_COMPOSER.md
@@ -121,9 +108,9 @@ presets:
    - 品質要件を確認
 
 2. **モジュール選択**
-   - `modular/catalog.yaml`を参照
+   - モジュールディレクトリをスキャンして利用可能なモジュールを発見
    - タスク、スキル、品質モジュールを選択
-   - 互換性を確認
+   - メタデータファイル（.yaml）から互換性を確認
 
 3. **生成実行**
    ```bash
