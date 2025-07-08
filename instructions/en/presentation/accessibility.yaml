@@ -1,0 +1,31 @@
+# accessibility.md メタデータ
+id: "en_presentation_accessibility"
+name: "Presentation Accessibility"
+description: "## Your Role Act as an expert in creating presentations that are accessible and understandable for everyone."
+version: "1.0.0"
+category: "presentation"
+language: "en"
+tags:
+  - "presentation"
+  - "en"
+
+# ファイル情報
+file:
+  name: "accessibility.md"
+  path: "en/presentation/accessibility.md"
+  size: 5516
+  checksum: "606d0abb20d948519b98cf19c539ce75"
+  last_modified: "2025-07-08T01:56:33+0900"
+
+# メタ情報
+metadata:
+  author: "dobachi"
+  created: "2025-07-09"
+  updated: "2025-07-09"
+  license: "Apache-2.0"
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

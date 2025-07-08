@@ -1,0 +1,32 @@
+# code_reviewer.md メタデータ
+id: "ja_agent_code_reviewer"
+name: "コードレビュー専門家"
+description: "## あなたの役割"
+version: "1.0.0"
+category: "agent"
+language: "ja"
+tags:
+  - "agent"
+  - "ja"
+  - "agent"
+
+# ファイル情報
+file:
+  name: "code_reviewer.md"
+  path: "ja/agent/code_reviewer.md"
+  size: 3252
+  checksum: "6253bdb1cabb088c3713b94d5eae7786"
+  last_modified: "2025-07-01T13:08:13+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

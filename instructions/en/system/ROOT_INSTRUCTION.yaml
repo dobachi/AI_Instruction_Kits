@@ -1,0 +1,31 @@
+# ROOT_INSTRUCTION.md メタデータ
+id: "en_system_ROOT_INSTRUCTION"
+name: "AI Instruction Manager (Flexible Configuration)"
+description: "You will function as an instruction manager. Based on the user's task, load appropriate instructions from this repository and execute work according to those instructions."
+version: "1.0.0"
+category: "system"
+language: "en"
+tags:
+  - "system"
+  - "en"
+
+# ファイル情報
+file:
+  name: "ROOT_INSTRUCTION.md"
+  path: "en/system/ROOT_INSTRUCTION.md"
+  size: 2812
+  checksum: "bdffd6ab969894b2f7661f7a313048bc"
+  last_modified: "2025-07-08T01:58:07+0900"
+
+# メタ情報
+metadata:
+  author: "dobachi"
+  created: "2025-07-09"
+  updated: "2025-07-09"
+  license: "Apache-2.0"
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

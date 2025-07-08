@@ -1,0 +1,31 @@
+# INSTRUCTION_SELECTOR.md メタデータ
+id: "ja_system_INSTRUCTION_SELECTOR"
+name: "タスク別指示書セレクター"
+description: "あなたはユーザーのタスクに基づいて、適切な指示書の組み合わせを判断し、それらを読み込んで実行します。"
+version: "1.0.0"
+category: "system"
+language: "ja"
+tags:
+  - "system"
+  - "ja"
+
+# ファイル情報
+file:
+  name: "INSTRUCTION_SELECTOR.md"
+  path: "ja/system/INSTRUCTION_SELECTOR.md"
+  size: 2554
+  checksum: "30e24723759172262fd8f371bb3d7c7e"
+  last_modified: "2025-07-03T11:34:34+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

@@ -1,0 +1,31 @@
+# basic_qa.md メタデータ
+id: "ja_general_basic_qa"
+name: "基本的な質問応答"
+description: "## 目的 ユーザーの質問に対して、正確で有用な回答を提供する"
+version: "1.0.0"
+category: "general"
+language: "ja"
+tags:
+  - "general"
+  - "ja"
+
+# ファイル情報
+file:
+  name: "basic_qa.md"
+  path: "ja/general/basic_qa.md"
+  size: 1215
+  checksum: "f93f61b2ff6167364371612da4f22218"
+  last_modified: "2025-07-01T09:04:57+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

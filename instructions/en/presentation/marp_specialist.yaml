@@ -1,0 +1,32 @@
+# marp_specialist.md メタデータ
+id: "en_presentation_marp_specialist"
+name: "Marp Presentation Specialist"
+description: "## Your Role Act as a Marp presentation format expert to create effective and professional slides."
+version: "1.0.0"
+category: "presentation"
+language: "en"
+tags:
+  - "presentation"
+  - "en"
+  - "marp"
+
+# ファイル情報
+file:
+  name: "marp_specialist.md"
+  path: "en/presentation/marp_specialist.md"
+  size: 2585
+  checksum: "c80597251274a6dd5d3c7301d7b9db75"
+  last_modified: "2025-07-08T01:53:21+0900"
+
+# メタ情報
+metadata:
+  author: "dobachi"
+  created: "2025-07-09"
+  updated: "2025-07-09"
+  license: "Apache-2.0"
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

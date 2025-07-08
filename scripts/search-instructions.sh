@@ -3,7 +3,7 @@
 # AI指示書カタログ検索スクリプト
 # 分散型メタデータを使用した高速検索
 
-set -e
+# set -euo pipefail
 
 # 色の定義
 GREEN='\033[0;32m'
@@ -14,7 +14,7 @@ NC='\033[0m' # No Color
 
 # 設定
 INSTRUCTIONS_DIR="${INSTRUCTIONS_DIR:-instructions}"
-METADATA_EXT=".meta"
+METADATA_EXT=".yaml"
 
 # ヘルプ表示
 show_help() {
@@ -37,11 +37,26 @@ show_help() {
     echo "  $0 -l ja -c agent          # 日本語のagentカテゴリを検索"
 }
 
-# JSONから値を取得（簡易パーサー）
-get_json_value() {
-    local json="$1"
+# YAMLから値を取得（簡易パーサー）
+get_yaml_value() {
+    local yaml="$1"
     local key="$2"
-    echo "$json" | grep "\"$key\":" | sed -E "s/.*\"$key\": *\"([^\"]*)\".*/\1/" | head -1
+    echo "$yaml" | grep "^$key:" | sed "s/^$key: *//" | sed 's/^"//;s/"$//' | head -1
+}
+
+# YAMLからタグリストを取得
+get_yaml_tags() {
+    local yaml="$1"
+    # tags:セクションから次のセクションまでを抽出
+    echo "$yaml" | sed -n '/^tags:/,/^[a-zA-Z]/p' | grep '  - ' | sed 's/  - //;s/"//g' | tr '\n' ',' | sed 's/,$//' 
+}
+
+# YAMLからネストされた値を取得（file.pathなど）
+get_nested_yaml_value() {
+    local yaml="$1"
+    local section="$2"
+    local key="$3"
+    echo "$yaml" | sed -n "/^$section:/,/^[a-zA-Z]/p" | grep "  $key:" | sed "s/.*$key: *//" | sed 's/"//g' | head -1
 }
 
 # 検索実行
@@ -58,28 +73,28 @@ search_instructions() {
     
     # メタデータファイルを検索
     while IFS= read -r -d '' meta_file; do
-        if [[ -f "$meta_file" ]]; then
+        if [[ -f "$meta_file" ]] && [[ "$meta_file" == *.yaml ]] && [[ -f "${meta_file%.yaml}.md" ]]; then
             local content=$(cat "$meta_file")
             local match=true
             
             # フィルタリング
             if [[ -n "$category_filter" ]]; then
-                local category=$(get_json_value "$content" "category")
+                local category=$(get_yaml_value "$content" "category")
                 [[ "$category" != "$category_filter" ]] && match=false
             fi
             
             if [[ -n "$language_filter" ]]; then
-                local language=$(get_json_value "$content" "language")
+                local language=$(get_yaml_value "$content" "language")
                 [[ "$language" != "$language_filter" ]] && match=false
             fi
             
             if [[ -n "$tag_filter" ]]; then
-                local tags=$(get_json_value "$content" "tags")
+                local tags=$(get_yaml_tags "$content")
                 [[ ! "$tags" =~ "$tag_filter" ]] && match=false
             fi
             
             if [[ -n "$author_filter" ]]; then
-                local author=$(get_json_value "$content" "author")
+                local author=$(get_nested_yaml_value "$content" "metadata" "author")
                 [[ "$author" != "$author_filter" ]] && match=false
             fi
             
@@ -96,7 +111,7 @@ search_instructions() {
                 results+=("$meta_file")
             fi
         fi
-    done < <(find "$INSTRUCTIONS_DIR" -name "*${METADATA_EXT}" -print0 2>/dev/null)
+    done < <(find "$INSTRUCTIONS_DIR" -name "*.yaml" -print0 2>/dev/null)
     
     # 結果表示
     if [[ $found_count -eq 0 ]]; then
@@ -113,10 +128,10 @@ search_instructions() {
     # フォーマットに応じて表示
     for meta_file in "${results[@]}"; do
         local content=$(cat "$meta_file")
-        local path=$(get_json_value "$content" "path")
-        local title=$(get_json_value "$content" "title")
-        local category=$(get_json_value "$content" "category")
-        local language=$(get_json_value "$content" "language")
+        local path=$(get_nested_yaml_value "$content" "file" "path")
+        local title=$(get_yaml_value "$content" "name")
+        local category=$(get_yaml_value "$content" "category")
+        local language=$(get_yaml_value "$content" "language")
         
         case "$format" in
             "detail")
@@ -125,13 +140,13 @@ search_instructions() {
                 echo -e "${GREEN}パス:${NC} $INSTRUCTIONS_DIR/$path"
                 echo -e "${GREEN}カテゴリ:${NC} $category"
                 echo -e "${GREEN}言語:${NC} $language"
-                local description=$(get_json_value "$content" "description")
+                local description=$(get_yaml_value "$content" "description")
                 echo -e "${GREEN}説明:${NC} $description"
-                local tags=$(get_json_value "$content" "tags")
+                local tags=$(get_yaml_tags "$content")
                 echo -e "${GREEN}タグ:${NC} $tags"
-                local author=$(get_json_value "$content" "author")
+                local author=$(get_nested_yaml_value "$content" "metadata" "author")
                 [[ -n "$author" ]] && echo -e "${GREEN}著者:${NC} $author"
-                local license=$(get_json_value "$content" "license")
+                local license=$(get_nested_yaml_value "$content" "metadata" "license")
                 [[ -n "$license" ]] && echo -e "${GREEN}ライセンス:${NC} $license"
                 echo ""
                 ;;

@@ -1,0 +1,32 @@
+# python_expert.md メタデータ
+id: "en_agent_python_expert"
+name: "Python Development Expert"
+description: "## Your Role"
+version: "1.0.0"
+category: "agent"
+language: "en"
+tags:
+  - "agent"
+  - "en"
+  - "python"
+
+# ファイル情報
+file:
+  name: "python_expert.md"
+  path: "en/agent/python_expert.md"
+  size: 3365
+  checksum: "3e5d453e8f7a165da141ded9e0e5c282"
+  last_modified: "2025-07-03T22:20:11+0900"
+
+# メタ情報
+metadata:
+  author: "dobachi"
+  created: "2025-07-09"
+  updated: "2025-07-09"
+  license: "Apache-2.0"
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

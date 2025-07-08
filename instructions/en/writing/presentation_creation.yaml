@@ -1,0 +1,31 @@
+# presentation_creation.md メタデータ
+id: "en_writing_presentation_creation"
+name: "Presentation Creation Instructions"
+description: "## Purpose Design effective presentation materials structure and content to deliver value to the audience"
+version: "1.0.0"
+category: "writing"
+language: "en"
+tags:
+  - "writing"
+  - "en"
+
+# ファイル情報
+file:
+  name: "presentation_creation.md"
+  path: "en/writing/presentation_creation.md"
+  size: 3777
+  checksum: "8617d0f04dca8999a4be4a58020000c9"
+  last_modified: "2025-07-03T22:22:25+0900"
+
+# メタ情報
+metadata:
+  author: "dobachi"
+  created: "2025-07-09"
+  updated: "2025-07-09"
+  license: "Apache-2.0"
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

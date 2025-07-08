@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 AI指示書選択ツール
-メタデータを基に適切な指示書を選択するためのツール
+分散型YAMLメタデータを基に適切な指示書を選択するためのツール
 """
 
 import os
@@ -18,13 +18,21 @@ class InstructionSelector:
     
     def _load_all_metadata(self):
         """すべてのメタデータファイルを読み込む"""
-        for meta_file in self.instructions_dir.rglob("*.meta.yaml"):
-            with open(meta_file, 'r', encoding='utf-8') as f:
-                metadata = yaml.safe_load(f)
-                self.metadata_cache[metadata['id']] = {
-                    'metadata': metadata,
-                    'path': meta_file.with_suffix('').with_suffix('.md')
-                }
+        # 新しい命名規則: instruction_name.yaml
+        for yaml_file in self.instructions_dir.rglob("*.yaml"):
+            # YAMLファイルと同名のMDファイルが存在する場合のみ処理
+            md_file = yaml_file.with_suffix('.md')
+            if md_file.exists():
+                try:
+                    with open(yaml_file, 'r', encoding='utf-8') as f:
+                        metadata = yaml.safe_load(f)
+                        if metadata and 'id' in metadata:
+                            self.metadata_cache[metadata['id']] = {
+                                'metadata': metadata,
+                                'path': md_file
+                            }
+                except Exception as e:
+                    print(f"警告: メタデータ読み込みエラー {yaml_file}: {e}")
     
     def search_by_keywords(self, keywords: List[str]) -> List[Dict]:
         """キーワードでマッチする指示書を検索"""
@@ -35,9 +43,8 @@ class InstructionSelector:
             
             # キーワードマッチングのスコア計算
             all_text = ' '.join([
-                metadata.get('title', ''),
+                metadata.get('name', ''),
                 metadata.get('description', ''),
-                ' '.join(metadata.get('keywords', [])),
                 ' '.join(metadata.get('tags', []))
             ]).lower()
             
@@ -125,15 +132,18 @@ def main():
             print(result['path'])
         elif args.format == 'detailed':
             print(f"ID: {result['id']}")
-            print(f"Title: {result['metadata']['title']}")
-            print(f"Description: {result['metadata']['description']}")
-            print(f"Category: {result['metadata']['category']}")
-            print(f"Path: {result['path']}")
+            print(f"名前: {result['metadata']['name']}")
+            print(f"説明: {result['metadata']['description']}")
+            print(f"カテゴリ: {result['metadata']['category']}")
+            print(f"言語: {result['metadata']['language']}")
+            print(f"パス: {result['path']}")
+            if result['metadata'].get('tags'):
+                print(f"タグ: {', '.join(result['metadata']['tags'])}")
             if args.show_deps and result['metadata'].get('dependencies'):
-                print(f"Dependencies: {', '.join(result['metadata']['dependencies'])}")
+                print(f"依存関係: {', '.join(result['metadata']['dependencies'])}")
             print("-" * 50)
         else:
-            print(f"{result['id']}: {result['metadata']['title']}")
+            print(f"{result['id']}: {result['metadata']['name']}")
     
     # 依存関係の表示
     if args.show_deps and args.id:
@@ -141,7 +151,7 @@ def main():
         if deps:
             print("\n依存する指示書:")
             for dep in deps:
-                print(f"  - {dep['id']}: {dep['metadata']['title']}")
+                print(f"  - {dep['id']}: {dep['metadata']['name']}")
 
 if __name__ == "__main__":
     main()

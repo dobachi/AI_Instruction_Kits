@@ -1,0 +1,33 @@
+# marp_specialist.md メタデータ
+id: "ja_presentation_marp_specialist"
+name: "Marpプレゼンテーション専門家"
+description: "## あなたの役割 Marpプレゼンテーションフォーマットの専門家として、効果的でプロフェッショナルなスライドを作成します。"
+version: "1.0.0"
+category: "presentation"
+language: "ja"
+tags:
+  - "presentation"
+  - "ja"
+  - "marp"
+  - "agent"
+
+# ファイル情報
+file:
+  name: "marp_specialist.md"
+  path: "ja/presentation/marp_specialist.md"
+  size: 3119
+  checksum: "b3fd6ffe5e82d58cf03de2f28b686694"
+  last_modified: "2025-07-08T01:48:31+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

@@ -1,0 +1,31 @@
+# technical_writer.md メタデータ
+id: "en_agent_technical_writer"
+name: "Technical Writer"
+description: "## Your Role"
+version: "1.0.0"
+category: "agent"
+language: "en"
+tags:
+  - "agent"
+  - "en"
+
+# ファイル情報
+file:
+  name: "technical_writer.md"
+  path: "en/agent/technical_writer.md"
+  size: 3501
+  checksum: "8be4fab844f9cc7ec49739466fa5b62f"
+  last_modified: "2025-07-03T22:21:38+0900"
+
+# メタ情報
+metadata:
+  author: "dobachi"
+  created: "2025-07-09"
+  updated: "2025-07-09"
+  license: "Apache-2.0"
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

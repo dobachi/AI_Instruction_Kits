@@ -1,0 +1,31 @@
+# basic_creative_work.md メタデータ
+id: "en_creative_basic_creative_work"
+name: "Basic Creative Work"
+description: "## Purpose To generate creative ideas and content, providing innovative solutions"
+version: "1.0.0"
+category: "creative"
+language: "en"
+tags:
+  - "creative"
+  - "en"
+
+# ファイル情報
+file:
+  name: "basic_creative_work.md"
+  path: "en/creative/basic_creative_work.md"
+  size: 1326
+  checksum: "d7e544a6a79be8be20f5a4ff0ed86319"
+  last_modified: "2025-07-01T09:04:57+0900"
+
+# メタ情報
+metadata:
+  author: "dobachi"
+  created: "2025-07-09"
+  updated: "2025-07-09"
+  license: "Apache-2.0"
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

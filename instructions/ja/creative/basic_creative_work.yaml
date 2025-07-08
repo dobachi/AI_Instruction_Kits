@@ -1,0 +1,31 @@
+# basic_creative_work.md メタデータ
+id: "ja_creative_basic_creative_work"
+name: "基本的なクリエイティブ作業"
+description: "## 目的 創造的なアイデアやコンテンツを生成し、独創的な解決策を提供する"
+version: "1.0.0"
+category: "creative"
+language: "ja"
+tags:
+  - "creative"
+  - "ja"
+
+# ファイル情報
+file:
+  name: "basic_creative_work.md"
+  path: "ja/creative/basic_creative_work.md"
+  size: 1682
+  checksum: "633c50c403be3c73fd16afd8123b0363"
+  last_modified: "2025-07-01T09:04:57+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

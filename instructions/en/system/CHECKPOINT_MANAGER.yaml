@@ -1,0 +1,31 @@
+# CHECKPOINT_MANAGER.md メタデータ
+id: "en_system_CHECKPOINT_MANAGER"
+name: "Checkpoint Management System (Flexible Configuration)"
+description: "## Purpose Track and report task progress concisely and consistently"
+version: "1.0.0"
+category: "system"
+language: "en"
+tags:
+  - "system"
+  - "en"
+
+# ファイル情報
+file:
+  name: "CHECKPOINT_MANAGER.md"
+  path: "en/system/CHECKPOINT_MANAGER.md"
+  size: 2671
+  checksum: "f5925bf356538f046f9a3dfb69d7d386"
+  last_modified: "2025-07-05T23:43:53+0900"
+
+# メタ情報
+metadata:
+  author: "dobachi"
+  created: "2025-07-09"
+  updated: "2025-07-09"
+  license: "Apache-2.0"
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

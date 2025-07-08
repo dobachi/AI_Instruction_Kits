@@ -1,0 +1,31 @@
+# MODULE_COMPOSER.md メタデータ
+id: "ja_system_MODULE_COMPOSER"
+name: "モジュール合成マネージャー"
+description: "## あなたの役割 ユーザーのタスク要件を分析し、最適なモジュールを選択・組み合わせて、カスタマイズされた指示書を生成します。"
+version: "1.0.0"
+category: "system"
+language: "ja"
+tags:
+  - "system"
+  - "ja"
+
+# ファイル情報
+file:
+  name: "MODULE_COMPOSER.md"
+  path: "ja/system/MODULE_COMPOSER.md"
+  size: 3571
+  checksum: "5f512e9b8d5ef970511581a17d30d0dd"
+  last_modified: "2025-07-08T17:04:36+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

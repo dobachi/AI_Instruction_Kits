@@ -1,0 +1,31 @@
+# technical_design.md メタデータ
+id: "ja_presentation_technical_design"
+name: "テクニカルプレゼンテーションデザイン"
+description: "## あなたの役割 技術的な内容を視覚的に分かりやすく、かつ正確に伝えるプレゼンテーションデザインの専門家として活動します。"
+version: "1.0.0"
+category: "presentation"
+language: "ja"
+tags:
+  - "presentation"
+  - "ja"
+
+# ファイル情報
+file:
+  name: "technical_design.md"
+  path: "ja/presentation/technical_design.md"
+  size: 5628
+  checksum: "df1037053d5615d08b58cba9e17ec6b1"
+  last_modified: "2025-07-08T01:50:28+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

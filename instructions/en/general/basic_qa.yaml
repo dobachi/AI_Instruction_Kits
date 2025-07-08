@@ -1,0 +1,31 @@
+# basic_qa.md メタデータ
+id: "en_general_basic_qa"
+name: "Basic Question Answering"
+description: "## Purpose To provide accurate and useful answers to user questions"
+version: "1.0.0"
+category: "general"
+language: "en"
+tags:
+  - "general"
+  - "en"
+
+# ファイル情報
+file:
+  name: "basic_qa.md"
+  path: "en/general/basic_qa.md"
+  size: 1185
+  checksum: "07c4d47606ac1226fac1e5025a729e89"
+  last_modified: "2025-07-01T09:04:57+0900"
+
+# メタ情報
+metadata:
+  author: "dobachi"
+  created: "2025-07-09"
+  updated: "2025-07-09"
+  license: "Apache-2.0"
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

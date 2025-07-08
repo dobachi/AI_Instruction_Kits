@@ -1,0 +1,31 @@
+# basic_code_generation.md メタデータ
+id: "en_coding_basic_code_generation"
+name: "Basic Code Generation"
+description: "## Purpose To generate working program code according to user requirements"
+version: "1.0.0"
+category: "coding"
+language: "en"
+tags:
+  - "coding"
+  - "en"
+
+# ファイル情報
+file:
+  name: "basic_code_generation.md"
+  path: "en/coding/basic_code_generation.md"
+  size: 1343
+  checksum: "9618b0addbb1e4e90329801f217d5349"
+  last_modified: "2025-07-01T09:04:57+0900"
+
+# メタ情報
+metadata:
+  author: "dobachi"
+  created: "2025-07-09"
+  updated: "2025-07-09"
+  license: "Apache-2.0"
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

@@ -1,0 +1,31 @@
+# CHECKPOINT_MANAGER.md メタデータ
+id: "ja_system_CHECKPOINT_MANAGER"
+name: "チェックポイント管理システム（柔軟な構成版）"
+description: "## 目的 タスクの進捗を簡潔かつ一貫性を持って追跡・報告する"
+version: "1.0.0"
+category: "system"
+language: "ja"
+tags:
+  - "system"
+  - "ja"
+
+# ファイル情報
+file:
+  name: "CHECKPOINT_MANAGER.md"
+  path: "ja/system/CHECKPOINT_MANAGER.md"
+  size: 2910
+  checksum: "4000c908bde3285b29a0163c3af1865f"
+  last_modified: "2025-07-05T23:43:42+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

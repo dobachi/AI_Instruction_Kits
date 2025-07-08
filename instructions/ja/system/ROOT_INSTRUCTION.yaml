@@ -1,0 +1,31 @@
+# ROOT_INSTRUCTION.md メタデータ
+id: "ja_system_ROOT_INSTRUCTION"
+name: "AI指示書マネージャー（柔軟な構成版）"
+description: "あなたは指示書マネージャーとして機能します。ユーザーのタスクに基づいて、このリポジトリから適切な指示書を読み込み、それらの指示に従って作業を実行してください。"
+version: "1.0.0"
+category: "system"
+language: "ja"
+tags:
+  - "system"
+  - "ja"
+
+# ファイル情報
+file:
+  name: "ROOT_INSTRUCTION.md"
+  path: "ja/system/ROOT_INSTRUCTION.md"
+  size: 4460
+  checksum: "4a578c45a43c797cb3197b45d0b41bba"
+  last_modified: "2025-07-08T01:57:24+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

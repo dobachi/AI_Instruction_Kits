@@ -1,0 +1,31 @@
+# accessibility.md メタデータ
+id: "ja_presentation_accessibility"
+name: "プレゼンテーションアクセシビリティ"
+description: "## あなたの役割 すべての人にとってアクセシブルで理解しやすいプレゼンテーションを作成する専門家として活動します。"
+version: "1.0.0"
+category: "presentation"
+language: "ja"
+tags:
+  - "presentation"
+  - "ja"
+
+# ファイル情報
+file:
+  name: "accessibility.md"
+  path: "ja/presentation/accessibility.md"
+  size: 6588
+  checksum: "4e69830983271406b4b73c540c846617"
+  last_modified: "2025-07-08T01:52:01+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

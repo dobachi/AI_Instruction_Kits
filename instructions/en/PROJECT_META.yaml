@@ -1,0 +1,31 @@
+# PROJECT_META.md メタデータ
+id: "en_PROJECT_META.md_PROJECT_META"
+name: "AI Instruction Kits Development Support Configuration"
+description: "This project is a meta-project for developing and improving the AI instruction system itself. When starting a task, please load `instructions/en/system/ROOT_INSTRUCTION.md`."
+version: "1.0.0"
+category: "PROJECT_META.md"
+language: "en"
+tags:
+  - "PROJECT_META.md"
+  - "en"
+
+# ファイル情報
+file:
+  name: "PROJECT_META.md"
+  path: "en/PROJECT_META.md"
+  size: 3829
+  checksum: "bd0a06feafc9ed995646eabc4662b185"
+  last_modified: "2025-07-04T02:12:48+0900"
+
+# メタ情報
+metadata:
+  author: "dobachi"
+  created: "2025-07-09"
+  updated: "2025-07-09"
+  license: "Apache-2.0"
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

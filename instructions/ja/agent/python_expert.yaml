@@ -1,0 +1,32 @@
+# python_expert.md メタデータ
+id: "ja_agent_python_expert"
+name: "Python開発エキスパート"
+description: "## あなたの役割"
+version: "1.0.0"
+category: "agent"
+language: "ja"
+tags:
+  - "agent"
+  - "ja"
+  - "python"
+
+# ファイル情報
+file:
+  name: "python_expert.md"
+  path: "ja/agent/python_expert.md"
+  size: 3761
+  checksum: "36b71d3e7a3ea4b548e0a0e2e403698d"
+  last_modified: "2025-07-01T13:07:17+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

@@ -1,0 +1,31 @@
+# technical_design.md メタデータ
+id: "en_presentation_technical_design"
+name: "Technical Presentation Design"
+description: "## Your Role Act as an expert in creating presentations that communicate technical content visually, clearly, and accurately."
+version: "1.0.0"
+category: "presentation"
+language: "en"
+tags:
+  - "presentation"
+  - "en"
+
+# ファイル情報
+file:
+  name: "technical_design.md"
+  path: "en/presentation/technical_design.md"
+  size: 4829
+  checksum: "3417053071bc13710f2552a8944f1f21"
+  last_modified: "2025-07-08T01:55:03+0900"
+
+# メタ情報
+metadata:
+  author: "dobachi"
+  created: "2025-07-09"
+  updated: "2025-07-09"
+  license: "Apache-2.0"
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

@@ -1,0 +1,31 @@
+# basic_code_generation.md メタデータ
+id: "ja_coding_basic_code_generation"
+name: "基本的なコード生成"
+description: "## 目的 ユーザーの要求に応じて、動作するプログラムコードを生成する"
+version: "1.0.0"
+category: "coding"
+language: "ja"
+tags:
+  - "coding"
+  - "ja"
+
+# ファイル情報
+file:
+  name: "basic_code_generation.md"
+  path: "ja/coding/basic_code_generation.md"
+  size: 1536
+  checksum: "8e872753c3e3417fbd9c43d6131fe788"
+  last_modified: "2025-07-01T09:04:57+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

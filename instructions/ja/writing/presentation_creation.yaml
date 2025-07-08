@@ -1,0 +1,31 @@
+# presentation_creation.md メタデータ
+id: "ja_writing_presentation_creation"
+name: "プレゼンテーション作成指示書"
+description: "## 目的 効果的なプレゼンテーション資料の構成と内容を設計し、聴衆に価値を提供する"
+version: "1.0.0"
+category: "writing"
+language: "ja"
+tags:
+  - "writing"
+  - "ja"
+
+# ファイル情報
+file:
+  name: "presentation_creation.md"
+  path: "ja/writing/presentation_creation.md"
+  size: 4493
+  checksum: "dd3310acd6bcac4869cffaf36135dfaf"
+  last_modified: "2025-07-03T11:33:56+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

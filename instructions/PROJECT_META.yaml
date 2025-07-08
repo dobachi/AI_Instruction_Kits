@@ -1,0 +1,31 @@
+# PROJECT_META.md メタデータ
+id: "PROJECT_META.md_PROJECT_META.md_PROJECT_META"
+name: "AI指示書キット開発支援設定"
+description: "このプロジェクトはAI指示書システム自体の開発・改善を行うためのメタプロジェクトです。 タスク開始時は`instructions/ja/system/ROOT_INSTRUCTION.md`を読み込んでください。"
+version: "1.0.0"
+category: "PROJECT_META.md"
+language: "PROJECT_META.md"
+tags:
+  - "PROJECT_META.md"
+  - "PROJECT_META.md"
+
+# ファイル情報
+file:
+  name: "PROJECT_META.md"
+  path: "PROJECT_META.md"
+  size: 4455
+  checksum: "b77a3a3318fb950d04f0504a64400cde"
+  last_modified: "2025-07-06T01:57:51+0900"
+
+# メタ情報
+metadata:
+  author: ""
+  created: ""
+  updated: "2025-07-09"
+  license: ""
+  reference: ""
+
+# 将来の拡張用
+dependencies: []
+compatible_modules: []
+variables: {}

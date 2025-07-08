@@ -3,7 +3,7 @@
 # AI指示書メタデータ生成スクリプト
 # 各指示書ファイルから.yamlファイルを生成し、分散型メタデータシステムを構築
 
-set -e
+# set -e
 
 # 色の定義
 GREEN='\033[0;32m'
@@ -38,12 +38,14 @@ extract_metadata() {
     # ファイルの基本情報
     local filename=$(basename "$file")
     local relative_path="${file#$INSTRUCTIONS_DIR/}"
+    # パスがinstructions/から始まる場合の対応
+    relative_path="${relative_path#instructions/}"
     local language=$(echo "$relative_path" | cut -d'/' -f1)
     local category=$(echo "$relative_path" | cut -d'/' -f2)
     local title=$(head -n 1 "$file" | sed 's/^# *//')
     
     # IDを生成（category_filename形式）
-    local id="${category}_${filename%.md}"
+    local id="${language}_${category}_${filename%.md}"
     
     # 既存のメタデータを抽出（末尾のライセンス情報セクション）
     local license="Apache-2.0"
@@ -65,11 +67,16 @@ extract_metadata() {
     
     # タグを自動生成（カテゴリ、言語、特定のキーワードから）
     local tags=""
-    [[ "$title" =~ "Marp" ]] && tags="  - \"marp\""
-    [[ "$title" =~ "Python" ]] && tags="${tags}\n  - \"python\""
-    [[ "$title" =~ "エージェント" || "$title" =~ "専門家" ]] && tags="${tags}\n  - \"agent\""
-    [[ "$title" =~ "API" ]] && tags="${tags}\n  - \"api\""
-    [[ "$title" =~ "Web" ]] && tags="${tags}\n  - \"web\""
+    [[ "$title" =~ "Marp" ]] && tags="${tags}
+  - \"marp\""
+    [[ "$title" =~ "Python" ]] && tags="${tags}
+  - \"python\""
+    [[ "$title" =~ "エージェント" || "$title" =~ "専門家" ]] && tags="${tags}
+  - \"agent\""
+    [[ "$title" =~ "API" ]] && tags="${tags}
+  - \"api\""
+    [[ "$title" =~ "Web" ]] && tags="${tags}
+  - \"web\""
     
     # ファイル情報
     local file_size=$(stat -c%s "$file" 2>/dev/null || stat -f%z "$file" 2>/dev/null || echo "0")
@@ -121,6 +128,28 @@ main() {
         exit 0
     fi
     
+    # 単一ファイル処理モード
+    if [[ -f "$1" ]] && [[ "$1" == *.md ]]; then
+        echo -e "${YELLOW}=== 単一ファイルモード ===${NC}"
+        echo "対象ファイル: $1"
+        
+        # INSTRUCTIONS_DIRを推測
+        if [[ "$1" =~ instructions/ ]]; then
+            INSTRUCTIONS_DIR=$(echo "$1" | sed 's|/instructions/.*|/instructions|')
+        else
+            INSTRUCTIONS_DIR="instructions"
+        fi
+        
+        if extract_metadata "$1"; then
+            echo -e "${GREEN}✓ 完了${NC}"
+        else
+            echo -e "${RED}✗ エラー${NC}"
+            exit 1
+        fi
+        exit 0
+    fi
+    
+    # ディレクトリ処理モード
     if [[ ! -d "$INSTRUCTIONS_DIR" ]]; then
         echo -e "${RED}エラー: ディレクトリが見つかりません: $INSTRUCTIONS_DIR${NC}"
         exit 1
