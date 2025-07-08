@@ -1,7 +1,16 @@
 # 指示書検索・フィルタリング機能 開発計画
 
+**ステータス**: ✅ Phase 1 実装完了（2025-01-09）
+
 ## 概要
 AI指示書キットに検索・フィルタリング機能を追加し、指示書が増えても必要なものを素早く見つけられるようにする。
+
+## 実装済み機能
+- ✅ 分散型メタデータシステム（YAML形式）
+- ✅ メタデータ生成スクリプト (`generate-metadata.sh`)
+- ✅ 検索スクリプト (`search-instructions.sh`)
+- ✅ Python APIツール更新 (`select-instruction.py`)
+- ✅ 全33ファイルのメタデータ生成完了
 
 ## 開発目標
 1. **タグベースの分類システム**
@@ -9,45 +18,50 @@ AI指示書キットに検索・フィルタリング機能を追加し、指示
 3. **依存関係の可視化**
 4. **使用頻度に基づく推奨**
 
-## フェーズ1: 基盤構築（推定: 1週間）
+## フェーズ1: 基盤構築（✅ 完了）
 
-### 1.1 メタデータシステムの設計
-- 各指示書にメタデータを追加する仕組み
-- YAMLフロントマターを活用
-- 必要なメタデータ項目：
+### 1.1 メタデータシステムの設計 ✅
+- 各指示書に対応する`.yaml`ファイルで管理（分散型）
+- 実装したメタデータ項目：
   ```yaml
-  ---
-  tags: [coding, python, api]
-  dependencies: [basic_code_generation.md]
-  category: coding
-  difficulty: intermediate
-  created: 2025-01-05
-  updated: 2025-01-05
-  ---
+  id: "ja_coding_basic_code_generation"
+  name: "基本的なコード生成"
+  description: "説明文..."
+  version: "1.0.0"
+  category: "coding"
+  language: "ja"
+  tags:
+    - "coding"
+    - "basic"
+  file:
+    name: "basic_code_generation.md"
+    path: "ja/coding/basic_code_generation.md"
+    size: 2048
+    checksum: "a1b2c3d4..."
+    last_modified: "2025-01-09T10:00:00+09:00"
+  metadata:
+    author: "dobachi"
+    created: "2025-06-30"
+    updated: "2025-01-09"
+    license: "Apache-2.0"
   ```
 
-### 1.2 検索インデックスの構築
-- `scripts/build-index.sh` - インデックス構築スクリプト
-- JSON形式でインデックスを保存
-- 構造例：
-  ```json
-  {
-    "instructions": [
-      {
-        "path": "instructions/ja/coding/basic_code_generation.md",
-        "title": "基本的なコード生成",
-        "tags": ["coding", "basic"],
-        "content_preview": "...",
-        "dependencies": [],
-        "last_updated": "2025-01-05"
-      }
-    ]
-  }
-  ```
+### 1.2 検索インデックスの構築 ✅
+- 分散型アプローチを採用（各`.yaml`ファイルがインデックスとして機能）
+- `scripts/generate-metadata.sh` - メタデータ生成スクリプト
+  - 単一ファイル処理サポート
+  - 一括処理サポート
+  - 既存メタデータの自動抽出
 
-### 1.3 基本検索ツールの実装
-- `scripts/search-instruction.sh` - コマンドライン検索ツール
-- 基本的なキーワード検索
+### 1.3 基本検索ツールの実装 ✅
+- `scripts/search-instructions.sh` - コマンドライン検索ツール
+  - キーワード検索
+  - カテゴリ絞り込み (`-c`)
+  - 言語絞り込み (`-l`)
+  - タグ検索 (`-t`)
+  - 著者検索 (`-a`)
+  - 複数の出力形式 (list/detail/path)
+- `scripts/select-instruction.py` - Python APIツール（YAML対応済み）
 - タグによるフィルタリング
 
 ## フェーズ2: 検索機能の実装（推定: 1週間）

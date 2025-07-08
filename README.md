@@ -37,8 +37,11 @@
 │       ├── instruction_template.md  # 指示書作成用テンプレート
 │       └── PROJECT_TEMPLATE.md      # PROJECT.en.md用テンプレート
 └── scripts/       # ツール・ユーティリティ
-    ├── setup-project.sh  # プロジェクト統合用セットアップスクリプト
-    └── checkpoint.sh     # チェックポイント管理スクリプト
+    ├── setup-project.sh        # プロジェクト統合用セットアップスクリプト
+    ├── checkpoint.sh           # チェックポイント管理スクリプト
+    ├── generate-metadata.sh    # メタデータ生成スクリプト
+    ├── search-instructions.sh  # 指示書検索スクリプト
+    └── select-instruction.py   # Pythonベースの指示書選択ツール
 ```
 
 ## 主要ファイル
@@ -46,6 +49,9 @@
 ### AIへの指示書
 - **[instructions/ja/system/ROOT_INSTRUCTION.md](instructions/ja/system/ROOT_INSTRUCTION.md)** - AIが指示書マネージャーとして動作
 - **[instructions/ja/system/INSTRUCTION_SELECTOR.md](instructions/ja/system/INSTRUCTION_SELECTOR.md)** - キーワードベースの自動選択
+
+### メタデータシステム（新機能）
+各指示書ファイルには対応する`.yaml`メタデータファイルが付随し、高速検索やカテゴリ絞り込みが可能です。
 
 ### 人間向けドキュメント
 - **[プロジェクトサイト](https://dobachi.github.io/AI_Instruction_Kits/)** - 詳細なドキュメント（GitHub Pages）
@@ -151,11 +157,34 @@ claude "CLAUDE.mdを参照して、ユーザー認証機能を実装して"
    claude "instructions/ja/system/INSTRUCTION_SELECTOR.md を参照して、Web APIを実装"
    ```
 
+3. **検索機能を使う場合（新機能）**
+   ```bash
+   # キーワードで検索
+   ./scripts/search-instructions.sh python
+   
+   # カテゴリで絞り込み
+   ./scripts/search-instructions.sh -c coding -l ja
+   
+   # 詳細情報を表示
+   ./scripts/search-instructions.sh -f detail marp
+   
+   # Pythonツールで検索
+   python3 scripts/select-instruction.py --search "API開発"
+   ```
+
 ### 新しい指示書の追加
 
 1. 適切なカテゴリと言語のディレクトリに指示書を保存
 2. ファイル名は内容が分かりやすい名前を使用
 3. Markdownフォーマット（.md）で記述することを推奨
+4. メタデータを生成して検索可能にする
+   ```bash
+   # 単一ファイルのメタデータ生成
+   ./scripts/generate-metadata.sh instructions/ja/coding/my_new_instruction.md
+   
+   # 全ファイルのメタデータを再生成
+   ./scripts/generate-metadata.sh
+   ```
 
 ### PROJECT.mdのカスタマイズ
 

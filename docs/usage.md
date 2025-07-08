@@ -102,7 +102,59 @@ cp templates/ja/instruction_template.md instructions/ja/[category]/my_instructio
 
 2. 内容を編集
 
-3. ROOT_INSTRUCTION.mdに追加（オプション）
+3. メタデータを生成：
+```bash
+./scripts/generate-metadata.sh instructions/ja/[category]/my_instruction.md
+```
+
+4. ROOT_INSTRUCTION.mdに追加（オプション）
+
+## 🔍 検索機能の活用（新機能）
+
+### 基本的な検索
+
+```bash
+# キーワード検索
+./scripts/search-instructions.sh python
+
+# カテゴリで絞り込み
+./scripts/search-instructions.sh -c coding
+
+# 言語で絞り込み
+./scripts/search-instructions.sh -l ja
+
+# 詳細情報を表示
+./scripts/search-instructions.sh -f detail marp
+```
+
+### 複合検索
+
+```bash
+# 日本語のコーディング指示書を検索
+./scripts/search-instructions.sh -l ja -c coding
+
+# Pythonに関するエージェント型指示書を詳細表示
+./scripts/search-instructions.sh -c agent -f detail python
+```
+
+### Python APIを使った検索
+
+```python
+# scripts/select-instruction.pyを使用
+python3 scripts/select-instruction.py --search "API開発"
+python3 scripts/select-instruction.py --category agent
+python3 scripts/select-instruction.py --id ja_agent_python_expert
+```
+
+### メタデータの管理
+
+```bash
+# 全指示書のメタデータを再生成
+./scripts/generate-metadata.sh
+
+# メタデータの整合性チェック（ファイルサイズやチェックサムを確認）
+ls -la instructions/**/*.yaml
+```
 
 ### 組織用カスタマイズ例
 
