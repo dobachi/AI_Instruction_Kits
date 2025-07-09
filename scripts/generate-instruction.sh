@@ -13,9 +13,7 @@ OUTPUT_FILE=""
 MODULES=()
 PRESET=""
 VARIABLES=()
-DRY_RUN=false
-LIST_MODULES=false
-REFRESH_CACHE=false
+LIST_TYPE=""
 
 # ヘルプメッセージ
 show_help() {
@@ -25,22 +23,26 @@ show_help() {
 オプション:
   --modules MODULE1 MODULE2 ...  使用するモジュールIDのリスト
   --preset PRESET_NAME          プリセット名を指定
-  --output FILE                 出力ファイル名（デフォルト: 標準出力）
+  --output FILE                 出力ファイル名
   --variable KEY=VALUE          変数を設定（複数指定可）
-  --dry-run                     実際には生成せず、使用モジュールを表示
-  --list                        利用可能なモジュール一覧を表示
-  --refresh-cache               モジュールキャッシュを更新
+  --list TYPE                   利用可能な要素を表示 (presets|modules)
   --help                        このヘルプを表示
 
 例:
   # モジュールを直接指定
-  $0 --modules task_web_api skill_tdd --output api_instruction.md
+  $0 --modules core_role_definition task_code_generation --output api_instruction.md
 
   # プリセットを使用
   $0 --preset web_api_production --output api_instruction.md
 
   # 変数を指定
-  $0 --modules task_web_api --variable framework=FastAPI
+  $0 --preset web_api_production --variable framework=FastAPI
+
+  # 利用可能なプリセット一覧
+  $0 --list presets
+
+  # 利用可能なモジュール一覧
+  $0 --list modules
 EOF
 }
 
@@ -66,17 +68,9 @@ while [[ $# -gt 0 ]]; do
             VARIABLES+=("$2")
             shift 2
             ;;
-        --dry-run)
-            DRY_RUN=true
-            shift
-            ;;
         --list)
-            LIST_MODULES=true
-            shift
-            ;;
-        --refresh-cache)
-            REFRESH_CACHE=true
-            shift
+            LIST_TYPE="$2"
+            shift 2
             ;;
         --help)
             show_help
@@ -90,27 +84,57 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# 特殊コマンドを先に処理
-if [[ "$LIST_MODULES" == "true" ]]; then
-    python3 "${MODULAR_DIR}/composer.py" --list
+# プロジェクトルートディレクトリを取得
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PROJECT_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
+cd "$PROJECT_ROOT"
+
+# Pythonスクリプトのパスを設定
+COMPOSER_PY="${MODULAR_DIR}/composer.py"
+
+# composer.pyの存在確認
+if [[ ! -f "$COMPOSER_PY" ]]; then
+    echo "エラー: $COMPOSER_PY が見つかりません"
+    exit 1
+fi
+
+# listコマンドの処理
+if [[ -n "$LIST_TYPE" ]]; then
+    python3 "$COMPOSER_PY" list "$LIST_TYPE"
     exit 0
 fi
 
-if [[ "$REFRESH_CACHE" == "true" ]]; then
-    python3 "${MODULAR_DIR}/composer.py" --refresh-cache
-    exit 0
+# モジュールとプリセットのいずれかが必須
+if [[ ${#MODULES[@]} -eq 0 ]] && [[ -z "$PRESET" ]]; then
+    echo "エラー: --modules または --preset のいずれかを指定してください"
+    show_help
+    exit 1
+fi
+
+# 両方指定された場合はエラー
+if [[ ${#MODULES[@]} -gt 0 ]] && [[ -n "$PRESET" ]]; then
+    echo "エラー: --modules と --preset は同時に指定できません"
+    exit 1
 fi
 
 # Pythonコンポーザーを呼び出す
-ARGS=()
-for module in "${MODULES[@]}"; do
-    ARGS+=("--module" "$module")
-done
-[[ -n "$PRESET" ]] && ARGS+=("--preset" "$PRESET")
-[[ -n "$OUTPUT_FILE" ]] && ARGS+=("--output" "$OUTPUT_FILE")
-for var in "${VARIABLES[@]}"; do
-    ARGS+=("--variable" "$var")
-done
-[[ "$DRY_RUN" == "true" ]] && ARGS+=("--dry-run")
-
-python3 "${MODULAR_DIR}/composer.py" "${ARGS[@]}"
+if [[ -n "$PRESET" ]]; then
+    # プリセットを使用
+    ARGS=("preset" "$PRESET")
+    [[ -n "$OUTPUT_FILE" ]] && ARGS+=("-o" "$OUTPUT_FILE")
+    for var in "${VARIABLES[@]}"; do
+        ARGS+=("-v" "$var")
+    done
+    python3 "$COMPOSER_PY" "${ARGS[@]}"
+else
+    # モジュールを直接指定
+    ARGS=("modules")
+    for module in "${MODULES[@]}"; do
+        ARGS+=("$module")
+    done
+    [[ -n "$OUTPUT_FILE" ]] && ARGS+=("-o" "$OUTPUT_FILE")
+    for var in "${VARIABLES[@]}"; do
+        ARGS+=("-v" "$var")
+    done
+    python3 "$COMPOSER_PY" "${ARGS[@]}"
+fi
