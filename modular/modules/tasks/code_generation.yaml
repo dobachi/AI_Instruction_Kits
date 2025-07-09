@@ -1,0 +1,26 @@
+id: "task_code_generation"
+name: "コード生成タスク"
+description: "効率的で保守しやすいコードを生成するためのタスクモジュール"
+category: "tasks"
+version: "1.0.0"
+
+variables:
+  - programming_language
+  - naming_convention
+  - indent_style
+  - comment_style
+  - max_line_length
+  - specific_frameworks
+  - code_examples
+
+dependencies: []
+
+tags:
+  - coding
+  - implementation
+  - development
+
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-10"
+  last_modified: "2025-01-10"

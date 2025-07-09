@@ -1,284 +1,233 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Modular instruction composer engine
-Enhanced with distributed metadata system
+モジュラー指示書コンポーザー
+モジュールを組み合わせて指示書を生成する
 """
 
-import argparse
-import json
 import os
-import sys
 import yaml
+import argparse
 from pathlib import Path
-from typing import List, Dict, Optional, Any
+from typing import Dict, List, Any, Optional
+import re
 
 
-class InstructionComposer:
-    """Main class for composing instructions"""
-    
-    def __init__(self, modular_dir: Path = Path("modular")):
-        self.modular_dir = modular_dir
-        self.modules_dir = modular_dir / "modules"
-        self.templates_dir = modular_dir / "templates"
-        self.cache_file = modular_dir / "catalog_cache.json"
-        self._module_cache = None
+class ModuleComposer:
+    def __init__(self, base_dir: str = "modular"):
+        self.base_dir = Path(base_dir)
+        self.modules_dir = self.base_dir / "modules"
+        self.templates_dir = self.base_dir / "templates"
+        self.cache_dir = self.base_dir / "cache"
+        self.cache_dir.mkdir(exist_ok=True)
         
-    def discover_modules(self, force_refresh: bool = False) -> Dict[str, Dict[str, Any]]:
-        """
-        Discover all modules by scanning directories and reading metadata files
+    def load_module(self, module_id: str) -> Dict[str, Any]:
+        """モジュールを読み込む"""
+        # モジュールのパスを探す
+        category_map = {
+            "core": "core",
+            "task": "tasks",
+            "skill": "skills",
+            "quality": "quality"
+        }
         
-        Args:
-            force_refresh: Force refresh even if cache exists
-            
-        Returns:
-            Dictionary of modules organized by category
-        """
-        # Use cache if available and not forcing refresh
-        if not force_refresh and self._module_cache is not None:
-            return self._module_cache
-            
-        # Try to load from cache file
-        if not force_refresh and self.cache_file.exists():
-            try:
-                with open(self.cache_file, 'r', encoding='utf-8') as f:
-                    self._module_cache = json.load(f)
-                    return self._module_cache
-            except Exception:
-                pass  # Ignore cache errors
-        
-        # Discover modules from filesystem
-        modules = {}
-        
-        for category in ['core', 'tasks', 'skills', 'quality', 'fragments']:
-            category_path = self.modules_dir / category
-            if not category_path.exists():
-                continue
+        for prefix, category in category_map.items():
+            if module_id.startswith(f"{prefix}_"):
+                # プレフィックスを削除してファイル名を作成
+                file_name = module_id.replace(f"{prefix}_", "")
+                module_path = self.modules_dir / category / f"{file_name}.md"
+                meta_path = module_path.with_suffix('.yaml')
                 
-            modules[category] = {}
-            
-            # Find all .yaml files in the category
-            for yaml_file in category_path.glob('**/*.yaml'):
-                # Skip if no corresponding .md file exists
-                md_file = yaml_file.with_suffix('.md')
-                if not md_file.exists():
-                    continue
-                    
-                try:
-                    with open(yaml_file, 'r', encoding='utf-8') as f:
+                if module_path.exists() and meta_path.exists():
+                    with open(module_path, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    with open(meta_path, 'r', encoding='utf-8') as f:
                         metadata = yaml.safe_load(f)
-                        
-                    # Add file paths to metadata
-                    metadata['_yaml_path'] = str(yaml_file.relative_to(self.modular_dir))
-                    metadata['_md_path'] = str(md_file.relative_to(self.modular_dir))
                     
-                    # Use the ID from metadata
-                    module_id = metadata.get('id', yaml_file.stem)
-                    modules[category][module_id] = metadata
-                    
-                except Exception as e:
-                    print(f"Warning: Failed to load metadata from {yaml_file}: {e}")
+                    return {
+                        'id': module_id,
+                        'content': content,
+                        'metadata': metadata
+                    }
         
-        # Save to cache
-        self._module_cache = modules
-        try:
-            with open(self.cache_file, 'w', encoding='utf-8') as f:
-                json.dump(modules, f, indent=2, ensure_ascii=False)
-        except Exception:
-            pass  # Ignore cache write errors
-            
-        return modules
+        raise FileNotFoundError(f"Module not found: {module_id}")
     
-    def find_module(self, module_id: str) -> Optional[Dict[str, Any]]:
-        """Find a module by its ID"""
-        modules = self.discover_modules()
+    def load_preset(self, preset_name: str) -> Dict[str, Any]:
+        """プリセットを読み込む"""
+        preset_path = self.templates_dir / "presets" / f"{preset_name}.yaml"
         
-        for category, category_modules in modules.items():
-            if module_id in category_modules:
-                return category_modules[module_id]
+        if not preset_path.exists():
+            raise FileNotFoundError(f"Preset not found: {preset_name}")
+        
+        with open(preset_path, 'r', encoding='utf-8') as f:
+            return yaml.safe_load(f)
+    
+    def replace_variables(self, content: str, variables: Dict[str, str]) -> str:
+        """変数を置換する"""
+        # 通常の変数置換
+        for key, value in variables.items():
+            # {{variable}} 形式の変数を置換
+            pattern = r'\{\{' + re.escape(key) + r'\}\}'
+            content = re.sub(pattern, str(value), content)
+        
+        # 条件付きセクションの処理 {{#if variable}}...{{/if}}
+        if_pattern = r'\{\{#if\s+(\w+)\}\}(.*?)\{\{/if\}\}'
+        def replace_if(match):
+            var_name = match.group(1)
+            section_content = match.group(2)
+            if var_name in variables and variables[var_name]:
+                return section_content
+            return ''
+        content = re.sub(if_pattern, replace_if, content, flags=re.DOTALL)
+        
+        # 未置換の変数を削除（空文字列に置換）
+        remaining_vars = r'\{\{[^}]+\}\}'
+        content = re.sub(remaining_vars, '', content)
+        
+        # 連続する空行を1つに削減
+        content = re.sub(r'\n\n\n+', '\n\n', content)
+        
+        return content
+    
+    def compose_modules(self, module_ids: List[str], variables: Dict[str, str] = None) -> str:
+        """モジュールを結合して指示書を生成"""
+        if variables is None:
+            variables = {}
+            
+        sections = []
+        
+        # ヘッダー
+        sections.append("# AI指示書\n")
+        sections.append("*この指示書はモジュラーシステムによって自動生成されました*\n")
+        
+        # 各モジュールを読み込んで結合
+        for module_id in module_ids:
+            try:
+                module = self.load_module(module_id)
+                content = module['content']
                 
-        return None
+                # 変数を置換
+                content = self.replace_variables(content, variables)
+                
+                sections.append(content)
+                sections.append("\n---\n")  # セクション区切り
+                
+            except FileNotFoundError as e:
+                print(f"警告: {e}")
+                continue
+        
+        # 最後の区切り線を削除
+        if sections and sections[-1] == "\n---\n":
+            sections.pop()
+        
+        return '\n'.join(sections)
     
-    def load_module_content(self, module_metadata: Dict[str, Any]) -> str:
-        """Load the actual content of a module"""
-        md_path = self.modular_dir / module_metadata['_md_path']
+    def generate_from_preset(self, preset_name: str, overrides: Dict[str, str] = None) -> str:
+        """プリセットから指示書を生成"""
+        preset = self.load_preset(preset_name)
         
-        with open(md_path, 'r', encoding='utf-8') as f:
-            return f.read()
+        # 変数をマージ
+        variables = preset.get('variables', {})
+        if 'defaults' in preset:
+            variables = {**preset['defaults'], **variables}
+        if overrides:
+            variables = {**variables, **overrides}
+        
+        # モジュールを結合
+        return self.compose_modules(preset['modules'], variables)
     
-    def compose(self, 
-                module_ids: List[str], 
-                variables: Optional[Dict[str, str]] = None,
-                dry_run: bool = False) -> str:
-        """
-        Compose modules to generate instruction
+    def save_instruction(self, content: str, filename: str) -> Path:
+        """生成した指示書を保存"""
+        output_path = self.cache_dir / filename
         
-        Args:
-            module_ids: List of module IDs to use
-            variables: Dictionary of variables
-            dry_run: If True, only show info without generating
-            
-        Returns:
-            Generated instruction string
-        """
-        if dry_run:
-            return self._dry_run_info(module_ids, variables)
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(content)
         
-        # Find all modules
-        modules_metadata = []
-        missing_modules = []
-        
-        for module_id in module_ids:
-            metadata = self.find_module(module_id)
-            if metadata:
-                modules_metadata.append(metadata)
-            else:
-                missing_modules.append(module_id)
-        
-        if missing_modules:
-            return f"Error: The following modules were not found: {', '.join(missing_modules)}"
-        
-        # Phase 1: Still return prototype message
-        content = []
-        content.append("# Modular Instruction (Prototype)\n")
-        content.append("*Note: This is Phase 1 prototype with distributed metadata. Actual module composition will be implemented in Phase 2.*\n")
-        content.append("## Selected Modules\n")
-        
-        for metadata in modules_metadata:
-            content.append(f"- {metadata['id']}: {metadata.get('name', metadata['id'])}")
-            content.append(f"  - Description: {metadata.get('description', 'No description')}")
-            content.append(f"  - Version: {metadata.get('version', 'unknown')}")
-        
-        if variables:
-            content.append("\n## Variables\n")
-            for key, value in variables.items():
-                content.append(f"- {key}: {value}")
-        
-        content.append("\n---\n*In Phase 2, actual module files will be loaded and combined.*")
-        
-        return "\n".join(content)
-    
-    def _dry_run_info(self, module_ids: List[str], variables: Optional[Dict[str, str]]) -> str:
-        """Display dry run information"""
-        info = []
-        info.append("=== Dry Run Info ===")
-        info.append(f"Module count: {len(module_ids)}")
-        info.append("Selected modules:")
-        
-        for module_id in module_ids:
-            metadata = self.find_module(module_id)
-            if metadata:
-                info.append(f"  - {module_id}: {metadata.get('name', 'Unknown')}")
-            else:
-                info.append(f"  - {module_id}: [NOT FOUND]")
-        
-        if variables:
-            info.append("\nVariables:")
-            for key, value in variables.items():
-                info.append(f"  - {key} = {value}")
-        
-        return "\n".join(info)
-    
-    def get_preset(self, preset_name: str) -> Optional[Dict[str, Any]]:
-        """Get preset configuration"""
-        preset_file = self.templates_dir / "presets" / f"{preset_name}.yaml"
-        
-        if not preset_file.exists():
-            return None
-            
-        try:
-            with open(preset_file, 'r', encoding='utf-8') as f:
-                return yaml.safe_load(f)
-        except Exception:
-            return None
-    
-    def list_modules(self) -> str:
-        """List all available modules"""
-        modules = self.discover_modules()
-        output = []
-        
-        for category, category_modules in modules.items():
-            if category_modules:
-                output.append(f"\n{category.upper()} MODULES:")
-                for module_id, metadata in category_modules.items():
-                    output.append(f"  - {module_id}: {metadata.get('name', 'Unknown')}")
-                    if metadata.get('description'):
-                        output.append(f"    {metadata['description']}")
-        
-        return "\n".join(output)
+        return output_path
 
 
 def main():
-    """Main entry point"""
-    parser = argparse.ArgumentParser(description="Modular instruction composer")
-    parser.add_argument("--module", action="append", dest="modules", 
-                       help="Module ID to use (can specify multiple)")
-    parser.add_argument("--preset", help="Preset name")
-    parser.add_argument("--output", help="Output file name")
-    parser.add_argument("--variable", action="append", dest="variables",
-                       help="Variable setting (KEY=VALUE format)")
-    parser.add_argument("--dry-run", action="store_true", 
-                       help="Show info without generating")
-    parser.add_argument("--list", action="store_true",
-                       help="List all available modules")
-    parser.add_argument("--refresh-cache", action="store_true",
-                       help="Refresh module cache")
+    parser = argparse.ArgumentParser(description='モジュラー指示書コンポーザー')
+    
+    # サブコマンド
+    subparsers = parser.add_subparsers(dest='command', help='コマンド')
+    
+    # プリセットから生成
+    preset_parser = subparsers.add_parser('preset', help='プリセットから生成')
+    preset_parser.add_argument('name', help='プリセット名')
+    preset_parser.add_argument('-o', '--output', help='出力ファイル名')
+    preset_parser.add_argument('-v', '--variable', action='append', 
+                              help='変数のオーバーライド (key=value形式)')
+    
+    # モジュールを直接指定
+    modules_parser = subparsers.add_parser('modules', help='モジュールを直接指定')
+    modules_parser.add_argument('modules', nargs='+', help='モジュールID')
+    modules_parser.add_argument('-o', '--output', help='出力ファイル名')
+    modules_parser.add_argument('-v', '--variable', action='append',
+                               help='変数の設定 (key=value形式)')
+    
+    # リスト表示
+    list_parser = subparsers.add_parser('list', help='利用可能な要素を表示')
+    list_parser.add_argument('type', choices=['presets', 'modules'], 
+                            help='表示するタイプ')
     
     args = parser.parse_args()
     
-    composer = InstructionComposer()
+    composer = ModuleComposer()
     
-    # Handle special commands
-    if args.list:
-        print(composer.list_modules())
-        sys.exit(0)
-    
-    if args.refresh_cache:
-        composer.discover_modules(force_refresh=True)
-        print("Module cache refreshed")
-        sys.exit(0)
-    
-    # Collect module IDs
-    module_ids = []
-    
-    # Get modules from preset
-    if args.preset:
-        preset = composer.get_preset(args.preset)
-        if preset and "modules" in preset:
-            module_ids.extend(preset["modules"])
-        else:
-            print(f"Warning: Preset '{args.preset}' not found")
-    
-    # Add modules from command line
-    if args.modules:
-        module_ids.extend(args.modules)
-    
-    if not module_ids:
-        print("Error: No modules specified")
-        print("Use --module or --preset option")
-        print("Use --list to see available modules")
-        sys.exit(1)
-    
-    # Parse variables
-    variables = {}
-    if args.variables:
-        for var in args.variables:
-            if "=" in var:
-                key, value = var.split("=", 1)
+    if args.command == 'preset':
+        # 変数のパース
+        overrides = {}
+        if args.variable:
+            for var in args.variable:
+                key, value = var.split('=', 1)
+                overrides[key] = value
+        
+        # 生成
+        content = composer.generate_from_preset(args.name, overrides)
+        
+        # 保存
+        output_name = args.output or f"{args.name}_generated.md"
+        output_path = composer.save_instruction(content, output_name)
+        
+        print(f"指示書を生成しました: {output_path}")
+        
+    elif args.command == 'modules':
+        # 変数のパース
+        variables = {}
+        if args.variable:
+            for var in args.variable:
+                key, value = var.split('=', 1)
                 variables[key] = value
+        
+        # 生成
+        content = composer.compose_modules(args.modules, variables)
+        
+        # 保存
+        output_name = args.output or "custom_instruction.md"
+        output_path = composer.save_instruction(content, output_name)
+        
+        print(f"指示書を生成しました: {output_path}")
+        
+    elif args.command == 'list':
+        if args.type == 'presets':
+            presets_dir = composer.templates_dir / "presets"
+            print("利用可能なプリセット:")
+            for preset_file in presets_dir.glob("*.yaml"):
+                print(f"  - {preset_file.stem}")
+                
+        elif args.type == 'modules':
+            print("利用可能なモジュール:")
+            for category in ["core", "tasks", "skills", "quality"]:
+                category_dir = composer.modules_dir / category
+                if category_dir.exists():
+                    print(f"\n{category}:")
+                    for module_file in category_dir.glob("*.yaml"):
+                        with open(module_file, 'r', encoding='utf-8') as f:
+                            meta = yaml.safe_load(f)
+                            print(f"  - {meta['id']}: {meta['name']}")
     
-    # Generate instruction
-    result = composer.compose(module_ids, variables, args.dry_run)
-    
-    # Output
-    if args.output and not args.dry_run:
-        output_path = Path(args.output)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.write(result)
-        print(f"Generated instruction: {output_path}")
     else:
-        print(result)
+        parser.print_help()
 
 
 if __name__ == "__main__":
