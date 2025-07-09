@@ -16,6 +16,7 @@
 
 ### システム管理
 - `instructions/ai_instruction_kits/instructions/ja/system/CHECKPOINT_MANAGER.md` - 進捗報告管理（必須）
+- `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md` - モジュラー指示書生成（カスタマイズが必要な場合）
 
 ### 一般タスク
 - `instructions/ai_instruction_kits/instructions/ja/general/basic_qa.md` - 質問応答、情報提供

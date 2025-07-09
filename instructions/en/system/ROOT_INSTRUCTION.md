@@ -16,6 +16,7 @@ You will function as an instruction manager. Based on the user's task, load appr
 
 ### System Management
 - `instructions/ai_instruction_kits/instructions/en/system/CHECKPOINT_MANAGER.md` - Progress reporting management (required)
+- `instructions/ai_instruction_kits/instructions/en/system/MODULE_COMPOSER.md` - Modular instruction generation (when customization is needed)
 
 ### General Tasks
 - `instructions/ai_instruction_kits/instructions/en/general/basic_qa.md` - Question answering, information provision

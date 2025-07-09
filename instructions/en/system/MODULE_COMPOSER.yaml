@@ -1,0 +1,36 @@
+# MODULE_COMPOSER.md metadata
+id: "en_system_MODULE_COMPOSER"
+name: "Module Composition Manager"
+description: "## Your Role - Analyze user task requirements and select/combine optimal modules to generate customized instructions."
+version: "1.0.0"
+category: "system"
+language: "en"
+tags:
+  - "system"
+  - "en"
+  - "modular"
+  - "composer"
+  - "dynamic"
+
+# File information
+file:
+  name: "MODULE_COMPOSER.md"
+  path: "en/system/MODULE_COMPOSER.md"
+  size: 3282
+  checksum: ""
+  last_modified: "2025-07-10"
+
+# Meta information
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-07-10"
+  updated: "2025-07-10"
+  license: "MIT"
+  reference: "instructions/ja/system/MODULE_COMPOSER.md"
+
+# Future extensions
+dependencies:
+  - "modular/composer.py"
+  - "scripts/generate-instruction.sh"
+compatible_modules: []
+variables: {}
