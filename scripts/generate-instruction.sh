@@ -26,6 +26,7 @@ show_help() {
   --output FILE                 出力ファイル名
   --variable KEY=VALUE          変数を設定（複数指定可）
   --list TYPE                   利用可能な要素を表示 (presets|modules)
+  --metadata                    AIが分析するためのメタデータサマリーを表示
   --help                        このヘルプを表示
 
 例:
@@ -72,6 +73,10 @@ while [[ $# -gt 0 ]]; do
             LIST_TYPE="$2"
             shift 2
             ;;
+        --metadata)
+            LIST_TYPE="metadata"
+            shift
+            ;;
         --help)
             show_help
             exit 0
@@ -98,9 +103,13 @@ if [[ ! -f "$COMPOSER_PY" ]]; then
     exit 1
 fi
 
-# listコマンドの処理
+# listコマンドまたはmetadataコマンドの処理
 if [[ -n "$LIST_TYPE" ]]; then
-    python3 "$COMPOSER_PY" list "$LIST_TYPE"
+    if [[ "$LIST_TYPE" == "metadata" ]]; then
+        python3 "$COMPOSER_PY" metadata
+    else
+        python3 "$COMPOSER_PY" list "$LIST_TYPE"
+    fi
     exit 0
 fi
 

@@ -143,6 +143,44 @@ class ModuleComposer:
             f.write(content)
         
         return output_path
+    
+    def get_metadata_summary(self) -> str:
+        """AIが判断するためのメタデータサマリーを生成"""
+        summary_lines = ["# 利用可能なモジュール一覧\n"]
+        
+        category_names = {
+            "core": "コア（基本設定）",
+            "tasks": "タスク（実行内容）",
+            "skills": "スキル（追加能力）",
+            "quality": "品質（品質基準）"
+        }
+        
+        for category, display_name in category_names.items():
+            category_dir = self.modules_dir / category
+            if category_dir.exists():
+                summary_lines.append(f"\n## {display_name}\n")
+                
+                for yaml_file in sorted(category_dir.glob("*.yaml")):
+                    with open(yaml_file, 'r', encoding='utf-8') as f:
+                        meta = yaml.safe_load(f)
+                    
+                    summary_lines.append(f"### {meta['id']}")
+                    summary_lines.append(f"- **名前**: {meta['name']}")
+                    summary_lines.append(f"- **説明**: {meta['description']}")
+                    
+                    if 'tags' in meta:
+                        summary_lines.append(f"- **タグ**: {', '.join(meta['tags'])}")
+                    
+                    if 'dependencies' in meta:
+                        summary_lines.append(f"- **依存関係**: {', '.join(meta['dependencies'])}")
+                    
+                    if 'compatible_with' in meta or 'compatible_modules' in meta:
+                        compat = meta.get('compatible_with', meta.get('compatible_modules', []))
+                        summary_lines.append(f"- **互換性**: {', '.join(compat)}")
+                    
+                    summary_lines.append("")  # 空行
+        
+        return '\n'.join(summary_lines)
 
 
 def main():
@@ -169,6 +207,9 @@ def main():
     list_parser = subparsers.add_parser('list', help='利用可能な要素を表示')
     list_parser.add_argument('type', choices=['presets', 'modules'], 
                             help='表示するタイプ')
+    
+    # メタデータサマリー表示（AI分析用）
+    metadata_parser = subparsers.add_parser('metadata', help='AIが分析するためのメタデータサマリーを表示')
     
     args = parser.parse_args()
     
@@ -225,6 +266,11 @@ def main():
                         with open(module_file, 'r', encoding='utf-8') as f:
                             meta = yaml.safe_load(f)
                             print(f"  - {meta['id']}: {meta['name']}")
+    
+    elif args.command == 'metadata':
+        # AIが分析するためのメタデータサマリーを表示
+        summary = composer.get_metadata_summary()
+        print(summary)
     
     else:
         parser.print_help()

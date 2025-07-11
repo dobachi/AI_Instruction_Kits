@@ -52,12 +52,19 @@
    - 補助的なタスクタイプを特定
    - 専門性が必要な場合はエージェント型指示書を検討
 
-2. **指示書の選択**
-   - 主タスクに対応する指示書を必ず読み込む
+2. **モジュラーシステムの検討**
+   - 以下の場合は、MODULE_COMPOSERを使用してカスタマイズされた指示書を生成：
+     - 複数の要件が組み合わさっている場合（例：Webサイト作成＋認証＋エラーハンドリング）
+     - 特定の品質基準が要求される場合（例：本番環境用、高パフォーマンス）
+     - 既存の単一指示書では対応が不十分な場合
+   - MODULE_COMPOSERを使用する場合は、`instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md`を読み込む
+
+3. **指示書の選択**
+   - モジュラーシステムを使用しない場合は、主タスクに対応する指示書を必ず読み込む
    - 必要に応じて補助タスクの指示書も読み込む
    - 特定の専門知識が必要な場合は、エージェント型指示書を優先
 
-3. **実行**
+4. **実行**
    - 読み込んだ指示書の「具体的な指示」セクションに従う
    - エージェント型指示書の場合は、その役割になりきって対応
    - 複数の指示書がある場合は、文脈に応じて適切に組み合わせる
@@ -75,6 +82,14 @@
 → 必要な指示書:
 1. `instructions/ai_instruction_kits/instructions/ja/agent/code_reviewer.md` (主)
 2. `instructions/ai_instruction_kits/instructions/ja/agent/python_expert.md` (補助・Python固有の観点)
+
+### モジュラーシステムの例
+ユーザー: 「サンプルWebサイトを作成してください。ユーザー認証機能とデータベース連携が必要です」
+→ MODULE_COMPOSERを使用:
+1. `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md`を読み込み
+2. 要件分析: Webサイト作成＋認証＋データベース
+3. モジュール選択: core_role_definition, task_code_generation, skill_authentication, skill_api_design
+4. カスタマイズされた指示書を生成して実行
 
 ---
 ## ライセンス情報
