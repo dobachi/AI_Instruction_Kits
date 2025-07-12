@@ -23,3 +23,18 @@ Thumbs.db
 private/
 secret/
 *.private.md
+
+# Test directories and files
+test/
+sandbox/
+playground/
+experiments/
+*.test.md
+*.experiment.*
+
+# Temporary work directories
+tmp/
+temp/
+work/
+.tmp/
+.sandbox/

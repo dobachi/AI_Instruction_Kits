@@ -93,27 +93,54 @@ class ModuleComposer:
         if variables is None:
             variables = {}
             
-        # すべてのモジュールから変数のデフォルト値を収集
+        # すべてのモジュールから変数情報を収集
         all_defaults = {}
+        required_variables = {}  # 必須変数を追跡
         applied_defaults = {}  # 実際に適用されたデフォルト値を追跡
+        
         for module_id in module_ids:
             try:
                 module = self.load_module(module_id)
                 metadata = module.get('metadata', {})
                 
-                # 変数定義からデフォルト値を抽出
+                # 変数定義から情報を抽出
                 if 'variables' in metadata:
                     for var in metadata['variables']:
-                        if isinstance(var, dict) and 'default' in var:
+                        if isinstance(var, dict):
                             var_name = var.get('name', '')
-                            if var_name and var_name not in all_defaults:
-                                all_defaults[var_name] = var['default']
+                            if var_name:
+                                # デフォルト値の抽出
+                                if 'default' in var and var_name not in all_defaults:
+                                    all_defaults[var_name] = var['default']
+                                
+                                # 必須フィールドの追跡
+                                if var.get('required', False):
+                                    required_variables[var_name] = {
+                                        'module': module_id,
+                                        'description': var.get('description', '')
+                                    }
                 
             except FileNotFoundError:
                 continue
         
         # デフォルト値をマージ（ユーザー指定の値が優先）
         effective_variables = {**all_defaults, **variables}
+        
+        # 必須フィールドの検証
+        missing_required = []
+        for var_name, var_info in required_variables.items():
+            if var_name not in effective_variables or not effective_variables[var_name]:
+                missing_required.append(f"  - {var_name} ({var_info['description']}) - モジュール: {var_info['module']}")
+        
+        if missing_required:
+            error_msg = "エラー: 以下の必須変数が指定されていません:\n"
+            error_msg += "\n".join(missing_required)
+            error_msg += "\n\n使用例:\n"
+            error_msg += "  ./scripts/generate-instruction.sh --modules " + " ".join(module_ids)
+            for var_name in required_variables:
+                if var_name not in effective_variables or not effective_variables[var_name]:
+                    error_msg += f" --variable {var_name}=\"値\""
+            raise ValueError(error_msg)
         
         # 実際に適用されたデフォルト値を特定
         for key, value in effective_variables.items():
