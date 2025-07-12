@@ -5,13 +5,40 @@ category: "tasks"
 version: "1.0.0"
 
 variables:
-  - programming_language
-  - naming_convention
-  - indent_style
-  - comment_style
-  - max_line_length
-  - specific_frameworks
-  - code_examples
+  - name: "programming_language"
+    description: "プログラミング言語"
+    type: "string"
+    required: true
+    
+  - name: "naming_convention"
+    description: "命名規則"
+    type: "string"
+    default: "camelCase"
+    
+  - name: "indent_style"
+    description: "インデントスタイル"
+    type: "string"
+    default: "スペース4つ"
+    
+  - name: "comment_style"
+    description: "コメント形式"
+    type: "string"
+    default: "言語標準のコメント形式"
+    
+  - name: "max_line_length"
+    description: "最大行長"
+    type: "number"
+    default: 100
+    
+  - name: "specific_frameworks"
+    description: "使用するフレームワーク"
+    type: "string"
+    default: ""
+    
+  - name: "code_examples"
+    description: "コード例を含めるか"
+    type: "boolean"
+    default: true
 
 dependencies: []
 

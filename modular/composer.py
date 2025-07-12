@@ -93,6 +93,27 @@ class ModuleComposer:
         if variables is None:
             variables = {}
             
+        # すべてのモジュールから変数のデフォルト値を収集
+        all_defaults = {}
+        for module_id in module_ids:
+            try:
+                module = self.load_module(module_id)
+                metadata = module.get('metadata', {})
+                
+                # 変数定義からデフォルト値を抽出
+                if 'variables' in metadata:
+                    for var in metadata['variables']:
+                        if isinstance(var, dict) and 'default' in var:
+                            var_name = var.get('name', '')
+                            if var_name and var_name not in all_defaults:
+                                all_defaults[var_name] = var['default']
+                
+            except FileNotFoundError:
+                continue
+        
+        # デフォルト値をマージ（ユーザー指定の値が優先）
+        effective_variables = {**all_defaults, **variables}
+            
         sections = []
         
         # ヘッダー
@@ -106,7 +127,7 @@ class ModuleComposer:
                 content = module['content']
                 
                 # 変数を置換
-                content = self.replace_variables(content, variables)
+                content = self.replace_variables(content, effective_variables)
                 
                 sections.append(content)
                 sections.append("\n---\n")  # セクション区切り
