@@ -14,7 +14,7 @@ compatible_skills:
   - "skill_ui_ux"
   - "skill_accessibility"
   - "skill_performance"
-  - "skill_documentation"
+  - "skill_code_documentation"
 variables:
   - name: "site_type"
     description: "サイトの種類（ランディングページ、ポートフォリオ、コーポレートサイト等）"
