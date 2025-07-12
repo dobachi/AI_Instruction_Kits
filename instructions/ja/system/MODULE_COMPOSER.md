@@ -58,15 +58,23 @@
 ## モジュール選択の指針
 
 ### タスクタイプの判定
-- Web開発 → `task_web_api`
-- CLI開発 → `task_cli`
-- データ分析 → `task_data_analysis`
-- ドキュメント作成 → `task_documentation`
+- ウェブサイト開発 → `task_website`
+- コード生成（汎用） → `task_code_generation`
+- 例題タスク → `task_example`
+
+### スキルの判定
+- UI/UXデザイン → `skill_ui_ux`
+- アクセシビリティ → `skill_accessibility`
+- パフォーマンス最適化 → `skill_performance`
+- コードドキュメント → `skill_code_documentation`
+- API設計 → `skill_api_design`
+- 認証・認可 → `skill_authentication`
+- エラーハンドリング → `skill_error_handling`
+- テスト → `skill_testing`
 
 ### 品質レベルの判定
 - 「本番用」「プロダクション」 → `quality_production`
-- 「試作」「プロトタイプ」 → `quality_prototype`
-- 「高品質」「テスト重視」 → `skill_tdd`を追加
+- 「試作」「プロトタイプ」 → （現在quality_prototypeは存在しません）
 
 ### 対話例（手動選択）
 
@@ -106,15 +114,15 @@
 - タスク: task_code_generation（スクレイピング専用タスクがないため汎用を使用）
 - スキル: 
   - skill_error_handling（エラー処理の要求に対応）
-  - skill_logging（ロギングの要求に対応）
-- 品質: quality_production（堅牢性を重視）
+  - skill_testing（堅牢性確保のため）
+- 品質: quality_production（プロダクション環境での使用）
 
 選択理由：
 - Webスクレイピングは外部サイトとの通信を伴うため、エラー処理が重要
-- ロギングにより問題の追跡とデバッグが容易に
+- テストにより問題の早期発見が可能
 - プロダクション品質で安定した動作を確保
 
-[実行: ./scripts/generate-instruction.sh --modules core_role_definition task_code_generation skill_error_handling skill_logging quality_production --variable programming_language=Python --output scraping_tool.md]
+[実行: ./scripts/generate-instruction.sh --modules core_role_definition task_code_generation skill_error_handling skill_testing quality_production --variable programming_language=Python --variable role_description="Webスクレイピングツール開発者" --output scraping_tool.md]
 
 指示書が生成されました。実装を開始します。
 ```
