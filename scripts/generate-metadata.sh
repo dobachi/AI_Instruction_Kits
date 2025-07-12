@@ -1,7 +1,12 @@
 #!/bin/bash
 
-# AI指示書メタデータ生成スクリプト
+# AI指示書メタデータ生成スクリプト / AI Instruction Metadata Generation Script
 # 各指示書ファイルから.yamlファイルを生成し、分散型メタデータシステムを構築
+# Generate .yaml files from each instruction file to build a distributed metadata system
+
+# i18nライブラリをソース
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/i18n.sh"
 
 # set -e
 
@@ -17,16 +22,24 @@ METADATA_EXT=".yaml"
 
 # ヘルプ表示
 show_help() {
-    echo "使用法: $0 [INSTRUCTIONS_DIR]"
+    MSG_USAGE=$(get_message "usage" "Usage" "使用法")
+    MSG_GENERATE_DESC=$(get_message "generate_desc" "Generate distributed metadata files (.yaml) from each instruction file" "各指示書ファイルから分散型メタデータファイル(.yaml)を生成します")
+    MSG_ARGUMENTS=$(get_message "arguments" "Arguments" "引数")
+    MSG_INSTRUCTIONS_DIR=$(get_message "instructions_dir" "Instructions directory (default: instructions)" "指示書ディレクトリ (デフォルト: instructions)")
+    MSG_EXAMPLES=$(get_message "examples" "Examples" "例")
+    MSG_PROCESS_DEFAULT=$(get_message "process_default" "Process instructions directory" "instructionsディレクトリを処理")
+    MSG_PROCESS_CUSTOM=$(get_message "process_custom" "Process custom directory" "カスタムディレクトリを処理")
+    
+    echo "$MSG_USAGE: $0 [INSTRUCTIONS_DIR]"
     echo ""
-    echo "各指示書ファイルから分散型メタデータファイル(.yaml)を生成します。"
+    echo "$MSG_GENERATE_DESC."
     echo ""
-    echo "引数:"
-    echo "  INSTRUCTIONS_DIR  指示書ディレクトリ (デフォルト: instructions)"
+    echo "$MSG_ARGUMENTS:"
+    echo "  INSTRUCTIONS_DIR  $MSG_INSTRUCTIONS_DIR"
     echo ""
-    echo "例:"
-    echo "  $0                    # instructionsディレクトリを処理"
-    echo "  $0 /path/to/custom    # カスタムディレクトリを処理"
+    echo "$MSG_EXAMPLES:"
+    echo "  $0                    # $MSG_PROCESS_DEFAULT"
+    echo "  $0 /path/to/custom    # $MSG_PROCESS_CUSTOM"
 }
 
 # メタデータ抽出関数
@@ -48,142 +61,144 @@ extract_metadata() {
     local id="${language}_${category}_${filename%.md}"
     
     # 既存のメタデータを抽出（末尾のライセンス情報セクション）
-    local license="Apache-2.0"
+    local license_info=$(awk '/^---$/{p=1} p' "$file" | tail -n +2)
+    local license=""
     local reference=""
-    local author="dobachi"
-    local created_date="$(date +"%Y-%m-%d")"
+    local author=""
+    local created_date=""
     
-    # ライセンス情報セクションを解析
-    if grep -q "^## ライセンス情報" "$file"; then
-        local meta_section=$(sed -n '/^## ライセンス情報/,$ p' "$file")
-        license=$(echo "$meta_section" | grep -oP '(?<=ライセンス\]: ).*' | head -1 || echo "Apache-2.0")
-        reference=$(echo "$meta_section" | grep -oP '(?<=参照元\]: ).*' | head -1 || echo "")
-        author=$(echo "$meta_section" | grep -oP '(?<=原著者\]: ).*' | head -1 || echo "dobachi")
-        created_date=$(echo "$meta_section" | grep -oP '(?<=作成日\]: ).*' | head -1 || echo "$(date +"%Y-%m-%d")")
+    if [[ -n "$license_info" ]]; then
+        license=$(echo "$license_info" | grep -E "^- \*\*ライセンス\*\*:|^- \*\*License\*\*:" | sed 's/.*: *//')
+        reference=$(echo "$license_info" | grep -E "^- \*\*参照元\*\*:|^- \*\*Reference\*\*:" | sed 's/.*: *//')
+        author=$(echo "$license_info" | grep -E "^- \*\*原著者\*\*:|^- \*\*Author\*\*:" | sed 's/.*: *//')
+        created_date=$(echo "$license_info" | grep -E "^- \*\*作成日\*\*:|^- \*\*Created\*\*:" | sed 's/.*: *//')
     fi
     
-    # 説明文を抽出（最初の段落）
-    local description=$(sed -n '3,/^$/p' "$file" | tr '\n' ' ' | sed 's/  */ /g' | sed 's/^ *//;s/ *$//')
+    # デフォルト値
+    license="${license:-Apache-2.0}"
+    author="${author:-AI Instruction Kits Project}"
+    created_date="${created_date:-$(date +%Y-%m-%d)}"
     
-    # タグを自動生成（カテゴリ、言語、特定のキーワードから）
+    # 説明文を最初の段落から抽出
+    local description=$(awk '/^#[^#]/ {p=1; next} /^$/ {if(p) exit} p' "$file" | head -5 | tr '\n' ' ' | sed 's/  */ /g' | sed 's/^ *//;s/ *$//')
+    if [[ -z "$description" ]]; then
+        description="AI指示書: $title"
+    fi
+    
+    # タグを生成（ファイル名とカテゴリから）
     local tags=""
-    [[ "$title" =~ "Marp" ]] && tags="${tags}
-  - \"marp\""
-    [[ "$title" =~ "Python" ]] && tags="${tags}
-  - \"python\""
-    [[ "$title" =~ "エージェント" || "$title" =~ "専門家" ]] && tags="${tags}
-  - \"agent\""
-    [[ "$title" =~ "API" ]] && tags="${tags}
-  - \"api\""
-    [[ "$title" =~ "Web" ]] && tags="${tags}
-  - \"web\""
+    case "$category" in
+        "coding")
+            tags="  - programming\n  - development"
+            ;;
+        "writing")
+            tags="  - documentation\n  - content"
+            ;;
+        "agent")
+            tags="  - agent\n  - specialist"
+            ;;
+        "presentation")
+            tags="  - presentation\n  - slides"
+            ;;
+        *)
+            tags="  - $category"
+            ;;
+    esac
     
-    # ファイル情報
-    local file_size=$(stat -c%s "$file" 2>/dev/null || stat -f%z "$file" 2>/dev/null || echo "0")
-    local last_modified=$(date -r "$file" +"%Y-%m-%dT%H:%M:%S%z" 2>/dev/null || date +"%Y-%m-%dT%H:%M:%S%z")
-    local checksum=$(md5sum "$file" 2>/dev/null | cut -d' ' -f1 || md5 -q "$file" 2>/dev/null || echo "")
+    # タイトルからも追加のタグを生成
+    if [[ "$title" =~ "Marp" ]]; then
+        tags="$tags\n  - marp"
+    fi
+    if [[ "$title" =~ "Python" ]]; then
+        tags="$tags\n  - python"
+    fi
     
-    # メタデータファイルを生成
+    # YAMLファイルを生成
     cat > "$meta_file" << EOF
-# ${filename} メタデータ
-id: "${id}"
-name: "${title}"
-description: "${description}"
-version: "1.0.0"
-category: "${category}"
-language: "${language}"
+# Metadata for $filename
+id: "$id"
+title: "$title"
+description: "$description"
+category: "$category"
+language: "$language"
 tags:
-  - "${category}"
-  - "${language}"${tags}
-
-# ファイル情報
-file:
-  name: "${filename}"
-  path: "${relative_path}"
-  size: ${file_size}
-  checksum: "${checksum}"
-  last_modified: "${last_modified}"
-
-# メタ情報
-metadata:
-  author: "${author}"
-  created: "${created_date}"
-  updated: "$(date +"%Y-%m-%d")"
-  license: "${license}"
-  reference: "${reference}"
-
-# 将来の拡張用
-dependencies: []
-compatible_modules: []
-variables: {}
+$(echo -e "$tags")
+author: "$author"
+license: "$license"
+created: "$created_date"
+updated: "$(date +%Y-%m-%d)"
+version: "1.0.0"
 EOF
-
-    echo -e "${GREEN}✓${NC} メタデータ生成: ${meta_file}"
+    
+    return 0
 }
 
 # メイン処理
 main() {
-    if [[ "$1" == "--help" ]] || [[ "$1" == "-h" ]]; then
+    # 引数処理
+    if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
         show_help
         exit 0
     fi
     
-    # 単一ファイル処理モード
-    if [[ -f "$1" ]] && [[ "$1" == *.md ]]; then
-        echo -e "${YELLOW}=== 単一ファイルモード ===${NC}"
-        echo "対象ファイル: $1"
-        
-        # INSTRUCTIONS_DIRを推測
-        if [[ "$1" =~ instructions/ ]]; then
-            INSTRUCTIONS_DIR=$(echo "$1" | sed 's|/instructions/.*|/instructions|')
-        else
-            INSTRUCTIONS_DIR="instructions"
-        fi
-        
-        if extract_metadata "$1"; then
-            echo -e "${GREEN}✓ 完了${NC}"
-        else
-            echo -e "${RED}✗ エラー${NC}"
-            exit 1
-        fi
-        exit 0
-    fi
+    MSG_METADATA_GEN_START=$(get_message "metadata_gen_start" "Starting metadata generation" "メタデータ生成開始")
+    echo -e "${GREEN}$MSG_METADATA_GEN_START${NC}"
+    echo "Directory: $INSTRUCTIONS_DIR"
     
-    # ディレクトリ処理モード
+    # ディレクトリ存在確認
     if [[ ! -d "$INSTRUCTIONS_DIR" ]]; then
-        echo -e "${RED}エラー: ディレクトリが見つかりません: $INSTRUCTIONS_DIR${NC}"
+        MSG_ERROR_DIR_NOT_FOUND=$(get_message "error_dir_not_found" "Error: Directory not found" "エラー: ディレクトリが見つかりません")
+        echo -e "${RED}$MSG_ERROR_DIR_NOT_FOUND: $INSTRUCTIONS_DIR${NC}"
         exit 1
     fi
     
-    echo -e "${YELLOW}=== AI指示書メタデータ生成開始 ===${NC}"
-    echo "対象ディレクトリ: $INSTRUCTIONS_DIR"
-    echo ""
+    # 進捗表示用
+    local total_files=$(find "$INSTRUCTIONS_DIR" -name "*.md" -type f | wc -l)
+    local processed=0
+    local generated=0
+    local skipped=0
     
-    local count=0
-    local error_count=0
+    MSG_PROCESSING=$(get_message "processing" "Processing" "処理中")
+    MSG_GENERATED=$(get_message "generated" "Generated" "生成")
+    MSG_SKIPPED=$(get_message "skipped" "Skipped" "スキップ")
+    MSG_COMPLETED=$(get_message "completed" "Completed" "完了")
     
-    # すべての.mdファイルを処理
-    while IFS= read -r -d '' file; do
-        if [[ -f "$file" ]] && [[ "$file" == *.md ]]; then
-            if extract_metadata "$file"; then
-                ((count++))
-            else
-                ((error_count++))
-                echo -e "${RED}✗${NC} エラー: $file"
-            fi
+    # 各.mdファイルを処理
+    while IFS= read -r file; do
+        ((processed++))
+        echo -n -e "\r$MSG_PROCESSING: $processed/$total_files"
+        
+        # メタデータファイルのパス
+        local meta_file="${file%.md}.yaml"
+        
+        # 既存のメタデータファイルがある場合はスキップ
+        if [[ -f "$meta_file" ]]; then
+            ((skipped++))
+            continue
         fi
-    done < <(find "$INSTRUCTIONS_DIR" -name "*.md" -print0)
+        
+        # メタデータを抽出・生成
+        if extract_metadata "$file"; then
+            ((generated++))
+        fi
+    done < <(find "$INSTRUCTIONS_DIR" -name "*.md" -type f)
     
-    echo ""
-    echo -e "${GREEN}=== 完了 ===${NC}"
-    echo "生成されたメタデータファイル: $count"
-    [[ $error_count -gt 0 ]] && echo -e "${RED}エラー: $error_count${NC}"
+    # 最終結果
+    echo -e "\r${GREEN}$MSG_COMPLETED!${NC}"
+    echo "----------------------------------------"
+    MSG_TOTAL_FILES=$(get_message "total_files" "Total files" "総ファイル数")
+    MSG_GENERATED_COUNT=$(get_message "generated_count" "Generated" "生成済み")
+    MSG_SKIPPED_COUNT=$(get_message "skipped_count" "Skipped (already exists)" "スキップ (既存)")
     
-    # インデックスファイルの生成を提案
-    echo ""
-    echo -e "${YELLOW}ヒント:${NC} カタログ検索を有効にするには、次のコマンドを実行してください:"
-    echo "  $0 --index"
+    echo "$MSG_TOTAL_FILES: $total_files"
+    echo -e "${GREEN}$MSG_GENERATED_COUNT: $generated${NC}"
+    echo -e "${YELLOW}$MSG_SKIPPED_COUNT: $skipped${NC}"
+    
+    MSG_NEXT_STEP=$(get_message "next_step" "You can now search using" "次のコマンドで検索できます")
+    echo -e "\n$MSG_NEXT_STEP: ./scripts/search-instructions.sh"
 }
 
-# スクリプト実行
-main "$@"
+# スクリプトが直接実行された場合のみmainを実行
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

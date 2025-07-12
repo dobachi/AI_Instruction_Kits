@@ -7,6 +7,9 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DEFAULT_REPO_URL="https://github.com/dobachi/AI_Instruction_Kits.git"
 REPO_URL="$DEFAULT_REPO_URL"
 
+# i18nライブラリをソース
+source "$SCRIPT_DIR/lib/i18n.sh"
+
 # オプション解析
 FORCE_MODE=false
 DRY_RUN=false
@@ -42,57 +45,91 @@ while [[ "$#" -gt 0 ]]; do
             BACKUP_MODE=false
             ;;
         --help|-h)
-            cat << 'HELP'
-使用方法: setup-project.sh [オプション]
+            MSG_USAGE=$(get_message "usage" "Usage" "使用方法")
+            MSG_DESC=$(get_message "desc" "Safely set up AI instructions in your project" "AI指示書をプロジェクトに安全にセットアップします")
+            MSG_INTEGRATION_MODES=$(get_message "integration_modes" "Integration modes" "統合モード")
+            MSG_MODE_DESC=$(get_message "mode_desc" "Specify integration mode (copy|clone|submodule)" "統合モードを指定 (copy|clone|submodule)")
+            MSG_COPY_MODE=$(get_message "copy_mode" "Copy mode (simple file copy)" "コピーモード（シンプルなファイルコピー）")
+            MSG_CLONE_MODE=$(get_message "clone_mode" "Clone mode (independent Git repository)" "クローンモード（独立したGitリポジトリ）")
+            MSG_SUBMODULE_MODE=$(get_message "submodule_mode" "Submodule mode (recommended, default)" "サブモジュールモード（推奨、デフォルト）")
+            MSG_OPTIONS=$(get_message "options" "Options" "オプション")
+            MSG_CUSTOM_URL=$(get_message "custom_url" "Custom Git repository URL" "カスタムGitリポジトリURL")
+            MSG_NO_CONFIRM=$(get_message "no_confirm" "Run without confirmation (legacy behavior)" "確認なしで実行（従来の動作）")
+            MSG_DRY_RUN=$(get_message "dry_run" "Show what would be done without doing it" "実行内容を表示するだけで実際には実行しない")
+            MSG_NO_BACKUP=$(get_message "no_backup" "Don't create backups of existing files" "既存ファイルのバックアップを作成しない")
+            MSG_SHOW_HELP=$(get_message "show_help" "Show this help" "このヘルプを表示")
+            MSG_MODE_DETAILS=$(get_message "mode_details" "Mode details" "モードの説明")
+            MSG_COPY_DETAILS=$(get_message "copy_details" "Direct copy of latest files (no Git)" "最新版のファイルを直接コピー（Gitなし）")
+            MSG_SIMPLEST=$(get_message "simplest" "Simplest" "最もシンプル")
+            MSG_OFFLINE_OK=$(get_message "offline_ok" "Works offline" "オフラインでも利用可能")
+            MSG_MANUAL_UPDATE=$(get_message "manual_update" "Manual updates" "更新は手動")
+            MSG_CLONE_DETAILS=$(get_message "clone_details" "Manage as independent Git repository" "独立したGitリポジトリとして管理")
+            MSG_FREE_MODIFY=$(get_message "free_modify" "Can be modified freely" "自由に変更可能")
+            MSG_GIT_PULL=$(get_message "git_pull" "Update with git pull" "git pullで更新")
+            MSG_KEEP_HISTORY=$(get_message "keep_history" "Keeps history" "履歴を保持")
+            MSG_SUBMODULE_DETAILS=$(get_message "submodule_details" "Manage as Git submodule (recommended)" "Gitサブモジュールとして管理（推奨）")
+            MSG_VERSION_FIX=$(get_message "version_fix" "Can fix version" "バージョン固定可能")
+            MSG_MAIN_REPO_REL=$(get_message "main_repo_rel" "Maintains relationship with main repo" "本体リポジトリとの関係を保持")
+            MSG_SUBMODULE_UPDATE=$(get_message "submodule_update" "Update with git submodule update" "git submodule updateで更新")
+            MSG_DEFAULT_PROMPT=$(get_message "default_prompt" "By default, mode selection prompt is shown" "デフォルトでは、モード選択プロンプトが表示されます")
+            MSG_EXAMPLES=$(get_message "examples" "Examples" "使用例")
+            MSG_USE_DEFAULT_REPO=$(get_message "use_default_repo" "Use default repository" "デフォルトリポジトリを使用")
+            MSG_USE_FORK=$(get_message "use_fork" "Use forked repository" "フォークしたリポジトリを使用")
+            MSG_USE_PRIVATE=$(get_message "use_private" "Use private repository" "プライベートリポジトリを使用")
+            
+            cat << HELP
+$MSG_USAGE: setup-project.sh [$(get_message "options" "OPTIONS" "オプション")]
 
-AI指示書をプロジェクトに安全にセットアップします。
+$MSG_DESC。
 
-統合モード:
-  --mode <モード>  統合モードを指定 (copy|clone|submodule)
-  --copy          コピーモード（シンプルなファイルコピー）
-  --clone         クローンモード（独立したGitリポジトリ）
-  --submodule     サブモジュールモード（推奨、デフォルト）
+$MSG_INTEGRATION_MODES:
+  --mode <mode>  $MSG_MODE_DESC
+  --copy          $MSG_COPY_MODE
+  --clone         $MSG_CLONE_MODE
+  --submodule     $MSG_SUBMODULE_MODE
 
-オプション:
-  --url <URL>      カスタムGitリポジトリURL (デフォルト: $DEFAULT_REPO_URL)
-  -f, --force      確認なしで実行（従来の動作）
-  -n, --dry-run    実行内容を表示するだけで実際には実行しない
-  --no-backup      既存ファイルのバックアップを作成しない
-  -h, --help       このヘルプを表示
+$MSG_OPTIONS:
+  --url <URL>      $MSG_CUSTOM_URL (default: $DEFAULT_REPO_URL)
+  -f, --force      $MSG_NO_CONFIRM
+  -n, --dry-run    $MSG_DRY_RUN
+  --no-backup      $MSG_NO_BACKUP
+  -h, --help       $MSG_SHOW_HELP
 
-モードの説明:
-  copy:       最新版のファイルを直接コピー（Gitなし）
-              - 最もシンプル
-              - オフラインでも利用可能
-              - 更新は手動
+$MSG_MODE_DETAILS:
+  copy:       $MSG_COPY_DETAILS
+              - $MSG_SIMPLEST
+              - $MSG_OFFLINE_OK
+              - $MSG_MANUAL_UPDATE
 
-  clone:      独立したGitリポジトリとして管理
-              - 自由に変更可能
-              - git pullで更新
-              - 履歴を保持
+  clone:      $MSG_CLONE_DETAILS
+              - $MSG_FREE_MODIFY
+              - $MSG_GIT_PULL
+              - $MSG_KEEP_HISTORY
 
-  submodule:  Gitサブモジュールとして管理（推奨）
-              - バージョン固定可能
-              - 本体リポジトリとの関係を保持
-              - git submodule updateで更新
+  submodule:  $MSG_SUBMODULE_DETAILS
+              - $MSG_VERSION_FIX
+              - $MSG_MAIN_REPO_REL
+              - $MSG_SUBMODULE_UPDATE
 
-デフォルトでは、モード選択プロンプトが表示されます。
+$MSG_DEFAULT_PROMPT。
 
-使用例:
-  # デフォルトリポジトリを使用
+$MSG_EXAMPLES:
+  # $MSG_USE_DEFAULT_REPO
   setup-project.sh --submodule
   
-  # フォークしたリポジトリを使用
+  # $MSG_USE_FORK
   setup-project.sh --url https://github.com/myname/AI_Instruction_Kits.git --clone
   
-  # プライベートリポジトリを使用
+  # $MSG_USE_PRIVATE
   setup-project.sh --url git@github.com:mycompany/private-instructions.git --submodule
 HELP
             exit 0
             ;;
         *)
-            echo "❌ 不明なオプション: $1"
-            echo "詳細は setup-project.sh --help を参照してください"
+            MSG_UNKNOWN_OPTION=$(get_message "unknown_option" "Unknown option" "不明なオプション")
+            MSG_SEE_HELP=$(get_message "see_help" "See setup-project.sh --help for details" "詳細は setup-project.sh --help を参照してください")
+            echo "❌ $MSG_UNKNOWN_OPTION: $1"
+            echo "$MSG_SEE_HELP"
             exit 1
             ;;
     esac
@@ -132,10 +169,12 @@ backup_file() {
     if [ -f "$file" ] && [ "$BACKUP_MODE" = true ]; then
         local backup="${file}.backup.$(date +%Y%m%d_%H%M%S)"
         if [ "$DRY_RUN" = true ]; then
-            dry_echo "バックアップ作成: $file → $backup"
+            MSG_BACKUP_CREATE=$(get_message "backup_create" "Creating backup" "バックアップ作成")
+            dry_echo "$MSG_BACKUP_CREATE: $file → $backup"
         else
             cp "$file" "$backup"
-            echo "📋 バックアップ作成: $backup"
+            MSG_BACKUP_CREATED=$(get_message "backup_created" "Backup created" "バックアップ作成")
+            echo "📋 $MSG_BACKUP_CREATED: $backup"
         fi
     fi
 }
@@ -149,8 +188,10 @@ select_mode() {
                 return 0
                 ;;
             *)
-                echo "❌ 不明なモード: $INTEGRATION_MODE"
-                echo "使用可能なモード: copy, clone, submodule"
+                MSG_UNKNOWN_MODE=$(get_message "unknown_mode" "Unknown mode" "不明なモード")
+                MSG_AVAILABLE_MODES=$(get_message "available_modes" "Available modes" "使用可能なモード")
+                echo "❌ $MSG_UNKNOWN_MODE: $INTEGRATION_MODE"
+                echo "$MSG_AVAILABLE_MODES: copy, clone, submodule"
                 exit 1
                 ;;
         esac
@@ -162,16 +203,24 @@ select_mode() {
         return 0
     fi
     
+    MSG_SELECT_MODE=$(get_message "select_mode" "Select AI instruction integration mode" "AI指示書の統合モードを選択してください")
+    MSG_SIMPLE_COPY=$(get_message "simple_copy" "Simple file copy (no Git)" "シンプルなファイルコピー（Gitなし）")
+    MSG_INDEPENDENT_REPO=$(get_message "independent_repo" "Independent Git repository (freely modifiable)" "独立したGitリポジトリ（自由に変更可能）")
+    MSG_GIT_SUBMODULE=$(get_message "git_submodule" "Git submodule (recommended)" "Gitサブモジュール（推奨）")
+    MSG_CHOOSE=$(get_message "choose" "Choose" "選択してください")
+    MSG_DEFAULT=$(get_message "default" "default" "デフォルト")
+    MSG_INVALID_CHOICE=$(get_message "invalid_choice" "Invalid choice" "無効な選択です")
+    
     echo ""
-    echo "🎯 AI指示書の統合モードを選択してください:"
+    echo "🎯 $MSG_SELECT_MODE:"
     echo ""
-    echo "1) copy      - シンプルなファイルコピー（Gitなし）"
-    echo "2) clone     - 独立したGitリポジトリ（自由に変更可能）"
-    echo "3) submodule - Gitサブモジュール（推奨）"
+    echo "1) copy      - $MSG_SIMPLE_COPY"
+    echo "2) clone     - $MSG_INDEPENDENT_REPO"
+    echo "3) submodule - $MSG_GIT_SUBMODULE"
     echo ""
     
     local choice
-    read -r -p "選択してください [1-3] (デフォルト: 3): " choice
+    read -r -p "$MSG_CHOOSE [1-3] ($MSG_DEFAULT: 3): " choice
     
     case "$choice" in
         1|copy)
@@ -184,7 +233,7 @@ select_mode() {
             echo "submodule"
             ;;
         *)
-            echo "❌ 無効な選択です"
+            echo "❌ $MSG_INVALID_CHOICE"
             exit 1
             ;;
     esac
@@ -192,11 +241,14 @@ select_mode() {
 
 # コピーモードの実装
 setup_copy_mode() {
-    echo "📦 コピーモードでAI指示書を設定..."
+    MSG_COPY_MODE_SETUP=$(get_message "copy_mode_setup" "Setting up AI instructions in copy mode" "コピーモードでAI指示書を設定")
+    echo "📦 $MSG_COPY_MODE_SETUP..."
     
     if [ -d "instructions/ai_instruction_kits" ]; then
-        echo "⚠️  instructions/ai_instruction_kitsが既に存在します"
-        if confirm "既存のディレクトリをバックアップして、新しいファイルをコピーしますか？"; then
+        MSG_DIR_EXISTS=$(get_message "dir_exists" "instructions/ai_instruction_kits already exists" "instructions/ai_instruction_kitsが既に存在します")
+        MSG_BACKUP_AND_COPY=$(get_message "backup_and_copy" "Backup existing directory and copy new files?" "既存のディレクトリをバックアップして、新しいファイルをコピーしますか？")
+        echo "⚠️  $MSG_DIR_EXISTS"
+        if confirm "$MSG_BACKUP_AND_COPY"; then
             backup_file "instructions/ai_instruction_kits"
             if [ "$DRY_RUN" = true ]; then
                 dry_echo "rm -rf instructions/ai_instruction_kits"
@@ -215,17 +267,21 @@ setup_copy_mode() {
         cp -r "${SCRIPT_DIR}/.." instructions/ai_instruction_kits
         # .gitディレクトリを削除
         rm -rf instructions/ai_instruction_kits/.git
-        echo "✅ AI指示書をコピーしました"
+        MSG_COPIED=$(get_message "copied" "AI instructions copied" "AI指示書をコピーしました")
+        echo "✅ $MSG_COPIED"
     fi
 }
 
 # クローンモードの実装
 setup_clone_mode() {
-    echo "📦 クローンモードでAI指示書を設定..."
+    MSG_CLONE_MODE_SETUP=$(get_message "clone_mode_setup" "Setting up AI instructions in clone mode" "クローンモードでAI指示書を設定")
+    echo "📦 $MSG_CLONE_MODE_SETUP..."
     
     if [ -d "instructions/ai_instruction_kits" ]; then
-        echo "⚠️  instructions/ai_instruction_kitsが既に存在します"
-        if confirm "既存のディレクトリをバックアップして、新しくクローンしますか？"; then
+        MSG_DIR_EXISTS=$(get_message "dir_exists" "instructions/ai_instruction_kits already exists" "instructions/ai_instruction_kitsが既に存在します")
+        MSG_BACKUP_AND_CLONE=$(get_message "backup_and_clone" "Backup existing directory and clone new one?" "既存のディレクトリをバックアップして、新しくクローンしますか？")
+        echo "⚠️  $MSG_DIR_EXISTS"
+        if confirm "$MSG_BACKUP_AND_CLONE"; then
             backup_file "instructions/ai_instruction_kits"
             if [ "$DRY_RUN" = true ]; then
                 dry_echo "rm -rf instructions/ai_instruction_kits"
@@ -243,16 +299,19 @@ setup_clone_mode() {
         cd instructions
         git clone "$REPO_URL" ai_instruction_kits
         cd ..
-        echo "✅ AI指示書をクローンしました"
+        MSG_CLONED=$(get_message "cloned" "AI instructions cloned" "AI指示書をクローンしました")
+        echo "✅ $MSG_CLONED"
     fi
 }
 
 # サブモジュールモードの実装
 setup_submodule_mode() {
-    echo "📦 サブモジュールモードでAI指示書を設定..."
+    MSG_SUBMODULE_MODE_SETUP=$(get_message "submodule_mode_setup" "Setting up AI instructions in submodule mode" "サブモジュールモードでAI指示書を設定")
+    echo "📦 $MSG_SUBMODULE_MODE_SETUP..."
     
     if [ -d "instructions/ai_instruction_kits" ]; then
-        echo "✓ サブモジュールは既に存在します"
+        MSG_SUBMODULE_EXISTS=$(get_message "submodule_exists" "Submodule already exists" "サブモジュールは既に存在します")
+        echo "✓ $MSG_SUBMODULE_EXISTS"
         return 0
     fi
     
@@ -262,63 +321,77 @@ setup_submodule_mode() {
         cd instructions
         git submodule add "$REPO_URL" ai_instruction_kits
         cd ..
-        echo "✅ AI指示書をサブモジュールとして追加しました"
+        MSG_SUBMODULE_ADDED=$(get_message "submodule_added" "AI instructions added as submodule" "AI指示書をサブモジュールとして追加しました")
+        echo "✅ $MSG_SUBMODULE_ADDED"
     fi
 }
 
-echo "🚀 AI指示書を柔軟な構成でセットアップします..."
+MSG_SETUP_START=$(get_message "setup_start" "Setting up AI instructions with flexible configuration" "AI指示書を柔軟な構成でセットアップします")
+echo "🚀 $MSG_SETUP_START..."
 
 # カスタムURLが指定された場合の通知
 if [ "$REPO_URL" != "$DEFAULT_REPO_URL" ]; then
-    echo "📌 カスタムリポジトリURL: $REPO_URL"
+    MSG_CUSTOM_REPO_URL=$(get_message "custom_repo_url" "Custom repository URL" "カスタムリポジトリURL")
+    echo "📌 $MSG_CUSTOM_REPO_URL: $REPO_URL"
 fi
 
 if [ "$DRY_RUN" = true ]; then
-    echo "🔍 ドライランモード: 実際の変更は行いません"
+    MSG_DRY_RUN_MODE=$(get_message "dry_run_mode" "Dry run mode: No actual changes will be made" "ドライランモード: 実際の変更は行いません")
+    echo "🔍 $MSG_DRY_RUN_MODE"
     echo ""
 fi
 
 # プロジェクトルートで実行されているか確認
 if [ ! -d ".git" ] && [ "$INTEGRATION_MODE" != "copy" ]; then
-    echo "❌ エラー: このスクリプトはGitプロジェクトのルートディレクトリで実行してください"
-    echo "（コピーモードを使用する場合は --copy オプションを指定してください）"
+    MSG_ERROR_NOT_GIT=$(get_message "error_not_git" "Error: Please run this script in the root directory of a Git project" "エラー: このスクリプトはGitプロジェクトのルートディレクトリで実行してください")
+    MSG_USE_COPY_MODE=$(get_message "use_copy_mode" "To use copy mode, specify --copy option" "コピーモードを使用する場合は --copy オプションを指定してください")
+    echo "❌ $MSG_ERROR_NOT_GIT"
+    echo "（$MSG_USE_COPY_MODE）"
     exit 1
 fi
 
 # モード選択
 SELECTED_MODE=$(select_mode)
 echo ""
-echo "📌 選択されたモード: $SELECTED_MODE"
+MSG_SELECTED_MODE=$(get_message "selected_mode" "Selected mode" "選択されたモード")
+echo "📌 $MSG_SELECTED_MODE: $SELECTED_MODE"
 
 # ディレクトリ作成
 echo ""
-echo "📁 必要なディレクトリを作成..."
+MSG_CREATE_DIRS=$(get_message "create_dirs" "Creating required directories" "必要なディレクトリを作成")
+echo "📁 $MSG_CREATE_DIRS..."
 if [ ! -d "scripts" ]; then
-    if confirm "scriptsディレクトリを作成しますか？"; then
+    MSG_CREATE_SCRIPTS_DIR=$(get_message "create_scripts_dir" "Create scripts directory?" "scriptsディレクトリを作成しますか？")
+    if confirm "$MSG_CREATE_SCRIPTS_DIR"; then
         if [ "$DRY_RUN" = true ]; then
             dry_echo "mkdir -p scripts"
         else
             mkdir -p scripts
         fi
     else
-        echo "⏭️  scriptsディレクトリの作成をスキップ"
+        MSG_SKIP_SCRIPTS=$(get_message "skip_scripts" "Skipping scripts directory creation" "scriptsディレクトリの作成をスキップ")
+        echo "⏭️  $MSG_SKIP_SCRIPTS"
     fi
 else
-    echo "✓ scriptsディレクトリは既に存在します"
+    MSG_SCRIPTS_EXISTS=$(get_message "scripts_exists" "scripts directory already exists" "scriptsディレクトリは既に存在します")
+    echo "✓ $MSG_SCRIPTS_EXISTS"
 fi
 
 if [ ! -d "instructions" ]; then
-    if confirm "instructionsディレクトリを作成しますか？"; then
+    MSG_CREATE_INSTRUCTIONS_DIR=$(get_message "create_instructions_dir" "Create instructions directory?" "instructionsディレクトリを作成しますか？")
+    if confirm "$MSG_CREATE_INSTRUCTIONS_DIR"; then
         if [ "$DRY_RUN" = true ]; then
             dry_echo "mkdir -p instructions"
         else
             mkdir -p instructions
         fi
     else
-        echo "⏭️  instructionsディレクトリの作成をスキップ"
+        MSG_SKIP_INSTRUCTIONS=$(get_message "skip_instructions" "Skipping instructions directory creation" "instructionsディレクトリの作成をスキップ")
+        echo "⏭️  $MSG_SKIP_INSTRUCTIONS"
     fi
 else
-    echo "✓ instructionsディレクトリは既に存在します"
+    MSG_INSTRUCTIONS_EXISTS=$(get_message "instructions_exists" "instructions directory already exists" "instructionsディレクトリは既に存在します")
+    echo "✓ $MSG_INSTRUCTIONS_EXISTS"
 fi
 
 # 選択されたモードに応じてセットアップ
@@ -337,13 +410,17 @@ esac
 
 # checkpoint.shへのシンボリックリンク
 echo ""
-echo "🔗 checkpoint.shへのシンボリックリンクを作成..."
+MSG_CREATE_SYMLINK=$(get_message "create_symlink" "Creating symbolic link to" "へのシンボリックリンクを作成")
+echo "🔗 $MSG_CREATE_SYMLINK checkpoint.sh..."
 if [ -e "scripts/checkpoint.sh" ]; then
     if [ -L "scripts/checkpoint.sh" ]; then
-        echo "✓ シンボリックリンクは既に存在します"
+        MSG_SYMLINK_EXISTS=$(get_message "symlink_exists" "Symbolic link already exists" "シンボリックリンクは既に存在します")
+        echo "✓ $MSG_SYMLINK_EXISTS"
     else
-        echo "⚠️  scripts/checkpoint.shが既に存在します（シンボリックリンクではありません）"
-        if confirm "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？"; then
+        MSG_FILE_EXISTS_NOT_LINK=$(get_message "file_exists_not_link" "already exists (not a symbolic link)" "が既に存在します（シンボリックリンクではありません）")
+        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
+        echo "⚠️  scripts/checkpoint.sh$MSG_FILE_EXISTS_NOT_LINK"
+        if confirm "$MSG_BACKUP_AND_REPLACE"; then
             backup_file "scripts/checkpoint.sh"
             if [ "$DRY_RUN" = true ]; then
                 dry_echo "rm scripts/checkpoint.sh && ln -sf ../instructions/ai_instruction_kits/scripts/checkpoint.sh scripts/checkpoint.sh"
@@ -354,7 +431,8 @@ if [ -e "scripts/checkpoint.sh" ]; then
         fi
     fi
 else
-    if confirm "checkpoint.shへのシンボリックリンクを作成しますか？"; then
+    MSG_CREATE_CHECKPOINT_LINK=$(get_message "create_checkpoint_link" "Create symbolic link to checkpoint.sh?" "checkpoint.shへのシンボリックリンクを作成しますか？")
+    if confirm "$MSG_CREATE_CHECKPOINT_LINK"; then
         if [ "$DRY_RUN" = true ]; then
             dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/checkpoint.sh scripts/checkpoint.sh"
         else
@@ -373,85 +451,49 @@ fi
 
 # PROJECT.md（日本語版）の作成
 echo ""
-echo "📝 instructions/PROJECT.md（日本語版）を作成..."
+MSG_CREATE_PROJECT_JA=$(get_message "create_project_ja" "Creating instructions/PROJECT.md (Japanese version)" "instructions/PROJECT.md（日本語版）を作成")
+echo "📝 $MSG_CREATE_PROJECT_JA..."
 if [ -f "instructions/PROJECT.md" ]; then
-    echo "⚠️  instructions/PROJECT.mdが既に存在します"
-    if confirm "既存のファイルをバックアップして、新しいテンプレートで上書きしますか？"; then
+    MSG_PROJECT_EXISTS=$(get_message "project_exists" "instructions/PROJECT.md already exists" "instructions/PROJECT.mdが既に存在します")
+    MSG_BACKUP_AND_OVERWRITE=$(get_message "backup_and_overwrite" "Backup existing file and overwrite with new template?" "既存のファイルをバックアップして、新しいテンプレートで上書きしますか？")
+    echo "⚠️  $MSG_PROJECT_EXISTS"
+    if confirm "$MSG_BACKUP_AND_OVERWRITE"; then
         backup_file "instructions/PROJECT.md"
         if [ "$DRY_RUN" = false ]; then
             if [ -n "$PROJECT_TEMPLATE_JA" ] && [ -f "$PROJECT_TEMPLATE_JA" ]; then
                 cp "$PROJECT_TEMPLATE_JA" instructions/PROJECT.md
             else
-                # テンプレートが見つからない場合はインライン定義
-                cat > instructions/PROJECT.md << 'EOF'
-# AI開発支援設定
-
-このプロジェクトでは`instructions/ai_instruction_kits/`のAI指示書システムを使用します。
-タスク開始時は`instructions/ai_instruction_kits/instructions/ja/system/ROOT_INSTRUCTION.md`を読み込んでください。
-
-## プロジェクト設定
-- 言語: 日本語 (ja)
-- チェックポイント管理: 有効
-- チェックポイントスクリプト: scripts/checkpoint.sh
-- ログファイル: checkpoint.log
-
-## 重要なパス
-- AI指示書システム: `instructions/ai_instruction_kits/`
-- チェックポイントスクリプト: `scripts/checkpoint.sh`
-- プロジェクト固有の設定: このファイル（`instructions/PROJECT.md`）
-
-## プロジェクト固有の追加指示
-<!-- ここにプロジェクト固有の指示を追加してください -->
-
-### 例：
-- コーディング規約: 
-- テストフレームワーク: 
-- ビルドコマンド: 
-- リントコマンド: 
-- その他の制約事項: 
-EOF
+                MSG_ERROR_TEMPLATE_NOT_FOUND=$(get_message "error_template_not_found" "Error: PROJECT.md template not found" "エラー: PROJECT.mdテンプレートが見つかりません")
+                MSG_SEARCH_PATHS=$(get_message "search_paths" "Search paths" "探索パス")
+                echo "❌ $MSG_ERROR_TEMPLATE_NOT_FOUND"
+                echo "  $MSG_SEARCH_PATHS:"
+                echo "    - ${SCRIPT_DIR}/../templates/ja/PROJECT_TEMPLATE.md"
+                echo "    - instructions/ai_instruction_kits/templates/ja/PROJECT_TEMPLATE.md"
+                exit 1
             fi
         else
-            dry_echo "PROJECT.mdテンプレートをコピー"
+            MSG_COPY_TEMPLATE=$(get_message "copy_template" "Copy PROJECT.md template" "PROJECT.mdテンプレートをコピー")
+            dry_echo "$MSG_COPY_TEMPLATE"
         fi
     fi
 else
-    if confirm "instructions/PROJECT.md（日本語版）を作成しますか？"; then
+    MSG_CREATE_PROJECT_MD_JA=$(get_message "create_project_md_ja" "Create instructions/PROJECT.md (Japanese version)?" "instructions/PROJECT.md（日本語版）を作成しますか？")
+    if confirm "$MSG_CREATE_PROJECT_MD_JA"; then
         if [ "$DRY_RUN" = false ]; then
             if [ -n "$PROJECT_TEMPLATE_JA" ] && [ -f "$PROJECT_TEMPLATE_JA" ]; then
                 cp "$PROJECT_TEMPLATE_JA" instructions/PROJECT.md
             else
-                # テンプレートが見つからない場合はインライン定義
-                cat > instructions/PROJECT.md << 'EOF'
-# AI開発支援設定
-
-このプロジェクトでは`instructions/ai_instruction_kits/`のAI指示書システムを使用します。
-タスク開始時は`instructions/ai_instruction_kits/instructions/ja/system/ROOT_INSTRUCTION.md`を読み込んでください。
-
-## プロジェクト設定
-- 言語: 日本語 (ja)
-- チェックポイント管理: 有効
-- チェックポイントスクリプト: scripts/checkpoint.sh
-- ログファイル: checkpoint.log
-
-## 重要なパス
-- AI指示書システム: `instructions/ai_instruction_kits/`
-- チェックポイントスクリプト: `scripts/checkpoint.sh`
-- プロジェクト固有の設定: このファイル（`instructions/PROJECT.md`）
-
-## プロジェクト固有の追加指示
-<!-- ここにプロジェクト固有の指示を追加してください -->
-
-### 例：
-- コーディング規約: 
-- テストフレームワーク: 
-- ビルドコマンド: 
-- リントコマンド: 
-- その他の制約事項: 
-EOF
+                MSG_ERROR_TEMPLATE_NOT_FOUND=$(get_message "error_template_not_found" "Error: PROJECT.md template not found" "エラー: PROJECT.mdテンプレートが見つかりません")
+                MSG_SEARCH_PATHS=$(get_message "search_paths" "Search paths" "探索パス")
+                echo "❌ $MSG_ERROR_TEMPLATE_NOT_FOUND"
+                echo "  $MSG_SEARCH_PATHS:"
+                echo "    - ${SCRIPT_DIR}/../templates/ja/PROJECT_TEMPLATE.md"
+                echo "    - instructions/ai_instruction_kits/templates/ja/PROJECT_TEMPLATE.md"
+                exit 1
             fi
         else
-            dry_echo "PROJECT.mdテンプレートをコピー"
+            MSG_COPY_TEMPLATE=$(get_message "copy_template" "Copy PROJECT.md template" "PROJECT.mdテンプレートをコピー")
+            dry_echo "$MSG_COPY_TEMPLATE"
         fi
     fi
 fi
@@ -466,102 +508,66 @@ fi
 
 # PROJECT.en.md（英語版）の作成
 echo ""
-echo "📝 instructions/PROJECT.en.md（英語版）を作成..."
+MSG_CREATE_PROJECT_EN=$(get_message "create_project_en" "Creating instructions/PROJECT.en.md (English version)" "instructions/PROJECT.en.md（英語版）を作成")
+echo "📝 $MSG_CREATE_PROJECT_EN..."
 if [ -f "instructions/PROJECT.en.md" ]; then
-    echo "⚠️  instructions/PROJECT.en.mdが既に存在します"
-    if confirm "既存のファイルをバックアップして、新しいテンプレートで上書きしますか？"; then
+    MSG_PROJECT_EN_EXISTS=$(get_message "project_en_exists" "instructions/PROJECT.en.md already exists" "instructions/PROJECT.en.mdが既に存在します")
+    MSG_BACKUP_AND_OVERWRITE=$(get_message "backup_and_overwrite" "Backup existing file and overwrite with new template?" "既存のファイルをバックアップして、新しいテンプレートで上書きしますか？")
+    echo "⚠️  $MSG_PROJECT_EN_EXISTS"
+    if confirm "$MSG_BACKUP_AND_OVERWRITE"; then
         backup_file "instructions/PROJECT.en.md"
         if [ "$DRY_RUN" = false ]; then
             if [ -n "$PROJECT_TEMPLATE_EN" ] && [ -f "$PROJECT_TEMPLATE_EN" ]; then
                 cp "$PROJECT_TEMPLATE_EN" instructions/PROJECT.en.md
             else
-                # テンプレートが見つからない場合はインライン定義
-                cat > instructions/PROJECT.en.md << 'EOF'
-# AI Development Support Configuration
-
-This project uses the AI instruction system in `instructions/ai_instruction_kits/`.
-Please load `instructions/ai_instruction_kits/instructions/en/system/ROOT_INSTRUCTION.md` when starting a task.
-
-## Project Settings
-- Language: English (en)
-- Checkpoint Management: Enabled
-- Checkpoint Script: scripts/checkpoint.sh
-- Log File: checkpoint.log
-
-## Important Paths
-- AI Instruction System: `instructions/ai_instruction_kits/`
-- Checkpoint Script: `scripts/checkpoint.sh`
-- Project-Specific Configuration: This file (`instructions/PROJECT.en.md`)
-
-## Project-Specific Instructions
-<!-- Add your project-specific instructions here -->
-
-### Examples:
-- Coding Standards: 
-- Test Framework: 
-- Build Commands: 
-- Lint Commands: 
-- Other Constraints: 
-EOF
+                echo "❌ Error: PROJECT.en.md template not found"
+                echo "  Search paths:"
+                echo "    - ${SCRIPT_DIR}/../templates/en/PROJECT_TEMPLATE.md"
+                echo "    - instructions/ai_instruction_kits/templates/en/PROJECT_TEMPLATE.md"
+                exit 1
             fi
         else
-            dry_echo "PROJECT.en.mdテンプレートをコピー"
+            MSG_COPY_TEMPLATE_EN=$(get_message "copy_template_en" "Copy PROJECT.en.md template" "PROJECT.en.mdテンプレートをコピー")
+            dry_echo "$MSG_COPY_TEMPLATE_EN"
         fi
     fi
 else
-    if confirm "instructions/PROJECT.en.md（英語版）を作成しますか？"; then
+    MSG_CREATE_PROJECT_MD_EN=$(get_message "create_project_md_en" "Create instructions/PROJECT.en.md (English version)?" "instructions/PROJECT.en.md（英語版）を作成しますか？")
+    if confirm "$MSG_CREATE_PROJECT_MD_EN"; then
         if [ "$DRY_RUN" = false ]; then
             if [ -n "$PROJECT_TEMPLATE_EN" ] && [ -f "$PROJECT_TEMPLATE_EN" ]; then
                 cp "$PROJECT_TEMPLATE_EN" instructions/PROJECT.en.md
             else
-                # テンプレートが見つからない場合はインライン定義
-                cat > instructions/PROJECT.en.md << 'EOF'
-# AI Development Support Configuration
-
-This project uses the AI instruction system in `instructions/ai_instruction_kits/`.
-Please load `instructions/ai_instruction_kits/instructions/en/system/ROOT_INSTRUCTION.md` when starting a task.
-
-## Project Settings
-- Language: English (en)
-- Checkpoint Management: Enabled
-- Checkpoint Script: scripts/checkpoint.sh
-- Log File: checkpoint.log
-
-## Important Paths
-- AI Instruction System: `instructions/ai_instruction_kits/`
-- Checkpoint Script: `scripts/checkpoint.sh`
-- Project-Specific Configuration: This file (`instructions/PROJECT.en.md`)
-
-## Project-Specific Instructions
-<!-- Add your project-specific instructions here -->
-
-### Examples:
-- Coding Standards: 
-- Test Framework: 
-- Build Commands: 
-- Lint Commands: 
-- Other Constraints: 
-EOF
+                echo "❌ Error: PROJECT.en.md template not found"
+                echo "  Search paths:"
+                echo "    - ${SCRIPT_DIR}/../templates/en/PROJECT_TEMPLATE.md"
+                echo "    - instructions/ai_instruction_kits/templates/en/PROJECT_TEMPLATE.md"
+                exit 1
             fi
         else
-            dry_echo "PROJECT.en.mdテンプレートをコピー"
+            MSG_COPY_TEMPLATE_EN=$(get_message "copy_template_en" "Copy PROJECT.en.md template" "PROJECT.en.mdテンプレートをコピー")
+            dry_echo "$MSG_COPY_TEMPLATE_EN"
         fi
     fi
 fi
 
 # AI製品別のシンボリックリンク作成
 echo ""
-echo "🔗 AI製品別のシンボリックリンクを作成..."
+MSG_CREATE_AI_SYMLINKS=$(get_message "create_ai_symlinks" "Creating symbolic links for AI products" "AI製品別のシンボリックリンクを作成")
+echo "🔗 $MSG_CREATE_AI_SYMLINKS..."
 ai_files=("CLAUDE.md" "GEMINI.md" "CURSOR.md")
 ai_files_en=("CLAUDE.en.md" "GEMINI.en.md" "CURSOR.en.md")
 
 for file in "${ai_files[@]}"; do
     if [ -e "$file" ]; then
         if [ -L "$file" ]; then
-            echo "✓ $file シンボリックリンクは既に存在します"
+            MSG_SYMLINK_EXISTS=$(get_message "symlink_exists" "symbolic link already exists" "シンボリックリンクは既に存在します")
+            echo "✓ $file $MSG_SYMLINK_EXISTS"
         else
-            echo "⚠️  $file が既に存在します（シンボリックリンクではありません）"
-            if confirm "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？"; then
+            MSG_FILE_EXISTS_NOT_LINK=$(get_message "file_exists_not_link" "already exists (not a symbolic link)" "が既に存在します（シンボリックリンクではありません）")
+            MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
+            echo "⚠️  $file $MSG_FILE_EXISTS_NOT_LINK"
+            if confirm "$MSG_BACKUP_AND_REPLACE"; then
                 backup_file "$file"
                 if [ "$DRY_RUN" = true ]; then
                     dry_echo "rm $file && ln -sf instructions/PROJECT.md $file"
@@ -572,7 +578,8 @@ for file in "${ai_files[@]}"; do
             fi
         fi
     else
-        if confirm "$file シンボリックリンクを作成しますか？"; then
+        MSG_CREATE_SYMLINK_FOR=$(get_message "create_symlink_for" "Create symbolic link" "シンボリックリンクを作成しますか？")
+        if confirm "$file $MSG_CREATE_SYMLINK_FOR"; then
             if [ "$DRY_RUN" = true ]; then
                 dry_echo "ln -sf instructions/PROJECT.md $file"
             else
@@ -585,10 +592,13 @@ done
 for file in "${ai_files_en[@]}"; do
     if [ -e "$file" ]; then
         if [ -L "$file" ]; then
-            echo "✓ $file シンボリックリンクは既に存在します"
+            MSG_SYMLINK_EXISTS=$(get_message "symlink_exists" "symbolic link already exists" "シンボリックリンクは既に存在します")
+            echo "✓ $file $MSG_SYMLINK_EXISTS"
         else
-            echo "⚠️  $file が既に存在します（シンボリックリンクではありません）"
-            if confirm "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？"; then
+            MSG_FILE_EXISTS_NOT_LINK=$(get_message "file_exists_not_link" "already exists (not a symbolic link)" "が既に存在します（シンボリックリンクではありません）")
+            MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
+            echo "⚠️  $file $MSG_FILE_EXISTS_NOT_LINK"
+            if confirm "$MSG_BACKUP_AND_REPLACE"; then
                 backup_file "$file"
                 if [ "$DRY_RUN" = true ]; then
                     dry_echo "rm $file && ln -sf instructions/PROJECT.en.md $file"
@@ -599,7 +609,8 @@ for file in "${ai_files_en[@]}"; do
             fi
         fi
     else
-        if confirm "$file シンボリックリンクを作成しますか？"; then
+        MSG_CREATE_SYMLINK_FOR=$(get_message "create_symlink_for" "Create symbolic link" "シンボリックリンクを作成しますか？")
+        if confirm "$file $MSG_CREATE_SYMLINK_FOR"; then
             if [ "$DRY_RUN" = true ]; then
                 dry_echo "ln -sf instructions/PROJECT.en.md $file"
             else
@@ -611,7 +622,8 @@ done
 
 # Gitフックの設定
 echo ""
-echo "🔧 Gitフックを設定..."
+MSG_SETUP_GIT_HOOKS=$(get_message "setup_git_hooks" "Setting up Git hooks" "Gitフックを設定")
+echo "🔧 $MSG_SETUP_GIT_HOOKS..."
 if [ -d ".git/hooks" ]; then
     HOOK_SOURCE=""
     if [ -f "${SCRIPT_DIR}/../templates/git-hooks/prepare-commit-msg" ]; then
@@ -622,44 +634,54 @@ if [ -d ".git/hooks" ]; then
     
     if [ -n "$HOOK_SOURCE" ]; then
         if [ -e ".git/hooks/prepare-commit-msg" ]; then
-            echo "⚠️  .git/hooks/prepare-commit-msgが既に存在します"
-            if confirm "既存のフックをバックアップして、AI検出フックをインストールしますか？"; then
+            MSG_HOOK_EXISTS=$(get_message "hook_exists" ".git/hooks/prepare-commit-msg already exists" ".git/hooks/prepare-commit-msgが既に存在します")
+            MSG_INSTALL_AI_HOOK=$(get_message "install_ai_hook" "Backup existing hook and install AI detection hook?" "既存のフックをバックアップして、AI検出フックをインストールしますか？")
+            echo "⚠️  $MSG_HOOK_EXISTS"
+            if confirm "$MSG_INSTALL_AI_HOOK"; then
                 backup_file ".git/hooks/prepare-commit-msg"
                 if [ "$DRY_RUN" = true ]; then
                     dry_echo "cp $HOOK_SOURCE .git/hooks/prepare-commit-msg && chmod +x .git/hooks/prepare-commit-msg"
                 else
                     cp "$HOOK_SOURCE" .git/hooks/prepare-commit-msg
                     chmod +x .git/hooks/prepare-commit-msg
-                    echo "✅ AI検出フックをインストールしました"
+                    MSG_AI_HOOK_INSTALLED=$(get_message "ai_hook_installed" "AI detection hook installed" "AI検出フックをインストールしました")
+                    echo "✅ $MSG_AI_HOOK_INSTALLED"
                 fi
             fi
         else
-            if confirm "AIコミットを防止するGitフックをインストールしますか？"; then
+            MSG_INSTALL_AI_PREVENT_HOOK=$(get_message "install_ai_prevent_hook" "Install Git hook to prevent AI commits?" "AIコミットを防止するGitフックをインストールしますか？")
+            if confirm "$MSG_INSTALL_AI_PREVENT_HOOK"; then
                 if [ "$DRY_RUN" = true ]; then
                     dry_echo "cp $HOOK_SOURCE .git/hooks/prepare-commit-msg && chmod +x .git/hooks/prepare-commit-msg"
                 else
                     cp "$HOOK_SOURCE" .git/hooks/prepare-commit-msg
                     chmod +x .git/hooks/prepare-commit-msg
-                    echo "✅ AI検出フックをインストールしました"
+                    MSG_AI_HOOK_INSTALLED=$(get_message "ai_hook_installed" "AI detection hook installed" "AI検出フックをインストールしました")
+                    echo "✅ $MSG_AI_HOOK_INSTALLED"
                 fi
             fi
         fi
     else
-        echo "⚠️  Gitフックテンプレートが見つかりません"
+        MSG_HOOK_TEMPLATE_NOT_FOUND=$(get_message "hook_template_not_found" "Git hook template not found" "Gitフックテンプレートが見つかりません")
+        echo "⚠️  $MSG_HOOK_TEMPLATE_NOT_FOUND"
     fi
 else
-    echo "⚠️  .git/hooksディレクトリが見つかりません（Gitリポジトリではない可能性があります）"
+    MSG_HOOKS_DIR_NOT_FOUND=$(get_message "hooks_dir_not_found" ".git/hooks directory not found (may not be a Git repository)" ".git/hooksディレクトリが見つかりません（Gitリポジトリではない可能性があります）")
+    echo "⚠️  $MSG_HOOKS_DIR_NOT_FOUND"
 fi
 
 # commit.shのリンク作成
 echo ""
-echo "🔗 commit.shへのシンボリックリンクを作成..."
+echo "🔗 $MSG_CREATE_SYMLINK commit.sh..."
 if [ -e "scripts/commit.sh" ]; then
     if [ -L "scripts/commit.sh" ]; then
-        echo "✓ commit.shシンボリックリンクは既に存在します"
+        MSG_COMMIT_SYMLINK_EXISTS=$(get_message "commit_symlink_exists" "commit.sh symbolic link already exists" "commit.shシンボリックリンクは既に存在します")
+        echo "✓ $MSG_COMMIT_SYMLINK_EXISTS"
     else
-        echo "⚠️  scripts/commit.shが既に存在します（シンボリックリンクではありません）"
-        if confirm "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？"; then
+        MSG_COMMIT_EXISTS_NOT_LINK=$(get_message "commit_exists_not_link" "scripts/commit.sh already exists (not a symbolic link)" "scripts/commit.shが既に存在します（シンボリックリンクではありません）")
+        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
+        echo "⚠️  $MSG_COMMIT_EXISTS_NOT_LINK"
+        if confirm "$MSG_BACKUP_AND_REPLACE"; then
             backup_file "scripts/commit.sh"
             if [ "$DRY_RUN" = true ]; then
                 dry_echo "rm scripts/commit.sh && ln -sf ../instructions/ai_instruction_kits/scripts/commit.sh scripts/commit.sh"
@@ -670,7 +692,8 @@ if [ -e "scripts/commit.sh" ]; then
         fi
     fi
 else
-    if confirm "commit.shへのシンボリックリンクを作成しますか？"; then
+    MSG_CREATE_COMMIT_LINK=$(get_message "create_commit_link" "Create symbolic link to commit.sh?" "commit.shへのシンボリックリンクを作成しますか？")
+    if confirm "$MSG_CREATE_COMMIT_LINK"; then
         if [ "$DRY_RUN" = true ]; then
             dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/commit.sh scripts/commit.sh"
         else
@@ -682,10 +705,12 @@ fi
 # .gitignoreに追加（サブモジュールモードの場合のみ）
 if [ "$SELECTED_MODE" = "submodule" ]; then
     echo ""
-    echo "📄 .gitignoreを更新..."
+    MSG_UPDATE_GITIGNORE=$(get_message "update_gitignore" "Updating .gitignore" ".gitignoreを更新")
+    echo "📄 $MSG_UPDATE_GITIGNORE..."
     if [ -f ".gitignore" ]; then
         if ! grep -q "^instructions/ai_instruction_kits/$" .gitignore 2>/dev/null; then
-            if confirm ".gitignoreに'instructions/ai_instruction_kits/'を追加しますか？"; then
+            MSG_ADD_TO_GITIGNORE=$(get_message "add_to_gitignore" "Add 'instructions/ai_instruction_kits/' to .gitignore?" ".gitignoreに'instructions/ai_instruction_kits/'を追加しますか？")
+            if confirm "$MSG_ADD_TO_GITIGNORE"; then
                 backup_file ".gitignore"
                 if [ "$DRY_RUN" = true ]; then
                     dry_echo "echo 'instructions/ai_instruction_kits/' >> .gitignore"
@@ -694,10 +719,12 @@ if [ "$SELECTED_MODE" = "submodule" ]; then
                 fi
             fi
         else
-            echo "✓ .gitignoreには既にエントリが存在します"
+            MSG_GITIGNORE_ENTRY_EXISTS=$(get_message "gitignore_entry_exists" ".gitignore already has the entry" ".gitignoreには既にエントリが存在します")
+            echo "✓ $MSG_GITIGNORE_ENTRY_EXISTS"
         fi
     else
-        if confirm ".gitignoreファイルを作成して'instructions/ai_instruction_kits/'を追加しますか？"; then
+        MSG_CREATE_GITIGNORE=$(get_message "create_gitignore" "Create .gitignore file and add 'instructions/ai_instruction_kits/'?" ".gitignoreファイルを作成して'instructions/ai_instruction_kits/'を追加しますか？")
+        if confirm "$MSG_CREATE_GITIGNORE"; then
             if [ "$DRY_RUN" = true ]; then
                 dry_echo "echo 'instructions/ai_instruction_kits/' > .gitignore"
             else
@@ -709,29 +736,36 @@ fi
 
 if [ "$DRY_RUN" = true ]; then
     echo ""
-    echo "🔍 ドライラン完了"
-    echo "実際に実行するには、--dry-run オプションなしで再度実行してください"
+    MSG_DRY_RUN_COMPLETE=$(get_message "dry_run_complete" "Dry run completed" "ドライラン完了")
+    MSG_RUN_WITHOUT_DRY=$(get_message "run_without_dry" "To actually run, execute again without --dry-run option" "実際に実行するには、--dry-run オプションなしで再度実行してください")
+    echo "🔍 $MSG_DRY_RUN_COMPLETE"
+    echo "$MSG_RUN_WITHOUT_DRY"
 else
     echo ""
-    echo "✅ セットアップが完了しました！"
+    MSG_SETUP_COMPLETE=$(get_message "setup_complete" "Setup completed!" "セットアップが完了しました！")
+    echo "✅ $MSG_SETUP_COMPLETE"
     echo ""
-    echo "📖 使い方 / Usage:"
+    echo "📖 $(get_message "how_to_use" "How to use" "使い方") / Usage:"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
-    echo "🇯🇵 日本語:"
-    echo "  AIに作業を依頼する際は「CLAUDE.mdを参照して、[タスク内容]」と伝えてください"
-    echo "  （GEMINI.md、CURSOR.mdも同様に使用可能）"
+    echo "🇯🇵 $(get_message "japanese" "Japanese" "日本語"):"
+    MSG_JA_USAGE=$(get_message "ja_usage" 'When requesting AI assistance, say "Please refer to CLAUDE.md and [task description]"' 'AIに作業を依頼する際は「CLAUDE.mdを参照して、[タスク内容]」と伝えてください')
+    MSG_JA_ALSO_AVAILABLE=$(get_message "ja_also_available" "(GEMINI.md, CURSOR.md also available)" "（GEMINI.md、CURSOR.mdも同様に使用可能）")
+    echo "  $MSG_JA_USAGE"
+    echo "  $MSG_JA_ALSO_AVAILABLE"
     echo ""
     echo "🇺🇸 English:"
     echo "  When requesting AI assistance, say \"Please refer to CLAUDE.en.md and [task description]\""
     echo "  (GEMINI.en.md, CURSOR.en.md also available)"
     echo ""
-    echo "📁 作成された構成:"
+    MSG_CREATED_STRUCTURE=$(get_message "created_structure" "Created structure" "作成された構成")
+    echo "📁 $MSG_CREATED_STRUCTURE:"
     echo "  scripts/"
     echo "    └── checkpoint.sh → ../instructions/ai_instruction_kits/scripts/checkpoint.sh"
     echo "  instructions/"
-    echo "    ├── ai_instruction_kits/ ($SELECTED_MODE モード)"
-    echo "    ├── PROJECT.md (プロジェクト設定)"
+    echo "    ├── ai_instruction_kits/ ($SELECTED_MODE $(get_message "mode" "mode" "モード"))"
+    MSG_PROJECT_CONFIG=$(get_message "project_config" "Project configuration" "プロジェクト設定")
+    echo "    ├── PROJECT.md ($MSG_PROJECT_CONFIG)"
     echo "    └── PROJECT.en.md (Project configuration)"
     echo "  CLAUDE.md → instructions/PROJECT.md"
     echo "  GEMINI.md → instructions/PROJECT.md"
@@ -739,26 +773,35 @@ else
     echo ""
     
     # モード別の次のステップ
-    echo "🔗 次のステップ:"
+    MSG_NEXT_STEPS=$(get_message "next_steps" "Next steps" "次のステップ")
+    echo "🔗 $MSG_NEXT_STEPS:"
+    MSG_EDIT_PROJECT_SPECIFIC=$(get_message "edit_project_specific" "Edit instructions/PROJECT.md to add project-specific settings" "instructions/PROJECT.mdを編集してプロジェクト固有の設定を追加")
+    MSG_UPDATE_REGULAR=$(get_message "update_regular" "Update regularly (manual download)" "定期的に最新版に更新（手動でダウンロード）")
+    MSG_UPDATE_GIT_PULL=$(get_message "update_git_pull" "Update" "更新")
+    MSG_CUSTOM_CHANGES=$(get_message "custom_changes" "Custom changes" "独自の変更")
+    
     case "$SELECTED_MODE" in
         copy)
-            echo "  1. instructions/PROJECT.mdを編集してプロジェクト固有の設定を追加"
-            echo "  2. 定期的に最新版に更新（手動でダウンロード）"
+            echo "  1. $MSG_EDIT_PROJECT_SPECIFIC"
+            echo "  2. $MSG_UPDATE_REGULAR"
             ;;
         clone)
-            echo "  1. instructions/PROJECT.mdを編集してプロジェクト固有の設定を追加"
-            echo "  2. 更新: cd instructions/ai_instruction_kits && git pull"
-            echo "  3. 独自の変更: cd instructions/ai_instruction_kits && git commit"
+            echo "  1. $MSG_EDIT_PROJECT_SPECIFIC"
+            echo "  2. $MSG_UPDATE_GIT_PULL: cd instructions/ai_instruction_kits && git pull"
+            echo "  3. $MSG_CUSTOM_CHANGES: cd instructions/ai_instruction_kits && git commit"
             ;;
         submodule)
-            echo "  1. instructions/PROJECT.mdを編集してプロジェクト固有の設定を追加"
+            echo "  1. $MSG_EDIT_PROJECT_SPECIFIC"
             echo "  2. git add -A"
             echo "  3. git commit -m \"Add AI instruction configuration with flexible structure\""
-            echo "  4. 更新: git submodule update --remote"
+            echo "  4. $MSG_UPDATE_GIT_PULL: git submodule update --remote"
             ;;
     esac
     echo ""
-    echo "⚠️  重要:"
-    echo "  • チェックポイントは scripts/checkpoint.sh から実行されます"
-    echo "  • AIは自動的に正しいパスを使用します"
+    MSG_IMPORTANT=$(get_message "important" "Important" "重要")
+    MSG_CHECKPOINT_RUN_FROM=$(get_message "checkpoint_run_from" "Checkpoints are run from scripts/checkpoint.sh" "チェックポイントは scripts/checkpoint.sh から実行されます")
+    MSG_AI_AUTO_PATH=$(get_message "ai_auto_path" "AI will automatically use the correct paths" "AIは自動的に正しいパスを使用します")
+    echo "⚠️  $MSG_IMPORTANT:"
+    echo "  • $MSG_CHECKPOINT_RUN_FROM"
+    echo "  • $MSG_AI_AUTO_PATH"
 fi
