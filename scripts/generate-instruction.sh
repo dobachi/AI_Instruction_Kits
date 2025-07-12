@@ -14,6 +14,7 @@ MODULES=()
 PRESET=""
 VARIABLES=()
 LIST_TYPE=""
+LANG="ja"
 
 # ヘルプメッセージ
 show_help() {
@@ -25,6 +26,7 @@ show_help() {
     MSG_VARIABLE_DESC=$(get_message "variable_desc" "Set variables (can be specified multiple times)" "変数を設定（複数指定可）")
     MSG_LIST_DESC=$(get_message "list_desc" "Show available items" "利用可能な要素を表示")
     MSG_METADATA_DESC=$(get_message "metadata_desc" "Show metadata summary for AI analysis" "AIが分析するためのメタデータサマリーを表示")
+    MSG_LANG_DESC=$(get_message "lang_desc" "Language for modules (ja|en, default: ja)" "モジュール言語 (ja|en, デフォルト: ja)")
     MSG_HELP_DESC=$(get_message "help_desc" "Show this help" "このヘルプを表示")
     MSG_EXAMPLES=$(get_message "examples" "Examples" "例")
     MSG_DIRECT_MODULES=$(get_message "direct_modules" "Specify modules directly" "モジュールを直接指定")
@@ -43,6 +45,7 @@ $MSG_OPTIONS:
   --variable KEY=VALUE          $MSG_VARIABLE_DESC
   --list TYPE                   $MSG_LIST_DESC (presets|modules)
   --metadata                    $MSG_METADATA_DESC
+  --lang LANG                   $MSG_LANG_DESC
   --help                        $MSG_HELP_DESC
 
 $MSG_EXAMPLES:
@@ -93,6 +96,10 @@ while [[ $# -gt 0 ]]; do
             LIST_TYPE="metadata"
             shift
             ;;
+        --lang)
+            LANG="$2"
+            shift 2
+            ;;
         --help)
             show_help
             exit 0
@@ -124,9 +131,9 @@ fi
 # listコマンドまたはmetadataコマンドの処理
 if [[ -n "$LIST_TYPE" ]]; then
     if [[ "$LIST_TYPE" == "metadata" ]]; then
-        python3 "$COMPOSER_PY" metadata
+        python3 "$COMPOSER_PY" --lang "$LANG" metadata
     else
-        python3 "$COMPOSER_PY" list "$LIST_TYPE"
+        python3 "$COMPOSER_PY" --lang "$LANG" list "$LIST_TYPE"
     fi
     exit 0
 fi
@@ -149,7 +156,7 @@ fi
 # Pythonコンポーザーを呼び出す
 if [[ -n "$PRESET" ]]; then
     # プリセットを使用
-    ARGS=("preset" "$PRESET")
+    ARGS=("--lang" "$LANG" "preset" "$PRESET")
     [[ -n "$OUTPUT_FILE" ]] && ARGS+=("-o" "$OUTPUT_FILE")
     for var in "${VARIABLES[@]}"; do
         ARGS+=("-v" "$var")
@@ -157,7 +164,7 @@ if [[ -n "$PRESET" ]]; then
     python3 "$COMPOSER_PY" "${ARGS[@]}"
 else
     # モジュールを直接指定
-    ARGS=("modules")
+    ARGS=("--lang" "$LANG" "modules")
     for module in "${MODULES[@]}"; do
         ARGS+=("$module")
     done

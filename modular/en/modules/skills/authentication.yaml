@@ -1,0 +1,26 @@
+id: "skill_authentication"
+name: "Authentication & Authorization"
+description: "Implementation of secure authentication and authorization systems"
+version: "1.0.0"
+category: "skills"
+tags:
+  - "security"
+  - "authentication"
+  - "authorization"
+variables:
+  - name: "auth_method"
+    description: "Authentication method (JWT, OAuth2.0, API Key, etc.)"
+    type: "string"
+    required: false
+  - name: "password_policy"
+    description: "Password policy description"
+    type: "string"
+    required: false
+  - name: "password_min_length"
+    description: "Minimum password length"
+    type: "integer"
+    default: "8"
+  - name: "session_timeout"
+    description: "Session timeout duration"
+    type: "string"
+    default: "30 minutes"

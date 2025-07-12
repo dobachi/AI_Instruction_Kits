@@ -1,0 +1,18 @@
+id: "task_example"
+name: "Sample Task"
+description: "Sample for modular system demonstration"
+version: "0.1.0"
+tags: ["example", "demo", "sample"]
+category: "tasks"
+compatible_skills: 
+  - "skill_example"
+variables:
+  - name: "demo_var"
+    description: "Demo variable"
+    type: "string"
+    default: "hello"
+dependencies: []
+author: "AI Instruction Kits Project"
+created: "2025-01-08"
+updated: "2025-01-08"
+license: "MIT"

@@ -1,0 +1,30 @@
+id: "skill_testing"
+name: "Testing"
+description: "Software testing best practices"
+version: "1.0.0"
+category: "skills"
+tags:
+  - "testing"
+  - "quality"
+  - "validation"
+variables:
+  - name: "test_approach"
+    description: "Testing approach (TDD, BDD, etc.)"
+    type: "string"
+    required: false
+  - name: "test_framework"
+    description: "Test framework to use"
+    type: "string"
+    required: false
+  - name: "test_coverage_target"
+    description: "Test coverage target"
+    type: "string"
+    default: "80% or higher"
+  - name: "response_time_target"
+    description: "Response time target"
+    type: "string"
+    required: false
+  - name: "throughput_target"
+    description: "Throughput target"
+    type: "string"
+    required: false

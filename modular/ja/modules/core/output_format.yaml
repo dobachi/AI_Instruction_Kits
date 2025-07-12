@@ -1,0 +1,46 @@
+# 出力形式モジュールのメタデータ
+id: "core_output_format"
+name: "出力形式"
+description: "出力の形式と品質基準を定義するコアモジュール"
+version: "1.0.0"
+category: "core"
+tags:
+  - "output"
+  - "format"
+  - "quality"
+
+variables:
+  - name: "format_description"
+    description: "出力形式の概要説明"
+    type: "string"
+    required: true
+    
+  - name: "structure_requirements"
+    description: "構造に関する要件"
+    type: "string"
+    default: "論理的で階層的な構造"
+    
+  - name: "style_requirements"
+    description: "スタイルに関する要件"
+    type: "string"
+    default: "明確で簡潔な表現"
+    
+  - name: "length_requirements"
+    description: "長さ・分量に関する要件"
+    type: "string"
+    default: "適切な長さで過不足なく"
+    
+  - name: "format_specific_requirements"
+    description: "特定フォーマット固有の要件"
+    type: "string"
+    default: ""
+
+compatible_modules:
+  - "core_role_definition"
+  - "skills_*"
+  - "quality_*"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-10"
+updated: "2025-01-10"
+license: "Apache-2.0"

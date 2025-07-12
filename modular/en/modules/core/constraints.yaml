@@ -1,0 +1,35 @@
+# Constraints module metadata
+id: "core_constraints"
+name: "Constraints"
+description: "Core module that defines important constraints and prohibited items"
+version: "1.0.0"
+category: "core"
+tags:
+  - "constraints"
+  - "rules"
+  - "safety"
+
+variables:
+  - name: "project_constraints"
+    description: "Project-specific constraints"
+    type: "string"
+    default: ""
+    
+  - name: "technical_constraints"
+    description: "Technical constraints"
+    type: "string"
+    default: ""
+    
+  - name: "prohibited_items"
+    description: "List of explicitly prohibited items"
+    type: "string"
+    default: ""
+
+compatible_modules:
+  - "core_role_definition"
+  - "core_output_format"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-10"
+updated: "2025-01-10"
+license: "Apache-2.0"

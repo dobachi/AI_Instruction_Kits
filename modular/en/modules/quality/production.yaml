@@ -1,0 +1,62 @@
+# Production Quality Module Metadata
+id: "quality_production"
+name: "Production Quality"
+description: "Defines quality standards for production environment"
+version: "1.0.0"
+category: "quality"
+tags:
+  - "production"
+  - "quality"
+  - "reliability"
+  - "performance"
+
+variables:
+  - name: "max_error_rate"
+    description: "Maximum error rate"
+    type: "string"
+    default: "0.1%"
+    
+  - name: "availability_target"
+    description: "Availability target"
+    type: "string"
+    default: "99.9%"
+    
+  - name: "recovery_time"
+    description: "Recovery time target"
+    type: "string"
+    default: "within 30 minutes"
+    
+  - name: "response_time_target"
+    description: "Response time target"
+    type: "string"
+    default: "within 200ms"
+    
+  - name: "throughput_target"
+    description: "Throughput target"
+    type: "string"
+    default: "1000 req/sec"
+    
+  - name: "resource_limits"
+    description: "Resource usage limits"
+    type: "string"
+    default: "CPU: 80%, Memory: 4GB"
+    
+  - name: "test_coverage_target"
+    description: "Test coverage target"
+    type: "string"
+    default: "80% or higher"
+    
+  - name: "code_review_criteria"
+    description: "Code review criteria"
+    type: "string"
+    default: "2 or more reviewers required"
+
+compatible_with:
+  - "task_*"
+  - "skill_error_handling"
+  - "skill_testing"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-10"
+updated: "2025-01-10"
+license: "Apache-2.0"

@@ -1,0 +1,38 @@
+# Role definition module metadata
+id: "core_role_definition"
+name: "Role Definition"
+description: "Core module that defines the basic role and behavior of AI"
+version: "1.0.0"
+category: "core"
+tags:
+  - "role"
+  - "behavior"
+  - "foundation"
+
+variables:
+  - name: "role_description"
+    description: "Specific description of the role"
+    type: "string"
+    required: true
+    
+  - name: "expertise_level"
+    description: "Level of expertise"
+    type: "enum"
+    values: ["Beginner", "Intermediate", "Advanced", "Expert"]
+    default: "Intermediate"
+    
+  - name: "communication_style"
+    description: "Communication style"
+    type: "enum"
+    values: ["Formal", "Casual", "Technical"]
+    default: "Formal"
+
+compatible_modules:
+  - "core_output_format"
+  - "core_constraints"
+  - "core_error_handling"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-10"
+updated: "2025-01-10"
+license: "Apache-2.0"

@@ -1,0 +1,53 @@
+# CLIツール基本開発プリセット
+name: "CLIツール基本開発"
+description: "コマンドラインツールの基本的な開発指示書プリセット"
+version: "1.0.0"
+
+modules:
+  # コアモジュール
+  - "core_role_definition"
+  - "core_output_format"
+  - "core_constraints"
+  
+  # タスクモジュール
+  - "task_code_generation"
+  
+  # スキルモジュール
+  - "skill_error_handling"
+  - "skill_cli_interface"
+  - "skill_argument_parsing"
+  
+  # 品質モジュール
+  - "quality_basic"
+
+variables:
+  # 役割定義
+  role_description: "CLIツール開発者として、使いやすいコマンドラインインターフェースを実装する"
+  expertise_level: "中級"
+  communication_style: "技術的"
+  
+  # コード生成
+  programming_language: "{{language}}"  # ユーザー指定
+  naming_convention: "snake_case"
+  indent_style: "スペース4つ"
+  
+  # CLI固有
+  cli_framework: "{{framework}}"  # ユーザー指定
+  help_format: "標準的なUNIXスタイル"
+  
+  # エラーハンドリング
+  error_handling_pattern: "終了コードとエラーメッセージ"
+  error_message_format: "stderr出力"
+
+# デフォルト値（オーバーライド可能）
+defaults:
+  language: "Python"
+  framework: "argparse"
+
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-10"
+  tags:
+    - "cli"
+    - "tool"
+    - "command-line"

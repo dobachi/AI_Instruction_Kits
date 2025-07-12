@@ -1,0 +1,38 @@
+# 役割定義モジュールのメタデータ
+id: "core_role_definition"
+name: "役割定義"
+description: "AIの基本的な役割と振る舞いを定義するコアモジュール"
+version: "1.0.0"
+category: "core"
+tags:
+  - "role"
+  - "behavior"
+  - "foundation"
+
+variables:
+  - name: "role_description"
+    description: "具体的な役割の説明"
+    type: "string"
+    required: true
+    
+  - name: "expertise_level"
+    description: "専門性のレベル"
+    type: "enum"
+    values: ["初級", "中級", "上級", "専門家"]
+    default: "中級"
+    
+  - name: "communication_style"
+    description: "コミュニケーションスタイル"
+    type: "enum"
+    values: ["フォーマル", "カジュアル", "技術的"]
+    default: "フォーマル"
+
+compatible_modules:
+  - "core_output_format"
+  - "core_constraints"
+  - "core_error_handling"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-10"
+updated: "2025-01-10"
+license: "Apache-2.0"

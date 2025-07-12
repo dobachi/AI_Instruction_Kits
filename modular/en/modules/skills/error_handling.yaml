@@ -1,0 +1,43 @@
+# Error Handling Skill Module Metadata
+id: "skill_error_handling"
+name: "Error Handling"
+description: "Skill module defining error handling implementation methods"
+version: "1.0.0"
+category: "skills"
+tags:
+  - "error"
+  - "exception"
+  - "handling"
+  - "logging"
+
+variables:
+  - name: "error_handling_pattern"
+    description: "Error handling pattern"
+    type: "string"
+    default: "try-catch format"
+    examples: ["try-catch", "Result type", "error code return"]
+    
+  - name: "error_message_format"
+    description: "Error message format"
+    type: "string"
+    default: "Error: [code] message"
+    
+  - name: "error_message_tone"
+    description: "Error message tone"
+    type: "enum"
+    values: ["technical", "user-friendly", "concise"]
+    default: "user-friendly"
+    
+  - name: "logging_requirements"
+    description: "Logging requirements"
+    type: "string"
+    default: "Record error level, timestamp, and detailed information"
+
+compatible_with:
+  - "task_code_generation"
+  - "quality_production"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-10"
+updated: "2025-01-10"
+license: "Apache-2.0"

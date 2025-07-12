@@ -1,0 +1,46 @@
+# Output format module metadata
+id: "core_output_format"
+name: "Output Format"
+description: "Core module that defines output format and quality standards"
+version: "1.0.0"
+category: "core"
+tags:
+  - "output"
+  - "format"
+  - "quality"
+
+variables:
+  - name: "format_description"
+    description: "Overview description of the output format"
+    type: "string"
+    required: true
+    
+  - name: "structure_requirements"
+    description: "Requirements for structure"
+    type: "string"
+    default: "Logical and hierarchical structure"
+    
+  - name: "style_requirements"
+    description: "Requirements for style"
+    type: "string"
+    default: "Clear and concise expression"
+    
+  - name: "length_requirements"
+    description: "Requirements for length and volume"
+    type: "string"
+    default: "Appropriate length without excess or deficiency"
+    
+  - name: "format_specific_requirements"
+    description: "Requirements specific to particular formats"
+    type: "string"
+    default: ""
+
+compatible_modules:
+  - "core_role_definition"
+  - "skills_*"
+  - "quality_*"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-10"
+updated: "2025-01-10"
+license: "Apache-2.0"

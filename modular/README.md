@@ -8,24 +8,38 @@
 
 ```
 modular/
-├── modules/           # モジュールファイル
-│   ├── core/         # コアモジュール
-│   ├── tasks/        # タスクモジュール
-│   ├── skills/       # スキルモジュール
-│   └── quality/      # 品質モジュール
-├── templates/         # テンプレートファイル
-│   ├── presets/      # プリセット定義
-│   └── custom/       # カスタムテンプレート
-├── cache/            # 生成済み指示書キャッシュ
-└── composer.py       # モジュール合成エンジン
+├── ja/                # 日本語モジュール
+│   ├── modules/       # モジュールファイル
+│   │   ├── core/      # コアモジュール
+│   │   ├── tasks/     # タスクモジュール
+│   │   ├── skills/    # スキルモジュール
+│   │   ├── quality/   # 品質モジュール
+│   │   └── fragments/ # フラグメント
+│   └── templates/     # テンプレートファイル
+│       ├── presets/   # プリセット定義
+│       └── custom/    # カスタムテンプレート
+├── en/                # 英語モジュール
+│   ├── modules/       # モジュールファイル
+│   │   ├── core/      # コアモジュール
+│   │   ├── tasks/     # タスクモジュール
+│   │   ├── skills/    # スキルモジュール
+│   │   ├── quality/   # 品質モジュール
+│   │   └── fragments/ # フラグメント
+│   └── templates/     # テンプレートファイル
+│       ├── presets/   # プリセット定義
+│       └── custom/    # カスタムテンプレート
+├── cache/             # 生成済み指示書キャッシュ（言語共通）
+└── composer.py        # モジュール合成エンジン
 ```
 
 ## メタデータシステム
 
 各モジュールは同名の`.yaml`ファイルでメタデータを管理します：
 
-- `modules/tasks/web_api_development.md` - モジュール本体
-- `modules/tasks/web_api_development.yaml` - メタデータ
+- `ja/modules/tasks/web_api_development.md` - モジュール本体（日本語）
+- `ja/modules/tasks/web_api_development.yaml` - メタデータ（日本語）
+- `en/modules/tasks/web_api_development.md` - モジュール本体（英語）
+- `en/modules/tasks/web_api_development.yaml` - メタデータ（英語）
 
 ### メタデータファイルの例
 
@@ -44,6 +58,20 @@ variables:
 ```
 
 ## 使用方法
+
+### 言語の指定
+
+`-l` または `--lang` オプションで言語を指定できます（デフォルト: ja）：
+
+```bash
+# 日本語モジュールを使用（デフォルト）
+python modular/composer.py list modules
+
+# 英語モジュールを使用
+python modular/composer.py -l en list modules
+```
+
+### 基本的な使い方
 
 ```bash
 # モジュール一覧を表示

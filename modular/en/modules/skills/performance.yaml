@@ -1,0 +1,37 @@
+id: "skill_performance"
+name: "Performance Optimization"
+description: "Website loading speed and performance optimization"
+version: "1.0.0"
+category: "skills"
+tags:
+  - "performance"
+  - "optimization"
+  - "speed"
+  - "web-vitals"
+  - "loading"
+variables:
+  - name: "target_load_time"
+    description: "Target load time"
+    type: "string"
+    default: "within 3 seconds"
+  - name: "image_optimization"
+    description: "Implement image optimization"
+    type: "boolean"
+    default: true
+  - name: "lazy_loading"
+    description: "Implement lazy loading"
+    type: "boolean"
+    default: true
+  - name: "minification"
+    description: "CSS/JS minification"
+    type: "boolean"
+    default: true
+  - name: "cache_strategy"
+    description: "Cache strategy"
+    type: "string"
+    default: "utilize browser cache"
+dependencies: []
+author: "AI Instruction Kits Project"
+created: "2025-01-12"
+updated: "2025-01-12"
+license: "MIT"

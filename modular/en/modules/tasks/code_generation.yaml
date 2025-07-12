@@ -1,0 +1,53 @@
+id: "task_code_generation"
+name: "Code Generation Task"
+description: "A task module for generating efficient and maintainable code"
+category: "tasks"
+version: "1.0.0"
+
+variables:
+  - name: "programming_language"
+    description: "Programming language"
+    type: "string"
+    required: true
+    
+  - name: "naming_convention"
+    description: "Naming convention"
+    type: "string"
+    default: "camelCase"
+    
+  - name: "indent_style"
+    description: "Indentation style"
+    type: "string"
+    default: "4 spaces"
+    
+  - name: "comment_style"
+    description: "Comment format"
+    type: "string"
+    default: "language standard comment format"
+    
+  - name: "max_line_length"
+    description: "Maximum line length"
+    type: "number"
+    default: 100
+    
+  - name: "specific_frameworks"
+    description: "Frameworks to use"
+    type: "string"
+    default: ""
+    
+  - name: "code_examples"
+    description: "Include code examples"
+    type: "boolean"
+    default: true
+
+dependencies: []
+
+tags:
+  - coding
+  - implementation
+  - development
+
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-10"
+  last_modified: "2025-01-10"
