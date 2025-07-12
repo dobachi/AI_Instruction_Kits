@@ -4,19 +4,27 @@
 
 ## 指示
 
-1. まず、ユーザーのタスクを分析し、必要な指示書を特定してください
-2. **必ず `instructions/ai_instruction_kits/instructions/ja/system/CHECKPOINT_MANAGER.md` を読み込んでください**
-3. 特定した指示書ファイルを読み込んでください（パス例: `instructions/ai_instruction_kits/instructions/ja/coding/basic_code_generation.md`）
-4. 読み込んだ指示書の内容に従って作業を実行してください
+1. **必ず `instructions/ai_instruction_kits/instructions/ja/system/CHECKPOINT_MANAGER.md` を読み込んでください**
+2. ユーザーのタスクを分析してください
+3. **【重要】まずモジュラーシステムの使用を検討してください**：
+   - コード作成、Webサイト構築、API開発などの実装タスクの場合
+   - → **必ず `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md` を読み込み、カスタマイズされた指示書を生成してください**
+   - 単純な質問応答や説明の場合のみ、既存の単一指示書を使用
+4. 指示書を読み込んで作業を実行してください
 5. **【最重要】各応答の一番最初に必ず `scripts/checkpoint.sh` を実行し、その出力2行を表示してください**
    - これは例外なくすべての応答で必須です
    - 実行を忘れた場合、タスク管理が機能しません
 
 ## 利用可能な指示書
 
+### 🔥 最優先システム
+- `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md` - **モジュラー指示書生成（実装タスクではこれを使用）**
+  - Webサイト作成、API開発、CLI作成、データ処理など
+  - 複数の要件を組み合わせたカスタマイズが可能
+  - デフォルト値により最小限の設定で使用可能
+
 ### システム管理
 - `instructions/ai_instruction_kits/instructions/ja/system/CHECKPOINT_MANAGER.md` - 進捗報告管理（必須）
-- `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md` - モジュラー指示書生成（カスタマイズが必要な場合）
 
 ### 一般タスク
 - `instructions/ai_instruction_kits/instructions/ja/general/basic_qa.md` - 質問応答、情報提供
@@ -48,48 +56,48 @@
 
 1. **タスクタイプの判定**
    - ユーザーの要求を分析
-   - 主要なタスクタイプを特定
-   - 補助的なタスクタイプを特定
-   - 専門性が必要な場合はエージェント型指示書を検討
+   - 実装・開発タスクか、それ以外かを判定
 
-2. **モジュラーシステムの検討**
-   - 以下の場合は、MODULE_COMPOSERを使用してカスタマイズされた指示書を生成：
-     - 複数の要件が組み合わさっている場合（例：Webサイト作成＋認証＋エラーハンドリング）
-     - 特定の品質基準が要求される場合（例：本番環境用、高パフォーマンス）
-     - 既存の単一指示書では対応が不十分な場合
-   - MODULE_COMPOSERを使用する場合は、`instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md`を読み込む
+2. **🔥 モジュラーシステム優先判定**
+   以下のキーワードが含まれる場合は、**必ずMODULE_COMPOSERを使用**：
+   - 「作成」「作って」「構築」「開発」「実装」
+   - 「Webサイト」「API」「アプリ」「ツール」「システム」
+   - 「プログラム」「コード」「スクリプト」
+   
+   → **即座に `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md` を読み込む**
 
-3. **指示書の選択**
-   - モジュラーシステムを使用しない場合は、主タスクに対応する指示書を必ず読み込む
-   - 必要に応じて補助タスクの指示書も読み込む
-   - 特定の専門知識が必要な場合は、エージェント型指示書を優先
+3. **単一指示書の使用（モジュラーシステムを使わない場合のみ）**
+   - 単純な質問応答 → basic_qa.md
+   - 既存コードのレビューのみ → code_reviewer.md
+   - 文章の校正のみ → basic_text_creation.md
 
 4. **実行**
-   - 読み込んだ指示書の「具体的な指示」セクションに従う
-   - エージェント型指示書の場合は、その役割になりきって対応
-   - 複数の指示書がある場合は、文脈に応じて適切に組み合わせる
+   - MODULE_COMPOSERを使用した場合：生成された指示書に従う
+   - 単一指示書の場合：その指示書の内容に従う
 
 ## 例
 
-### タスクベースの例
-ユーザー: 「売上データを分析して、レポートを作成してください」
-→ 必要な指示書:
-1. `instructions/ai_instruction_kits/instructions/ja/analysis/basic_data_analysis.md` (主)
-2. `instructions/ai_instruction_kits/instructions/ja/writing/basic_text_creation.md` (補助)
-
-### エージェント型の例
-ユーザー: 「このPythonコードをレビューしてください」
-→ 必要な指示書:
-1. `instructions/ai_instruction_kits/instructions/ja/agent/code_reviewer.md` (主)
-2. `instructions/ai_instruction_kits/instructions/ja/agent/python_expert.md` (補助・Python固有の観点)
-
-### モジュラーシステムの例
-ユーザー: 「サンプルWebサイトを作成してください。ユーザー認証機能とデータベース連携が必要です」
-→ MODULE_COMPOSERを使用:
+### 🔥 モジュラーシステムの例（最優先）
+ユーザー: 「Webサイトを作成してください」
+→ **即座にMODULE_COMPOSERを使用**:
 1. `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md`を読み込み
-2. 要件分析: Webサイト作成＋認証＋データベース
-3. モジュール選択: core_role_definition, task_code_generation, skill_authentication, skill_api_design
-4. カスタマイズされた指示書を生成して実行
+2. メタデータを取得して最適なモジュールを選択
+3. カスタマイズされた指示書を生成して実行
+
+ユーザー: 「PythonでCLIツールを作って」
+→ **即座にMODULE_COMPOSERを使用**:
+1. MODULE_COMPOSERで要件分析
+2. 必要なモジュールを自動選択
+3. 生成された指示書で実装
+
+### 単一指示書の例（モジュラーシステムを使わない場合）
+ユーザー: 「このコードをレビューしてください」
+→ 必要な指示書:
+1. `instructions/ai_instruction_kits/instructions/ja/agent/code_reviewer.md`
+
+ユーザー: 「この質問に答えてください」
+→ 必要な指示書:
+1. `instructions/ai_instruction_kits/instructions/ja/general/basic_qa.md`
 
 ---
 ## ライセンス情報
