@@ -95,6 +95,7 @@ class ModuleComposer:
             
         # すべてのモジュールから変数のデフォルト値を収集
         all_defaults = {}
+        applied_defaults = {}  # 実際に適用されたデフォルト値を追跡
         for module_id in module_ids:
             try:
                 module = self.load_module(module_id)
@@ -113,12 +114,27 @@ class ModuleComposer:
         
         # デフォルト値をマージ（ユーザー指定の値が優先）
         effective_variables = {**all_defaults, **variables}
+        
+        # 実際に適用されたデフォルト値を特定
+        for key, value in effective_variables.items():
+            if key in all_defaults and key not in variables:
+                applied_defaults[key] = value
             
         sections = []
         
         # ヘッダー
         sections.append("# AI指示書\n")
         sections.append("*この指示書はモジュラーシステムによって自動生成されました*\n")
+        
+        # 変数適用情報を表示
+        if effective_variables:
+            sections.append("## 適用された変数\n")
+            for key, value in sorted(effective_variables.items()):
+                if key in applied_defaults:
+                    sections.append(f"- **{key}**: {value} *(デフォルト値)*")
+                else:
+                    sections.append(f"- **{key}**: {value} *(ユーザー指定)*")
+            sections.append("")  # 空行
         
         # 各モジュールを読み込んで結合
         for module_id in module_ids:
@@ -192,12 +208,25 @@ class ModuleComposer:
                     if 'tags' in meta:
                         summary_lines.append(f"- **タグ**: {', '.join(meta['tags'])}")
                     
+                    # 変数情報を追加（デフォルト値付き）
+                    if 'variables' in meta and meta['variables']:
+                        var_info = []
+                        for var in meta['variables']:
+                            if isinstance(var, dict):
+                                var_str = var.get('name', '')
+                                if 'default' in var:
+                                    var_str += f"={var['default']}"
+                                var_info.append(var_str)
+                        if var_info:
+                            summary_lines.append(f"- **変数**: {', '.join(var_info)}")
+                    
                     if 'dependencies' in meta:
                         summary_lines.append(f"- **依存関係**: {', '.join(meta['dependencies'])}")
                     
-                    if 'compatible_with' in meta or 'compatible_modules' in meta:
-                        compat = meta.get('compatible_with', meta.get('compatible_modules', []))
-                        summary_lines.append(f"- **互換性**: {', '.join(compat)}")
+                    if 'compatible_with' in meta or 'compatible_modules' in meta or 'compatible_skills' in meta:
+                        compat = meta.get('compatible_with', meta.get('compatible_modules', meta.get('compatible_skills', [])))
+                        if compat:
+                            summary_lines.append(f"- **推奨組み合わせ**: {', '.join(compat)}")
                     
                     summary_lines.append("")  # 空行
         
