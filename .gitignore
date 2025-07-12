@@ -24,6 +24,13 @@ private/
 secret/
 *.private.md
 
+# Modular system cache
+modular/cache/*
+!modular/cache/.gitkeep
+!modular/cache/generated/
+modular/cache/generated/*
+!modular/cache/generated/.gitkeep
+
 # Test directories and files
 test/
 sandbox/
