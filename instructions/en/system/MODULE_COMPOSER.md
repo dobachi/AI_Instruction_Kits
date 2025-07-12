@@ -58,15 +58,23 @@ For more efficient module selection, utilize AI analysis capabilities.
 ## Module Selection Guidelines
 
 ### Task Type Determination
-- Web development → `task_web_api`
-- CLI development → `task_cli`
-- Data analysis → `task_data_analysis`
-- Documentation → `task_documentation`
+- Website development → `task_website`
+- Code generation (general) → `task_code_generation`
+- Example task → `task_example`
+
+### Skill Determination
+- UI/UX design → `skill_ui_ux`
+- Accessibility → `skill_accessibility`
+- Performance optimization → `skill_performance`
+- Code documentation → `skill_code_documentation`
+- API design → `skill_api_design`
+- Authentication & authorization → `skill_authentication`
+- Error handling → `skill_error_handling`
+- Testing → `skill_testing`
 
 ### Quality Level Determination
 - "production", "for production use" → `quality_production`
-- "prototype", "proof of concept" → `quality_prototype`
-- "high quality", "test-focused" → add `skill_tdd`
+- "prototype", "proof of concept" → (quality_prototype does not exist currently)
 
 ### Interaction Example (Manual Selection)
 
@@ -106,15 +114,15 @@ After analyzing the metadata, the following combination is optimal:
 - Task: task_code_generation (Using generic as no scraping-specific task)
 - Skills: 
   - skill_error_handling (Addresses error handling requirement)
-  - skill_logging (Addresses logging requirement)
-- Quality: quality_production (Focus on robustness)
+  - skill_testing (For robustness assurance)
+- Quality: quality_production (For production environment use)
 
 Selection rationale:
 - Web scraping involves external site communication, making error handling crucial
-- Logging enables easy problem tracking and debugging
+- Testing enables early problem detection
 - Production quality ensures stable operation
 
-[Execute: ./scripts/generate-instruction.sh --modules core_role_definition task_code_generation skill_error_handling skill_logging quality_production --variable programming_language=Python --output scraping_tool.md]
+[Execute: ./scripts/generate-instruction.sh --modules core_role_definition task_code_generation skill_error_handling skill_testing quality_production --variable programming_language=Python --variable role_description="Web scraping tool developer" --output scraping_tool.md]
 
 Instructions have been generated. Starting implementation.
 ```
