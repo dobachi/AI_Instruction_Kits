@@ -135,6 +135,9 @@ Common combinations are defined as presets:
 # Use a preset
 scripts/generate-instruction.sh --preset web_api_production
 
+# Use English modules and presets
+scripts/generate-instruction.sh --lang en --preset web_api_production
+
 # Customize based on a preset
 scripts/generate-instruction.sh \
   --preset web_api_production \
@@ -168,12 +171,17 @@ A: Consider using it in the following cases:
 ### Q: How to check the list of modules?
 A: Display available modules with the following command:
 ```bash
-scripts/generate-instruction.sh --list
+scripts/generate-instruction.sh --list modules
+
+# For English modules
+scripts/generate-instruction.sh --lang en --list modules
 ```
 
 ### Q: Where are module metadata files?
 A: They are placed as `.yaml` files with the same name in the same directory as each module.
-Example: `modular/modules/tasks/code_generation.yaml`
+Examples: 
+- Japanese: `modular/ja/modules/tasks/code_generation.yaml`
+- English: `modular/en/modules/tasks/code_generation.yaml`
 
 ## Troubleshooting
 
@@ -200,13 +208,19 @@ Example: `modular/modules/tasks/code_generation.yaml`
 # 2. Get metadata for AI analysis
 ./scripts/generate-instruction.sh --metadata
 
-# 3. Generate instruction
+# 3. Generate instruction (Japanese modules - default)
 ./scripts/generate-instruction.sh \
   --modules core_role_definition task_code_generation skill_error_handling \
   --variable programming_language=Python \
   --output my_cli_tool.md
 
-# 4. Review generated instruction
+# 4. Generate instruction (English modules)
+./scripts/generate-instruction.sh --lang en \
+  --modules core_role_definition task_code_generation skill_error_handling \
+  --variable programming_language=Python \
+  --output my_cli_tool_en.md
+
+# 5. Review generated instruction
 cat modular/cache/my_cli_tool.md
 ```
 

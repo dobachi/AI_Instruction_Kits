@@ -1,0 +1,59 @@
+# Basic CLI Tool Development Preset
+name: "Basic CLI Tool Development"
+description: "Basic development instruction preset for command-line tools"
+version: "1.0.0"
+
+modules:
+  # Core modules
+  - "core_role_definition"
+  - "core_output_format"
+  - "core_constraints"
+  
+  # Task modules
+  - "task_code_generation"
+  
+  # Skill modules
+  - "skill_error_handling"
+  - "skill_cli_interface"
+  - "skill_argument_parsing"
+  
+  # Quality modules
+  - "quality_basic"
+
+variables:
+  # Role definition
+  role_description: "As a CLI tool developer, implement user-friendly command-line interfaces"
+  expertise_level: "Intermediate"
+  communication_style: "Technical"
+  
+  # Output format
+  format_description: "Implementable command-line tool code with usage examples"
+  structure_requirements: "Clear command structure, help messages, argument validation"
+  style_requirements: "Follow standard CLI conventions and best practices"
+  length_requirements: "Complete implementation with documentation and examples"
+  
+  # Code generation
+  programming_language: "{{language}}"  # User specified
+  naming_convention: "snake_case"
+  indent_style: "4 spaces"
+  
+  # CLI specific
+  cli_framework: "{{framework}}"  # User specified
+  help_format: "Standard UNIX style"
+  
+  # Error handling
+  error_handling_pattern: "Exit codes and error messages"
+  error_message_format: "stderr output"
+
+# Default values (can be overridden)
+defaults:
+  language: "Python"
+  framework: "argparse"
+
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-10"
+  tags:
+    - "cli"
+    - "tool"
+    - "command-line"

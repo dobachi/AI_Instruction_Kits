@@ -16,15 +16,15 @@ tags:
 file:
   name: "MODULE_COMPOSER.md"
   path: "en/system/MODULE_COMPOSER.md"
-  size: 3282
+  size: 3452
   checksum: ""
-  last_modified: "2025-07-10"
+  last_modified: "2025-07-13"
 
 # Meta information
 metadata:
   author: "AI Instruction Kits Project"
   created: "2025-07-10"
-  updated: "2025-07-10"
+  updated: "2025-07-13"
   license: "MIT"
   reference: "instructions/ja/system/MODULE_COMPOSER.md"
 
