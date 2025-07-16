@@ -210,7 +210,35 @@ select_mode() {
     MSG_CHOOSE=$(get_message "choose" "Choose" "選択してください")
     MSG_DEFAULT=$(get_message "default" "default" "デフォルト")
     MSG_INVALID_CHOICE=$(get_message "invalid_choice" "Invalid choice" "無効な選択です")
+    MSG_APPROACH_TITLE=$(get_message "approach_title" "Available Setup Approaches" "利用可能なセットアップ方法")
+    MSG_APPROACH_DESC=$(get_message "approach_desc" "Each approach has different characteristics suited for different use cases" "それぞれの方法には異なる用途に適した特徴があります")
     
+    echo ""
+    echo "═══════════════════════════════════════════════════════════════════"
+    echo "📋 $MSG_APPROACH_TITLE"
+    echo "═══════════════════════════════════════════════════════════════════"
+    echo ""
+    echo "$MSG_APPROACH_DESC:"
+    echo ""
+    echo "1️⃣  Copy Mode (copy)"
+    echo "   ├─ 📄 $(get_message "copy_desc1" "Simply copies files to your project" "ファイルをプロジェクトに単純コピー")"
+    echo "   ├─ ✅ $(get_message "copy_desc2" "No Git dependency, works offline" "Git不要、オフラインで動作")"
+    echo "   ├─ ✅ $(get_message "copy_desc3" "Easiest to understand and modify" "最も理解・変更しやすい")"
+    echo "   └─ ⚠️  $(get_message "copy_desc4" "Manual updates required" "更新は手動で行う必要")"
+    echo ""
+    echo "2️⃣  Clone Mode (clone)"
+    echo "   ├─ 📦 $(get_message "clone_desc1" "Creates independent Git repository" "独立したGitリポジトリを作成")"
+    echo "   ├─ ✅ $(get_message "clone_desc2" "Can track your own changes with Git" "独自の変更をGitで追跡可能")"
+    echo "   ├─ ✅ $(get_message "clone_desc3" "Updates via git pull" "git pullで更新")"
+    echo "   └─ ⚠️  $(get_message "clone_desc4" "Harder to merge upstream changes" "上流の変更のマージが困難")"
+    echo ""
+    echo "3️⃣  Submodule Mode (submodule) 🌟 RECOMMENDED"
+    echo "   ├─ 🔗 $(get_message "submodule_desc1" "Links to official repository" "公式リポジトリにリンク")"
+    echo "   ├─ ✅ $(get_message "submodule_desc2" "Easy updates with git submodule update" "git submodule updateで簡単更新")"
+    echo "   ├─ ✅ $(get_message "submodule_desc3" "Version control integration" "バージョン管理との統合")"
+    echo "   └─ ✅ $(get_message "submodule_desc4" "Best practice for dependency management" "依存関係管理のベストプラクティス")"
+    echo ""
+    echo "───────────────────────────────────────────────────────────────────"
     echo ""
     echo "🎯 $MSG_SELECT_MODE:"
     echo ""
