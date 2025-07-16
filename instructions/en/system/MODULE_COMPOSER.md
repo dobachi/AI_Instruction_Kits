@@ -3,6 +3,35 @@
 ## Your Role
 Analyze user task requirements and select/combine optimal modules to generate customized instructions.
 
+## 🎯 Preset-First Principle
+
+### Important: Check Presets First
+After analyzing the task, **always follow these steps**:
+
+1. **Check available presets**
+   ```bash
+   ./scripts/generate-instruction.sh --list presets
+   ```
+
+2. **Determine if a preset fits**
+   - Covers 80% or more of requirements → **Use preset**
+   - Minor adjustments needed → **Preset + additional modules**
+   - Major customization required → Custom configuration
+
+3. **Preset Selection Criteria**
+
+   **When to use presets:**
+   - Common/standard tasks (CLI development, API development, etc.)
+   - User mentions "standard", "common", "typical"
+   - No special requirements specified
+   - Time efficiency is important
+
+   **When to use custom configuration:**
+   - Unique combination of requirements
+   - User explicitly specifies certain modules
+   - Terms like "custom", "special", "unique" are used
+   - Existing presets cannot adequately address the needs
+
 ## Basic Flow (Manual Selection)
 
 1. **Requirements Analysis**
@@ -76,28 +105,62 @@ For more efficient module selection, utilize AI analysis capabilities.
 - "production", "for production use" → `quality_production`
 - "prototype", "proof of concept" → (quality_prototype does not exist currently)
 
-### Interaction Example (Manual Selection)
+### Interaction Example (Using Preset)
 
 ```
 User: Create a CLI tool with Python. Focus on error handling.
 
-You: I've analyzed the requirements. Let me check available modules.
+You: I've analyzed the requirements. Let me first check available presets.
 
-[Execute: ./scripts/generate-instruction.sh --list modules]
+[Execute: ./scripts/generate-instruction.sh --list presets]
 
-I'll generate instructions with the following modules:
-- Core: core_role_definition (Role Definition)
-- Task: task_code_generation (Code Generation) *Using generic as no CLI-specific task
-- Skill: skill_error_handling (Error Handling)
-- Quality: quality_production (Production Quality)
+There's a "cli_tool_basic" preset available. This:
+- Provides standard CLI tool development configuration
+- Includes error handling
+- Covers your requirements well
 
-[Execute: ./scripts/generate-instruction.sh --modules core_role_definition task_code_generation skill_error_handling quality_production --variable programming_language=Python --output cli_tool_instruction.md]
+I'll use the preset to generate instructions:
 
-Instructions have been generated. Let me review the content.
+[Execute: ./scripts/generate-instruction.sh --preset cli_tool_basic --variable language=Python --output cli_tool.md]
 
-[Execute: cat modular/cache/cli_tool_instruction.md]
+Instructions have been generated. I'll start implementation.
+```
 
-I'll start implementation following the generated instructions.
+### Interaction Example (Preset + Customization)
+
+```
+User: Create a REST API. Need caching functionality too.
+
+You: I've analyzed the requirements. Let me check presets.
+
+[Execute: ./scripts/generate-instruction.sh --list presets]
+
+The "web_api_production" preset is suitable.
+I'll add an additional module for caching:
+
+[Execute: ./scripts/generate-instruction.sh --preset web_api_production --modules skill_caching --output api_with_cache.md]
+
+Generated instructions with preset + caching module.
+```
+
+### Interaction Example (Custom Configuration Needed)
+
+```
+User: Machine learning model API with A/B testing and real-time analytics.
+
+You: This requires a unique combination of features, so I'll use custom configuration.
+
+[Execute: ./scripts/generate-instruction.sh --metadata]
+
+I've selected the following modules:
+- Core: core_role_definition
+- Task: task_code_generation (no ML-specific task available)
+- Skills: skill_api_design, skill_testing, skill_performance
+- Quality: quality_production
+
+[Execute: ./scripts/generate-instruction.sh --modules core_role_definition task_code_generation skill_api_design skill_testing skill_performance quality_production --output ml_api.md]
+
+Generated instructions with custom configuration.
 ```
 
 ### Interaction Example (AI Analysis)

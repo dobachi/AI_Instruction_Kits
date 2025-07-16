@@ -3,6 +3,35 @@
 ## あなたの役割
 ユーザーのタスク要件を分析し、最適なモジュールを選択・組み合わせて、カスタマイズされた指示書を生成します。
 
+## 🎯 プリセット優先の原則
+
+### 重要：まずプリセットを確認
+タスク分析後、**必ず以下の手順に従ってください**：
+
+1. **プリセット一覧を確認**
+   ```bash
+   ./scripts/generate-instruction.sh --list presets
+   ```
+
+2. **適合するプリセットがあるか判断**
+   - タスクの要件を80%以上カバーできる → **プリセット使用**
+   - 小規模な調整で対応可能 → **プリセット + 追加モジュール**
+   - 大幅なカスタマイズが必要 → カスタム構成
+
+3. **プリセット選択基準**
+
+   **プリセットを使うべき場合：**
+   - 一般的・標準的なタスク（CLI開発、API開発など）
+   - ユーザーが「標準的な」「一般的な」「普通の」と表現
+   - 特別な要件の指定がない
+   - 時間効率を重視する場合
+
+   **カスタム構成を使うべき場合：**
+   - 特殊な要件の組み合わせ
+   - ユーザーが特定のモジュールを明示的に指定
+   - 「カスタマイズ」「特別な」「独自の」と明示
+   - 既存プリセットでは対応困難な要件
+
 ## 基本的な流れ（手動選択）
 
 1. **要件分析**
@@ -76,28 +105,62 @@
 - 「本番用」「プロダクション」 → `quality_production`
 - 「試作」「プロトタイプ」 → （現在quality_prototypeは存在しません）
 
-### 対話例（手動選択）
+### 対話例（プリセット使用）
 
 ```
 ユーザー: PythonでCLIツールを作って。エラーハンドリングを重視して。
 
-あなた: 要件を分析しました。利用可能なモジュールを確認します。
+あなた: 要件を分析しました。まずプリセットを確認します。
 
-[実行: ./scripts/generate-instruction.sh --list modules]
+[実行: ./scripts/generate-instruction.sh --list presets]
 
-以下のモジュールで指示書を生成します：
-- コア: core_role_definition (役割定義)
-- タスク: task_code_generation (コード生成) ※CLIタスクがないため汎用を使用
-- スキル: skill_error_handling (エラーハンドリング)
-- 品質: quality_production (プロダクション品質)
+「cli_tool_basic」プリセットがあります。これは：
+- CLIツール開発の標準的な構成
+- エラーハンドリングも含まれている
+- あなたの要件を十分カバーできます
 
-[実行: ./scripts/generate-instruction.sh --modules core_role_definition task_code_generation skill_error_handling quality_production --variable programming_language=Python --output cli_tool_instruction.md]
+プリセットを使用して指示書を生成します：
 
-指示書が生成されました。内容を確認します。
+[実行: ./scripts/generate-instruction.sh --preset cli_tool_basic --variable language=Python --output cli_tool.md]
 
-[実行: cat modular/cache/cli_tool_instruction.md]
+指示書が生成されました。実装を開始します。
+```
 
-生成された指示書に従って実装を開始します。
+### 対話例（プリセット + カスタマイズ）
+
+```
+ユーザー: REST APIを作って。キャッシュ機能も必要。
+
+あなた: 要件を分析しました。プリセットを確認します。
+
+[実行: ./scripts/generate-instruction.sh --list presets]
+
+「web_api_production」プリセットが適合します。
+キャッシュ機能のため追加モジュールも使用します：
+
+[実行: ./scripts/generate-instruction.sh --preset web_api_production --modules skill_caching --output api_with_cache.md]
+
+プリセット + キャッシュモジュールで指示書を生成しました。
+```
+
+### 対話例（カスタム構成が必要な場合）
+
+```
+ユーザー: 機械学習モデルのAPIで、A/Bテスト機能とリアルタイム分析が必要。
+
+あなた: 特殊な要件の組み合わせのため、カスタム構成で対応します。
+
+[実行: ./scripts/generate-instruction.sh --metadata]
+
+以下のモジュールを選択しました：
+- コア: core_role_definition
+- タスク: task_code_generation（ML専用タスクがないため）
+- スキル: skill_api_design, skill_testing, skill_performance
+- 品質: quality_production
+
+[実行: ./scripts/generate-instruction.sh --modules core_role_definition task_code_generation skill_api_design skill_testing skill_performance quality_production --output ml_api.md]
+
+カスタム構成で指示書を生成しました。
 ```
 
 ### 対話例（AI分析）

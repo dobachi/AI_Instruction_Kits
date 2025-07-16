@@ -26,6 +26,12 @@ variables:
   expertise_level: "中級"
   communication_style: "技術的"
   
+  # 出力形式
+  format_description: "実装可能なコマンドラインツールのコードと使用例"
+  structure_requirements: "明確なコマンド構造、ヘルプメッセージ、引数検証"
+  style_requirements: "標準的なCLI規約とベストプラクティスに従う"
+  length_requirements: "完全な実装とドキュメント、使用例を含む"
+  
   # コード生成
   programming_language: "{{language}}"  # ユーザー指定
   naming_convention: "snake_case"
