@@ -15,6 +15,7 @@ FORCE_MODE=false
 DRY_RUN=false
 BACKUP_MODE=true
 INTEGRATION_MODE=""
+SELECTED_MODE=""
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -184,7 +185,7 @@ select_mode() {
     if [ -n "$INTEGRATION_MODE" ]; then
         case "$INTEGRATION_MODE" in
             copy|clone|submodule)
-                echo "$INTEGRATION_MODE"
+                SELECTED_MODE="$INTEGRATION_MODE"
                 return 0
                 ;;
             *)
@@ -199,7 +200,7 @@ select_mode() {
     
     if [ "$FORCE_MODE" = true ]; then
         # forceモードではデフォルトでsubmodule
-        echo "submodule"
+        SELECTED_MODE="submodule"
         return 0
     fi
     
@@ -241,7 +242,6 @@ select_mode() {
     echo "───────────────────────────────────────────────────────────────────"
     echo ""
     echo "🎯 $MSG_SELECT_MODE:"
-    echo ""
     echo "1) copy      - $MSG_SIMPLE_COPY"
     echo "2) clone     - $MSG_INDEPENDENT_REPO"
     echo "3) submodule - $MSG_GIT_SUBMODULE"
@@ -252,13 +252,13 @@ select_mode() {
     
     case "$choice" in
         1|copy)
-            echo "copy"
+            SELECTED_MODE="copy"
             ;;
         2|clone)
-            echo "clone"
+            SELECTED_MODE="clone"
             ;;
         3|submodule|"")
-            echo "submodule"
+            SELECTED_MODE="submodule"
             ;;
         *)
             echo "❌ $MSG_INVALID_CHOICE"
@@ -379,7 +379,7 @@ if [ ! -d ".git" ] && [ "$INTEGRATION_MODE" != "copy" ]; then
 fi
 
 # モード選択
-SELECTED_MODE=$(select_mode)
+select_mode
 echo ""
 MSG_SELECTED_MODE=$(get_message "selected_mode" "Selected mode" "選択されたモード")
 echo "📌 $MSG_SELECTED_MODE: $SELECTED_MODE"
