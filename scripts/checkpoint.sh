@@ -3,8 +3,20 @@
 # AI指示書チェックポイント管理スクリプト / AI Instruction Checkpoint Management Script
 
 # i18nライブラリをソース
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/lib/i18n.sh"
+# シンボリックリンク経由でも動作するように実際のスクリプトパスを取得
+REAL_PATH="$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || realpath "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")"
+SCRIPT_DIR="$(cd "$(dirname "$REAL_PATH")" && pwd)"
+
+# i18n.shの存在を確認してから読み込む
+if [ -f "$SCRIPT_DIR/lib/i18n.sh" ]; then
+    source "$SCRIPT_DIR/lib/i18n.sh"
+else
+    # i18n.shが見つからない場合はフォールバック関数を定義
+    get_message() {
+        # 第2引数（英語）をデフォルトとして返す
+        echo "$2"
+    }
+fi
 
 CHECKPOINT_LOG="${CHECKPOINT_LOG:-checkpoint.log}"
 ACTION=$1
