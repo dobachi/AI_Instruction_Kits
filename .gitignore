@@ -45,3 +45,6 @@ temp/
 work/
 .tmp/
 .sandbox/
+
+# Checkpoint files
+checkpoints/
