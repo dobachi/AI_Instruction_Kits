@@ -1,0 +1,83 @@
+# task_technical_presentation.yaml - Technical Presentation Task Module Metadata
+id: "task_technical_presentation"
+name: "Technical Presentation Task"
+description: "Task module for creating and delivering effective presentations that communicate technical content"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided variables
+provides:
+  - technical_presentation_methodology
+  - demo_preparation_strategy
+  - architecture_visualization
+  - performance_presentation
+  - technical_storytelling
+
+# Required variables
+requires:
+  - presentation_type:
+      description: "Type of presentation"
+      example: "System architecture explanation, technical demo, performance analysis, implementation details"
+  - target_audience:
+      description: "Target audience"
+      example: "Engineering teams, technical leadership, product teams, external developers"
+
+# Optional variables
+optional_variables:
+  - presentation_purpose:
+      description: "Specific purpose of the presentation"
+      example: "Explain adoption reasons and implementation methods for new microservices architecture"
+  - duration:
+      description: "Expected presentation duration"
+      example: "30 minutes, 60 minutes, 90 minutes"
+  - audience_profile:
+      description: "Detailed audience profile"
+      example: "5+ years backend development experience, Kubernetes operations experience"
+  - storytelling_approach:
+      description: "Technical storytelling approach"
+      example: "Start with actual failure case, then explain architecture as solution"
+  - diagram_tools:
+      description: "Diagramming tools to use"
+      example: "Mermaid, PlantUML, diagrams.net"
+  - live_coding_strategy:
+      description: "Live coding strategy"
+      example: "Pre-prepared with checkpoints, including error handling scenarios"
+  - performance_metrics:
+      description: "Performance metrics to present"
+      example: "Latency, throughput, CPU usage, memory usage"
+  - demo_environment:
+      description: "Demo environment details"
+      example: "Local Docker environment, AWS staging environment"
+  - accessibility_measures:
+      description: "Accessibility measures"
+      example: "High contrast mode, captioned recording, braille materials"
+
+# Default values
+defaults:
+  presentation_tools: "PowerPoint/Keynote + live demo"
+  code_display: "Slides with syntax highlighting"
+  backup_strategy: "Pre-recorded demo + static screenshots"
+  interaction_style: "Questions welcome, interactive"
+  follow_up: "Material distribution + Q&A forum"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  updated: "2025-01-19"
+  tags:
+    - "technical presentation"
+    - "architecture diagram"
+    - "live demo"
+    - "code demonstration"
+    - "performance metrics"
+    - "technical communication"
+    - "developer relations"
+  references:
+    - "Technical Presentation Best Practices"
+    - "Effective Technical Demonstrations"
+    - "Architecture Visualization Guidelines"
+    - "Developer Advocacy Handbook"

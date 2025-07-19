@@ -1,0 +1,97 @@
+# task_blog_writing.yaml - ブログ執筆タスクモジュールのメタデータ
+id: "task_blog_writing"
+name: "ブログ執筆タスク"
+description: "効果的なブログコンテンツを作成し、SEO最適化とエンゲージメント向上を実現するためのタスクモジュール"
+version: "1.0.0"
+category: "tasks"
+
+# 依存関係
+dependencies: []
+
+# 提供される変数
+provides:
+  - seo_optimization_strategy
+  - content_structure_guidelines
+  - engagement_techniques
+  - performance_measurement_framework
+  - content_calendar_methodology
+
+# 必要な変数
+requires:
+  - blog_type:
+      description: "作成するブログ記事の種類"
+      example: "ハウツー記事、リスティクル、ケーススタディ、ソートリーダーシップ、製品レビュー、業界ニュース解説"
+  - target_audience:
+      description: "主要な読者層"
+      example: "IT管理者、マーケティング担当者、スタートアップ経営者、開発者、一般消費者"
+
+# オプション変数
+optional_variables:
+  - content_goal:
+      description: "コンテンツの具体的な目標"
+      example: "ブランド認知度向上、リード獲得、教育コンテンツ提供、SEOトラフィック増加"
+  - target_keywords:
+      description: "ターゲットとするSEOキーワード"
+      example: "デジタルマーケティング 戦略、クラウド移行 ベストプラクティス、リモートワーク ツール"
+  - meta_description:
+      description: "検索結果に表示されるメタディスクリプション"
+      example: "デジタルマーケティングの最新戦略を解説。ROI向上のための実践的なヒントと成功事例を紹介します。"
+  - hook_style:
+      description: "記事冒頭のフックスタイル"
+      example: "統計データ提示、問題提起、ストーリー、質問形式、衝撃的事実"
+  - cta_type:
+      description: "記事内で使用するCTAの種類"
+      example: "ニュースレター登録、無料ダウンロード、デモ申込み、問い合わせ、関連記事閲覧"
+  - list_items:
+      description: "リスティクルの場合の項目数"
+      example: "10個のヒント、7つの戦略、15のツール、5つのステップ"
+  - story_elements:
+      description: "ストーリーテリングで使用する要素"
+      example: "顧客成功事例、失敗からの学び、業界変革の物語、個人的体験"
+  - media_types:
+      description: "使用するメディアタイプ"
+      example: "画像、インフォグラフィック、動画、ポッドキャスト、スライドデッキ"
+  - publishing_frequency:
+      description: "コンテンツ公開頻度"
+      example: "週2回、毎日、月4回、隔週"
+  - target_metrics:
+      description: "追跡する主要指標"
+      example: "月間10万PV、平均滞在時間3分、コンバージョン率2%、シェア数100"
+  - mobile_priority:
+      description: "モバイル最適化の優先度"
+      example: "高（モバイルファースト）、中（レスポンシブ対応）、低（デスクトップ優先）"
+  - content_length:
+      description: "記事の目標文字数"
+      example: "1500-2000文字、3000文字以上、800-1200文字（短形式）"
+
+# デフォルト値
+defaults:
+  seo_keyword_density: "1-2%"
+  title_length: "50-60文字"
+  meta_description_length: "150-160文字"
+  paragraph_length: "3-5文"
+  image_alt_text: "必須"
+  internal_links: "3-5個/記事"
+  external_links: "2-3個/記事（信頼できるソース）"
+  cta_placement: "導入部後、中間部、結論部"
+  update_frequency: "6ヶ月ごとに既存コンテンツをレビュー"
+
+# メタデータ
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  updated: "2025-01-19"
+  tags:
+    - "blog writing"
+    - "content marketing"
+    - "seo optimization"
+    - "digital marketing"
+    - "content strategy"
+    - "engagement"
+    - "thought leadership"
+  references:
+    - "Content Marketing Institute Best Practices 2024"
+    - "Google Search Quality Evaluator Guidelines"
+    - "HubSpot Blog Writing Guide"
+    - "Moz SEO Best Practices"
+    - "Neil Patel Content Strategy Framework"

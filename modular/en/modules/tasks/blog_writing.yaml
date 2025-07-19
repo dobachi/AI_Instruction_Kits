@@ -1,0 +1,97 @@
+# task_blog_writing.yaml - Blog Writing Task Module Metadata
+id: "task_blog_writing"
+name: "Blog Writing Task"
+description: "Task module for creating effective blog content with SEO optimization and engagement enhancement"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided Variables
+provides:
+  - seo_optimization_strategy
+  - content_structure_guidelines
+  - engagement_techniques
+  - performance_measurement_framework
+  - content_calendar_methodology
+
+# Required Variables
+requires:
+  - blog_type:
+      description: "Type of blog post to create"
+      example: "How-to article, Listicle, Case study, Thought leadership, Product review, Industry news analysis"
+  - target_audience:
+      description: "Primary reader demographic"
+      example: "IT managers, Marketing professionals, Startup founders, Developers, General consumers"
+
+# Optional Variables
+optional_variables:
+  - content_goal:
+      description: "Specific goal of the content"
+      example: "Brand awareness, Lead generation, Educational content, SEO traffic growth"
+  - target_keywords:
+      description: "Target SEO keywords"
+      example: "digital marketing strategy, cloud migration best practices, remote work tools"
+  - meta_description:
+      description: "Meta description for search results"
+      example: "Learn the latest digital marketing strategies. Discover practical tips and success stories for improving ROI."
+  - hook_style:
+      description: "Article opening hook style"
+      example: "Statistics presentation, Problem statement, Story, Question format, Shocking facts"
+  - cta_type:
+      description: "Type of CTA to use in the article"
+      example: "Newsletter signup, Free download, Demo request, Contact inquiry, Related article viewing"
+  - list_items:
+      description: "Number of items for listicles"
+      example: "10 tips, 7 strategies, 15 tools, 5 steps"
+  - story_elements:
+      description: "Elements to use in storytelling"
+      example: "Customer success stories, Learning from failures, Industry transformation narratives, Personal experiences"
+  - media_types:
+      description: "Types of media to use"
+      example: "Images, Infographics, Videos, Podcasts, Slide decks"
+  - publishing_frequency:
+      description: "Content publishing frequency"
+      example: "Twice weekly, Daily, 4 times per month, Biweekly"
+  - target_metrics:
+      description: "Key metrics to track"
+      example: "100k monthly PV, 3-minute average time on page, 2% conversion rate, 100 shares"
+  - mobile_priority:
+      description: "Mobile optimization priority"
+      example: "High (mobile-first), Medium (responsive), Low (desktop-first)"
+  - content_length:
+      description: "Target word count for articles"
+      example: "1500-2000 words, 3000+ words, 800-1200 words (short form)"
+
+# Default Values
+defaults:
+  seo_keyword_density: "1-2%"
+  title_length: "50-60 characters"
+  meta_description_length: "150-160 characters"
+  paragraph_length: "3-5 sentences"
+  image_alt_text: "Required"
+  internal_links: "3-5 per article"
+  external_links: "2-3 per article (trusted sources)"
+  cta_placement: "After introduction, middle section, conclusion"
+  update_frequency: "Review existing content every 6 months"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  updated: "2025-01-19"
+  tags:
+    - "blog writing"
+    - "content marketing"
+    - "seo optimization"
+    - "digital marketing"
+    - "content strategy"
+    - "engagement"
+    - "thought leadership"
+  references:
+    - "Content Marketing Institute Best Practices 2024"
+    - "Google Search Quality Evaluator Guidelines"
+    - "HubSpot Blog Writing Guide"
+    - "Moz SEO Best Practices"
+    - "Neil Patel Content Strategy Framework"

@@ -1,0 +1,107 @@
+# task_pitch_deck.yaml - ピッチデッキ作成モジュールのメタデータ
+id: "task_pitch_deck"
+name: "ピッチデッキ作成"
+description: "投資家向けの説得力あるピッチデッキを作成するためのタスクモジュール"
+version: "1.0.0"
+category: "tasks"
+
+# 依存関係
+dependencies: []
+
+# 提供される変数
+provides:
+  - pitch_structure
+  - investor_communication
+  - fundraising_strategy
+  - presentation_skills
+
+# 必要な変数
+requires:
+  - company_name:
+      description: "会社名・プロジェクト名"
+      example: "株式会社テックイノベーション"
+  - tagline:
+      description: "会社のタグライン・キャッチフレーズ"
+      example: "AIで未来の教育を創造する"
+
+# オプション変数
+optional_variables:
+  - presenter_info:
+      description: "発表者の情報"
+      example: "山田太郎 CEO & Co-founder"
+  - customer_pain_points:
+      description: "顧客の課題・ペインポイント"
+      example: "従来の教育システムでは個別最適化が困難"
+  - value_proposition:
+      description: "提供する価値・バリュープロポジション"
+      example: "AIによる完全個別化学習プラットフォーム"
+  - tam_size:
+      description: "TAM（総市場規模）"
+      example: "国内教育市場 5兆円"
+  - sam_size:
+      description: "SAM（獲得可能市場）"
+      example: "オンライン教育市場 5000億円"
+  - som_target:
+      description: "SOM（現実的な目標市場）"
+      example: "3年で100億円の市場獲得"
+  - product_roadmap:
+      description: "プロダクトロードマップ"
+      example: "Q1: MVP完成、Q2: ベータ版リリース"
+  - revenue_model:
+      description: "収益モデル"
+      example: "SaaS型月額課金モデル"
+  - competitive_advantages:
+      description: "競争優位性"
+      example: "特許取得済みのAIアルゴリズム"
+  - gtm_strategy:
+      description: "Go-to-Market戦略"
+      example: "教育機関との提携から開始"
+  - founding_team:
+      description: "創業チームの情報"
+      example: "元Google AI研究者、EdTech起業経験者"
+  - advisors:
+      description: "アドバイザー・既存投資家"
+      example: "教育業界の第一人者、シードVC"
+  - traction_metrics:
+      description: "トラクション・実績指標"
+      example: "ベータユーザー1000名、MRR 500万円"
+  - financial_projections:
+      description: "財務予測"
+      example: "3年後売上10億円、5年後黒字化"
+  - funding_ask:
+      description: "調達希望額"
+      example: "シリーズA 3億円"
+  - use_of_funds:
+      description: "資金使途"
+      example: "開発40%、マーケティング30%、採用30%"
+  - target_audience:
+      description: "ターゲット投資家タイプ"
+      example: "VC"
+      enum: ["VC", "Angel", "Corporate"]
+  - tech_questions:
+      description: "予想される技術的な質問"
+      example: "AIモデルの精度と改善計画"
+
+# デフォルト値
+defaults:
+  target_audience: "VC"
+  presentation_duration: "10-15分"
+  slide_count: "12-15枚"
+
+# メタデータ
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  updated: "2025-01-19"
+  tags:
+    - "pitch deck"
+    - "fundraising"
+    - "investor relations"
+    - "startup"
+    - "presentation"
+    - "VC"
+    - "資金調達"
+  references:
+    - "Sequoia Capital Pitch Deck Template"
+    - "Y Combinator Pitch Deck Guide"
+    - "500 Startups Pitch Deck Framework"

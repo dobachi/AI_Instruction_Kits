@@ -1,0 +1,91 @@
+# task_strategy_development.yaml - Strategy Development Task Module Metadata
+id: "task_strategy_development"
+name: "Strategy Development Task"
+description: "Task module for developing comprehensive strategies to achieve organizational goals and establish competitive advantage"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided variables
+provides:
+  - strategic_frameworks
+  - strategy_analysis_methods
+  - implementation_roadmap
+  - change_management_approach
+  - performance_monitoring_system
+
+# Required variables
+requires:
+  - organization_level:
+      description: "Organizational level for strategy development"
+      example: "Corporate level, Business unit level, Department level"
+  - strategy_type:
+      description: "Type of strategy to develop"
+      example: "Growth strategy, Competitive strategy, Transformation strategy, Innovation strategy"
+  - planning_horizon:
+      description: "Strategic planning timeframe"
+      example: "3-year plan, 5-year plan, 10-year vision"
+
+# Optional variables
+optional_variables:
+  - strategic_focus:
+      description: "Strategic focus areas"
+      example: "Market expansion, Digitalization, Sustainability, Global expansion"
+  - selected_framework:
+      description: "Strategic framework to use"
+      example: "Blue Ocean Strategy, Porter's Competitive Strategy, Ansoff Matrix"
+  - digital_maturity:
+      description: "Digital maturity level"
+      example: "Initial stage, Developing stage, Mature stage, Advanced stage"
+  - analysis_scope:
+      description: "Environmental analysis scope"
+      example: "Domestic market, Global market, Specific regions"
+  - scenario_count:
+      description: "Number of scenarios for scenario planning"
+      example: "3 scenarios, 4 scenarios, 5 scenarios"
+  - core_competencies:
+      description: "Organizational core competencies"
+      example: "Technology capabilities, Brand strength, Customer relationships, Operational efficiency"
+  - evaluation_criteria:
+      description: "Strategy evaluation criteria"
+      example: "ROI, Market share, Customer satisfaction, Innovation metrics"
+  - implementation_phases:
+      description: "Number of implementation phases"
+      example: "3 phases, 4 phases, 5 phases"
+  - communication_channels:
+      description: "Communication channels"
+      example: "Town halls, Intranet, Department meetings, Newsletters"
+  - kpi_categories:
+      description: "KPI categories"
+      example: "Financial metrics, Customer metrics, Process metrics, Learning & growth metrics"
+
+# Default values
+defaults:
+  review_cycle: "Quarterly review recommended"
+  strategy_horizon: "3-5 year medium to long-term perspective"
+  implementation_approach: "Phased implementation with agile adjustments"
+  change_management: "Kotter's 8-step process"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  updated: "2025-01-19"
+  tags:
+    - "strategy development"
+    - "strategic planning"
+    - "blue ocean strategy"
+    - "competitive strategy"
+    - "ansoff matrix"
+    - "digital transformation"
+    - "innovation strategy"
+    - "change management"
+    - "strategic roadmap"
+  references:
+    - "Blue Ocean Strategy Framework"
+    - "Porter's Generic Strategies"
+    - "Kotter's 8-Step Change Model"
+    - "Balanced Scorecard Methodology"
+    - "Digital Transformation Playbook"

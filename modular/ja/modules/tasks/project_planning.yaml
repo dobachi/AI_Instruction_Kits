@@ -1,0 +1,223 @@
+id: project_planning
+name: プロジェクト計画
+category: tasks
+description: 様々な規模・種類のプロジェクトに対する体系的な計画立案を支援するモジュール
+version: 1.0.0
+author: AI Instruction Kits
+
+variables:
+  # プロジェクト基本情報
+  - name: project_name
+    description: プロジェクト名
+    type: string
+    required: true
+    example: "新製品開発プロジェクト"
+  
+  - name: start_date
+    description: プロジェクト開始日
+    type: date
+    required: true
+    example: "2025-04-01"
+  
+  - name: end_date
+    description: プロジェクト終了予定日
+    type: date
+    required: true
+    example: "2025-09-30"
+  
+  - name: project_manager
+    description: プロジェクトマネージャー名
+    type: string
+    required: true
+    example: "山田太郎"
+  
+  # プロジェクト憲章
+  - name: project_purpose
+    description: プロジェクトの目的
+    type: text
+    required: true
+    example: "顧客満足度向上のための新製品開発"
+  
+  - name: business_value
+    description: ビジネス価値
+    type: text
+    required: true
+    example: "市場シェア10%拡大、売上20%増加"
+  
+  - name: success_criteria
+    description: 成功基準
+    type: text
+    required: true
+    example: "期限内完成、予算内実施、品質基準達成"
+  
+  # スコープ定義
+  - name: in_scope_items
+    description: プロジェクトに含まれる項目
+    type: list
+    required: true
+    example: ["要件定義", "設計", "開発", "テスト", "展開"]
+  
+  - name: out_of_scope_items
+    description: プロジェクトに含まれない項目
+    type: list
+    required: true
+    example: ["保守・運用", "既存システムの改修"]
+  
+  - name: assumptions
+    description: 前提条件
+    type: list
+    required: true
+    example: ["必要な人材が確保できる", "予算が承認される"]
+  
+  - name: constraints
+    description: 制約条件
+    type: list
+    required: true
+    example: ["予算上限1000万円", "9月末までに完了必須"]
+  
+  # WBS要素
+  - name: phase_1_name
+    description: フェーズ1の名称
+    type: string
+    required: false
+    example: "要件定義フェーズ"
+  
+  - name: phase_2_name
+    description: フェーズ2の名称
+    type: string
+    required: false
+    example: "設計・開発フェーズ"
+  
+  # マイルストーン
+  - name: milestone_1_name
+    description: マイルストーン1の名称
+    type: string
+    required: false
+    example: "要件定義完了"
+  
+  - name: milestone_1_date
+    description: マイルストーン1の日付
+    type: date
+    required: false
+    example: "2025-05-01"
+  
+  # リソース計画
+  - name: required_roles
+    description: 必要なロール
+    type: list
+    required: true
+    example: ["プロジェクトマネージャー", "開発者", "テスター", "デザイナー"]
+  
+  - name: required_effort
+    description: 必要工数（人月）
+    type: string
+    required: true
+    example: "合計20人月"
+  
+  - name: skill_requirements
+    description: 必要なスキル要件
+    type: list
+    required: true
+    example: ["Java開発経験", "アジャイル開発経験", "UI/UXデザイン"]
+  
+  # 予算
+  - name: internal_cost
+    description: 内部リソースコスト
+    type: string
+    required: false
+    example: "500万円"
+  
+  - name: external_cost
+    description: 外部リソースコスト
+    type: string
+    required: false
+    example: "300万円"
+  
+  - name: contingency
+    description: 予備費（リスクバッファ）
+    type: string
+    required: false
+    example: "100万円（総予算の10%）"
+  
+  # リスク管理
+  - name: risk_1
+    description: リスク1の内容
+    type: string
+    required: false
+    example: "キーメンバーの離脱"
+  
+  - name: probability_1
+    description: リスク1の発生確率
+    type: string
+    required: false
+    example: "中"
+  
+  - name: impact_1
+    description: リスク1の影響度
+    type: string
+    required: false
+    example: "高"
+  
+  - name: mitigation_1
+    description: リスク1の対応策
+    type: string
+    required: false
+    example: "バックアップ要員の確保、知識移転の実施"
+  
+  # ステークホルダー
+  - name: stakeholder_1
+    description: ステークホルダー1
+    type: string
+    required: false
+    example: "経営層"
+  
+  - name: interest_1
+    description: ステークホルダー1の関心事項
+    type: string
+    required: false
+    example: "ROI、市場競争力"
+  
+  - name: comm_strategy_1
+    description: ステークホルダー1へのコミュニケーション戦略
+    type: string
+    required: false
+    example: "月次報告会、エグゼクティブサマリー提供"
+  
+  # 品質保証
+  - name: quality_standards
+    description: 品質基準
+    type: text
+    required: false
+    example: "ISO 9001準拠、社内品質基準適用"
+  
+  - name: quality_metrics
+    description: 品質メトリクス
+    type: list
+    required: false
+    example: ["欠陥密度", "テストカバレッジ", "顧客満足度"]
+
+dependencies:
+  - system_thinking
+  - structured_analysis
+
+tags:
+  - project_management
+  - planning
+  - methodology
+  - risk_management
+  - resource_planning
+
+examples:
+  - name: ソフトウェア開発プロジェクト
+    description: アジャイル手法を用いたWebアプリケーション開発
+    variables:
+      project_name: "顧客ポータルサイト開発"
+      project_purpose: "顧客の利便性向上とサポートコスト削減"
+      required_roles: ["スクラムマスター", "プロダクトオーナー", "開発チーム"]
+  
+  - name: インフラ構築プロジェクト
+    description: ウォーターフォール手法を用いたデータセンター構築
+    variables:
+      project_name: "災害対策データセンター構築"
+      project_purpose: "BCP対策としてのバックアップサイト構築"
+      constraints: ["建設期間6ヶ月", "予算5億円以内"]

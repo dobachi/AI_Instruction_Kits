@@ -1,0 +1,14 @@
+name: ユーザーリサーチ
+version: "1.0"
+description: 方法論、分析フレームワーク、倫理的実践を含むユーザーリサーチ実施のための包括的ガイダンス
+author: AI Instruction Kits
+tags:
+  - リサーチ
+  - ユーザーエクスペリエンス
+  - UX
+  - 方法論
+  - 分析
+  - 倫理
+dependencies: []
+complexity: advanced
+category: task

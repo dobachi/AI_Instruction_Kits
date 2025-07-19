@@ -1,0 +1,71 @@
+# presentation_design.yaml - Presentation Design Task Module Metadata
+id: "task_presentation_design"
+name: "Presentation Design Task"
+description: "Task module for designing and creating effective and professional presentations"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided variables
+provides:
+  - visual_design_principles
+  - storytelling_structure
+  - data_visualization_techniques
+  - accessibility_guidelines
+
+# Required variables
+requires:
+  - presentation_purpose:
+      description: "Purpose and target audience of the presentation"
+      example: "New product proposal presentation for executive team"
+  - presentation_duration:
+      description: "Expected duration of the presentation"
+      example: "20 minutes (including 5 minutes Q&A)"
+
+# Optional variables
+optional_variables:
+  - brand_guidelines:
+      description: "Brand guidelines or corporate colors"
+      example: "Corporate color: #1E88E5, Font: Roboto"
+  - presentation_type:
+      description: "Type of presentation"
+      example: "Sales presentation"
+  - delivery_format:
+      description: "Delivery format (in-person, online, hybrid)"
+      example: "Online meeting presentation"
+  - technical_constraints:
+      description: "Technical constraints"
+      example: "Must be editable in PowerPoint 2019"
+  - accessibility_requirements:
+      description: "Special accessibility requirements"
+      example: "Consideration for visually impaired attendees required"
+  - cultural_context:
+      description: "Cultural considerations"
+      example: "International conference presentation, multicultural audience"
+
+# Default values
+defaults:
+  presentation_type: "Business presentation"
+  delivery_format: "In-person presentation"
+  slide_aspect_ratio: "16:9"
+  font_size_minimum: "24pt (body text)"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  updated: "2025-01-19"
+  tags:
+    - "presentation"
+    - "visual design"
+    - "storytelling"
+    - "data visualization"
+    - "public speaking"
+    - "business communication"
+  references:
+    - "Presentation Zen by Garr Reynolds"
+    - "Resonate by Nancy Duarte"
+    - "WCAG 2.1 Guidelines"
+    - "Universal Design Principles"

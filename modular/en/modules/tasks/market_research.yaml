@@ -1,0 +1,181 @@
+name: market_research
+version: "1.0"
+description: "Comprehensive framework for conducting systematic market research"
+author: "AI Instruction Kits"
+created_date: "2025-01-19"
+last_updated: "2025-01-19"
+language: en
+
+tags:
+  - market_research
+  - business_analysis
+  - competitive_intelligence
+  - strategic_planning
+  - TAM_SAM_SOM
+  - porter_five_forces
+  - PESTLE_analysis
+
+categories:
+  - business
+  - strategy
+  - analysis
+  - research
+
+difficulty_level: intermediate
+
+prerequisites:
+  - basic_business_knowledge
+  - data_analysis_skills
+  - research_methodology
+
+variables:
+  - name: INDUSTRY
+    description: "Industry to be researched"
+    type: string
+    required: true
+    example: "SaaS", "Manufacturing", "Retail"
+  
+  - name: TARGET_MARKET
+    description: "Target market (region/segment)"
+    type: string
+    required: true
+    example: "North American B2B market", "Japanese consumer market"
+  
+  - name: PRODUCT_CATEGORY
+    description: "Product/service category"
+    type: string
+    required: true
+    example: "CRM software", "Health supplements"
+  
+  - name: ANALYSIS_SCOPE
+    description: "Scope and depth of analysis"
+    type: enum
+    required: false
+    values: ["quick_scan", "standard", "comprehensive"]
+    default: "standard"
+
+dependencies:
+  - module: data_analysis
+    version: ">=1.0"
+    relationship: "complementary"
+  
+  - module: competitive_analysis
+    version: ">=1.0"
+    relationship: "extends"
+  
+  - module: report_writing
+    version: ">=1.0"
+    relationship: "output"
+
+outputs:
+  - market_size_report:
+      format: "document"
+      sections:
+        - TAM_SAM_SOM_analysis
+        - growth_projections
+        - market_segmentation
+  
+  - competitive_landscape:
+      format: "matrix"
+      components:
+        - competitor_profiles
+        - positioning_map
+        - SWOT_analysis
+  
+  - strategic_recommendations:
+      format: "presentation"
+      elements:
+        - executive_summary
+        - key_findings
+        - action_plan
+
+tools_required:
+  essential:
+    - spreadsheet_software: "Excel, Google Sheets"
+    - research_databases: "Statista, IBISWorld, Industry associations"
+    - analytics_tools: "Google Analytics, Similar Web"
+  
+  recommended:
+    - social_listening: "Brandwatch, Sprinklr"
+    - survey_tools: "SurveyMonkey, Google Forms"
+    - visualization: "Tableau, Power BI"
+
+validation_criteria:
+  data_quality:
+    - multiple_source_verification: true
+    - recency_requirement: "Within 3 years"
+    - statistical_significance: "When applicable"
+  
+  analysis_completeness:
+    - all_frameworks_applied: true
+    - key_assumptions_documented: true
+    - limitations_acknowledged: true
+
+best_practices:
+  - always_triangulate_data_sources
+  - document_all_assumptions
+  - include_sensitivity_analysis
+  - regular_update_cycle
+  - ethical_data_collection
+
+common_pitfalls:
+  - over_reliance_on_secondary_data
+  - confirmation_bias_in_analysis
+  - ignoring_emerging_competitors
+  - static_market_view
+  - insufficient_customer_voice
+
+references:
+  academic:
+    - title: "Competitive Strategy"
+      author: "Michael E. Porter"
+      year: 1980
+      relevance: "Foundation of competitive strategy"
+  
+  practical:
+    - title: "The Lean Startup"
+      author: "Eric Ries"
+      year: 2011
+      relevance: "Market validation methods"
+  
+  online:
+    - title: "Harvard Business Review - Strategy"
+      url: "https://hbr.org/topic/strategy"
+      relevance: "Latest strategy theory and practice"
+
+examples:
+  - case: "B2B SaaS Market Entry Research"
+    context: "Evaluating Japanese market entry for new CRM product"
+    approach:
+      - TAM: "Total Japanese companies × CRM adoption rate × Average price"
+      - Competitive: "Analysis of major players like Salesforce, HubSpot"
+      - Customer: "20 in-depth interviews conducted"
+  
+  - case: "Consumer Goods Market Trend Analysis"
+    context: "Exploring growth opportunities in health food category"
+    approach:
+      - PESTLE: "Focus on rising health consciousness, regulatory changes"
+      - Social_listening: "Trend analysis of health-related keywords"
+      - Competitive_benchmark: "Strategy analysis of top 10 brands"
+
+integration_points:
+  input_from:
+    - business_strategy_module
+    - customer_research_module
+  
+  output_to:
+    - business_plan_module
+    - marketing_strategy_module
+    - product_development_module
+
+version_history:
+  - version: "1.0"
+    date: "2025-01-19"
+    changes: "Initial release - Comprehensive market research framework"
+
+metadata:
+  schema_version: "1.0"
+  content_type: "instructional_module"
+  target_audience: "business_analysts, strategists, entrepreneurs"
+  estimated_completion_time: "40-80 hours"
+  update_frequency: "quarterly"

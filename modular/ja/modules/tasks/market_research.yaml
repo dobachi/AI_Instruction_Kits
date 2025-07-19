@@ -1,0 +1,181 @@
+name: market_research
+version: "1.0"
+description: "体系的な市場調査を実施するための包括的フレームワーク"
+author: "AI Instruction Kits"
+created_date: "2025-01-19"
+last_updated: "2025-01-19"
+language: ja
+
+tags:
+  - market_research
+  - business_analysis
+  - competitive_intelligence
+  - strategic_planning
+  - TAM_SAM_SOM
+  - porter_five_forces
+  - PESTLE_analysis
+
+categories:
+  - business
+  - strategy
+  - analysis
+  - research
+
+difficulty_level: intermediate
+
+prerequisites:
+  - basic_business_knowledge
+  - data_analysis_skills
+  - research_methodology
+
+variables:
+  - name: INDUSTRY
+    description: "調査対象の業界"
+    type: string
+    required: true
+    example: "SaaS", "製造業", "小売業"
+  
+  - name: TARGET_MARKET
+    description: "ターゲット市場（地域/セグメント）"
+    type: string
+    required: true
+    example: "日本国内B2B市場", "北米消費者市場"
+  
+  - name: PRODUCT_CATEGORY
+    description: "製品/サービスカテゴリー"
+    type: string
+    required: true
+    example: "CRMソフトウェア", "健康食品"
+  
+  - name: ANALYSIS_SCOPE
+    description: "分析の範囲と深さ"
+    type: enum
+    required: false
+    values: ["quick_scan", "standard", "comprehensive"]
+    default: "standard"
+
+dependencies:
+  - module: data_analysis
+    version: ">=1.0"
+    relationship: "complementary"
+  
+  - module: competitive_analysis
+    version: ">=1.0"
+    relationship: "extends"
+  
+  - module: report_writing
+    version: ">=1.0"
+    relationship: "output"
+
+outputs:
+  - market_size_report:
+      format: "document"
+      sections:
+        - TAM_SAM_SOM_analysis
+        - growth_projections
+        - market_segmentation
+  
+  - competitive_landscape:
+      format: "matrix"
+      components:
+        - competitor_profiles
+        - positioning_map
+        - SWOT_analysis
+  
+  - strategic_recommendations:
+      format: "presentation"
+      elements:
+        - executive_summary
+        - key_findings
+        - action_plan
+
+tools_required:
+  essential:
+    - spreadsheet_software: "Excel, Google Sheets"
+    - research_databases: "Statista, IBISWorld, 業界団体データ"
+    - analytics_tools: "Google Analytics, Similar Web"
+  
+  recommended:
+    - social_listening: "Brandwatch, Sprinklr"
+    - survey_tools: "SurveyMonkey, Google Forms"
+    - visualization: "Tableau, Power BI"
+
+validation_criteria:
+  data_quality:
+    - multiple_source_verification: true
+    - recency_requirement: "3年以内のデータ"
+    - statistical_significance: "必要に応じて"
+  
+  analysis_completeness:
+    - all_frameworks_applied: true
+    - key_assumptions_documented: true
+    - limitations_acknowledged: true
+
+best_practices:
+  - always_triangulate_data_sources
+  - document_all_assumptions
+  - include_sensitivity_analysis
+  - regular_update_cycle
+  - ethical_data_collection
+
+common_pitfalls:
+  - over_reliance_on_secondary_data
+  - confirmation_bias_in_analysis
+  - ignoring_emerging_competitors
+  - static_market_view
+  - insufficient_customer_voice
+
+references:
+  academic:
+    - title: "Competitive Strategy"
+      author: "Michael E. Porter"
+      year: 1980
+      relevance: "競争戦略の基礎理論"
+  
+  practical:
+    - title: "The Lean Startup"
+      author: "Eric Ries"
+      year: 2011
+      relevance: "市場検証手法"
+  
+  online:
+    - title: "Harvard Business Review - Strategy"
+      url: "https://hbr.org/topic/strategy"
+      relevance: "最新の戦略理論と実践"
+
+examples:
+  - case: "B2B SaaS市場参入調査"
+    context: "新規CRM製品の日本市場参入検討"
+    approach:
+      - TAM: "日本の全企業数×CRM利用率×平均単価"
+      - 競合分析: "Salesforce、HubSpot等の主要プレイヤー分析"
+      - 顧客調査: "20社の深層インタビュー実施"
+  
+  - case: "消費財市場トレンド分析"
+    context: "健康食品カテゴリーの成長機会探索"
+    approach:
+      - PESTLE: "健康意識の高まり、規制変化を重点分析"
+      - ソーシャルリスニング: "健康関連キーワードのトレンド分析"
+      - 競合ベンチマーク: "上位10ブランドの戦略分析"
+
+integration_points:
+  input_from:
+    - business_strategy_module
+    - customer_research_module
+  
+  output_to:
+    - business_plan_module
+    - marketing_strategy_module
+    - product_development_module
+
+version_history:
+  - version: "1.0"
+    date: "2025-01-19"
+    changes: "初版作成 - 包括的な市場調査フレームワーク"
+
+metadata:
+  schema_version: "1.0"
+  content_type: "instructional_module"
+  target_audience: "business_analysts, strategists, entrepreneurs"
+  estimated_completion_time: "40-80 hours"
+  update_frequency: "quarterly"

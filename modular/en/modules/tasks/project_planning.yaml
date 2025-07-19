@@ -1,0 +1,223 @@
+id: project_planning
+name: Project Planning
+category: tasks
+description: Module supporting systematic planning for projects of various sizes and types
+version: 1.0.0
+author: AI Instruction Kits
+
+variables:
+  # Basic Project Information
+  - name: project_name
+    description: Project name
+    type: string
+    required: true
+    example: "New Product Development Project"
+  
+  - name: start_date
+    description: Project start date
+    type: date
+    required: true
+    example: "2025-04-01"
+  
+  - name: end_date
+    description: Target project end date
+    type: date
+    required: true
+    example: "2025-09-30"
+  
+  - name: project_manager
+    description: Project manager name
+    type: string
+    required: true
+    example: "John Smith"
+  
+  # Project Charter
+  - name: project_purpose
+    description: Project purpose
+    type: text
+    required: true
+    example: "Develop new product to improve customer satisfaction"
+  
+  - name: business_value
+    description: Business value
+    type: text
+    required: true
+    example: "10% market share expansion, 20% revenue increase"
+  
+  - name: success_criteria
+    description: Success criteria
+    type: text
+    required: true
+    example: "On-time completion, within budget, quality standards met"
+  
+  # Scope Definition
+  - name: in_scope_items
+    description: Items included in project scope
+    type: list
+    required: true
+    example: ["Requirements definition", "Design", "Development", "Testing", "Deployment"]
+  
+  - name: out_of_scope_items
+    description: Items excluded from project scope
+    type: list
+    required: true
+    example: ["Maintenance and operations", "Legacy system modifications"]
+  
+  - name: assumptions
+    description: Project assumptions
+    type: list
+    required: true
+    example: ["Required resources will be available", "Budget will be approved"]
+  
+  - name: constraints
+    description: Project constraints
+    type: list
+    required: true
+    example: ["Budget cap of $1M", "Must complete by September 30"]
+  
+  # WBS Elements
+  - name: phase_1_name
+    description: Phase 1 name
+    type: string
+    required: false
+    example: "Requirements Phase"
+  
+  - name: phase_2_name
+    description: Phase 2 name
+    type: string
+    required: false
+    example: "Design and Development Phase"
+  
+  # Milestones
+  - name: milestone_1_name
+    description: Milestone 1 name
+    type: string
+    required: false
+    example: "Requirements Complete"
+  
+  - name: milestone_1_date
+    description: Milestone 1 date
+    type: date
+    required: false
+    example: "2025-05-01"
+  
+  # Resource Planning
+  - name: required_roles
+    description: Required roles
+    type: list
+    required: true
+    example: ["Project Manager", "Developers", "Testers", "Designers"]
+  
+  - name: required_effort
+    description: Required effort (person-months)
+    type: string
+    required: true
+    example: "Total 20 person-months"
+  
+  - name: skill_requirements
+    description: Required skills
+    type: list
+    required: true
+    example: ["Java development", "Agile experience", "UI/UX design"]
+  
+  # Budget
+  - name: internal_cost
+    description: Internal resource cost
+    type: string
+    required: false
+    example: "$500,000"
+  
+  - name: external_cost
+    description: External resource cost
+    type: string
+    required: false
+    example: "$300,000"
+  
+  - name: contingency
+    description: Contingency (risk buffer)
+    type: string
+    required: false
+    example: "$100,000 (10% of total budget)"
+  
+  # Risk Management
+  - name: risk_1
+    description: Risk 1 description
+    type: string
+    required: false
+    example: "Key team member departure"
+  
+  - name: probability_1
+    description: Risk 1 probability
+    type: string
+    required: false
+    example: "Medium"
+  
+  - name: impact_1
+    description: Risk 1 impact
+    type: string
+    required: false
+    example: "High"
+  
+  - name: mitigation_1
+    description: Risk 1 mitigation strategy
+    type: string
+    required: false
+    example: "Secure backup resources, implement knowledge transfer"
+  
+  # Stakeholders
+  - name: stakeholder_1
+    description: Stakeholder 1
+    type: string
+    required: false
+    example: "Executive Leadership"
+  
+  - name: interest_1
+    description: Stakeholder 1 interests
+    type: string
+    required: false
+    example: "ROI, market competitiveness"
+  
+  - name: comm_strategy_1
+    description: Communication strategy for stakeholder 1
+    type: string
+    required: false
+    example: "Monthly briefings, executive summaries"
+  
+  # Quality Assurance
+  - name: quality_standards
+    description: Quality standards
+    type: text
+    required: false
+    example: "ISO 9001 compliance, internal quality standards"
+  
+  - name: quality_metrics
+    description: Quality metrics
+    type: list
+    required: false
+    example: ["Defect density", "Test coverage", "Customer satisfaction"]
+
+dependencies:
+  - system_thinking
+  - structured_analysis
+
+tags:
+  - project_management
+  - planning
+  - methodology
+  - risk_management
+  - resource_planning
+
+examples:
+  - name: Software Development Project
+    description: Web application development using Agile methodology
+    variables:
+      project_name: "Customer Portal Development"
+      project_purpose: "Improve customer convenience and reduce support costs"
+      required_roles: ["Scrum Master", "Product Owner", "Development Team"]
+  
+  - name: Infrastructure Project
+    description: Data center construction using Waterfall methodology
+    variables:
+      project_name: "Disaster Recovery Data Center"
+      project_purpose: "Build backup site for business continuity"
+      constraints: ["6-month construction period", "Budget under $5M"]

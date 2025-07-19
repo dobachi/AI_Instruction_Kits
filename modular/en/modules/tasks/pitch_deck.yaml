@@ -1,0 +1,106 @@
+# task_pitch_deck.yaml - Pitch Deck Creation Module Metadata
+id: "task_pitch_deck"
+name: "Pitch Deck Creation"
+description: "Task module for creating compelling investor pitch decks"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided Variables
+provides:
+  - pitch_structure
+  - investor_communication
+  - fundraising_strategy
+  - presentation_skills
+
+# Required Variables
+requires:
+  - company_name:
+      description: "Company or project name"
+      example: "TechInnovation Inc."
+  - tagline:
+      description: "Company tagline or catchphrase"
+      example: "Creating the future of education with AI"
+
+# Optional Variables
+optional_variables:
+  - presenter_info:
+      description: "Presenter information"
+      example: "John Smith, CEO & Co-founder"
+  - customer_pain_points:
+      description: "Customer challenges and pain points"
+      example: "Traditional education systems struggle with personalization"
+  - value_proposition:
+      description: "Value proposition offered"
+      example: "AI-powered fully personalized learning platform"
+  - tam_size:
+      description: "TAM (Total Addressable Market)"
+      example: "$50B global education market"
+  - sam_size:
+      description: "SAM (Serviceable Available Market)"
+      example: "$5B online education market"
+  - som_target:
+      description: "SOM (Serviceable Obtainable Market)"
+      example: "$1B market capture in 3 years"
+  - product_roadmap:
+      description: "Product roadmap"
+      example: "Q1: MVP completion, Q2: Beta release"
+  - revenue_model:
+      description: "Revenue model"
+      example: "SaaS monthly subscription model"
+  - competitive_advantages:
+      description: "Competitive advantages"
+      example: "Patented AI algorithm"
+  - gtm_strategy:
+      description: "Go-to-Market strategy"
+      example: "Start with educational institution partnerships"
+  - founding_team:
+      description: "Founding team information"
+      example: "Ex-Google AI researcher, EdTech serial entrepreneur"
+  - advisors:
+      description: "Advisors and existing investors"
+      example: "Education industry leaders, Seed VCs"
+  - traction_metrics:
+      description: "Traction and performance metrics"
+      example: "1000 beta users, $50K MRR"
+  - financial_projections:
+      description: "Financial projections"
+      example: "$10M revenue in 3 years, profitability in 5 years"
+  - funding_ask:
+      description: "Funding amount requested"
+      example: "Series A $3M"
+  - use_of_funds:
+      description: "Use of funds"
+      example: "40% development, 30% marketing, 30% hiring"
+  - target_audience:
+      description: "Target investor type"
+      example: "VC"
+      enum: ["VC", "Angel", "Corporate"]
+  - tech_questions:
+      description: "Anticipated technical questions"
+      example: "AI model accuracy and improvement plan"
+
+# Default Values
+defaults:
+  target_audience: "VC"
+  presentation_duration: "10-15 minutes"
+  slide_count: "12-15 slides"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  updated: "2025-01-19"
+  tags:
+    - "pitch deck"
+    - "fundraising"
+    - "investor relations"
+    - "startup"
+    - "presentation"
+    - "VC"
+  references:
+    - "Sequoia Capital Pitch Deck Template"
+    - "Y Combinator Pitch Deck Guide"
+    - "500 Startups Pitch Deck Framework"

@@ -1,0 +1,85 @@
+# task_proposal_writing.yaml - Proposal Writing Task Module Metadata
+id: "task_proposal_writing"
+name: "Proposal Writing Task"
+description: "Task module for creating persuasive and winning proposals"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided variables
+provides:
+  - proposal_writing_methodology
+  - win_theme_development
+  - value_proposition_framework
+  - risk_mitigation_strategies
+
+# Required variables
+requires:
+  - proposal_type:
+      description: "Type of proposal to create"
+      example: "business proposal, project proposal, budget proposal, grant proposal, RFP response"
+  - target_audience:
+      description: "Primary decision makers for the proposal"
+      example: "executive team, investment committee, business partners, government agencies, grant foundations"
+
+# Optional variables
+optional_variables:
+  - proposal_purpose:
+      description: "Specific purpose of the proposal"
+      example: "new business launch approval, project budget allocation, strategic partnership agreement"
+  - proposal_value:
+      description: "Monetary value or scale of the proposal"
+      example: "$500K budget, 3-year contract, $1M annual revenue business"
+  - competitive_context:
+      description: "Competitive situation"
+      example: "three-way competition, sole source, open bidding"
+  - evaluation_criteria:
+      description: "Evaluation criteria"
+      example: "price 40%, technical capability 30%, track record 20%, proposal quality 10%"
+  - win_themes:
+      description: "Win themes"
+      example: "cost efficiency, innovation, proven track record, community impact"
+  - differentiators:
+      description: "Differentiating factors"
+      example: "proprietary technology, extensive experience, expert team, risk mitigation"
+  - submission_deadline:
+      description: "Submission deadline"
+      example: "March 31, 2024, within 30 days of RFP receipt"
+  - page_limit:
+      description: "Page limitations"
+      example: "2-page executive summary, 30-page proposal body"
+  - visual_requirements:
+      description: "Visual requirements"
+      example: "charts required, infographics recommended, full-color printing"
+  - compliance_requirements:
+      description: "Compliance requirements"
+      example: "specified format compliance, mandatory sections, supporting documentation"
+
+# Default values
+defaults:
+  executive_summary_approach: "Emphasize proposal value and differentiators"
+  structure_pattern: "Problem-Solution-Implementation-Results flow"
+  visual_design_principle: "Professional and readable design"
+  win_rate_target: "30%+ for competitive bids, 80%+ for sole source"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  updated: "2025-01-19"
+  tags:
+    - "business proposals"
+    - "project proposals"
+    - "budget proposals"
+    - "grant proposals"
+    - "RFP responses"
+    - "win themes"
+    - "value proposition"
+    - "competitive bidding"
+  references:
+    - "Proposal Writing Best Practices 2024"
+    - "Win Theme Development Framework"
+    - "RFP Response Strategies"
+    - "Grant Writing Excellence Guide"

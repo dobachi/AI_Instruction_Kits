@@ -1,0 +1,84 @@
+# task_business_planning.yaml - Business Planning Module Metadata
+id: "task_business_planning"
+name: "Business Planning"
+description: "Task module for systematically conducting strategic business planning"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided variables
+provides:
+  - business_model_canvas
+  - strategic_planning
+  - financial_planning
+  - growth_strategy
+  - kpi_framework
+
+# Required variables
+requires:
+  - business_context:
+      description: "Business overview and current situation"
+      example: "SaaS-based HR management system startup"
+
+# Optional variables
+optional_variables:
+  - company_vision:
+      description: "Company vision statement"
+      example: "Creating a world where every company can maximize their human potential"
+  - company_mission:
+      description: "Company mission statement"
+      example: "Transforming HR operations with innovative HR technology"
+  - target_segments:
+      description: "Target customer segments"
+      example: "Growing companies with 100-1000 employees"
+  - planning_horizon:
+      description: "Planning period"
+      example: "3-year medium-term business plan"
+  - growth_strategy:
+      description: "Growth strategy direction"
+      example: "Market penetration through product feature expansion"
+  - risk_categories:
+      description: "Risk categories to focus on"
+      example: "Cybersecurity risk, regulatory change risk"
+  - stakeholder_engagement:
+      description: "Stakeholder engagement strategy"
+      example: "Quarterly investor briefings, monthly all-hands meetings"
+  - business_stage:
+      description: "Business stage"
+      example: "Growth stage after Series A funding"
+  - industry_sector:
+      description: "Industry sector"
+      example: "B2B SaaS, HR Tech"
+  - geographic_scope:
+      description: "Geographic expansion scope"
+      example: "From Japanese domestic market to Southeast Asia expansion"
+
+# Default values
+defaults:
+  planning_horizon: "3-year medium-term plan and 5-year long-term outlook"
+  business_stage: "Growth stage business"
+  geographic_scope: "Primarily domestic market"
+  kpi_review_cycle: "Quarterly review"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  updated: "2025-01-19"
+  tags:
+    - "business planning"
+    - "strategic planning"
+    - "business model"
+    - "financial planning"
+    - "growth strategy"
+    - "OKR"
+    - "KPI"
+    - "startup"
+    - "enterprise"
+  references:
+    - "Business Model Canvas by Strategyzer"
+    - "Lean Startup Methodology"
+    - "Balanced Scorecard Framework"
+    - "OKR (Objectives and Key Results) Framework"
