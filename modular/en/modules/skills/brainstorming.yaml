@@ -2,7 +2,7 @@
 id: "skill_brainstorming"
 name: "Brainstorming"
 description: "Skill module defining creative thinking techniques for idea generation"
-version: "1.0.0"
+version: "2.0.0"
 category: "skills"
 tags:
   - "creativity"
@@ -10,12 +10,17 @@ tags:
   - "problem-solving"
   - "innovation"
   - "facilitation"
+  - "neurodiversity"
+  - "cultural_diversity"
+  - "bias_mitigation"
+  - "digital_transformation"
+  - "psychological_safety"
 
 variables:
   - name: "technique"
     description: "Brainstorming technique to use"
     type: "enum"
-    values: ["classic", "mindmap", "scamper", "635", "reverse", "brainwriting"]
+    values: ["classic", "mindmap", "scamper", "635", "reverse", "brainwriting", "async_brainstorming", "hybrid_session", "ai_assisted", "question_storming"]
     default: "classic"
     
   - name: "group_size"
@@ -34,7 +39,31 @@ variables:
     description: "Method for evaluating ideas"
     type: "string"
     default: "Voting-based prioritization"
-    examples: ["voting", "scoring", "categorization", "feasibility matrix"]
+    examples: ["voting", "scoring", "categorization", "feasibility matrix", "innovation index", "multi-dimensional evaluation matrix"]
+    
+  - name: "neurodiversity_accommodations"
+    description: "Neurodiversity accommodation considerations"
+    type: "array"
+    default: ["structured facilitation", "visual cues"]
+    examples: ["ADHD accommodations", "autism spectrum accommodations", "sensory sensitivity support", "diverse expression methods"]
+    
+  - name: "cultural_considerations"
+    description: "Cultural diversity accommodations"
+    type: "array"
+    default: ["flat participation promotion"]
+    examples: ["hierarchy consciousness reduction", "diverse communication styles", "time perception differences", "group vs individual behavior"]
+    
+  - name: "bias_mitigation"
+    description: "Bias mitigation techniques"
+    type: "array"
+    default: ["anonymization", "diversity checks"]
+    examples: ["anonymous evaluation", "diversity verification", "devil's advocate", "rotation", "dissenting voices"]
+    
+  - name: "digital_tools"
+    description: "Digital tools to use"
+    type: "array"
+    default: []
+    examples: ["Miro", "Mural", "Conceptboard", "FigJam", "Stormboard", "AI-assisted tools"]
 
 compatible_with:
   - "task_research"

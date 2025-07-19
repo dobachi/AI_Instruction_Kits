@@ -1,12 +1,36 @@
 id: skill_facilitation
 name: ファシリテーションスキル
-description: 効果的なグループファシリテーションのための包括的な技術とツール
-version: 1.0.0
+description: 効果的なグループファシリテーションのための包括的な技術とツール。Liberating Structures、ToP、Art of Hosting、AI支援、ユニバーサルデザイン、トラウマインフォームドアプローチを含む
+version: 2.0.0
 category: skills
 subcategory: leadership
 
 # ファシリテーション関連の変数
 variables:
+  - name: "facilitation_approach"
+    description: "使用するファシリテーション手法"
+    type: "enum"
+    values: ["traditional", "liberating_structures", "art_of_hosting", "technology_of_participation", "hybrid"]
+    default: "traditional"
+    
+  - name: "ai_assistance"
+    description: "AI支援のレベル"
+    type: "enum"
+    values: ["none", "basic", "advanced", "full_integration"]
+    default: "none"
+    
+  - name: "accessibility_level"
+    description: "アクセシビリティ対応レベル"
+    type: "enum"
+    values: ["standard", "enhanced", "comprehensive"]
+    default: "standard"
+    
+  - name: "trauma_informed"
+    description: "トラウマインフォームドアプローチのレベル"
+    type: "enum"
+    values: ["basic", "informed", "specialized"]
+    default: "basic"
+    
   - name: "meeting_type"
     description: "ファシリテートする会議の種類"
     type: "enum"
@@ -69,6 +93,14 @@ tags:
   - decision_making
   - virtual_meetings
   - team_building
+  - liberating_structures
+  - art_of_hosting
+  - technology_of_participation
+  - accessibility
+  - inclusion
+  - trauma_informed
+  - ai_assisted
+  - universal_design
 
 # 出力形式
 output_format:
@@ -82,35 +114,57 @@ output_format:
 
 # 使用例
 examples:
-  - title: オンラインブレインストーミング
+  - title: Liberating Structuresを使ったイノベーションセッション
     variables:
+      facilitation_approach: liberating_structures
       meeting_type: brainstorming
-      group_size: 12
-      format: virtual
-      decision_method: voting
-      time_constraint: moderate
-    description: リモートチームでの新製品アイデア創出セッション
+      group_size: 20
+      format: hybrid
+      ai_assistance: basic
+      accessibility_level: enhanced
+    description: 1-2-4-AllとTroika Consultingを組み合わせた新サービスアイデア創出
 
-  - title: 対面での意思決定会議
+  - title: トラウマインフォームドアプローチでの危機対応会議
     variables:
+      facilitation_approach: art_of_hosting
       meeting_type: decision
-      group_size: 6
+      group_size: 8
       format: in_person
+      trauma_informed: specialized
+      accessibility_level: comprehensive
       decision_method: consensus
-      time_constraint: tight
-    description: 重要なプロジェクト方針を決定する経営会議
+    description: 心理的安全性を重視した緊急対応計画策定
 
-  - title: ハイブリッド振り返り会議
+  - title: AI支援によるグローバルチーム振り返り
     variables:
+      facilitation_approach: technology_of_participation
       meeting_type: retrospective
+      group_size: 25
+      format: virtual
+      ai_assistance: advanced
+      accessibility_level: comprehensive
+      diversity_level: high
+    description: 多言語・多文化チームでのORID法を用いたプロジェクト振り返り
+
+  - title: フリップドワークショップアプローチでのスキル開発
+    variables:
+      facilitation_approach: hybrid
+      meeting_type: planning
       group_size: 15
       format: hybrid
-      decision_method: consensus
-      diversity_level: high
-    description: 四半期プロジェクトの振り返りと改善点の特定
+      ai_assistance: full_integration
+      accessibility_level: standard
+    description: 事前学習と対面実践を組み合わせたリーダーシップ開発プログラム
 
 # メタデータ
 author: "AI Instruction Kits Project"
 created: "2025-01-19"
 updated: "2025-01-19"
 license: "Apache-2.0"
+research_sources:
+  - "Liberating Structures"
+  - "Technology of Participation (ToP)"
+  - "Art of Hosting practices"
+  - "Trauma-informed facilitation"
+  - "Universal Design principles"
+  - "ABDEIJ equity framework"

@@ -1,8 +1,8 @@
 # Problem Solving Skill Module Metadata
 id: "skill_problem_solving"
 name: "Problem Solving"
-description: "Skill module providing systematic problem-solving methodologies and frameworks"
-version: "1.0.0"
+description: "Skill module providing systematic problem-solving methodologies and frameworks (Cynefin framework, A3/8D methods, TRIZ, AI/ML integration support)"
+version: "2.0.0"
 category: "skills"
 tags:
   - "problem-solving"
@@ -10,6 +10,13 @@ tags:
   - "decision-making"
   - "framework"
   - "methodology"
+  - "cynefin"
+  - "a3"
+  - "8d"
+  - "triz"
+  - "wicked-problems"
+  - "data-driven"
+  - "ai-ml"
 
 variables:
   - name: "methodology"
@@ -52,6 +59,30 @@ variables:
     type: "enum"
     values: ["minimal", "standard", "comprehensive"]
     default: "standard"
+    
+  - name: "cynefin_domain"
+    description: "Problem domain in Cynefin framework"
+    type: "enum"
+    values: ["simple", "complicated", "complex", "chaotic", "disorder"]
+    default: "complicated"
+    
+  - name: "modern_framework"
+    description: "Modern problem-solving framework to apply"
+    type: "enum"
+    values: ["a3", "8d", "triz", "design_sprint", "traditional"]
+    default: "traditional"
+    
+  - name: "data_availability"
+    description: "Level of data availability"
+    type: "enum"
+    values: ["rich", "moderate", "limited"]
+    default: "moderate"
+    
+  - name: "wicked_characteristics"
+    description: "Strength of wicked problem characteristics"
+    type: "enum"
+    values: ["low", "moderate", "high"]
+    default: "low"
 
 compatible_with:
   - "task_research"
@@ -64,5 +95,5 @@ compatible_with:
 
 author: "AI Instruction Kits Project"
 created: "2025-01-19"
-updated: "2025-01-19"
+updated: "2025-01-20"
 license: "Apache-2.0"

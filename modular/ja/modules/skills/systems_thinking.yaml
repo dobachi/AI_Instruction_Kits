@@ -1,8 +1,8 @@
 # システム思考スキルモジュールのメタデータ
 id: "skill_systems_thinking"
 name: "システム思考"
-description: "相互接続されたシステムを理解・分析するためのスキルモジュール"
-version: "1.0.0"
+description: "相互接続されたシステムを理解・分析するためのスキルモジュール（現代的手法とツールを含む）"
+version: "2.0.0"
 category: "skills"
 tags:
   - "systems"
@@ -11,6 +11,12 @@ tags:
   - "complexity"
   - "feedback"
   - "emergence"
+  - "leverage_points"
+  - "digital_twins"
+  - "network_analysis"
+  - "agent_based_modeling"
+  - "sustainability"
+  - "soft_systems"
 
 variables:
   - name: "complexity_level"
@@ -41,6 +47,27 @@ variables:
     type: "enum"
     values: ["basic", "detailed", "comprehensive"]
     default: "detailed"
+    
+  - name: "leverage_points"
+    description: "Meadowsの12レバレッジポイントの適用レベル"
+    type: "enum"
+    values: ["parameters", "structure", "paradigm", "comprehensive"]
+    default: "structure"
+    examples: ["数値調整レベル", "フィードバック構造レベル", "パラダイム変革レベル"]
+    
+  - name: "modern_tools"
+    description: "使用する現代的ツールセット"
+    type: "enum"
+    values: ["traditional", "digital_twins", "network_analysis", "agent_based", "integrated"]
+    default: "traditional"
+    examples: ["従来手法のみ", "デジタルツイン活用", "ネットワーク分析重視", "エージェントベースモデリング", "統合アプローチ"]
+    
+  - name: "application_domain"
+    description: "主要な応用領域"
+    type: "enum"
+    values: ["general", "sustainability", "digital_transformation", "organizational", "urban_planning"]
+    default: "general"
+    examples: ["一般的分析", "気候・持続可能性", "デジタル変革", "組織変革", "都市計画"]
 
 compatible_with:
   - "task_analysis"
@@ -48,6 +75,8 @@ compatible_with:
   - "task_research"
   - "task_competitive_analysis"
   - "task_data_analysis"
+  - "task_documentation"
+  - "task_report_writing"
 
 author: "AI Instruction Kits Project"
 created: "2025-01-19"

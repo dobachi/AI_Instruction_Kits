@@ -1,12 +1,36 @@
 id: skill_facilitation
 name: Facilitation Skills
-description: Comprehensive techniques and tools for effective group facilitation
-version: 1.0.0
+description: Comprehensive techniques and tools for effective group facilitation. Includes Liberating Structures, ToP, Art of Hosting, AI assistance, Universal Design, and trauma-informed approaches
+version: 2.0.0
 category: skills
 subcategory: leadership
 
 # Facilitation-related variables
 variables:
+  - name: "facilitation_approach"
+    description: "Facilitation methodology to use"
+    type: "enum"
+    values: ["traditional", "liberating_structures", "art_of_hosting", "technology_of_participation", "hybrid"]
+    default: "traditional"
+    
+  - name: "ai_assistance"
+    description: "Level of AI support"
+    type: "enum"
+    values: ["none", "basic", "advanced", "full_integration"]
+    default: "none"
+    
+  - name: "accessibility_level"
+    description: "Level of accessibility accommodation"
+    type: "enum"
+    values: ["standard", "enhanced", "comprehensive"]
+    default: "standard"
+    
+  - name: "trauma_informed"
+    description: "Level of trauma-informed approach"
+    type: "enum"
+    values: ["basic", "informed", "specialized"]
+    default: "basic"
+    
   - name: "meeting_type"
     description: "Type of meeting to facilitate"
     type: "enum"
@@ -69,6 +93,14 @@ tags:
   - decision_making
   - virtual_meetings
   - team_building
+  - liberating_structures
+  - art_of_hosting
+  - technology_of_participation
+  - accessibility
+  - inclusion
+  - trauma_informed
+  - ai_assisted
+  - universal_design
 
 # Output format
 output_format:
@@ -82,35 +114,57 @@ output_format:
 
 # Usage examples
 examples:
-  - title: Online Brainstorming Session
+  - title: Liberating Structures Innovation Session
     variables:
+      facilitation_approach: liberating_structures
       meeting_type: brainstorming
-      group_size: 12
-      format: virtual
-      decision_method: voting
-      time_constraint: moderate
-    description: Remote team session for generating new product ideas
+      group_size: 20
+      format: hybrid
+      ai_assistance: basic
+      accessibility_level: enhanced
+    description: New service idea generation combining 1-2-4-All and Troika Consulting
 
-  - title: In-person Decision Meeting
+  - title: Trauma-Informed Crisis Response Meeting
     variables:
+      facilitation_approach: art_of_hosting
       meeting_type: decision
-      group_size: 6
+      group_size: 8
       format: in_person
+      trauma_informed: specialized
+      accessibility_level: comprehensive
       decision_method: consensus
-      time_constraint: tight
-    description: Executive meeting to decide critical project direction
+    description: Emergency response planning with emphasis on psychological safety
 
-  - title: Hybrid Retrospective Meeting
+  - title: AI-Assisted Global Team Retrospective
     variables:
+      facilitation_approach: technology_of_participation
       meeting_type: retrospective
+      group_size: 25
+      format: virtual
+      ai_assistance: advanced
+      accessibility_level: comprehensive
+      diversity_level: high
+    description: Multilingual/multicultural team project retrospective using ORID method
+
+  - title: Flipped Workshop Leadership Development
+    variables:
+      facilitation_approach: hybrid
+      meeting_type: planning
       group_size: 15
       format: hybrid
-      decision_method: consensus
-      diversity_level: high
-    description: Quarterly project review to identify improvements
+      ai_assistance: full_integration
+      accessibility_level: standard
+    description: Leadership development program combining pre-learning with hands-on practice
 
 # Metadata
 author: "AI Instruction Kits Project"
 created: "2025-01-19"
 updated: "2025-01-19"
 license: "Apache-2.0"
+research_sources:
+  - "Liberating Structures"
+  - "Technology of Participation (ToP)"
+  - "Art of Hosting practices"
+  - "Trauma-informed facilitation"
+  - "Universal Design principles"
+  - "ABDEIJ equity framework"

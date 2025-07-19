@@ -195,6 +195,29 @@ This module provides techniques and methods for effective group facilitation, co
 
 ## Variable Usage Guide
 
+### Focus by facilitation_approach
+- **traditional**: Conventional methods, structured approach
+- **liberating_structures**: Participatory, creative methods
+- **art_of_hosting**: Deep dialogue, meaning-making focus
+- **technology_of_participation**: Systematic consensus building
+- **hybrid**: Combination of multiple methods
+
+### Application by ai_assistance
+- **none**: Human-led traditional facilitation
+- **basic**: Support for meeting minutes creation and summary generation
+- **advanced**: Real-time analysis and pattern recognition
+- **full_integration**: AI-collaborative facilitation
+
+### Considerations by accessibility_level
+- **standard**: Basic accessibility considerations
+- **enhanced**: Moderate special needs accommodation
+- **comprehensive**: Full universal design implementation
+
+### Approach by trauma_informed
+- **basic**: Basic psychological safety assurance
+- **informed**: Considerations based on trauma understanding
+- **specialized**: Specialized trauma-informed practice
+
 ### Focus by meeting_type
 - **brainstorming**: Quantity over quality, suspend judgment
 - **decision**: Clarify options, transparent process
@@ -207,4 +230,4 @@ This module provides techniques and methods for effective group facilitation, co
 - **Large (16+)**: Representative approach, use voting
 
 ---
-*Effective facilitation improves with practice. Use each session as a learning opportunity to continuously develop your skills.*
+*Effective facilitation improves through continuous learning and practice. Through inclusive and equitable approaches, create environments where all participants can make valuable contributions and maximize the power of collective wisdom.*

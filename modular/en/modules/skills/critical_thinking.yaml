@@ -2,7 +2,7 @@
 id: "skill_critical_thinking"
 name: "Critical Thinking"
 description: "Skill module defining analytical thinking and logical reasoning methods"
-version: "1.0.0"
+version: "3.0.0"
 category: "skills"
 tags:
   - "critical-thinking"
@@ -41,6 +41,49 @@ variables:
     type: "string"
     default: "Combination of deductive and inductive reasoning"
     examples: ["Deductive reasoning", "Inductive reasoning", "Abductive reasoning", "Critical realism"]
+    
+  - name: "theoretical_framework"
+    description: "Adopted theoretical framework"
+    type: "enum"
+    values: ["Paul-Elder", "RED Model", "Bloom's Revised"]
+    default: "Paul-Elder"
+    
+  - name: "digital_context"
+    description: "Focus of critical thinking in digital environments"
+    type: "enum"
+    values: ["AI Generated Content", "Misinformation Response", "Data-Driven Analysis"]
+    default: "AI Generated Content"
+    
+  - name: "metacognitive_approach"
+    description: "Adoption of metacognitive approach"
+    type: "boolean"
+    default: true
+    
+  - name: "business_context"
+    description: "Application in business sector"
+    type: "boolean"
+    default: false
+    
+  - name: "tech_context"
+    description: "Application in technology sector"
+    type: "boolean"
+    default: false
+    
+  - name: "education_context"
+    description: "Application in education sector"
+    type: "boolean"
+    default: false
+    
+  - name: "structured_analytical_techniques"
+    description: "Utilization of structured analytical techniques"
+    type: "boolean"
+    default: true
+    
+  - name: "intelligence_methods"
+    description: "Intelligence community analysis methods"
+    type: "enum"
+    values: ["basic", "intermediate", "advanced"]
+    default: "intermediate"
 
 compatible_with:
   - "task_research"
@@ -54,5 +97,5 @@ compatible_with:
 
 author: "AI Instruction Kits Project"
 created: "2025-01-19"
-updated: "2025-01-19"
+updated: "2025-07-19"
 license: "Apache-2.0"

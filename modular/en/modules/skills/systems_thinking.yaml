@@ -1,8 +1,8 @@
 # Systems Thinking Skill Module Metadata
 id: "skill_systems_thinking"
 name: "Systems Thinking"
-description: "Skill module for understanding and analyzing interconnected systems"
-version: "1.0.0"
+description: "Skill module for understanding and analyzing interconnected systems (including modern methods and tools)"
+version: "2.0.0"
 category: "skills"
 tags:
   - "systems"
@@ -11,6 +11,12 @@ tags:
   - "complexity"
   - "feedback"
   - "emergence"
+  - "leverage_points"
+  - "digital_twins"
+  - "network_analysis"
+  - "agent_based_modeling"
+  - "sustainability"
+  - "soft_systems"
 
 variables:
   - name: "complexity_level"
@@ -41,6 +47,27 @@ variables:
     type: "enum"
     values: ["basic", "detailed", "comprehensive"]
     default: "detailed"
+    
+  - name: "leverage_points"
+    description: "Application level of Meadows' 12 leverage points"
+    type: "enum"
+    values: ["parameters", "structure", "paradigm", "comprehensive"]
+    default: "structure"
+    examples: ["Parameter adjustment level", "Feedback structure level", "Paradigm transformation level"]
+    
+  - name: "modern_tools"
+    description: "Modern toolset to utilize"
+    type: "enum"
+    values: ["traditional", "digital_twins", "network_analysis", "agent_based", "integrated"]
+    default: "traditional"
+    examples: ["Traditional methods only", "Digital twins focus", "Network analysis emphasis", "Agent-based modeling", "Integrated approach"]
+    
+  - name: "application_domain"
+    description: "Primary application domain"
+    type: "enum"
+    values: ["general", "sustainability", "digital_transformation", "organizational", "urban_planning"]
+    default: "general"
+    examples: ["General analysis", "Climate & sustainability", "Digital transformation", "Organizational change", "Urban planning"]
 
 compatible_with:
   - "task_analysis"
@@ -48,6 +75,8 @@ compatible_with:
   - "task_research"
   - "task_competitive_analysis"
   - "task_data_analysis"
+  - "task_documentation"
+  - "task_report_writing"
 
 author: "AI Instruction Kits Project"
 created: "2025-01-19"
