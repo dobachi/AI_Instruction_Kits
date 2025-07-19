@@ -1,0 +1,75 @@
+# task_competitive_analysis.yaml - 競合分析タスクモジュールのメタデータ
+id: "task_competitive_analysis"
+name: "競合分析タスク"
+description: "包括的な競合分析を実施し、市場での戦略的ポジショニングを支援するためのタスクモジュール"
+version: "1.0.0"
+category: "tasks"
+
+# 依存関係
+dependencies: []
+
+# 提供される変数
+provides:
+  - competitive_analysis_frameworks
+  - market_intelligence_methodology
+  - competitor_monitoring_techniques
+  - strategic_positioning_guidance
+
+# 必要な変数
+requires:
+  - industry_sector:
+      description: "分析対象の業界・セクター"
+      example: "eコマース、SaaS、製造業、金融サービス"
+  - analysis_scope:
+      description: "分析の範囲"
+      example: "直接競合のみ、間接競合を含む、市場全体"
+
+# オプション変数
+optional_variables:
+  - main_competitors:
+      description: "主要な競合企業"
+      example: "企業A、企業B、企業C"
+  - analysis_framework:
+      description: "使用する分析フレームワーク"
+      example: "Porter's Five Forces、SWOT分析、PESTLE分析"
+  - market_position:
+      description: "現在の市場ポジション"
+      example: "マーケットリーダー、チャレンジャー、フォロワー、ニッチャー"
+  - competitive_factors:
+      description: "重要な競争要因"
+      example: "価格、品質、技術革新、カスタマーサービス、ブランド"
+  - data_sources:
+      description: "利用可能なデータソース"
+      example: "業界レポート、財務報告書、顧客レビュー、ソーシャルメディア"
+  - time_frame:
+      description: "分析対象期間"
+      example: "過去1年間、過去3年間、現在から将来3年間"
+  - strategic_goals:
+      description: "戦略的目標"
+      example: "市場シェア拡大、新市場参入、競合優位性の確立"
+
+# デフォルト値
+defaults:
+  update_frequency: "月次更新推奨"
+  analysis_depth: "包括的な多面的分析"
+  visualization_approach: "パーセプチュアルマップ、ポジショニングマトリックス"
+  monitoring_approach: "継続的な競合モニタリング"
+
+# メタデータ
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-16"
+  updated: "2025-01-16"
+  tags:
+    - "competitive analysis"
+    - "market intelligence"
+    - "porter five forces"
+    - "swot analysis"
+    - "benchmarking"
+    - "market positioning"
+    - "competitor monitoring"
+  references:
+    - "Competitive Intelligence Analysis Guide 2024"
+    - "Porter's Five Forces Framework"
+    - "Market Intelligence Best Practices"
+    - "Perceptual Mapping Methodology"

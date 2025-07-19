@@ -1,0 +1,75 @@
+# task_documentation.yaml - Technical Documentation Task Module Metadata
+id: "task_documentation"
+name: "Technical Documentation Task"
+description: "Task module for creating clear and comprehensive technical documentation"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided variables
+provides:
+  - documentation_methodology
+  - technical_writing_principles
+  - format_standards
+  - docs_as_code
+
+# Required variables
+requires:
+  - document_type:
+      description: "Type of documentation to create"
+      example: "API reference, user manual, developer guide"
+  - target_audience:
+      description: "Intended readers"
+      example: "Junior developers, system administrators, end users"
+
+# Optional variables
+optional_variables:
+  - document_purpose:
+      description: "Specific purpose of the documentation"
+      example: "Explain how to use REST API to developers"
+  - audience_analysis:
+      description: "Detailed audience analysis"
+      example: "Developers with 3+ years Python experience, basic RESTful API knowledge"
+  - writing_style:
+      description: "Writing style guidelines"
+      example: "Concise and direct, minimize technical jargon"
+  - content_elements:
+      description: "Content elements to include"
+      example: "Quick start, detailed reference, troubleshooting"
+  - documentation_format:
+      description: "Documentation format"
+      example: "Markdown, DITA XML, HTML"
+  - api_documentation:
+      description: "API documentation specific requirements"
+      example: "true (for API documentation)"
+  - accessibility_requirements:
+      description: "Accessibility requirements"
+      example: "WCAG 2.1 Level AA compliant"
+
+# Default values
+defaults:
+  format_preference: "Select appropriate format (Markdown recommended)"
+  version_control: "Version controlled with Git"
+  update_frequency: "Continuous updates"
+  review_process: "Technical review and reader testing"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-16"
+  updated: "2025-01-16"
+  tags:
+    - "technical writing"
+    - "documentation"
+    - "API docs"
+    - "user manuals"
+    - "DITA"
+    - "markdown"
+    - "docs-as-code"
+  references:
+    - "Technical Writing Best Practices 2024"
+    - "API Documentation Standards"
+    - "DITA 1.3 Specification"
+    - "Docs-as-Code Methodology"

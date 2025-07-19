@@ -1,0 +1,75 @@
+# task_competitive_analysis.yaml - Competitive Analysis Task Module Metadata
+id: "task_competitive_analysis"
+name: "Competitive Analysis Task"
+description: "Task module for conducting comprehensive competitive analysis to support strategic market positioning"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided variables
+provides:
+  - competitive_analysis_frameworks
+  - market_intelligence_methodology
+  - competitor_monitoring_techniques
+  - strategic_positioning_guidance
+
+# Required variables
+requires:
+  - industry_sector:
+      description: "Industry or sector to analyze"
+      example: "e-commerce, SaaS, manufacturing, financial services"
+  - analysis_scope:
+      description: "Scope of analysis"
+      example: "direct competitors only, including indirect competitors, entire market"
+
+# Optional variables
+optional_variables:
+  - main_competitors:
+      description: "Main competitor companies"
+      example: "Company A, Company B, Company C"
+  - analysis_framework:
+      description: "Analysis framework to use"
+      example: "Porter's Five Forces, SWOT Analysis, PESTLE Analysis"
+  - market_position:
+      description: "Current market position"
+      example: "market leader, challenger, follower, nicher"
+  - competitive_factors:
+      description: "Key competitive factors"
+      example: "price, quality, innovation, customer service, brand"
+  - data_sources:
+      description: "Available data sources"
+      example: "industry reports, financial statements, customer reviews, social media"
+  - time_frame:
+      description: "Analysis time frame"
+      example: "past 1 year, past 3 years, current to 3 years future"
+  - strategic_goals:
+      description: "Strategic objectives"
+      example: "market share expansion, new market entry, competitive advantage establishment"
+
+# Default values
+defaults:
+  update_frequency: "Monthly updates recommended"
+  analysis_depth: "Comprehensive multi-faceted analysis"
+  visualization_approach: "Perceptual maps, positioning matrices"
+  monitoring_approach: "Continuous competitor monitoring"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-16"
+  updated: "2025-01-16"
+  tags:
+    - "competitive analysis"
+    - "market intelligence"
+    - "porter five forces"
+    - "swot analysis"
+    - "benchmarking"
+    - "market positioning"
+    - "competitor monitoring"
+  references:
+    - "Competitive Intelligence Analysis Guide 2024"
+    - "Porter's Five Forces Framework"
+    - "Market Intelligence Best Practices"
+    - "Perceptual Mapping Methodology"

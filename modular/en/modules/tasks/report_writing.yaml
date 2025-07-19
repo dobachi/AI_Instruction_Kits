@@ -1,0 +1,75 @@
+# task_report_writing.yaml - Report Writing Task Module Metadata
+id: "task_report_writing"
+name: "Report Writing Task"
+description: "Task module for creating effective business reports and documents"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided variables
+provides:
+  - report_writing_methodology
+  - executive_summary_principles
+  - data_visualization_guidelines
+  - report_structure_best_practices
+
+# Required variables
+requires:
+  - report_type:
+      description: "Type of report to create"
+      example: "financial report, progress report, analytical report, feasibility study, research report"
+  - target_audience:
+      description: "Primary readers of the report"
+      example: "executives, project stakeholders, investors, technical team"
+
+# Optional variables
+optional_variables:
+  - report_purpose:
+      description: "Specific purpose of the report"
+      example: "Report quarterly sales analysis to executives to support strategic decision making"
+  - reporting_period:
+      description: "Report coverage period"
+      example: "Q1 2024, January 2024, from project start to present"
+  - key_metrics:
+      description: "Important metrics or KPIs"
+      example: "revenue, profit margin, customer satisfaction, project progress rate"
+  - visual_requirements:
+      description: "Data visualization requirements"
+      example: "graphs, charts, dashboards, infographics"
+  - report_length:
+      description: "Expected report length"
+      example: "1-page executive summary, 10-page main body"
+  - decision_context:
+      description: "Decision-making context"
+      example: "new business investment decision, project continuation, budget reallocation"
+  - urgency_level:
+      description: "Urgency level"
+      example: "high (immediate action needed), medium (within 1 week), low (regular report)"
+
+# Default values
+defaults:
+  executive_summary_ratio: "10-15% of total"
+  visualization_approach: "Select appropriate graphs and charts based on data"
+  language_style: "Avoid jargon, use clear and concise expressions"
+  recommendation_placement: "End of executive summary and conclusion section"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-16"
+  updated: "2025-01-16"
+  tags:
+    - "business reports"
+    - "executive summary"
+    - "data visualization"
+    - "financial reports"
+    - "progress reports"
+    - "analytical reports"
+    - "feasibility studies"
+  references:
+    - "Business Report Writing Best Practices 2024"
+    - "Executive Summary Guidelines"
+    - "Data Visualization State of the Industry 2024"
+    - "Modern Report Writing Methodologies"

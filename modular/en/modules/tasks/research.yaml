@@ -1,0 +1,61 @@
+# task_research.yaml - Research Task Module Metadata
+id: "task_research"
+name: "Research Task"
+description: "Task module for conducting systematic and comprehensive research"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided variables
+provides:
+  - research_methodology
+  - information_evaluation
+  - systematic_approach
+
+# Required variables
+requires:
+  - research_topic:
+      description: "The research theme or research question to investigate"
+      example: "The impact of AI on education"
+
+# Optional variables
+optional_variables:
+  - research_scope:
+      description: "Definition of research scope"
+      example: "Academic papers and practice reports from the past 5 years"
+  - search_strategy:
+      description: "Custom search strategy"
+      example: "Cross-database search and expert interviews"
+  - ethical_considerations:
+      description: "Special ethical considerations"
+      example: "Considerations regarding handling of personal information"
+  - research_timeframe:
+      description: "Research period coverage"
+      example: "2020 to 2024"
+  - source_languages:
+      description: "Languages to include in research"
+      example: "Japanese, English, Chinese"
+
+# Default values
+defaults:
+  research_timeframe: "Comprehensive (no time limitations)"
+  source_languages: "Japanese and English"
+  quality_threshold: "Prioritize high-quality information sources"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-16"
+  updated: "2025-01-16"
+  tags:
+    - "research"
+    - "investigation"
+    - "systematic review"
+    - "information literacy"
+    - "ACRL framework"
+  references:
+    - "ACRL Framework for Information Literacy"
+    - "Systematic Literature Review Methodology"
+    - "PSALSAR Method"

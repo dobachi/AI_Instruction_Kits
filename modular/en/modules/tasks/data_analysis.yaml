@@ -1,0 +1,83 @@
+# task_data_analysis.yaml - Data Analysis Task Module Metadata
+id: "task_data_analysis"
+name: "Data Analysis Task"
+description: "Task module for extracting insights through systematic data analysis"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided variables
+provides:
+  - data_analysis_methodology
+  - statistical_methods
+  - visualization_techniques
+  - crisp_dm_process
+
+# Required variables
+requires:
+  - analysis_purpose:
+      description: "Purpose of the analysis"
+      example: "Understanding sales trends and customer segmentation"
+
+# Optional variables (choose based on data source)
+optional_variables:
+  # For existing data
+  - data_location:
+      description: "Location of existing data (file path, URL, database, etc.)"
+      example: "/data/sales_2024.csv or https://api.example.com/data"
+  - data_description:
+      description: "Description of existing data"
+      example: "Sales data and customer attributes for the past 3 years"
+  
+  # For data collection needed
+  - data_collection_target:
+      description: "Definition of collection target (when data collection is needed)"
+      example: "Product pricing and feature comparison data for 5 competitors"
+  - collection_methods:
+      description: "Data collection methods"
+      example: "Web scraping, API usage, public dataset search"
+  
+  # Common options
+  - expected_outcomes:
+      description: "Expected outcomes"
+      example: "Building a sales prediction model"
+  - analysis_methods:
+      description: "Analysis methods to use"
+      example: "Time series analysis, cluster analysis"
+  - feature_engineering:
+      description: "Feature engineering techniques"
+      example: "Seasonality extraction, one-hot encoding of categorical variables"
+  - data_governance:
+      description: "Data governance requirements"
+      example: "GDPR compliance, personal information anonymization"
+  - analysis_constraints:
+      description: "Analysis constraints"
+      example: "Limited computational resources, real-time processing not required"
+
+# Default values
+defaults:
+  data_source_type: "Let AI decide (prioritize existing data)"
+  visualization_tools: "Select appropriate visualization tools"
+  statistical_significance: "p < 0.05"
+  reporting_format: "Executive summary and detailed report"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-16"
+  updated: "2025-01-16"
+  tags:
+    - "data analysis"
+    - "CRISP-DM"
+    - "EDA"
+    - "statistics"
+    - "data visualization"
+    - "business intelligence"
+    - "data collection"
+  references:
+    - "CRISP-DM Methodology"
+    - "Exploratory Data Analysis Best Practices"
+    - "Statistical Analysis Guidelines"
+    - "Data Visualization Principles"
