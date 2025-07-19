@@ -1,0 +1,93 @@
+# task_problem_solving.yaml - Problem Solving Task Module Metadata
+id: "task_problem_solving"
+name: "Problem Solving Task"
+description: "Task module for applying systematic approaches to complex problems and deriving effective, sustainable solutions"
+version: "1.0.0"
+category: "tasks"
+
+# Dependencies
+dependencies: []
+
+# Provided variables
+provides:
+  - cynefin_framework_guidance
+  - a3_problem_solving_structure
+  - eight_disciplines_methodology
+  - triz_innovation_principles
+  - design_sprint_process
+  - data_driven_analysis_tools
+  - systems_thinking_approach
+  - stakeholder_collaboration_framework
+
+# Required variables
+requires:
+  - problem_complexity:
+      description: "Problem complexity level"
+      example: "Simple, Complex, Very Complex, Wicked Problem"
+  - problem_type:
+      description: "Problem type classification"
+      example: "Technical problem, Organizational problem, Strategic problem, Operational problem"
+  - stakeholder_count:
+      description: "Number of involved stakeholders"
+      example: "1-5 people, 6-15 people, 16-50 people, 51+ people"
+
+# Optional variables
+optional_variables:
+  - time_constraint:
+      description: "Time constraint for resolution"
+      example: "Urgent (within 1 day), Short-term (1 week), Medium-term (1 month), Long-term (3+ months)"
+  - cynefin_domain:
+      description: "Problem domain in Cynefin framework"
+      example: "Clear, Complicated, Complex, Chaotic, Disorder"
+  - a3_template:
+      description: "Type of A3 template to use"
+      example: "Standard A3, Improvement A3, Strategic A3, Learning A3"
+  - problem_severity:
+      description: "Problem severity (for 8D)"
+      example: "Minor, Moderate, Major, Critical"
+  - innovation_level:
+      description: "Required innovation level (for TRIZ)"
+      example: "Level 1 (Improvement), Level 2 (Enhancement), Level 3 (Innovation), Level 4 (Breakthrough)"
+  - data_availability:
+      description: "Type and amount of available data"
+      example: "Rich historical data, Real-time data, Limited data, No data"
+  - wicked_characteristics:
+      description: "Wicked problem characteristics"
+      example: "Hard to define, Unclear solutions, Multiple stakeholders, Value conflicts"
+  - sprint_goal:
+      description: "Specific goal for design sprint"
+      example: "Prototype validation, Usability improvement, New feature ideas, Challenge identification"
+
+# Default values
+defaults:
+  framework_selection: "Appropriate framework selection based on problem complexity"
+  iteration_approach: "Iterative improvement and agile adjustment"
+  stakeholder_engagement: "Multi-stakeholder collaboration emphasis"
+  data_driven_decision: "Data-based decision making whenever possible"
+  learning_focus: "Continuous learning and knowledge sharing"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  updated: "2025-01-19"
+  tags:
+    - "problem solving"
+    - "cynefin framework"
+    - "a3 methodology"
+    - "8d methodology"
+    - "triz"
+    - "design sprint"
+    - "systems thinking"
+    - "wicked problems"
+    - "data-driven analysis"
+    - "continuous improvement"
+  references:
+    - "Cynefin Framework by Dave Snowden"
+    - "A3 Problem Solving from Toyota Production System"
+    - "8D Methodology - Eight Disciplines"
+    - "TRIZ - Theory of Inventive Problem Solving"
+    - "Design Sprint by Google Ventures"
+    - "Systems Thinking approaches"
+    - "Predictive Analytics and Machine Learning (2024)"
+    - "Wicked Problems and Adaptive Management"
