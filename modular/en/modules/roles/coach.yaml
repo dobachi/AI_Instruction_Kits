@@ -1,0 +1,178 @@
+id: role_coach
+name: Coaching Role
+description: Professional coaching techniques to support individual and organizational growth. Comprehensive approach including GROW model, Solution-Focused Coaching, and Cognitive Behavioral Coaching
+version: 1.0.0
+category: roles
+subcategory: development
+
+# Coaching-related variables
+variables:
+  - name: "coaching_approach"
+    description: "Coaching methodology to use"
+    type: "enum"
+    values: ["grow_model", "solution_focused", "cognitive_behavioral", "executive", "life_coaching", "performance", "transformational"]
+    default: "grow_model"
+    
+  - name: "session_type"
+    description: "Type of coaching session"
+    type: "enum"
+    values: ["initial_assessment", "goal_setting", "skill_development", "performance_review", "challenge_resolution", "career_transition", "leadership_development"]
+    default: "goal_setting"
+    
+  - name: "development_focus"
+    description: "Area of development focus"
+    type: "enum"
+    values: ["leadership", "communication", "performance", "career", "skills", "mindset", "relationships", "work_life_balance"]
+    default: "performance"
+    
+  - name: "questioning_style"
+    description: "Style of questioning"
+    type: "enum"
+    values: ["socratic", "appreciative", "provocative", "reflective", "solution_focused", "strength_based"]
+    default: "socratic"
+    
+  - name: "session_duration"
+    description: "Session duration in minutes"
+    type: "integer"
+    default: 60
+    min: 30
+    max: 120
+    
+  - name: "relationship_stage"
+    description: "Stage of coaching relationship"
+    type: "enum"
+    values: ["rapport_building", "established", "deep_work", "transition", "completion"]
+    default: "established"
+    
+  - name: "communication_style"
+    description: "Communication style"
+    type: "enum"
+    values: ["supportive", "challenging", "directive", "non_directive", "collaborative", "empowering"]
+    default: "collaborative"
+    
+  - name: "progress_tracking"
+    description: "Method of progress tracking"
+    type: "enum"
+    values: ["qualitative", "quantitative", "mixed", "self_assessment", "360_feedback", "behavioral_observation"]
+    default: "mixed"
+    
+  - name: "ethical_framework"
+    description: "Ethical framework"
+    type: "enum"
+    values: ["icf_standards", "organizational_guidelines", "professional_boundaries", "confidentiality_focused"]
+    default: "icf_standards"
+    
+  - name: "cultural_sensitivity"
+    description: "Level of cultural consideration"
+    type: "enum"
+    values: ["standard", "enhanced", "specialized", "cross_cultural"]
+    default: "enhanced"
+
+# Dependencies with other modules
+dependencies:
+  required:
+    - skill_facilitation      # Facilitation skills
+  optional:
+    - skill_design_thinking   # Design thinking
+    - skill_critical_thinking # Critical thinking
+    - skill_problem_solving   # Problem solving
+
+# Compatible tasks
+compatible_tasks:
+  - task_problem_solving     # Problem solving tasks
+  - task_strategy_development # Strategy development tasks
+  - task_project_planning    # Project planning tasks
+  - task_presentation_design # Presentation design tasks
+  - task_business_planning   # Business planning tasks
+
+# Tags
+tags:
+  - coaching
+  - development
+  - leadership
+  - performance
+  - growth_mindset
+  - questioning
+  - goal_setting
+  - behavioral_change
+  - professional_development
+  - mentoring
+  - facilitation
+  - empowerment
+  - self_awareness
+  - accountability
+  - transformation
+
+# Output format
+output_format:
+  structure:
+    - session_opening
+    - current_state_exploration
+    - goal_clarification
+    - action_planning
+    - commitment_accountability
+    - session_closure
+  level_of_detail: comprehensive
+
+# Usage examples
+examples:
+  - title: Performance improvement for new employee using GROW model
+    variables:
+      coaching_approach: grow_model
+      session_type: performance_review
+      development_focus: performance
+      questioning_style: socratic
+      session_duration: 60
+      relationship_stage: established
+      communication_style: supportive
+    description: Supporting a new employee's performance improvement and career goal setting
+
+  - title: Leadership development through Solution-Focused Coaching
+    variables:
+      coaching_approach: solution_focused
+      session_type: leadership_development
+      development_focus: leadership
+      questioning_style: strength_based
+      session_duration: 90
+      relationship_stage: deep_work
+      communication_style: empowering
+    description: Enhancing manager's leadership skills and team management capabilities
+
+  - title: Career transition support through Cognitive Behavioral Coaching
+    variables:
+      coaching_approach: cognitive_behavioral
+      session_type: career_transition
+      development_focus: career
+      questioning_style: reflective
+      session_duration: 75
+      relationship_stage: rapport_building
+      communication_style: collaborative
+      cultural_sensitivity: cross_cultural
+    description: Supporting career transition and adaptation in international environments
+
+  - title: Strategic thinking development through Executive Coaching
+    variables:
+      coaching_approach: executive
+      session_type: skill_development
+      development_focus: mindset
+      questioning_style: provocative
+      session_duration: 120
+      relationship_stage: established
+      communication_style: challenging
+      progress_tracking: 360_feedback
+    description: Improving executive's strategic thinking and decision-making abilities
+
+# Metadata
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"
+research_sources:
+  - "International Coach Federation (ICF) Standards"
+  - "GROW Model (Whitmore)"
+  - "Solution-Focused Brief Coaching"
+  - "Cognitive Behavioral Coaching"
+  - "Co-Active Coaching Model"
+  - "Transformational Coaching"
+  - "Cultural Intelligence in Coaching"
+  - "Neuroscience-based Coaching"

@@ -1,0 +1,194 @@
+id: method_agile
+name: Agile Development Methodology
+description: Modern agile development methodology based on 2024 research findings. Comprehensive approach including principle-based adaptation, scaled agile, remote-first practices, and DevOps integration
+version: 2.0.0
+category: methods
+subcategory: development
+
+# Agile development related variables
+variables:
+  - name: "agile_framework"
+    description: "Agile framework to use"
+    type: "enum"
+    values: ["scrum", "kanban", "xp", "safe", "less", "nexus", "spotify_model", "hybrid"]
+    default: "scrum"
+    
+  - name: "team_distribution"
+    description: "Team distribution model"
+    type: "enum"
+    values: ["co_located", "remote_first", "hybrid", "distributed_global"]
+    default: "hybrid"
+    
+  - name: "iteration_length"
+    description: "Iteration (sprint) duration"
+    type: "enum"
+    values: ["1_week", "2_weeks", "3_weeks", "4_weeks", "continuous_flow"]
+    default: "2_weeks"
+    
+  - name: "adaptation_level"
+    description: "Level of agile principle adaptation"
+    type: "enum"
+    values: ["principle_based", "framework_strict", "context_adaptive", "experimental"]
+    default: "principle_based"
+    
+  - name: "team_size"
+    description: "Development team size"
+    type: "integer"
+    default: 7
+    min: 3
+    max: 15
+    
+  - name: "scaled_approach"
+    description: "Scaled agile approach"
+    type: "enum"
+    values: ["none", "safe", "less", "nexus", "spotify", "custom"]
+    default: "none"
+    
+  - name: "devops_integration"
+    description: "DevOps integration level"
+    type: "enum"
+    values: ["basic", "ci_cd", "full_automation", "platform_engineering"]
+    default: "ci_cd"
+    
+  - name: "data_driven_level"
+    description: "Data-driven decision making level"
+    type: "enum"
+    values: ["minimal", "metrics_based", "analytics_driven", "ai_augmented"]
+    default: "metrics_based"
+    
+  - name: "psychological_safety"
+    description: "Psychological safety emphasis level"
+    type: "enum"
+    values: ["standard", "high_focus", "trauma_informed"]
+    default: "high_focus"
+    
+  - name: "customer_collaboration"
+    description: "Customer collaboration approach"
+    type: "enum"
+    values: ["traditional", "co_creation", "design_thinking", "lean_startup"]
+    default: "co_creation"
+    
+  - name: "technical_practices"
+    description: "Technical practices emphasis"
+    type: "enum"
+    values: ["basic", "xp_practices", "craft_focused", "platform_native"]
+    default: "xp_practices"
+    
+  - name: "complexity_context"
+    description: "Project complexity context"
+    type: "enum"
+    values: ["simple", "complicated", "complex", "chaotic"]
+    default: "complex"
+
+# Dependencies with other modules
+dependencies:
+  required:
+    - skill_facilitation      # Facilitation skills
+    - task_project_planning   # Project planning
+  optional:
+    - skill_systems_thinking  # Systems thinking
+    - skill_design_thinking   # Design thinking
+    - skill_lean_canvas       # Lean canvas
+    - method_devops          # DevOps methodology
+    - skill_okr_planning     # OKR planning
+
+# Compatible tasks
+compatible_tasks:
+  - task_project_planning      # Project planning
+  - task_problem_solving       # Problem solving
+  - task_strategy_development  # Strategy development
+  - task_user_research        # User research
+  - task_technical_presentation # Technical presentation
+
+# Tags
+tags:
+  - agile
+  - scrum
+  - kanban
+  - lean
+  - devops
+  - remote_work
+  - scaled_agile
+  - team_collaboration
+  - iterative_development
+  - customer_centric
+  - data_driven
+  - continuous_improvement
+  - psychological_safety
+  - principle_based
+  - adaptive_planning
+
+# Output format
+output_format:
+  structure:
+    - agile_principles_application
+    - framework_implementation
+    - team_practices
+    - technical_practices
+    - measurement_and_metrics
+    - continuous_improvement
+    - scaling_considerations
+  level_of_detail: comprehensive
+
+# Usage examples
+examples:
+  - title: Remote-first Scrum Team
+    variables:
+      agile_framework: scrum
+      team_distribution: remote_first
+      iteration_length: 2_weeks
+      adaptation_level: principle_based
+      devops_integration: full_automation
+      data_driven_level: analytics_driven
+      psychological_safety: high_focus
+    description: Principle-based Scrum implementation for geographically distributed teams
+
+  - title: Scaled Agile (SAFe) Implementation
+    variables:
+      agile_framework: safe
+      team_distribution: hybrid
+      scaled_approach: safe
+      team_size: 12
+      devops_integration: platform_engineering
+      complexity_context: complicated
+      technical_practices: platform_native
+    description: SAFe implementation with platform engineering in large organizations
+
+  - title: Startup Lean Agile
+    variables:
+      agile_framework: kanban
+      team_distribution: co_located
+      iteration_length: continuous_flow
+      adaptation_level: experimental
+      customer_collaboration: lean_startup
+      data_driven_level: ai_augmented
+      complexity_context: chaotic
+    description: Lean startup methodology integration in high uncertainty environments
+
+  - title: Legacy System Migration Project
+    variables:
+      agile_framework: hybrid
+      team_distribution: hybrid
+      iteration_length: 3_weeks
+      adaptation_level: context_adaptive
+      technical_practices: craft_focused
+      devops_integration: ci_cd
+      complexity_context: complicated
+    description: Hybrid approach for parallel development with existing systems
+
+# Metadata
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"
+research_sources:
+  - "Agile Manifesto 2024 Evolution"
+  - "State of Agile 2024 Report"
+  - "Scaled Agile Framework (SAFe) 6.0"
+  - "LeSS (Large-Scale Scrum) Guide"
+  - "Nexus Framework Guide"
+  - "Team Topologies"
+  - "Platform Engineering practices"
+  - "Psychological Safety in Agile Teams"
+  - "Remote-first Agile practices"
+  - "Data-driven Agile metrics"

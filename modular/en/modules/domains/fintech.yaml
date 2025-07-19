@@ -1,0 +1,115 @@
+id: "domain_fintech"
+name: "Fintech Domain"
+description: "Domain expertise focused on regulatory compliance and risk management in financial technology"
+version: "1.0.0"
+category: "domains"
+tags:
+  - "fintech"
+  - "finance"
+  - "regulation"
+  - "compliance"
+  - "risk-management"
+  - "banking"
+  - "payment"
+  - "investment"
+  - "cryptocurrency"
+variables:
+  - name: "regulatory_jurisdiction"
+    description: "Regulatory jurisdiction (JP, US, EU, etc.)"
+    type: "string"
+    required: true
+    examples:
+      - "JP"
+      - "US"
+      - "EU"
+      - "UK"
+      - "SG"
+  - name: "compliance_level"
+    description: "Compliance level (PCI DSS level, etc.)"
+    type: "string"
+    required: true
+    examples:
+      - "PCI_DSS_Level_1"
+      - "PCI_DSS_Level_2"
+      - "SOX_Compliant"
+      - "Basic"
+  - name: "product_type"
+    description: "Financial product type"
+    type: "string"
+    required: true
+    examples:
+      - "payment"
+      - "lending"
+      - "investment"
+      - "crypto"
+      - "insurance"
+      - "banking"
+  - name: "risk_category"
+    description: "Primary risk category"
+    type: "string"
+    required: false
+    default: "all"
+    examples:
+      - "credit"
+      - "market"
+      - "operational"
+      - "liquidity"
+      - "all"
+dependencies:
+  required:
+    - "skill_authentication"
+    - "skill_error_handling"
+    - "skill_api_design"
+    - "quality_production"
+  recommended:
+    - "task_data_analysis"
+    - "skill_performance"
+    - "task_report_writing"
+    - "skill_testing"
+constraints:
+  - "All financial transactions must guarantee ACID properties"
+  - "Audit logs must be stored in an immutable format"
+  - "Personal information must be properly encrypted with access controls"
+  - "System must be capable of generating regulatory reports"
+  - "System availability must be maintained at 99.99% or higher"
+validation_rules:
+  - type: "amount"
+    rules:
+      - "Currency codes must comply with ISO 4217"
+      - "Amounts must be unified with specified decimal places"
+      - "Negative values only when explicitly permitted"
+  - type: "account"
+    rules:
+      - "Account numbers must comply with specified format"
+      - "Implement IBAN validation algorithm"
+      - "Verify account status before transactions"
+  - type: "transaction"
+    rules:
+      - "Assign unique IDs to all transactions"
+      - "Record timestamps in UTC"
+      - "Transaction status must follow clearly defined state transitions"
+workflows:
+  payment_processing:
+    steps:
+      - "Validate transaction request"
+      - "Fraud detection screening"
+      - "Balance verification and reservation"
+      - "Execute payment processing"
+      - "Send confirmation notification"
+      - "Record audit log"
+  kyc_onboarding:
+    steps:
+      - "Collect identity verification documents"
+      - "eKYC verification process"
+      - "Sanctions list screening"
+      - "Risk assessment"
+      - "Account opening approval"
+      - "Set up continuous monitoring"
+  regulatory_reporting:
+    steps:
+      - "Aggregate transaction data"
+      - "Convert to regulatory format"
+      - "Data quality check"
+      - "Generate report"
+      - "Submit to authorities"
+      - "Store submission evidence"

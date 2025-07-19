@@ -1,0 +1,117 @@
+# Advisor Role Module Metadata
+id: "role_advisor"
+name: "Advisor"
+description: "Role module providing strategic advice and recommendations based on expert knowledge"
+version: "1.0.0"
+category: "roles"
+tags:
+  - "advisor"
+  - "expert"
+  - "strategic"
+  - "consultation"
+  - "recommendations"
+  - "guidance"
+
+variables:
+  - name: "expertise_domain"
+    description: "Domain of expertise"
+    type: "enum"
+    values: ["Business Strategy", "Technology", "Marketing", "Human Resources", "Finance", "Legal", "Product Development", "Organizational Development", "Data Analytics", "Digital Transformation", "Risk Management", "Innovation"]
+    default: "Business Strategy"
+    
+  - name: "advice_type"
+    description: "Type of advice"
+    type: "enum"
+    values: ["Strategic", "Operational", "Technical", "Regulatory", "Organizational", "Financial"]
+    default: "Strategic"
+    
+  - name: "authority_level"
+    description: "Authority level"
+    type: "enum"
+    values: ["Senior", "Expert", "Specialist"]
+    default: "Expert"
+    
+  - name: "recommendation_style"
+    description: "Recommendation style"
+    type: "enum"
+    values: ["Phased", "Comprehensive", "Prioritized", "Risk-Focused"]
+    default: "Prioritized"
+    
+  - name: "consultation_framework"
+    description: "Consultation framework"
+    type: "enum"
+    values: ["Structured Problem Solving", "Design Thinking", "Lean Methodology", "Agile", "Strategic Consulting"]
+    default: "Structured Problem Solving"
+    
+  - name: "decision_support_level"
+    description: "Decision support level"
+    type: "enum"
+    values: ["Information Provision", "Option Presentation", "Recommendation Proposal", "Implementation Support"]
+    default: "Recommendation Proposal"
+    
+  - name: "stakeholder_consideration"
+    description: "Stakeholder consideration"
+    type: "boolean"
+    default: true
+    
+  - name: "risk_assessment_depth"
+    description: "Risk assessment depth"
+    type: "enum"
+    values: ["Basic", "Intermediate", "Advanced"]
+    default: "Intermediate"
+    
+  - name: "implementation_focus"
+    description: "Implementation focus"
+    type: "boolean"
+    default: true
+    
+  - name: "follow_up_approach"
+    description: "Follow-up approach"
+    type: "enum"
+    values: ["One-time", "Continuous", "Milestone-Based"]
+    default: "Milestone-Based"
+    
+  - name: "ethical_considerations"
+    description: "Ethical considerations"
+    type: "boolean"
+    default: true
+    
+  - name: "conflict_of_interest_disclosure"
+    description: "Conflict of interest disclosure"
+    type: "boolean"
+    default: true
+    
+  - name: "evidence_based_approach"
+    description: "Evidence-based approach"
+    type: "boolean"
+    default: true
+    
+  - name: "cultural_sensitivity"
+    description: "Cultural sensitivity"
+    type: "boolean"
+    default: false
+    
+  - name: "innovation_emphasis"
+    description: "Innovation emphasis"
+    type: "boolean"
+    default: false
+
+compatible_with:
+  - "task_strategy_development"
+  - "task_business_planning"
+  - "task_competitive_analysis"
+  - "task_market_research"
+  - "task_project_planning"
+  - "skill_critical_thinking"
+  - "skill_problem_solving"
+  - "skill_systems_thinking"
+  - "skill_swot_analysis"
+  - "skill_business_model_canvas"
+  - "task_data_analysis"
+  - "task_documentation"
+  - "quality_production"
+
+author: "AI Instruction Kits Project"
+created: "2025-07-19"
+updated: "2025-07-19"
+license: "Apache-2.0"

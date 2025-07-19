@@ -1,0 +1,196 @@
+id: method_lean
+name: Lean Development Methodology
+description: Lean software development methodology based on 2024 research. Comprehensive approach including 7 lean principles, value stream mapping, waste elimination, Kaizen, and lean startup integration
+version: 2.0.0
+category: methods
+subcategory: development
+
+# Lean development variables
+variables:
+  - name: "lean_application"
+    description: "Area of lean methodology application"
+    type: "enum"
+    values: ["lean_startup", "lean_software", "lean_ux", "lean_analytics", "enterprise_optimization", "continuous_flow", "waste_elimination"]
+    default: "lean_software"
+    
+  - name: "waste_focus"
+    description: "Type of waste to focus on eliminating"
+    type: "enum"
+    values: ["partially_done_work", "extra_features", "relearning", "handoffs", "task_switching", "delays", "defects", "underutilized_talent", "all"]
+    default: "all"
+    
+  - name: "value_stream_scope"
+    description: "Scope of value stream"
+    type: "enum"
+    values: ["idea_to_customer", "commit_to_production", "request_to_delivery", "end_to_end", "specific_process"]
+    default: "idea_to_customer"
+    
+  - name: "improvement_approach"
+    description: "Method of improvement approach"
+    type: "enum"
+    values: ["continuous_kaizen", "kaizen_events", "rapid_experimentation", "automation_first", "data_driven", "gemba_walks"]
+    default: "continuous_kaizen"
+    
+  - name: "jit_level"
+    description: "Level of just-in-time development"
+    type: "enum"
+    values: ["basic_pull", "kanban_driven", "demand_driven", "predictive_pull", "ai_optimized"]
+    default: "kanban_driven"
+    
+  - name: "quality_approach"
+    description: "Approach to building in quality"
+    type: "enum"
+    values: ["prevention_focused", "jidoka_automation", "continuous_testing", "shift_left", "built_in_quality"]
+    default: "built_in_quality"
+    
+  - name: "metrics_focus"
+    description: "Focus area for metrics"
+    type: "enum"
+    values: ["flow_efficiency", "quality_metrics", "business_value", "team_productivity", "customer_satisfaction", "comprehensive"]
+    default: "flow_efficiency"
+    
+  - name: "learning_amplification"
+    description: "Method of amplifying learning"
+    type: "enum"
+    values: ["fast_feedback", "experimental_culture", "fail_fast", "data_analytics", "ai_insights", "cross_team_sharing"]
+    default: "fast_feedback"
+    
+  - name: "decision_timing"
+    description: "Strategy for decision timing"
+    type: "enum"
+    values: ["last_responsible_moment", "option_based", "data_driven_timing", "risk_balanced", "adaptive"]
+    default: "last_responsible_moment"
+    
+  - name: "team_empowerment"
+    description: "Level of team empowerment"
+    type: "enum"
+    values: ["basic_autonomy", "self_organizing", "full_ownership", "distributed_decision", "entrepreneurial"]
+    default: "self_organizing"
+    
+  - name: "integration_level"
+    description: "Level of integration with other methodologies"
+    type: "enum"
+    values: ["lean_only", "lean_agile", "lean_devops", "lean_startup_integrated", "full_integration"]
+    default: "lean_agile"
+    
+  - name: "organizational_scope"
+    description: "Organizational scope of application"
+    type: "enum"
+    values: ["team_level", "department_level", "division_level", "enterprise_wide", "ecosystem"]
+    default: "team_level"
+
+# Module dependencies
+dependencies:
+  required:
+    - skill_systems_thinking    # Systems thinking (whole optimization)
+    - skill_lean_canvas         # Lean canvas (lean startup)
+  optional:
+    - method_agile             # Agile methodology
+    - method_devops            # DevOps methodology
+    - skill_data_analysis      # Data analysis
+    - skill_facilitation       # Facilitation
+    - task_process_improvement # Process improvement
+    - skill_value_stream_mapping # Value stream mapping
+
+# Compatible tasks
+compatible_tasks:
+  - task_process_improvement     # Process improvement
+  - task_project_planning        # Project planning
+  - task_problem_solving         # Problem solving
+  - task_optimization            # Optimization
+  - task_quality_assurance       # Quality assurance
+  - task_cost_reduction          # Cost reduction
+  - task_product_development     # Product development
+
+# Tags
+tags:
+  - lean
+  - waste_elimination
+  - continuous_improvement
+  - kaizen
+  - value_stream
+  - just_in_time
+  - lean_startup
+  - mvp
+  - flow_optimization
+  - quality_first
+  - gemba
+  - jidoka
+  - pull_system
+  - customer_value
+  - efficiency
+
+# Output format
+output_format:
+  structure:
+    - lean_principles_application
+    - value_stream_analysis
+    - waste_identification_elimination
+    - improvement_strategy
+    - quality_approach
+    - metrics_and_measurement
+    - implementation_roadmap
+  level_of_detail: comprehensive
+
+# Examples
+examples:
+  - title: Startup MVP Development
+    variables:
+      lean_application: lean_startup
+      waste_focus: extra_features
+      value_stream_scope: idea_to_customer
+      improvement_approach: rapid_experimentation
+      learning_amplification: fail_fast
+      decision_timing: adaptive
+      integration_level: lean_startup_integrated
+    description: Rapid MVP development and validation using lean startup methods
+
+  - title: Enterprise Efficiency
+    variables:
+      lean_application: enterprise_optimization
+      waste_focus: handoffs
+      value_stream_scope: end_to_end
+      improvement_approach: kaizen_events
+      quality_approach: built_in_quality
+      metrics_focus: comprehensive
+      organizational_scope: enterprise_wide
+    description: Company-wide lean transformation in large organizations
+
+  - title: DevOps Flow Optimization
+    variables:
+      lean_application: continuous_flow
+      waste_focus: delays
+      value_stream_scope: commit_to_production
+      improvement_approach: automation_first
+      jit_level: demand_driven
+      integration_level: lean_devops
+      metrics_focus: flow_efficiency
+    description: Lean optimization of DevOps pipelines
+
+  - title: Quality-Focused Development
+    variables:
+      lean_application: waste_elimination
+      waste_focus: defects
+      quality_approach: jidoka_automation
+      improvement_approach: continuous_kaizen
+      team_empowerment: full_ownership
+      learning_amplification: cross_team_sharing
+      metrics_focus: quality_metrics
+    description: Zero-defect development through built-in quality and Jidoka
+
+# Metadata
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"
+research_sources:
+  - "Lean Software Development: An Agile Toolkit (2024 Edition)"
+  - "The Lean Startup (Updated for 2024)"
+  - "Value Stream Mapping for Software Development"
+  - "Toyota Production System in Software"
+  - "Lean Enterprise: How High Performance Organizations Innovate at Scale"
+  - "Continuous Delivery and Lean Principles"
+  - "Kaizen in Software Development"
+  - "Modern Lean Metrics and Analytics"
+  - "DevOps and Lean Integration Patterns"
+  - "Psychological Safety in Lean Organizations"

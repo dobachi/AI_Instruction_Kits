@@ -1,0 +1,197 @@
+id: method_scrum
+name: Scrum Framework
+description: Modern Scrum framework based on Scrum Guide 2020. Comprehensive approach including accountability focus, unified team, Product Goal, self-management and true leadership
+version: 2.0.0
+category: methods
+subcategory: agile
+
+# Scrum-related variables
+variables:
+  - name: "scrum_scale"
+    description: "Scale of Scrum implementation"
+    type: "enum"
+    values: ["single_team", "nexus", "less", "less_huge", "custom_scaling"]
+    default: "single_team"
+    
+  - name: "team_distribution"
+    description: "Team member distribution"
+    type: "enum"
+    values: ["co_located", "hybrid", "remote_first", "global_distributed"]
+    default: "co_located"
+    
+  - name: "sprint_length"
+    description: "Sprint duration"
+    type: "enum"
+    values: ["1_week", "2_weeks", "3_weeks", "4_weeks"]
+    default: "2_weeks"
+    
+  - name: "scrum_master_style"
+    description: "Scrum Master leadership style"
+    type: "enum"
+    values: ["servant_leader", "coach_facilitator", "player_coach", "transformation_agent"]
+    default: "servant_leader"
+    
+  - name: "product_owner_engagement"
+    description: "Product Owner engagement level"
+    type: "enum"
+    values: ["full_time_dedicated", "part_time_engaged", "proxy_supported", "distributed_ownership"]
+    default: "full_time_dedicated"
+    
+  - name: "team_maturity"
+    description: "Team's Scrum maturity"
+    type: "enum"
+    values: ["forming", "storming", "norming", "performing", "transforming"]
+    default: "norming"
+    
+  - name: "technical_practices"
+    description: "Technical practices adoption level"
+    type: "enum"
+    values: ["basic", "solid_engineering", "xp_integrated", "devops_mature"]
+    default: "solid_engineering"
+    
+  - name: "metric_focus"
+    description: "Metrics focus"
+    type: "enum"
+    values: ["velocity_based", "flow_metrics", "value_driven", "outcome_oriented"]
+    default: "flow_metrics"
+    
+  - name: "retrospective_style"
+    description: "Retrospective style"
+    type: "enum"
+    values: ["traditional", "data_driven", "appreciative_inquiry", "liberating_structures"]
+    default: "data_driven"
+    
+  - name: "backlog_management"
+    description: "Backlog management approach"
+    type: "enum"
+    values: ["traditional_stories", "user_story_mapping", "job_stories", "outcome_based"]
+    default: "user_story_mapping"
+    
+  - name: "definition_of_done_rigor"
+    description: "Definition of Done rigor"
+    type: "enum"
+    values: ["minimal", "standard", "comprehensive", "continuous_deployment"]
+    default: "comprehensive"
+    
+  - name: "stakeholder_collaboration"
+    description: "Stakeholder collaboration level"
+    type: "enum"
+    values: ["periodic_reviews", "regular_engagement", "continuous_collaboration", "co_creation"]
+    default: "regular_engagement"
+
+# Dependencies on other modules
+dependencies:
+  required:
+    - skill_facilitation      # Facilitation skills
+    - method_agile           # Agile development methodology
+  optional:
+    - skill_systems_thinking  # Systems thinking
+    - skill_coaching         # Coaching skills
+    - method_kanban          # Kanban (for hybrid)
+    - method_devops          # DevOps methods
+    - skill_okr_planning     # OKR planning
+    - skill_user_research    # User research
+
+# Compatible tasks
+compatible_tasks:
+  - task_project_planning      # Project planning
+  - task_problem_solving       # Problem solving
+  - task_product_development   # Product development
+  - task_team_collaboration    # Team collaboration
+  - task_continuous_improvement # Continuous improvement
+  - task_stakeholder_management # Stakeholder management
+
+# Tags
+tags:
+  - scrum
+  - agile
+  - iterative_development
+  - empirical_process
+  - self_management
+  - servant_leadership
+  - product_goal
+  - sprint
+  - accountability
+  - transparency
+  - inspection
+  - adaptation
+  - scrum_values
+  - distributed_teams
+  - scrum_guide_2020
+
+# Output format
+output_format:
+  structure:
+    - scrum_theory_and_values
+    - team_accountabilities
+    - scrum_events
+    - scrum_artifacts
+    - distributed_practices
+    - metrics_and_measurement
+    - scaling_considerations
+    - implementation_guidance
+  level_of_detail: comprehensive
+
+# Usage examples
+examples:
+  - title: Small Startup Team
+    variables:
+      scrum_scale: single_team
+      team_distribution: co_located
+      sprint_length: 1_week
+      scrum_master_style: player_coach
+      team_maturity: forming
+      technical_practices: basic
+      metric_focus: velocity_based
+    description: Early-stage team focusing on rapid experimentation and learning
+
+  - title: Distributed Enterprise Team
+    variables:
+      scrum_scale: nexus
+      team_distribution: global_distributed
+      sprint_length: 2_weeks
+      scrum_master_style: servant_leader
+      product_owner_engagement: full_time_dedicated
+      team_maturity: performing
+      technical_practices: devops_mature
+      metric_focus: outcome_oriented
+    description: Mature enterprise team across multiple time zones
+
+  - title: Remote-First Product Team
+    variables:
+      scrum_scale: single_team
+      team_distribution: remote_first
+      sprint_length: 2_weeks
+      scrum_master_style: coach_facilitator
+      retrospective_style: liberating_structures
+      backlog_management: outcome_based
+      stakeholder_collaboration: co_creation
+    description: Product development team in fully remote environment
+
+  - title: Scaled Scrum (LeSS)
+    variables:
+      scrum_scale: less
+      team_distribution: hybrid
+      sprint_length: 2_weeks
+      scrum_master_style: transformation_agent
+      team_maturity: transforming
+      definition_of_done_rigor: continuous_deployment
+      metric_focus: value_driven
+    description: Principle-based scaling for large product development
+
+# Metadata
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"
+research_sources:
+  - "Scrum Guide 2020"
+  - "Nexus Guide"
+  - "LeSS (Large-Scale Scrum) Framework"
+  - "Evidence-Based Management Guide"
+  - "Professional Scrum Master III materials"
+  - "Distributed Scrum practices research 2024"
+  - "Modern metrics for Scrum teams"
+  - "Psychological Safety in Scrum"
+  - "Servant Leadership in Agile"
+  - "Remote-first Scrum adaptations"

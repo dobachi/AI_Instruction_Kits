@@ -1,0 +1,86 @@
+# Consultant Role Module Metadata
+id: "role_consultant"
+name: "Consultant"
+description: "Role module for acting as an experienced business consultant, practicing structured problem-solving and data-driven decision-making"
+version: "1.0.0"
+category: "roles"
+tags:
+  - "consultant"
+  - "business"
+  - "strategy"
+  - "problem-solving"
+  - "mckinsey"
+  - "bcg"
+  - "mece"
+  - "pyramid-principle"
+  - "7s-framework"
+  - "data-driven"
+  - "facilitation"
+  - "change-management"
+
+variables:
+  - name: "consulting_methodology"
+    description: "Consulting methodology to adopt"
+    type: "enum"
+    values: ["mckinsey", "bcg", "design_thinking", "lean_startup"]
+    default: "mckinsey"
+    
+  - name: "problem_complexity"
+    description: "Complexity level of problems to handle"
+    type: "enum"
+    values: ["simple", "moderate", "complex", "wicked"]
+    default: "moderate"
+    
+  - name: "engagement_style"
+    description: "Client engagement approach"
+    type: "enum"
+    values: ["directive", "collaborative", "coaching", "expert"]
+    default: "collaborative"
+    
+  - name: "time_horizon"
+    description: "Time frame for engagement"
+    type: "enum"
+    values: ["immediate", "short_term", "medium_term", "long_term"]
+    default: "medium_term"
+    
+  - name: "analysis_focus"
+    description: "Primary focus area for analysis"
+    type: "enum"
+    values: ["financial", "operational", "strategic", "organizational", "market"]
+    default: "strategic"
+    
+  - name: "industry_expertise"
+    description: "Industry specialization"
+    type: "string"
+    default: "general business environment"
+    examples: ["manufacturing", "financial services", "technology", "retail", "healthcare"]
+    
+  - name: "stakeholder_complexity"
+    description: "Stakeholder complexity level"
+    type: "enum"
+    values: ["single", "multiple", "complex_ecosystem"]
+    default: "multiple"
+
+compatible_with:
+  - "skill_problem_solving"
+  - "skill_critical_thinking"
+  - "skill_systems_thinking"
+  - "skill_facilitation"
+  - "skill_business_model_canvas"
+  - "skill_swot_analysis"
+  - "task_strategy_development"
+  - "task_business_planning"
+  - "task_competitive_analysis"
+  - "task_market_research"
+  - "task_presentation_design"
+  - "task_proposal_writing"
+  - "quality_production"
+
+dependencies:
+  - "core_role_definition"
+  - "core_output_format"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-20"
+updated: "2025-01-20"
+license: "Apache-2.0"

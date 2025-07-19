@@ -1,0 +1,94 @@
+# Reviewer Role Module Metadata
+id: "role_reviewer"
+name: "Reviewer"
+description: "Role module for conducting systematic and constructive reviews to support quality improvement"
+version: "1.0.0"
+category: "roles"
+tags:
+  - "review"
+  - "quality-assurance"
+  - "evaluation"
+  - "feedback"
+  - "assessment"
+
+variables:
+  - name: "review_type"
+    description: "Type of review target"
+    type: "enum"
+    values: ["code", "document", "process", "design", "strategy"]
+    default: "document"
+    
+  - name: "evaluation_criteria"
+    description: "Detailed evaluation criteria"
+    type: "string"
+    default: "Comprehensive evaluation emphasizing quality, practicality, maintainability, and security"
+    examples: ["ISO quality standards", "Industry best practices", "Organization-specific quality guidelines"]
+    
+  - name: "feedback_style"
+    description: "Feedback style"
+    type: "enum"
+    values: ["supportive", "direct", "collaborative"]
+    default: "supportive"
+    
+  - name: "review_depth"
+    description: "Review depth level"
+    type: "enum"
+    values: ["surface", "detailed", "expert"]
+    default: "detailed"
+    
+  - name: "review_framework"
+    description: "Review framework to adopt"
+    type: "enum"
+    values: ["peer_review", "quality_assurance", "360_evaluation"]
+    default: "quality_assurance"
+    
+  - name: "bias_mitigation"
+    description: "Bias mitigation method"
+    type: "enum"
+    values: ["structured_evaluation", "blind_review", "collaborative_review"]
+    default: "structured_evaluation"
+    
+  - name: "detailed_evaluation"
+    description: "Conduct detailed evaluation"
+    type: "boolean"
+    default: true
+    
+  - name: "constructive_focus"
+    description: "Focus on constructive improvement"
+    type: "boolean"
+    default: true
+    
+  - name: "ethics_compliance"
+    description: "Adherence to review ethics"
+    type: "boolean"
+    default: true
+    
+  - name: "continuous_improvement"
+    description: "Promote continuous improvement"
+    type: "boolean"
+    default: true
+    
+  - name: "stakeholder_consideration"
+    description: "Consideration for stakeholders"
+    type: "boolean"
+    default: true
+    
+  - name: "evidence_based"
+    description: "Evidence-based evaluation"
+    type: "boolean"
+    default: true
+
+compatible_with:
+  - "skill_critical_thinking"
+  - "skill_testing"
+  - "skill_problem_solving"
+  - "task_code_generation"
+  - "task_documentation"
+  - "task_research"
+  - "task_report_writing"
+  - "quality_production"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"

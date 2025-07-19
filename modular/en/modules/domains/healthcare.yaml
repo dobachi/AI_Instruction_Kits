@@ -1,0 +1,167 @@
+# domain_healthcare.yaml - Healthcare Domain Module Metadata
+id: "domain_healthcare"
+name: "Healthcare Domain"
+description: "Domain module for healthcare and medical fields ensuring compliance and patient safety"
+version: "1.0.0"
+category: "domains"
+
+# Dependencies
+dependencies:
+  - "skill_authentication"      # Healthcare provider authentication
+  - "module_security"          # General security
+  - "module_privacy"           # Privacy protection
+  - "task_data_analysis"       # Clinical data analysis
+
+# Recommended combinations
+recommended_combinations:
+  - ["skill_api_design", "task_documentation"]  # Medical API development
+  - ["skill_testing", "quality_production"]      # Medical software quality
+  - ["task_research", "task_report_writing"]     # Clinical research
+
+# Provided variables
+provides:
+  - healthcare_compliance_standards
+  - clinical_decision_support
+  - patient_safety_protocols
+  - medical_data_standards
+  - telemedicine_capabilities
+  - regulatory_frameworks
+
+# Required variables
+requires:
+  - healthcare_setting:
+      description: "Type of healthcare environment"
+      example: "Hospital, Clinic, Home care, Clinical research facility"
+  - compliance_framework:
+      description: "Regulatory framework to comply with"
+      example: "HIPAA, GDPR, Japan Medical Information Guidelines, FDA, CE-MDR"
+  - data_sensitivity:
+      description: "Data sensitivity level"
+      example: "PHI (Protected Health Information), De-identified data, Aggregate data"
+  - patient_safety_level:
+      description: "Patient safety risk level"
+      example: "High risk (life support), Medium risk (diagnostic support), Low risk (health information)"
+
+# Optional variables
+optional_variables:
+  - target_patients:
+      description: "Target patient population"
+      example: "Pediatric, Elderly, Chronic disease patients, General adults"
+  - medical_specialty:
+      description: "Medical specialty area"
+      example: "Internal medicine, Surgery, Radiology, Psychiatry, Emergency medicine"
+  - hipaa_compliance:
+      description: "Set when HIPAA compliance is required"
+      type: "boolean"
+      default: false
+  - gdpr_compliance:
+      description: "Set when GDPR compliance is required"
+      type: "boolean"
+      default: false
+  - japan_compliance:
+      description: "Set when Japan medical regulation compliance is required"
+      type: "boolean"
+      default: false
+  - risk_stratification:
+      description: "Implementation of risk stratification"
+      type: "boolean"
+      default: true
+  - telemedicine_enabled:
+      description: "Enable telemedicine features"
+      type: "boolean"
+      default: false
+  - fda_regulated:
+      description: "Set when FDA regulated"
+      type: "boolean"
+      default: false
+  - ce_certified:
+      description: "Set when CE certification is required"
+      type: "boolean"
+      default: false
+  - pmda_regulated:
+      description: "Set when Japan Pharmaceutical and Medical Device Act regulated"
+      type: "boolean"
+      default: false
+  - ehr_integration:
+      description: "Electronic Health Record system integration requirements"
+      example: "FHIR API, HL7 v2, Proprietary API"
+  - medical_imaging:
+      description: "Medical imaging processing requirements"
+      example: "DICOM support, AI diagnostic assistance, 3D reconstruction"
+  - clinical_trial_phase:
+      description: "Clinical trial phase (if applicable)"
+      example: "Phase I, Phase II, Phase III, Phase IV"
+
+# Default values
+defaults:
+  healthcare_setting: "General medical facility"
+  compliance_framework: "Standard medical guidelines"
+  data_sensitivity: "PHI (Protected Health Information)"
+  patient_safety_level: "Medium risk (diagnostic support)"
+  encryption_standard: "AES-256"
+  audit_trail: "Enabled"
+  consent_management: "Explicit consent"
+  data_retention: "Regulatory compliance period"
+
+# Domain-specific settings
+domain_specific:
+  medical_standards:
+    - "HL7 FHIR R4"
+    - "DICOM 3.0"
+    - "ICD-10/ICD-11"
+    - "SNOMED CT"
+    - "LOINC"
+  
+  privacy_frameworks:
+    - "HIPAA Privacy Rule"
+    - "GDPR Article 9"
+    - "Personal Information Protection Act (Special care-required)"
+  
+  quality_standards:
+    - "ISO 13485"
+    - "IEC 62304"
+    - "ISO 14971"
+    - "IEC 62366"
+  
+  clinical_guidelines:
+    - "Good Clinical Practice (GCP)"
+    - "Clinical Trials Act"
+    - "Medical Device GCP"
+
+# Validation rules
+validation_rules:
+  - rule: "Multi-factor authentication required for high-risk environments"
+    condition: "patient_safety_level == 'High risk'"
+    requirement: "authentication_factor >= 2"
+  
+  - rule: "PHI data must be encrypted"
+    condition: "data_sensitivity == 'PHI'"
+    requirement: "encryption_enabled == true"
+  
+  - rule: "Audit trail required for clinical trials"
+    condition: "clinical_trial_phase != null"
+    requirement: "audit_trail == 'Enabled'"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  updated: "2025-01-19"
+  tags:
+    - "healthcare"
+    - "medical"
+    - "HIPAA"
+    - "GDPR"
+    - "FDA"
+    - "clinical"
+    - "patient safety"
+    - "telemedicine"
+    - "EHR"
+    - "DICOM"
+    - "HL7"
+  references:
+    - "HIPAA Security Rule"
+    - "FDA Software as Medical Device (SaMD) Guidance"
+    - "Guidelines for Security Management of Medical Information Systems"
+    - "ISO 13485:2016 Medical devices"
+    - "IEC 62304:2006 Medical device software"

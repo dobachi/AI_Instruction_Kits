@@ -1,0 +1,115 @@
+id: "domain_fintech"
+name: "フィンテックドメイン"
+description: "金融技術分野における規制準拠とリスク管理を重視したドメイン専門知識"
+version: "1.0.0"
+category: "domains"
+tags:
+  - "fintech"
+  - "finance"
+  - "regulation"
+  - "compliance"
+  - "risk-management"
+  - "banking"
+  - "payment"
+  - "investment"
+  - "cryptocurrency"
+variables:
+  - name: "regulatory_jurisdiction"
+    description: "規制管轄地域（JP、US、EU等）"
+    type: "string"
+    required: true
+    examples:
+      - "JP"
+      - "US"
+      - "EU"
+      - "UK"
+      - "SG"
+  - name: "compliance_level"
+    description: "コンプライアンスレベル（PCI DSSレベル等）"
+    type: "string"
+    required: true
+    examples:
+      - "PCI_DSS_Level_1"
+      - "PCI_DSS_Level_2"
+      - "SOX_Compliant"
+      - "Basic"
+  - name: "product_type"
+    description: "金融製品タイプ"
+    type: "string"
+    required: true
+    examples:
+      - "payment"
+      - "lending"
+      - "investment"
+      - "crypto"
+      - "insurance"
+      - "banking"
+  - name: "risk_category"
+    description: "主要リスクカテゴリ"
+    type: "string"
+    required: false
+    default: "all"
+    examples:
+      - "credit"
+      - "market"
+      - "operational"
+      - "liquidity"
+      - "all"
+dependencies:
+  required:
+    - "skill_authentication"
+    - "skill_error_handling"
+    - "skill_api_design"
+    - "quality_production"
+  recommended:
+    - "task_data_analysis"
+    - "skill_performance"
+    - "task_report_writing"
+    - "skill_testing"
+constraints:
+  - "すべての金融取引はACID特性を保証すること"
+  - "監査ログは改ざん不可能な形式で保存すること"
+  - "個人情報は適切に暗号化し、アクセス制御を実施すること"
+  - "規制要件に応じた報告書を生成可能にすること"
+  - "システム可用性は99.99%以上を維持すること"
+validation_rules:
+  - type: "amount"
+    rules:
+      - "通貨コードはISO 4217に準拠"
+      - "金額は指定された小数点以下桁数で統一"
+      - "負の値は明示的に許可された場合のみ使用"
+  - type: "account"
+    rules:
+      - "口座番号は指定されたフォーマットに準拠"
+      - "IBAN検証アルゴリズムを実装"
+      - "口座ステータスを取引前に確認"
+  - type: "transaction"
+    rules:
+      - "すべての取引に一意のIDを付与"
+      - "タイムスタンプはUTCで記録"
+      - "取引ステータスは明確に定義された状態遷移に従う"
+workflows:
+  payment_processing:
+    steps:
+      - "取引リクエストの検証"
+      - "不正検知スクリーニング"
+      - "残高確認と予約"
+      - "決済処理実行"
+      - "確認通知送信"
+      - "監査ログ記録"
+  kyc_onboarding:
+    steps:
+      - "本人確認書類の収集"
+      - "eKYC検証プロセス"
+      - "制裁リストスクリーニング"
+      - "リスク評価"
+      - "口座開設承認"
+      - "継続的モニタリング設定"
+  regulatory_reporting:
+    steps:
+      - "取引データの集計"
+      - "規制フォーマットへの変換"
+      - "データ品質チェック"
+      - "報告書生成"
+      - "当局への提出"
+      - "提出証跡の保存"
