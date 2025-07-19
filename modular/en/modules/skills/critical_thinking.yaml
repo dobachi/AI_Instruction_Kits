@@ -1,0 +1,58 @@
+# Critical Thinking Skill Module Metadata
+id: "skill_critical_thinking"
+name: "Critical Thinking"
+description: "Skill module defining analytical thinking and logical reasoning methods"
+version: "1.0.0"
+category: "skills"
+tags:
+  - "critical-thinking"
+  - "analysis"
+  - "reasoning"
+  - "logic"
+  - "evidence"
+
+variables:
+  - name: "analysis_depth"
+    description: "Depth level of analysis"
+    type: "enum"
+    values: ["basic", "intermediate", "advanced"]
+    default: "intermediate"
+    
+  - name: "questioning_style"
+    description: "Style of questioning technique"
+    type: "enum"
+    values: ["socratic", "dialectic", "analytical"]
+    default: "socratic"
+    
+  - name: "evidence_threshold"
+    description: "Evidence reliability criteria"
+    type: "string"
+    default: "Multiple independent sources"
+    examples: ["Single credible source", "Multiple independent sources", "Peer-reviewed academic sources"]
+    
+  - name: "bias_awareness_level"
+    description: "Level of bias awareness"
+    type: "enum"
+    values: ["basic_recognition", "active_detection", "systematic_elimination"]
+    default: "active_detection"
+    
+  - name: "logical_framework"
+    description: "Logical framework to use"
+    type: "string"
+    default: "Combination of deductive and inductive reasoning"
+    examples: ["Deductive reasoning", "Inductive reasoning", "Abductive reasoning", "Critical realism"]
+
+compatible_with:
+  - "task_research"
+  - "task_data_analysis"
+  - "task_documentation"
+  - "task_report_writing"
+  - "task_competitive_analysis"
+  - "task_code_generation"
+  - "task_code_review"
+  - "quality_production"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"

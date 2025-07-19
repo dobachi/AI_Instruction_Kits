@@ -1,0 +1,103 @@
+name: lean_canvas
+display_name: Lean Canvas
+category: skills
+description: Framework to visualize startup or new business models through 9 key elements and conduct hypothesis validation
+version: "1.0.0"
+author: AI Instruction Kits
+
+metadata:
+  complexity: intermediate
+  typical_duration: "2-4 hours per iteration"
+  required_resources:
+    - Canvas template
+    - Customer interview tools
+    - Analytics tools
+
+variables:
+  startup_stage:
+    type: string
+    description: Startup development stage
+    enum: [idea, validation, growth]
+    default: idea
+  
+  market_type:
+    type: string
+    description: Type of market
+    enum: [existing, new, hybrid]
+    default: existing
+  
+  validation_status:
+    type: string
+    description: Validation status
+    default: "hypothesis stage"
+  
+  pivot_iteration:
+    type: integer
+    description: Number of pivots
+    default: 0
+
+dependencies:
+  required:
+    - customer_research
+    - market_analysis
+  
+  recommended:
+    - value_proposition_design
+    - business_model_canvas
+    - metrics_tracking
+
+compatibility:
+  tasks:
+    - startup_planning
+    - innovation_management
+    - business_model_design
+    - product_strategy
+  
+  industries:
+    - technology
+    - consumer_goods
+    - services
+    - healthcare
+
+examples:
+  - name: B2C_fitness_app
+    description: Creating Lean Canvas for fitness app
+    variables:
+      startup_stage: validation
+      market_type: existing
+      validation_status: "MVP testing"
+  
+  - name: B2B_saas_tool
+    description: Business model validation for B2B SaaS tool
+    variables:
+      startup_stage: growth
+      market_type: hybrid
+      pivot_iteration: 2
+
+best_practices:
+  - Validate highest-risk assumptions first
+  - Update canvas regularly
+  - Make data-driven decisions
+  - Listen to customers directly
+  - Share with entire team
+
+common_pitfalls:
+  - Confusing assumptions with facts
+  - Proceeding without validation
+  - Customer segments too broad
+  - Unclear revenue model
+  - Weak competitive advantage
+
+success_metrics:
+  - Speed of hypothesis validation
+  - Appropriateness of pivots
+  - Depth of customer understanding
+  - Business model sustainability
+  - Team consensus building
+
+tags:
+  - lean_startup
+  - business_model
+  - innovation
+  - entrepreneurship
+  - validation

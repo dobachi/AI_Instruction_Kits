@@ -1,0 +1,68 @@
+# Problem Solving Skill Module Metadata
+id: "skill_problem_solving"
+name: "Problem Solving"
+description: "Skill module providing systematic problem-solving methodologies and frameworks"
+version: "1.0.0"
+category: "skills"
+tags:
+  - "problem-solving"
+  - "analysis"
+  - "decision-making"
+  - "framework"
+  - "methodology"
+
+variables:
+  - name: "methodology"
+    description: "Problem-solving approach methodology"
+    type: "enum"
+    values: ["analytical", "creative", "systematic"]
+    default: "systematic"
+    
+  - name: "problem_complexity"
+    description: "Problem complexity level"
+    type: "enum"
+    values: ["simple", "moderate", "complex"]
+    default: "moderate"
+    
+  - name: "time_constraint"
+    description: "Time constraints"
+    type: "string"
+    default: "Take appropriate time for careful analysis"
+    examples: ["Urgent response required", "Within one week", "Long-term initiative"]
+    
+  - name: "analysis_depth"
+    description: "Depth of analysis"
+    type: "enum"
+    values: ["surface", "standard", "deep"]
+    default: "standard"
+    
+  - name: "collaboration_level"
+    description: "Level of collaboration"
+    type: "enum"
+    values: ["individual", "team", "cross-functional"]
+    default: "individual"
+    
+  - name: "decision_criteria"
+    description: "Decision evaluation criteria"
+    type: "string"
+    default: "effectiveness, feasibility, risk, cost"
+    
+  - name: "documentation_style"
+    description: "Documentation style"
+    type: "enum"
+    values: ["minimal", "standard", "comprehensive"]
+    default: "standard"
+
+compatible_with:
+  - "task_research"
+  - "task_data_analysis"
+  - "task_documentation"
+  - "task_report_writing"
+  - "task_competitive_analysis"
+  - "task_code_generation"
+  - "quality_production"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"

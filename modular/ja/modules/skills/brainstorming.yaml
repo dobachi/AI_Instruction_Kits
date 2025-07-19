@@ -1,0 +1,51 @@
+# ブレインストーミングスキルモジュールのメタデータ
+id: "skill_brainstorming"
+name: "ブレインストーミング"
+description: "創造的なアイデア生成のための思考技法を定義するスキルモジュール"
+version: "1.0.0"
+category: "skills"
+tags:
+  - "creativity"
+  - "ideation"
+  - "problem-solving"
+  - "innovation"
+  - "facilitation"
+
+variables:
+  - name: "technique"
+    description: "使用するブレインストーミング手法"
+    type: "enum"
+    values: ["classic", "mindmap", "scamper", "635", "reverse", "brainwriting"]
+    default: "classic"
+    
+  - name: "group_size"
+    description: "参加人数の規模"
+    type: "enum"
+    values: ["individual", "small", "large"]
+    default: "small"
+    
+  - name: "time_limit"
+    description: "セッションの時間制限"
+    type: "string"
+    default: "30分"
+    examples: ["15分", "30分", "60分", "無制限"]
+    
+  - name: "evaluation_method"
+    description: "アイデアの評価方法"
+    type: "string"
+    default: "投票による優先順位付け"
+    examples: ["投票", "スコアリング", "分類整理", "実現可能性マトリクス"]
+
+compatible_with:
+  - "task_research"
+  - "task_data_analysis"
+  - "task_report_writing"
+  - "task_documentation"
+  - "task_competitive_analysis"
+  - "quality_creative"
+  - "quality_problem_solving"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"

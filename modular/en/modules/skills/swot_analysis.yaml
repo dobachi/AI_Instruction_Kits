@@ -1,0 +1,64 @@
+# SWOT Analysis Skill Module Metadata
+id: "skill_swot_analysis"
+name: "SWOT Analysis"
+description: "Skill module for systematic analysis of Strengths, Weaknesses, Opportunities, and Threats for strategic decision-making"
+version: "1.0.0"
+category: "skills"
+tags:
+  - "strategy"
+  - "analysis"
+  - "planning"
+  - "decision-making"
+  - "assessment"
+  - "evaluation"
+
+variables:
+  - name: "analysis_scope"
+    description: "Scope of analysis target"
+    type: "enum"
+    values: ["company", "product", "project", "personal"]
+    default: "company"
+    
+  - name: "detail_level"
+    description: "Level of analysis detail"
+    type: "enum"
+    values: ["quick", "standard", "comprehensive"]
+    default: "standard"
+    
+  - name: "strategy_focus"
+    description: "Strategic focus type (TOWS Matrix)"
+    type: "enum"
+    values: ["SO", "WO", "ST", "WT", "balanced"]
+    default: "balanced"
+    
+  - name: "prioritization_method"
+    description: "Method for prioritization"
+    type: "enum"
+    values: ["impact_effort", "weighted_score", "voting", "none"]
+    default: "impact_effort"
+    
+  - name: "time_frame"
+    description: "Time horizon for analysis"
+    type: "string"
+    default: "Medium-term perspective of 1-3 years from present"
+    examples: ["Short-term (within 6 months)", "Medium-term (1-3 years)", "Long-term (3+ years)"]
+    
+  - name: "evaluation_criteria"
+    description: "Details of evaluation criteria"
+    type: "string"
+    default: "Combination of objective data and subjective insights"
+
+compatible_with:
+  - "task_business_planning"
+  - "task_project_planning"
+  - "task_competitive_analysis"
+  - "task_research"
+  - "task_report_writing"
+  - "skill_critical_thinking"
+  - "skill_systems_thinking"
+  - "skill_problem_solving"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"

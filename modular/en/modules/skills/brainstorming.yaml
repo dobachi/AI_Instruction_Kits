@@ -1,0 +1,51 @@
+# Brainstorming skill module metadata
+id: "skill_brainstorming"
+name: "Brainstorming"
+description: "Skill module defining creative thinking techniques for idea generation"
+version: "1.0.0"
+category: "skills"
+tags:
+  - "creativity"
+  - "ideation"
+  - "problem-solving"
+  - "innovation"
+  - "facilitation"
+
+variables:
+  - name: "technique"
+    description: "Brainstorming technique to use"
+    type: "enum"
+    values: ["classic", "mindmap", "scamper", "635", "reverse", "brainwriting"]
+    default: "classic"
+    
+  - name: "group_size"
+    description: "Size of participant group"
+    type: "enum"
+    values: ["individual", "small", "large"]
+    default: "small"
+    
+  - name: "time_limit"
+    description: "Session time limit"
+    type: "string"
+    default: "30 minutes"
+    examples: ["15 minutes", "30 minutes", "60 minutes", "unlimited"]
+    
+  - name: "evaluation_method"
+    description: "Method for evaluating ideas"
+    type: "string"
+    default: "Voting-based prioritization"
+    examples: ["voting", "scoring", "categorization", "feasibility matrix"]
+
+compatible_with:
+  - "task_research"
+  - "task_data_analysis"
+  - "task_report_writing"
+  - "task_documentation"
+  - "task_competitive_analysis"
+  - "quality_creative"
+  - "quality_problem_solving"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"

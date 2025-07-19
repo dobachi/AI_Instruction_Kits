@@ -1,0 +1,188 @@
+module:
+  id: "storytelling"
+  name: "Storytelling"
+  category: "skills"
+  description: "Techniques for effective narrative construction and emotional connection"
+  version: "1.0.0"
+  author: "AI Instruction Kits"
+
+metadata:
+  complexity: "medium"
+  effectiveness: "high"
+  prerequisites:
+    - "Basic communication skills"
+    - "Understanding of audience analysis"
+  compatible_tasks:
+    - "presentation"
+    - "writing"
+    - "communication"
+    - "proposal_writing"
+    - "report_writing"
+
+variables:
+  story_purpose:
+    type: "enum"
+    values: ["inspire", "persuade", "educate", "entertain"]
+    default: "persuade"
+    description: "Primary purpose of the story"
+    
+  audience_type:
+    type: "enum"
+    values: ["executives", "team", "customers", "general"]
+    default: "general"
+    description: "Type of target audience"
+    
+  story_length:
+    type: "enum"
+    values: ["elevator_pitch", "short", "medium", "long"]
+    default: "short"
+    description: "Length of the story"
+    
+  medium:
+    type: "enum"
+    values: ["oral", "written", "visual", "multimedia"]
+    default: "oral"
+    description: "Delivery medium"
+
+capabilities:
+  story_structures:
+    - "Hero's Journey"
+    - "Problem-Solution"
+    - "Before-After-Bridge"
+    - "Pyramid Structure"
+    - "Pixar Story Spine"
+    - "Nancy Duarte's Sparkline"
+    - "Three-Act Structure"
+    - "Data Storytelling Arc"
+    - "In-Medias-Res"
+    - "Story Circle (Dan Harmon)"
+    
+  emotional_elements:
+    - "Curiosity triggers"
+    - "Empathy building"
+    - "Urgency creation"
+    - "Aspiration stimulation"
+    - "Trust hormone (oxytocin) activation"
+    - "Vulnerability and authenticity"
+    - "Emotional contrast"
+    - "Tension and resolution"
+    
+  technical_adaptations:
+    - "Complex concept simplification"
+    - "Data humanization"
+    - "Jargon translation"
+    - "Visualization"
+    - "Interactive storytelling"
+    - "Real-time data exploration"
+    - "Context-Insight-Action framework"
+    - "STAR method for data"
+    
+  cultural_adaptations:
+    - "Cross-cultural narrative adjustment"
+    - "Local collaboration integration"
+    - "Universal theme identification"
+    - "Cultural intelligence application"
+
+templates:
+  elevator_pitch:
+    structure: "Hook → Problem → Solution → Proof → Action"
+    time: "30-60 seconds"
+    
+  presentation_intro:
+    structure: "Personal connection → Universal truth → Current state → Possibility → Roadmap"
+    time: "2-3 minutes"
+    
+  technical_explanation:
+    structure: "Analogy → Mechanism → Benefits → Example → Next steps"
+    time: "5-10 minutes"
+    
+  pixar_story_spine:
+    structure: "Once upon a time → Every day → One day → Because of that → Until finally → Ever since then"
+    time: "Variable"
+    
+  sparkline_presentation:
+    structure: "What is → What could be → What is → What could be → New bliss"
+    time: "Variable"
+    
+  data_story:
+    structure: "Context → Conflict → Resolution → Action"
+    time: "5-15 minutes"
+
+best_practices:
+  preparation:
+    - "Conduct audience analysis"
+    - "Clarify core message"
+    - "Anticipate emotional responses"
+    - "Research cultural context"
+    - "Define story purpose clearly"
+    - "Create story repository"
+    
+  construction:
+    - "Gather specific data"
+    - "Select relevant examples"
+    - "Plan visual elements"
+    - "Start with the most exciting part"
+    - "Use specific details and dialogue"
+    - "Keep it concise and relevant"
+    - "Balance emotion with facts"
+    - "Make customer the hero"
+    
+  delivery:
+    - "Maintain appropriate pacing"
+    - "Use voice variation"
+    - "Adapt to audience feedback"
+    - "Watch, listen, and speak less with cross-cultural audiences"
+    - "Practice for spontaneity"
+    - "Use interactive elements"
+    - "Leverage multimedia appropriately"
+
+metrics:
+  engagement:
+    - "Question count"
+    - "Attention duration"
+    - "Emotional response"
+    
+  retention:
+    - "Key message recall rate"
+    - "Story element memory"
+    - "Behavior change rate"
+    
+  impact:
+    - "Decision influence"
+    - "Goal achievement"
+    - "ROI measurement"
+
+integration_points:
+  with_presentation:
+    - "Opening hooks"
+    - "Data storytelling"
+    - "Closing impact"
+    
+  with_writing:
+    - "Introduction appeal"
+    - "Explanation clarity"
+    - "Conclusion memorability"
+    
+  with_communication:
+    - "Message penetration"
+    - "Emotional connection"
+    - "Action facilitation"
+
+common_patterns:
+  business_context:
+    challenge_solution: "Current challenge → Proposed solution → Expected outcome"
+    vision_roadmap: "Ideal state → Current position → Path to achievement"
+    case_study: "Background → Implementation → Results → Learnings"
+    change_management: "Status quo → Disruption → Resistance → Breakthrough → New normal"
+    brand_narrative: "Brand origin → Core values → Customer impact → Future vision"
+    pitch_structure: "Hook → Problem significance → Unique solution → Market validation → Ask"
+    
+  technical_context:
+    problem_tech_benefit: "Technical challenge → Solution technology → Business value"
+    evolution_story: "Past methods → Current limitations → New approach"
+    implementation_journey: "Planning → Implementation → Challenges & solutions → Outcomes"
+    data_insight_story: "Data context → Pattern discovery → Insight revelation → Business implication"
+    
+  cultural_context:
+    universal_local: "Universal theme → Local relevance → Cultural adaptation → Shared outcome"
+    cross_cultural_bridge: "Home culture context → Bridge concept → Target culture connection → Mutual understanding"

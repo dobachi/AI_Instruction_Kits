@@ -1,0 +1,136 @@
+id: skill_okr_planning
+name: OKR Planning Skills
+description: Comprehensive framework for creating and managing effective OKRs (Objectives and Key Results)
+version: 1.0.0
+category: skills
+subcategory: planning
+
+# OKR planning related variables
+variables:
+  - name: "planning_level"
+    description: "Level of OKR planning"
+    type: "enum"
+    values: ["company", "team", "individual"]
+    default: "team"
+    
+  - name: "time_horizon"
+    description: "OKR planning period"
+    type: "enum"
+    values: ["quarterly", "annual"]
+    default: "quarterly"
+    
+  - name: "okr_maturity"
+    description: "Organization's OKR maturity level"
+    type: "enum"
+    values: ["beginner", "intermediate", "advanced"]
+    default: "intermediate"
+    
+  - name: "tracking_frequency"
+    description: "Frequency of OKR tracking"
+    type: "enum"
+    values: ["weekly", "biweekly", "monthly"]
+    default: "weekly"
+    
+  - name: "alignment_approach"
+    description: "OKR alignment approach"
+    type: "enum"
+    values: ["top_down", "bottom_up", "hybrid"]
+    default: "hybrid"
+    
+  - name: "scoring_method"
+    description: "OKR scoring method"
+    type: "enum"
+    values: ["simple", "weighted", "confidence_based"]
+    default: "simple"
+
+# Dependencies on other modules
+dependencies:
+  optional:
+    - skill_strategic_thinking  # Strategic thinking skills
+    - skill_data_analysis      # Data analysis skills
+    - skill_facilitation       # Facilitation skills
+    - method_goal_setting      # Goal setting methods
+
+# Compatible tasks
+compatible_tasks:
+  - task_planning            # Planning tasks
+  - task_strategy_development # Strategy development tasks
+  - task_performance_review  # Performance review tasks
+  - task_team_alignment      # Team alignment tasks
+  - task_progress_tracking   # Progress tracking tasks
+
+# Tags
+tags:
+  - okr
+  - goal_setting
+  - performance_management
+  - strategic_planning
+  - team_alignment
+  - metrics
+  - kpi
+  - objectives
+  - key_results
+  - google_methodology
+
+# Output format
+output_format:
+  structure:
+    - objective_definition
+    - key_results_specification
+    - alignment_mapping
+    - tracking_schedule
+    - review_process
+  level_of_detail: comprehensive
+
+# Examples
+examples:
+  - title: Startup Quarterly OKR Setting
+    variables:
+      planning_level: company
+      time_horizon: quarterly
+      okr_maturity: beginner
+      tracking_frequency: weekly
+      alignment_approach: top_down
+    description: Q3 OKR planning session for a fast-growing startup
+    sample_okr:
+      objective: "Establish product-market fit and build sustainable growth foundation"
+      key_results:
+        - "Increase monthly active users from 5,000 to 20,000"
+        - "Reduce monthly churn rate from 15% to 5%"
+        - "Improve NPS (Net Promoter Score) from 30 to 50"
+
+  - title: Engineering Team Annual OKR
+    variables:
+      planning_level: team
+      time_horizon: annual
+      okr_maturity: advanced
+      tracking_frequency: biweekly
+      alignment_approach: hybrid
+    description: Annual technical goal setting for enterprise engineering department
+    sample_okr:
+      objective: "Build a world-class engineering organization"
+      key_results:
+        - "Improve deployment frequency from weekly to 5 times daily"
+        - "Increase system availability from 99.5% to 99.99%"
+        - "Boost engineer satisfaction score from 70 to 85"
+
+  - title: Individual Career Development OKR
+    variables:
+      planning_level: individual
+      time_horizon: quarterly
+      okr_maturity: intermediate
+      tracking_frequency: weekly
+      scoring_method: confidence_based
+    description: Personal growth goal setting for a middle manager
+    sample_okr:
+      objective: "Master next-generation leadership skills"
+      key_results:
+        - "Improve 360-degree feedback score from 3.5 to 4.2"
+        - "Complete 3 major projects on time"
+        - "Support promotion of 2 mentees"
+
+# Metadata
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"

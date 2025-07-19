@@ -1,0 +1,55 @@
+# Systems Thinking Skill Module Metadata
+id: "skill_systems_thinking"
+name: "Systems Thinking"
+description: "Skill module for understanding and analyzing interconnected systems"
+version: "1.0.0"
+category: "skills"
+tags:
+  - "systems"
+  - "thinking"
+  - "analysis"
+  - "complexity"
+  - "feedback"
+  - "emergence"
+
+variables:
+  - name: "complexity_level"
+    description: "System complexity level"
+    type: "enum"
+    values: ["simple", "moderate", "complex"]
+    default: "moderate"
+    
+  - name: "diagram_style"
+    description: "System diagram representation style"
+    type: "enum"
+    values: ["causal_loop", "stock_flow", "rich_picture"]
+    default: "causal_loop"
+    
+  - name: "time_horizon"
+    description: "Analysis time horizon"
+    type: "string"
+    default: "Consider short-term, medium-term, and long-term impacts"
+    examples: ["Short-term (days to weeks)", "Medium-term (months to 1 year)", "Long-term (years)"]
+    
+  - name: "system_boundaries"
+    description: "System boundary definition"
+    type: "string"
+    default: "Clear boundary setting and external factor identification"
+    
+  - name: "feedback_loop_analysis"
+    description: "Feedback loop analysis depth"
+    type: "enum"
+    values: ["basic", "detailed", "comprehensive"]
+    default: "detailed"
+
+compatible_with:
+  - "task_analysis"
+  - "task_planning"
+  - "task_research"
+  - "task_competitive_analysis"
+  - "task_data_analysis"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"

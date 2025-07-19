@@ -1,0 +1,116 @@
+id: skill_facilitation
+name: Facilitation Skills
+description: Comprehensive techniques and tools for effective group facilitation
+version: 1.0.0
+category: skills
+subcategory: leadership
+
+# Facilitation-related variables
+variables:
+  - name: "meeting_type"
+    description: "Type of meeting to facilitate"
+    type: "enum"
+    values: ["brainstorming", "decision", "planning", "retrospective"]
+    default: "decision"
+    
+  - name: "group_size"
+    description: "Number of participants"
+    type: "integer"
+    default: "8"
+    min: 2
+    max: 50
+    
+  - name: "format"
+    description: "Meeting delivery format"
+    type: "enum"
+    values: ["in_person", "virtual", "hybrid"]
+    default: "in_person"
+    
+  - name: "decision_method"
+    description: "Method for making decisions"
+    type: "enum"
+    values: ["consensus", "voting", "authority"]
+    default: "consensus"
+    
+  - name: "time_constraint"
+    description: "Level of time pressure"
+    type: "enum"
+    values: ["tight", "moderate", "flexible"]
+    default: "moderate"
+    
+  - name: "diversity_level"
+    description: "Diversity of participant backgrounds and opinions"
+    type: "enum"
+    values: ["low", "moderate", "high"]
+    default: "moderate"
+
+# Dependencies on other modules
+dependencies:
+  optional:
+    - skill_communication     # Communication skills
+    - skill_active_listening  # Active listening skills
+    - method_workshop         # Workshop methods
+
+# Compatible tasks
+compatible_tasks:
+  - task_planning           # Planning tasks
+  - task_problem_solving    # Problem-solving tasks
+  - task_brainstorming      # Brainstorming tasks
+  - task_decision_making    # Decision-making tasks
+  - task_retrospective      # Retrospective tasks
+
+# Tags
+tags:
+  - facilitation
+  - meeting_management
+  - group_dynamics
+  - leadership
+  - collaboration
+  - decision_making
+  - virtual_meetings
+  - team_building
+
+# Output format
+output_format:
+  structure:
+    - meeting_preparation
+    - facilitation_process
+    - participation_techniques
+    - decision_support
+    - follow_up_actions
+  level_of_detail: comprehensive
+
+# Usage examples
+examples:
+  - title: Online Brainstorming Session
+    variables:
+      meeting_type: brainstorming
+      group_size: 12
+      format: virtual
+      decision_method: voting
+      time_constraint: moderate
+    description: Remote team session for generating new product ideas
+
+  - title: In-person Decision Meeting
+    variables:
+      meeting_type: decision
+      group_size: 6
+      format: in_person
+      decision_method: consensus
+      time_constraint: tight
+    description: Executive meeting to decide critical project direction
+
+  - title: Hybrid Retrospective Meeting
+    variables:
+      meeting_type: retrospective
+      group_size: 15
+      format: hybrid
+      decision_method: consensus
+      diversity_level: high
+    description: Quarterly project review to identify improvements
+
+# Metadata
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"

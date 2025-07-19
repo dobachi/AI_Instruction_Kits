@@ -1,0 +1,68 @@
+# 問題解決スキルモジュールのメタデータ
+id: "skill_problem_solving"
+name: "問題解決"
+description: "体系的な問題解決手法とフレームワークを提供するスキルモジュール"
+version: "1.0.0"
+category: "skills"
+tags:
+  - "problem-solving"
+  - "analysis"
+  - "decision-making"
+  - "framework"
+  - "methodology"
+
+variables:
+  - name: "methodology"
+    description: "問題解決のアプローチ方法"
+    type: "enum"
+    values: ["analytical", "creative", "systematic"]
+    default: "systematic"
+    
+  - name: "problem_complexity"
+    description: "問題の複雑性レベル"
+    type: "enum"
+    values: ["simple", "moderate", "complex"]
+    default: "moderate"
+    
+  - name: "time_constraint"
+    description: "時間的制約"
+    type: "string"
+    default: "適切な時間をかけて慎重に分析"
+    examples: ["緊急対応が必要", "1週間以内", "長期的な取り組み"]
+    
+  - name: "analysis_depth"
+    description: "分析の深さ"
+    type: "enum"
+    values: ["surface", "standard", "deep"]
+    default: "standard"
+    
+  - name: "collaboration_level"
+    description: "協働のレベル"
+    type: "enum"
+    values: ["individual", "team", "cross-functional"]
+    default: "individual"
+    
+  - name: "decision_criteria"
+    description: "意思決定の評価基準"
+    type: "string"
+    default: "効果性、実現可能性、リスク、コスト"
+    
+  - name: "documentation_style"
+    description: "ドキュメント化のスタイル"
+    type: "enum"
+    values: ["minimal", "standard", "comprehensive"]
+    default: "standard"
+
+compatible_with:
+  - "task_research"
+  - "task_data_analysis"
+  - "task_documentation"
+  - "task_report_writing"
+  - "task_competitive_analysis"
+  - "task_code_generation"
+  - "quality_production"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"

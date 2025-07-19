@@ -1,0 +1,103 @@
+name: lean_canvas
+display_name: リーンキャンバス
+category: skills
+description: スタートアップや新規事業のビジネスモデルを9つの要素で可視化し、仮説検証を行うフレームワーク
+version: "1.0.0"
+author: AI Instruction Kits
+
+metadata:
+  complexity: intermediate
+  typical_duration: "2-4 hours per iteration"
+  required_resources:
+    - キャンバステンプレート
+    - 顧客インタビューツール
+    - 分析ツール
+
+variables:
+  startup_stage:
+    type: string
+    description: スタートアップのステージ
+    enum: [idea, validation, growth]
+    default: idea
+  
+  market_type:
+    type: string
+    description: 市場のタイプ
+    enum: [existing, new, hybrid]
+    default: existing
+  
+  validation_status:
+    type: string
+    description: 検証の状態
+    default: "仮説段階"
+  
+  pivot_iteration:
+    type: integer
+    description: ピボットの回数
+    default: 0
+
+dependencies:
+  required:
+    - customer_research
+    - market_analysis
+  
+  recommended:
+    - value_proposition_design
+    - business_model_canvas
+    - metrics_tracking
+
+compatibility:
+  tasks:
+    - startup_planning
+    - innovation_management
+    - business_model_design
+    - product_strategy
+  
+  industries:
+    - technology
+    - consumer_goods
+    - services
+    - healthcare
+
+examples:
+  - name: B2C_fitness_app
+    description: フィットネスアプリのリーンキャンバス作成
+    variables:
+      startup_stage: validation
+      market_type: existing
+      validation_status: "MVPテスト中"
+  
+  - name: B2B_saas_tool
+    description: B2B SaaSツールのビジネスモデル検証
+    variables:
+      startup_stage: growth
+      market_type: hybrid
+      pivot_iteration: 2
+
+best_practices:
+  - 最もリスクの高い仮説から検証する
+  - 定期的にキャンバスを更新する
+  - データに基づいて判断する
+  - 顧客の声を直接聞く
+  - チーム全体で共有する
+
+common_pitfalls:
+  - 仮説を事実と混同する
+  - 検証なしに進める
+  - 顧客セグメントが広すぎる
+  - 収益モデルが不明確
+  - 競合優位性が弱い
+
+success_metrics:
+  - 仮説検証のスピード
+  - ピボットの適切性
+  - 顧客理解の深さ
+  - ビジネスモデルの持続可能性
+  - チームの合意形成
+
+tags:
+  - lean_startup
+  - business_model
+  - innovation
+  - entrepreneurship
+  - validation
