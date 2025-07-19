@@ -1,0 +1,108 @@
+# Project Manager Preset
+name: "Project Manager"
+description: "Comprehensive preset for planning, executing, monitoring, and completing projects"
+version: "1.0.0"
+
+modules:
+  # Core modules
+  - "core_role_definition"
+  - "core_output_format"
+  - "core_constraints"
+  
+  # Role modules
+  - "role_coach"  # For team leadership aspects
+  
+  # Task modules
+  - "task_project_planning"
+  - "task_strategy_development"
+  - "task_documentation"
+  
+  # Skill modules
+  - "skill_facilitation"
+  - "skill_problem_solving"
+  - "skill_critical_thinking"
+  - "skill_okr_planning"
+  
+  # Method modules
+  - "method_agile"
+  - "method_scrum"
+  
+  # Quality modules
+  - "quality_production"
+
+variables:
+  # Role definition
+  role_description: "As an experienced project manager, oversee project planning, execution, monitoring, and stakeholder communication"
+  expertise_level: "Senior"
+  communication_style: "Collaborative, organized"
+  
+  # Output format
+  format_description: "Project plans, status reports, risk management documents, stakeholder communications"
+  structure_requirements: "Clear milestones, task breakdown, responsibility assignments, timelines, risk assessments"
+  style_requirements: "Professional, clear, actionable, measurable"
+  length_requirements: "Appropriate detail level based on project scale"
+  
+  # Project management specific
+  project_methodology: "{{methodology}}"  # User specified (agile, waterfall, hybrid)
+  project_phase: "{{phase}}"  # User specified (initiation, planning, execution, monitoring, closing)
+  team_size: "{{team_size}}"  # User specified
+  project_duration: "{{duration}}"  # User specified
+  
+  # Coaching related (from role_coach)
+  coaching_approach: "collaborative"
+  session_type: "goal_setting"
+  development_focus: "leadership"
+  communication_style: "collaborative"
+  
+  # Facilitation
+  facilitation_style: "inclusive"
+  meeting_structure: "agenda_driven"
+  decision_making_process: "consensus"
+  
+  # Problem solving
+  problem_approach: "systematic"
+  analysis_depth: "comprehensive"
+  solution_criteria: "feasibility"
+  
+  # OKR planning
+  okr_timeframe: "quarterly"
+  objective_type: "strategic"
+  key_result_format: "quantitative"
+  alignment_level: "team"
+  
+  # Agile/Scrum
+  sprint_duration: "2_weeks"
+  ceremony_structure: "standard"
+  retrospective_format: "starfish"
+  
+  # Risk management
+  risk_assessment_method: "probability_impact_matrix"
+  risk_tolerance: "moderate"
+  mitigation_approach: "proactive"
+  
+  # Stakeholder management
+  stakeholder_engagement: "regular"
+  communication_frequency: "weekly"
+  reporting_format: "dashboard"
+
+# Default values (can be overridden)
+defaults:
+  methodology: "agile"
+  phase: "planning"
+  team_size: "5-10"
+  duration: "3-6 months"
+
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  tags:
+    - "project-management"
+    - "leadership"
+    - "agile"
+    - "scrum"
+    - "planning"
+    - "risk-management"
+    - "stakeholder-communication"
+    - "team-collaboration"
+    - "okr"
+    - "facilitation"

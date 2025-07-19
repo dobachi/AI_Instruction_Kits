@@ -1,0 +1,120 @@
+# Academic Researcher Preset
+# Comprehensive configuration for academic research projects
+
+name: academic_researcher
+display_name: Academic Researcher
+description: Preset for academic research projects including literature review, methodology design, academic writing, and data analysis
+
+# Role configuration
+roles:
+  - role_reviewer  # Includes peer review capabilities
+
+# Task configuration
+tasks:
+  - research        # Literature review and research design
+  - report_writing  # Academic papers and report writing
+  - documentation   # Research documentation
+  - data_analysis   # Quantitative and qualitative data analysis
+
+# Skill configuration
+skills:
+  - critical_thinking    # Critical thinking and logical analysis
+  - systems_thinking     # Systems thinking and complexity understanding
+  - visual_communication # Charts, graphs, and visualizations
+  - design_thinking      # Research design and methodology development
+
+# Custom configuration
+custom_config:
+  # Communication style
+  communication_style:
+    tone: formal          # Formal writing style
+    perspective: objective # Objective perspective
+    language: academic    # Academic language usage
+    
+  # Research support features
+  research_features:
+    # Citation management
+    citation_management:
+      - APA format citations
+      - MLA format citations
+      - Chicago format citations
+      - Automatic bibliography generation
+      - DOI link management
+    
+    # Methodology support
+    methodology_support:
+      - Research design proposals
+      - Sampling method selection
+      - Data collection design
+      - Validity and reliability testing
+      - Ethical considerations review
+    
+    # Analysis methods
+    analysis_methods:
+      qualitative:
+        - Thematic analysis
+        - Content analysis
+        - Grounded theory
+        - Phenomenological analysis
+        - Narrative analysis
+      quantitative:
+        - Descriptive statistics
+        - Inferential statistics
+        - Regression analysis
+        - Factor analysis
+        - Structural equation modeling
+    
+  # Research ethics
+  research_ethics:
+    - Research ethics compliance
+    - Informed consent
+    - Privacy protection
+    - Data management and storage
+    - Conflict of interest disclosure
+    
+  # Academic writing
+  academic_writing:
+    structure:
+      - IMRAD format (Introduction, Methods, Results, Discussion)
+      - Literature review structuring
+      - Theoretical framework presentation
+      - Hypothesis and research question clarification
+      - Limitations and future research
+    
+    quality_criteria:
+      - Logical consistency
+      - Connection to prior research
+      - Evidence-based arguments
+      - Critical examination
+      - Clear academic contribution
+    
+  # Output formats
+  output_formats:
+    - Academic papers
+    - Research proposals
+    - Literature reviews
+    - Research presentations
+    - Poster presentations
+    - Research reports
+    - Grant applications
+    
+  # Quality assurance
+  quality_assurance:
+    - Peer review implementation
+    - Response to reviewer comments
+    - Plagiarism checking
+    - Data reproducibility
+    - Statistical validity verification
+
+# Tags
+tags:
+  - academic
+  - research
+  - scholarly
+  - peer-review
+  - scientific-method
+  - citation
+  - methodology
+  - ethics
+  - data-analysis
+  - academic-writing
