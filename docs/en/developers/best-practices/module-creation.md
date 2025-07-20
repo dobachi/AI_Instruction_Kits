@@ -154,8 +154,71 @@ quality:
 
 3. **Automated Validation Tools**
    ```bash
-   validate-module.sh modules/*.yaml
+   scripts/validate-modules.sh
    ```
+
+## 🔍 Module Validation
+
+### Validation Script Overview
+
+The project includes scripts to automatically validate module metadata (YAML files) for correctness.
+
+#### Usage
+```bash
+# Validate all modules
+./scripts/validate-modules.sh
+
+# Example output
+🔍 Starting module metadata validation...
+📂 Language: en
+  📁 Category: tasks
+    ✓ blog_writing.yaml
+    ⚠ project_planning.yaml
+    ✗ thesis_writing.yaml
+```
+
+### Validation Items
+
+#### Required Fields
+- `id`: Module identifier
+- `name`: Module name
+- `version`: Version information
+- `description`: Module description
+
+#### Format Checks
+- **Array fields**: `tags`, `dependencies`, `prerequisites` must be arrays
+- **String fields**: `id`, `name`, `description` must be strings
+- **Naming convention**: id should start with `{category}_` (e.g., `task_`, `skill_`)
+
+### Common Errors and Solutions
+
+#### 1. Dependencies Field Format Error
+```yaml
+# ❌ Incorrect
+dependencies:
+  required:
+    - module_name
+  optional:
+    - another_module
+
+# ✅ Correct
+dependencies:
+  - module_name
+  - another_module
+```
+
+#### 2. ID Naming Convention Mismatch
+```yaml
+# ❌ Incorrect (for tasks category)
+id: "project_planning"
+
+# ✅ Correct
+id: "task_project_planning"
+```
+
+### CI/CD Integration
+
+It's recommended to run the validation script locally before creating a PR. In the future, automatic validation will be executed via GitHub Actions.
 
 ## 🎓 Learning Resources
 
@@ -173,8 +236,12 @@ quality:
 2. Plan investigation
 3. Execute parallel investigation
 4. Implement module
-5. Perform quality check
-6. Create pull request
+5. Run validation script
+   ```bash
+   ./scripts/validate-modules.sh
+   ```
+6. Fix any errors
+7. Create pull request
 
 ---
 

@@ -104,7 +104,12 @@ git checkout -b feature/your-feature-name
 1. `modular/ja/modules/`に新しいモジュールを作成
 2. YAMLメタデータを追加
 3. 英語版も作成（`modular/en/modules/`）
-4. テストとドキュメントを追加
+4. **検証スクリプトを実行**
+   ```bash
+   ./scripts/validate-modules.sh
+   ```
+5. エラーがあれば修正
+6. テストとドキュメントを追加
 
 ### Pull Requestのガイドライン
 - 明確なタイトルと説明

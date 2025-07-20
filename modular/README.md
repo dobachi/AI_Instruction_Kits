@@ -89,11 +89,33 @@ python modular/composer.py -l en list modules
 
 ## 開発者向け
 
-新しいモジュールを追加する手順：
+### 新しいモジュールを追加する手順
 
 1. 適切なカテゴリディレクトリにモジュールファイル（.md）を作成
 2. 同名のメタデータファイル（.yaml）を作成
-3. キャッシュを更新: `./scripts/generate-instruction.sh --refresh-cache`
+3. **検証スクリプトを実行してメタデータの妥当性を確認**
+   ```bash
+   ./scripts/validate-modules.sh
+   ```
+4. エラーがあれば修正
+5. キャッシュを更新: `./scripts/generate-instruction.sh --refresh-cache`
+
+### モジュール検証
+
+プロジェクトには、YAMLメタデータの妥当性を検証するスクリプトが含まれています。
+
+#### 必須フィールド
+- `id`: カテゴリプレフィックス付き（例: `task_`, `skill_`）
+- `name`: モジュール名
+- `version`: バージョン番号
+- `description`: モジュールの説明
+
+#### よくあるエラー
+- `dependencies`は配列形式で記述する必要があります
+- `id`はカテゴリに応じたプレフィックスが必要です
+- すべての必須フィールドを含める必要があります
+
+詳細は[モジュール作成ベストプラクティス](https://dobachi.github.io/AI_Instruction_Kits/docs/developers/best-practices/module-creation)を参照してください。
 
 ---
 ## ライセンス情報

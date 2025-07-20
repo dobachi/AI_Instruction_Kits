@@ -154,8 +154,71 @@ quality:
 
 3. **自動検証ツール**
    ```bash
-   validate-module.sh modules/*.yaml
+   scripts/validate-modules.sh
    ```
+
+## 🔍 モジュール検証
+
+### 検証スクリプトの概要
+
+プロジェクトには、モジュールのメタデータ（YAMLファイル）の妥当性を自動的に検証するスクリプトが用意されています。
+
+#### 使用方法
+```bash
+# 全モジュールの検証
+./scripts/validate-modules.sh
+
+# 検証結果の例
+🔍 モジュールメタデータ検証を開始します...
+📂 言語: ja
+  📁 カテゴリ: tasks
+    ✓ blog_writing.yaml
+    ⚠ project_planning.yaml
+    ✗ thesis_writing.yaml
+```
+
+### 検証項目
+
+#### 必須フィールド
+- `id`: モジュール識別子
+- `name`: モジュール名
+- `version`: バージョン情報
+- `description`: モジュールの説明
+
+#### 形式チェック
+- **配列フィールド**: `tags`, `dependencies`, `prerequisites`は配列形式
+- **文字列フィールド**: `id`, `name`, `description`は文字列形式
+- **命名規則**: idは`{category}_`で始まる（例：`task_`, `skill_`）
+
+### よくあるエラーと対処法
+
+#### 1. dependenciesフィールドの形式エラー
+```yaml
+# ❌ 誤り
+dependencies:
+  required:
+    - module_name
+  optional:
+    - another_module
+
+# ✅ 正しい
+dependencies:
+  - module_name
+  - another_module
+```
+
+#### 2. id命名規則の不一致
+```yaml
+# ❌ 誤り（tasksカテゴリの場合）
+id: "project_planning"
+
+# ✅ 正しい
+id: "task_project_planning"
+```
+
+### CI/CD統合
+
+PRを作成する前に、ローカルで検証スクリプトを実行することを推奨します。将来的には、GitHub Actionsで自動検証が実行される予定です。
 
 ## 🎓 学習リソース
 
@@ -173,8 +236,12 @@ quality:
 2. 調査計画を立てる
 3. 並列調査を実行
 4. モジュールを実装
-5. 品質チェックを実施
-6. プルリクエストを作成
+5. 検証スクリプトで品質チェック
+   ```bash
+   ./scripts/validate-modules.sh
+   ```
+6. エラーがあれば修正
+7. プルリクエストを作成
 
 ---
 

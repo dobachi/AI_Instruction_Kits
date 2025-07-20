@@ -104,7 +104,12 @@ git checkout -b feature/your-feature-name
 1. Create new module in `modular/ja/modules/`
 2. Add YAML metadata
 3. Create English version (`modular/en/modules/`)
-4. Add tests and documentation
+4. **Run validation script**
+   ```bash
+   ./scripts/validate-modules.sh
+   ```
+5. Fix any errors
+6. Add tests and documentation
 
 ### Pull Request Guidelines
 - Clear title and description
