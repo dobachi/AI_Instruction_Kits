@@ -101,6 +101,14 @@ Automatically track work progress, enabling smooth task handover and continuity:
 - **Proven**: Used in actual development projects
 - **Community**: Growing ecosystem
 
+## 📖 Documentation
+
+- [Quick Start Guide](quickstart)
+- [Features](features)
+- [Proposals](proposals)
+- [Developer Documentation](developers)
+- [How to Use](usage)
+
 <div style="margin-top: 3em; padding: 1em; background-color: #f0f8ff; border-radius: 8px;">
   <h3>🚀 Get Started Now</h3>
   <p>Set up AI Instruction Kits in just 5 minutes and improve your AI development efficiency!</p>

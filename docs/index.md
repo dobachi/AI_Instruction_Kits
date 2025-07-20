@@ -98,6 +98,8 @@ claude "Webサイトを作成してください"
 
 - [クイックスタートガイド](quickstart)
 - [機能詳細](features)
+- [提案ドキュメント](proposals)
+- [開発者向け情報](developers)
 - [カスタマイズ方法](https://github.com/dobachi/AI_Instruction_Kits/blob/main/docs/HOW_TO_USE.md)
 
 ## 🤝 コントリビューション

@@ -14,6 +14,8 @@ navigation:
     url: /quickstart
   - title: 機能紹介
     url: /features
+  - title: 提案
+    url: /proposals
   - title: 開発者向け
     url: /developers
   - title: GitHub
