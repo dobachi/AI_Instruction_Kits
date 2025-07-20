@@ -1,0 +1,215 @@
+id: expertise_data_space
+name: データスペース専門知識
+description: 2024-2025年の最新データスペース概念と実装方法。GAIA-X、IDS標準、データ主権、相互運用性、セキュアなデータ共有アーキテクチャの包括的な専門知識
+version: 1.0.0
+category: expertise
+subcategory: data_architecture
+
+# データスペース関連の変数
+variables:
+  - name: "data_space_type"
+    description: "データスペースの種別"
+    type: "enum"
+    values: ["enterprise", "public_sector", "research", "cross_domain", "vertical_industry"]
+    default: "enterprise"
+    
+  - name: "compliance_framework"
+    description: "準拠するコンプライアンスフレームワーク"
+    type: "enum"
+    values: ["gaia_x", "ids_ram", "dsba", "national_regulations", "fair_principles"]
+    default: "gaia_x"
+    
+  - name: "connector_type"
+    description: "使用するコネクタタイプ"
+    type: "enum"
+    values: ["edc", "ids_connector", "fiware", "true_connector", "custom"]
+    default: "edc"
+    
+  - name: "governance_model"
+    description: "ガバナンスモデル"
+    type: "enum"
+    values: ["centralized", "federated", "decentralized", "hybrid", "hierarchical"]
+    default: "federated"
+    
+  - name: "industry_sector"
+    description: "対象産業セクター"
+    type: "enum"
+    values: ["automotive", "healthcare", "manufacturing", "finance", "energy", "agriculture", "logistics", "general"]
+    default: "general"
+    
+  - name: "security_level"
+    description: "セキュリティレベル"
+    type: "enum"
+    values: ["standard", "high", "critical", "military_grade"]
+    default: "high"
+    
+  - name: "interoperability_standard"
+    description: "相互運用性標準"
+    type: "enum"
+    values: ["ids_ram", "ngsi_ld", "openapi", "graphql", "custom_api"]
+    default: "ids_ram"
+    
+  - name: "data_sovereignty"
+    description: "データ主権の厳格さ"
+    type: "enum"
+    values: ["flexible", "moderate", "strict", "absolute"]
+    default: "strict"
+    
+  - name: "encryption_approach"
+    description: "暗号化アプローチ"
+    type: "enum"
+    values: ["standard", "quantum_resistant", "homomorphic", "mpc_enabled"]
+    default: "quantum_resistant"
+    
+  - name: "metadata_standard"
+    description: "メタデータ標準"
+    type: "enum"
+    values: ["dcat", "datacite", "schema_org", "custom", "industry_specific"]
+    default: "dcat"
+    
+  - name: "deployment_model"
+    description: "デプロイメントモデル"
+    type: "enum"
+    values: ["cloud_native", "on_premise", "hybrid_cloud", "edge_integrated"]
+    default: "hybrid_cloud"
+    
+  - name: "privacy_approach"
+    description: "プライバシーアプローチ"
+    type: "enum"
+    values: ["privacy_by_design", "compliance_driven", "minimal", "enhanced"]
+    default: "privacy_by_design"
+    
+  - name: "collaboration_model"
+    description: "コラボレーションモデル"
+    type: "enum"
+    values: ["bilateral", "multilateral", "ecosystem", "consortium", "open_science"]
+    default: "ecosystem"
+    
+  - name: "data_sharing_level"
+    description: "データ共有レベル"
+    type: "enum"
+    values: ["metadata_only", "controlled", "selective", "open", "tiered"]
+    default: "controlled"
+    
+  - name: "maturity_stage"
+    description: "データスペースの成熟度"
+    type: "enum"
+    values: ["pilot", "production_ready", "scaling", "mature", "evolving"]
+    default: "production_ready"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - skill_api_design        # API設計スキル
+    - skill_authentication    # 認証・認可スキル
+  optional:
+    - expertise_software_engineering  # ソフトウェア工学専門知識
+    - expertise_legal_engineering     # 法令工学専門知識
+    - method_agile                    # アジャイル開発方法論
+    - domain_fintech                  # FinTechドメイン知識
+    - domain_healthcare               # ヘルスケアドメイン知識
+
+# 互換性のあるタスク
+compatible_tasks:
+  - task_data_analysis        # データ分析
+  - task_documentation        # ドキュメント作成
+  - task_project_planning     # プロジェクト計画
+  - task_strategy_development # 戦略策定
+  - task_research            # 調査研究
+
+# タグ
+tags:
+  - data_space
+  - gaia_x
+  - ids
+  - data_sovereignty
+  - interoperability
+  - federated_architecture
+  - secure_data_sharing
+  - zero_trust
+  - privacy_by_design
+  - european_data_strategy
+  - data_governance
+  - trust_framework
+  - connector
+  - metadata_broker
+  - catena_x
+
+# 出力形式
+output_format:
+  structure:
+    - data_space_principles
+    - governance_framework
+    - technical_architecture
+    - security_implementation
+    - interoperability_approach
+    - industry_specific_guidance
+    - implementation_roadmap
+    - best_practices_checklist
+  level_of_detail: comprehensive
+
+# 使用例
+examples:
+  - title: 自動車産業データスペース
+    variables:
+      data_space_type: vertical_industry
+      compliance_framework: gaia_x
+      connector_type: edc
+      industry_sector: automotive
+      governance_model: federated
+      security_level: high
+      interoperability_standard: ids_ram
+      deployment_model: hybrid_cloud
+    description: Catena-Xのような自動車サプライチェーンデータスペースの構築
+
+  - title: ヘルスケアデータスペース
+    variables:
+      data_space_type: public_sector
+      compliance_framework: national_regulations
+      connector_type: fiware
+      industry_sector: healthcare
+      data_sovereignty: absolute
+      privacy_approach: enhanced
+      encryption_approach: homomorphic
+      data_sharing_level: controlled
+    description: 患者データを安全に共有する医療データスペース
+
+  - title: 研究データスペース
+    variables:
+      data_space_type: research
+      compliance_framework: fair_principles
+      connector_type: custom
+      governance_model: decentralized
+      collaboration_model: open_science
+      data_sharing_level: open
+      metadata_standard: datacite
+      maturity_stage: evolving
+    description: オープンサイエンスのための研究データ共有プラットフォーム
+
+  - title: スマートシティデータスペース
+    variables:
+      data_space_type: public_sector
+      compliance_framework: dsba
+      connector_type: fiware
+      deployment_model: edge_integrated
+      security_level: high
+      interoperability_standard: ngsi_ld
+      collaboration_model: ecosystem
+    description: IoTデバイスとエッジコンピューティングを活用した都市データプラットフォーム
+
+# メタデータ
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"
+research_sources:
+  - "GAIA-X Loire Release 2024"
+  - "IDS Reference Architecture Model v4.0"
+  - "Data Spaces Business Alliance (DSBA) Technical Guidelines"
+  - "European Data Strategy 2024"
+  - "Catena-X Automotive Network Documentation"
+  - "FIWARE Data Space Connector Specifications"
+  - "Eclipse Dataspace Components (EDC) Architecture"
+  - "NIST Post-Quantum Cryptography Standards 2024"
+  - "Zero Trust Architecture for Data Spaces"
+  - "Privacy Enhancing Technologies in Data Spaces"
