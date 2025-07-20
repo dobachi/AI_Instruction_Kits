@@ -1,0 +1,162 @@
+id: expertise_legal_engineering
+name: Legal Engineering Expertise
+description: Cutting-edge legal engineering expertise for 2024-2025. Comprehensive approach to integrating law, technology, and business processes through automation, smart contracts, RegTech, and AI-powered compliance systems.
+version: 1.0.0
+category: expertise
+subcategory: legal_tech
+
+variables:
+  - name: "legal_complexity"
+    description: "Complexity level of legal requirements"
+    type: "enum"
+    values: ["basic", "intermediate", "complex", "highly_complex"]
+    default: "complex"
+    
+  - name: "regulatory_jurisdictions"
+    description: "Applicable regulatory jurisdictions"
+    type: "list"
+    values: ["US", "EU", "UK", "APAC", "Global"]
+    default: ["EU"]
+    
+  - name: "compliance_domains"
+    description: "Specific compliance domains to address"
+    type: "list"
+    values: ["GDPR", "AI_Act", "DSA", "DMA", "AML", "KYC", "HIPAA", "SOX", "MiFID_II", "Basel_III"]
+    default: ["GDPR", "AI_Act"]
+    
+  - name: "automation_level"
+    description: "Degree of legal process automation"
+    type: "enum"
+    values: ["manual", "semi_automated", "automated", "ai_powered", "autonomous"]
+    default: "ai_powered"
+    
+  - name: "contract_automation"
+    description: "Smart contract implementation approach"
+    type: "enum"
+    values: ["none", "templates", "workflow_automation", "smart_contracts", "dao_governance"]
+    default: "smart_contracts"
+    
+  - name: "privacy_engineering_level"
+    description: "Privacy engineering implementation depth"
+    type: "enum"
+    values: ["basic", "standard", "advanced", "privacy_by_design"]
+    default: "privacy_by_design"
+    
+  - name: "risk_management_approach"
+    description: "Legal risk management strategy"
+    type: "enum"
+    values: ["reactive", "proactive", "predictive", "prescriptive"]
+    default: "predictive"
+    
+  - name: "dispute_resolution"
+    description: "Dispute resolution mechanism"
+    type: "enum"
+    values: ["traditional", "mediation", "arbitration", "online_arbitration", "smart_contract_based"]
+    default: "online_arbitration"
+    
+  - name: "implementation_approach"
+    description: "Implementation methodology"
+    type: "enum"
+    values: ["waterfall", "agile", "hybrid", "continuous_compliance"]
+    default: "continuous_compliance"
+    
+  - name: "regtech_maturity"
+    description: "RegTech adoption maturity level"
+    type: "enum"
+    values: ["initial", "developing", "defined", "managed", "optimized"]
+    default: "managed"
+    
+  - name: "ai_governance"
+    description: "AI governance framework implementation"
+    type: "enum"
+    values: ["none", "basic", "comprehensive", "industry_leading"]
+    default: "comprehensive"
+    
+  - name: "data_governance"
+    description: "Data governance framework"
+    type: "enum"
+    values: ["minimal", "standard", "advanced", "best_in_class"]
+    default: "advanced"
+    
+  - name: "compliance_monitoring"
+    description: "Compliance monitoring approach"
+    type: "enum"
+    values: ["periodic", "continuous", "real_time", "predictive"]
+    default: "real_time"
+    
+  - name: "integration_scope"
+    description: "Systems integration scope"
+    type: "enum"
+    values: ["standalone", "partial_integration", "full_integration", "ecosystem_wide"]
+    default: "full_integration"
+    
+  - name: "audit_readiness"
+    description: "Audit trail and readiness level"
+    type: "enum"
+    values: ["basic", "standard", "comprehensive", "automated"]
+    default: "automated"
+
+dependencies:
+  required:
+    - "core_role_definition"
+    - "quality_production"
+  optional:
+    - "expertise_software_engineering"
+    - "skills_api_design"
+    - "skills_security_implementation"
+    - "methods_agile"
+    - "domains_fintech"
+
+compatible_tasks:
+  - "compliance_system_development"
+  - "smart_contract_creation"
+  - "privacy_engineering"
+  - "regulatory_reporting"
+  - "legal_automation"
+  - "risk_assessment"
+
+tags:
+  - "legal_engineering"
+  - "regtech"
+  - "compliance"
+  - "smart_contracts"
+  - "privacy"
+  - "gdpr"
+  - "ai_act"
+  - "legal_automation"
+  - "2024"
+  - "regulatory"
+
+examples:
+  - name: "FinTech Compliance Platform"
+    description: "Building comprehensive compliance system for financial services"
+    variables:
+      legal_complexity: "highly_complex"
+      regulatory_jurisdictions: ["EU", "US", "UK"]
+      compliance_domains: ["MiFID_II", "AML", "KYC", "GDPR"]
+      automation_level: "ai_powered"
+      compliance_monitoring: "real_time"
+      
+  - name: "AI Product Compliance"
+    description: "Ensuring AI system compliance with EU AI Act"
+    variables:
+      regulatory_jurisdictions: ["EU"]
+      compliance_domains: ["AI_Act", "GDPR"]
+      ai_governance: "industry_leading"
+      risk_management_approach: "prescriptive"
+      
+  - name: "Healthcare Data Platform"
+    description: "Privacy-compliant healthcare data processing system"
+    variables:
+      compliance_domains: ["HIPAA", "GDPR"]
+      privacy_engineering_level: "privacy_by_design"
+      data_governance: "best_in_class"
+      audit_readiness: "automated"
+      
+  - name: "Blockchain Legal Framework"
+    description: "Smart contract-based legal framework for DAOs"
+    variables:
+      contract_automation: "dao_governance"
+      dispute_resolution: "smart_contract_based"
+      implementation_approach: "continuous_compliance"
+      integration_scope: "ecosystem_wide"

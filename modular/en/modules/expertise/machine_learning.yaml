@@ -1,0 +1,165 @@
+id: expertise_machine_learning
+name: Machine Learning and AI Expertise
+description: Comprehensive ML/AI expertise for 2024-2025 covering the complete lifecycle from experimentation to production. Includes MLOps, responsible AI, LLMs, AutoML 2.0, and edge AI deployment with focus on governance and sustainability.
+version: 1.0.0
+category: expertise
+subcategory: artificial_intelligence
+
+variables:
+  - name: "ml_maturity_level"
+    description: "Organization's ML maturity level"
+    type: "enum"
+    values: ["initial", "developing", "defined", "managed", "optimizing"]
+    default: "managed"
+    
+  - name: "primary_ml_tasks"
+    description: "Main ML/AI use cases"
+    type: "list"
+    values: ["classification", "regression", "clustering", "nlp", "computer_vision", "reinforcement_learning", "generative_ai", "multimodal"]
+    default: ["classification", "nlp", "computer_vision"]
+    
+  - name: "model_complexity"
+    description: "Complexity of ML models"
+    type: "enum"
+    values: ["simple", "moderate", "complex", "very_complex", "foundation_models"]
+    default: "complex"
+    
+  - name: "deployment_scale"
+    description: "Scale of ML deployment"
+    type: "enum"
+    values: ["prototype", "pilot", "production_small", "production_large", "global_scale"]
+    default: "production_large"
+    
+  - name: "mlops_practices"
+    description: "MLOps practices to implement"
+    type: "list"
+    values: ["version_control", "ci_cd", "monitoring", "experimentation", "governance", "automation"]
+    default: ["version_control", "ci_cd", "monitoring", "governance"]
+    
+  - name: "infrastructure_type"
+    description: "ML infrastructure approach"
+    type: "enum"
+    values: ["local", "on_premise", "cloud", "hybrid", "edge", "federated"]
+    default: "hybrid"
+    
+  - name: "model_serving_approach"
+    description: "Model serving strategy"
+    type: "enum"
+    values: ["batch", "real_time", "streaming", "edge_inference", "federated_inference"]
+    default: "real_time"
+    
+  - name: "responsible_ai_requirements"
+    description: "Responsible AI implementation level"
+    type: "enum"
+    values: ["none", "basic", "standard", "comprehensive", "industry_leading"]
+    default: "comprehensive"
+    
+  - name: "explainability_needs"
+    description: "Model explainability requirements"
+    type: "enum"
+    values: ["none", "basic", "moderate", "high", "regulatory_required"]
+    default: "high"
+    
+  - name: "data_privacy_approach"
+    description: "Data privacy and security approach"
+    type: "enum"
+    values: ["standard", "enhanced", "differential_privacy", "federated_learning", "homomorphic_encryption"]
+    default: "differential_privacy"
+    
+  - name: "automl_usage"
+    description: "AutoML adoption level"
+    type: "enum"
+    values: ["none", "experimentation", "feature_engineering", "full_pipeline", "production_automl"]
+    default: "full_pipeline"
+    
+  - name: "monitoring_sophistication"
+    description: "ML monitoring and observability"
+    type: "enum"
+    values: ["basic_metrics", "performance_tracking", "drift_detection", "comprehensive", "predictive"]
+    default: "comprehensive"
+    
+  - name: "optimization_priorities"
+    description: "Model optimization priorities"
+    type: "list"
+    values: ["accuracy", "latency", "throughput", "cost", "energy_efficiency", "fairness"]
+    default: ["accuracy", "latency", "fairness"]
+    
+  - name: "governance_level"
+    description: "AI governance implementation"
+    type: "enum"
+    values: ["minimal", "basic", "standard", "comprehensive", "regulated"]
+    default: "comprehensive"
+    
+  - name: "team_structure"
+    description: "ML team organization"
+    type: "enum"
+    values: ["centralized", "embedded", "hybrid", "federated", "center_of_excellence"]
+    default: "hybrid"
+
+dependencies:
+  required:
+    - "core_role_definition"
+    - "quality_production"
+  optional:
+    - "expertise_software_engineering"
+    - "expertise_parallel_distributed"
+    - "skills_data_analysis"
+    - "skills_api_design"
+    - "methods_agile"
+    - "domains_specific"
+
+compatible_tasks:
+  - "ml_pipeline_development"
+  - "model_training"
+  - "model_deployment"
+  - "mlops_implementation"
+  - "ai_system_design"
+  - "llm_integration"
+  - "responsible_ai_implementation"
+  - "ml_monitoring"
+
+tags:
+  - "machine_learning"
+  - "artificial_intelligence"
+  - "mlops"
+  - "deep_learning"
+  - "llm"
+  - "responsible_ai"
+  - "automl"
+  - "edge_ai"
+  - "2024"
+  - "production_ml"
+
+examples:
+  - name: "Enterprise ML Platform"
+    description: "Building comprehensive ML platform for large organization"
+    variables:
+      ml_maturity_level: "optimizing"
+      deployment_scale: "global_scale"
+      mlops_practices: ["version_control", "ci_cd", "monitoring", "experimentation", "governance", "automation"]
+      responsible_ai_requirements: "industry_leading"
+      governance_level: "comprehensive"
+      
+  - name: "LLM Production System"
+    description: "Deploying large language models at scale"
+    variables:
+      primary_ml_tasks: ["nlp", "generative_ai"]
+      model_complexity: "foundation_models"
+      model_serving_approach: "real_time"
+      optimization_priorities: ["latency", "cost", "accuracy"]
+      
+  - name: "Edge AI for IoT"
+    description: "ML deployment for edge devices"
+    variables:
+      infrastructure_type: "edge"
+      model_serving_approach: "edge_inference"
+      optimization_priorities: ["latency", "energy_efficiency"]
+      data_privacy_approach: "federated_learning"
+      
+  - name: "Healthcare AI System"
+    description: "Responsible AI for healthcare applications"
+    variables:
+      responsible_ai_requirements: "industry_leading"
+      explainability_needs: "regulatory_required"
+      data_privacy_approach: "homomorphic_encryption"
+      governance_level: "regulated"

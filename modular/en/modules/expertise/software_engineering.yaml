@@ -1,0 +1,165 @@
+id: expertise_software_engineering
+name: Software Engineering Expertise
+description: State-of-the-art software engineering expertise based on SWEBOK v4.0 (2024). Comprehensive coverage of modern development practices including DevSecOps, sustainable computing, AI-augmented development, and production-grade quality assurance.
+version: 1.0.0
+category: expertise
+subcategory: engineering
+
+variables:
+  - name: "project_type"
+    description: "Type of software project"
+    type: "enum"
+    values: ["greenfield", "legacy_modernization", "migration", "optimization", "research"]
+    default: "greenfield"
+    
+  - name: "development_methodology"
+    description: "Primary development methodology"
+    type: "enum"
+    values: ["waterfall", "agile", "devops", "hybrid_agile_devops", "lean_startup", "mlops"]
+    default: "hybrid_agile_devops"
+    
+  - name: "architecture_style"
+    description: "Software architecture patterns"
+    type: "list"
+    values: ["monolithic", "microservices", "serverless", "event_driven", "jamstack", "data_mesh"]
+    default: ["microservices", "event_driven"]
+    
+  - name: "quality_focus"
+    description: "Primary quality attributes"
+    type: "list"
+    values: ["performance", "security", "scalability", "maintainability", "reliability", "usability", "sustainability"]
+    default: ["performance", "security", "maintainability"]
+    
+  - name: "team_size"
+    description: "Development team size"
+    type: "enum"
+    values: ["solo", "small", "medium", "large", "enterprise"]
+    default: "medium"
+    
+  - name: "automation_level"
+    description: "Degree of development automation"
+    type: "enum"
+    values: ["minimal", "basic", "intermediate", "advanced", "full"]
+    default: "advanced"
+    
+  - name: "ai_integration_level"
+    description: "AI tools integration in development"
+    type: "enum"
+    values: ["none", "minimal", "moderate", "extensive", "ai_first"]
+    default: "extensive"
+    
+  - name: "security_approach"
+    description: "Security implementation strategy"
+    type: "enum"
+    values: ["basic", "standard", "devsecops", "zero_trust", "defense_in_depth"]
+    default: "devsecops"
+    
+  - name: "testing_strategy"
+    description: "Testing approach and coverage"
+    type: "enum"
+    values: ["manual", "automated_basic", "comprehensive", "ai_augmented", "chaos_engineering"]
+    default: "comprehensive"
+    
+  - name: "deployment_target"
+    description: "Deployment environment"
+    type: "list"
+    values: ["on_premise", "cloud", "hybrid", "edge", "multi_cloud", "serverless"]
+    default: ["cloud", "edge"]
+    
+  - name: "sustainability_priority"
+    description: "Environmental sustainability focus"
+    type: "enum"
+    values: ["none", "low", "medium", "high", "carbon_neutral"]
+    default: "high"
+    
+  - name: "compliance_requirements"
+    description: "Regulatory compliance needs"
+    type: "list"
+    values: ["none", "iso27001", "sox", "hipaa", "gdpr", "pci_dss", "fedramp"]
+    default: ["iso27001", "gdpr"]
+    
+  - name: "performance_requirements"
+    description: "Performance optimization level"
+    type: "enum"
+    values: ["standard", "high_performance", "real_time", "ultra_low_latency"]
+    default: "high_performance"
+    
+  - name: "scalability_requirements"
+    description: "Expected scale of the system"
+    type: "enum"
+    values: ["small", "medium", "large", "web_scale", "hyperscale"]
+    default: "large"
+    
+  - name: "observability_level"
+    description: "System observability implementation"
+    type: "enum"
+    values: ["basic_logging", "standard", "comprehensive", "full_observability"]
+    default: "comprehensive"
+
+dependencies:
+  required:
+    - "core_role_definition"
+    - "quality_production"
+  optional:
+    - "skills_api_design"
+    - "skills_testing"
+    - "skills_security_implementation"
+    - "methods_agile"
+    - "expertise_parallel_distributed"
+    - "expertise_machine_learning"
+
+compatible_tasks:
+  - "system_design"
+  - "code_generation"
+  - "api_development"
+  - "microservices_development"
+  - "performance_optimization"
+  - "security_implementation"
+  - "devops_pipeline"
+  - "technical_documentation"
+
+tags:
+  - "software_engineering"
+  - "swebok"
+  - "devops"
+  - "devsecops"
+  - "microservices"
+  - "cloud_native"
+  - "sustainable_computing"
+  - "ai_augmented"
+  - "2024"
+  - "best_practices"
+
+examples:
+  - name: "Enterprise Microservices Platform"
+    description: "Building scalable microservices architecture for enterprise"
+    variables:
+      project_type: "greenfield"
+      architecture_style: ["microservices", "event_driven"]
+      quality_focus: ["scalability", "reliability", "security"]
+      team_size: "large"
+      deployment_target: ["multi_cloud"]
+      
+  - name: "Legacy System Modernization"
+    description: "Modernizing monolithic application to cloud-native"
+    variables:
+      project_type: "legacy_modernization"
+      development_methodology: "hybrid_agile_devops"
+      architecture_style: ["microservices", "serverless"]
+      automation_level: "progressive"
+      
+  - name: "AI-Powered SaaS Product"
+    description: "Building AI-integrated SaaS application"
+    variables:
+      development_methodology: "lean_startup"
+      ai_integration_level: "ai_first"
+      deployment_target: ["cloud", "edge"]
+      sustainability_priority: "carbon_neutral"
+      
+  - name: "High-Performance Trading System"
+    description: "Ultra-low latency financial trading platform"
+    variables:
+      quality_focus: ["performance", "reliability"]
+      performance_requirements: "ultra_low_latency"
+      testing_strategy: "chaos_engineering"
+      security_approach: "defense_in_depth"

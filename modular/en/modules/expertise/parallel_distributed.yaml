@@ -1,0 +1,165 @@
+id: expertise_parallel_distributed
+name: Parallel and Distributed Computing Expertise
+description: Advanced parallel and distributed computing expertise for 2024-2025. Covers modern paradigms beyond MapReduce including heterogeneous computing, edge-cloud continuum, quantum-classical hybrid systems, and AI workload distribution.
+version: 1.0.0
+category: expertise
+subcategory: computing
+
+variables:
+  - name: "compute_scale"
+    description: "Scale of computational requirements"
+    type: "enum"
+    values: ["small", "medium", "large", "massive", "exascale"]
+    default: "large"
+    
+  - name: "workload_type"
+    description: "Primary workload characteristics"
+    type: "enum"
+    values: ["batch_processing", "stream_processing", "scientific_computing", "deep_learning", "real_time_analytics", "iot_analytics"]
+    default: "deep_learning"
+    
+  - name: "parallelism_model"
+    description: "Parallelism approaches to use"
+    type: "list"
+    values: ["data_parallel", "task_parallel", "pipeline_parallel", "model_parallel", "hybrid_parallel"]
+    default: ["data_parallel", "pipeline_parallel"]
+    
+  - name: "distribution_model"
+    description: "Distribution architecture"
+    type: "enum"
+    values: ["centralized", "decentralized", "federated", "edge_cloud", "peer_to_peer"]
+    default: "edge_cloud"
+    
+  - name: "hardware_targets"
+    description: "Target hardware platforms"
+    type: "list"
+    values: ["cpu", "gpu", "tpu", "fpga", "neuromorphic", "quantum"]
+    default: ["cpu", "gpu"]
+    
+  - name: "framework"
+    description: "Primary distributed computing framework"
+    type: "list"
+    values: ["spark", "ray", "dask", "mpi", "horovod", "kubernetes", "custom"]
+    default: ["ray", "kubernetes"]
+    
+  - name: "interconnect"
+    description: "Network interconnect technology"
+    type: "enum"
+    values: ["ethernet", "infiniband", "nvlink", "custom_hpc", "5g_edge"]
+    default: "infiniband"
+    
+  - name: "fault_tolerance"
+    description: "Fault tolerance mechanism"
+    type: "enum"
+    values: ["none", "checkpoint_restart", "replication", "byzantine_fault_tolerant", "self_healing"]
+    default: "checkpoint_restart"
+    
+  - name: "scheduler"
+    description: "Job scheduling system"
+    type: "enum"
+    values: ["simple", "slurm", "kubernetes", "yarn", "custom_ml_aware"]
+    default: "kubernetes"
+    
+  - name: "data_locality"
+    description: "Data locality optimization"
+    type: "enum"
+    values: ["ignore", "prefer_local", "enforce_local", "intelligent_caching", "edge_first"]
+    default: "intelligent_caching"
+    
+  - name: "energy_efficiency"
+    description: "Energy efficiency priority"
+    type: "enum"
+    values: ["none", "low", "medium", "high", "carbon_aware"]
+    default: "high"
+    
+  - name: "latency_requirement"
+    description: "Latency requirements"
+    type: "enum"
+    values: ["batch", "near_real_time", "real_time", "ultra_low", "deterministic"]
+    default: "near_real_time"
+    
+  - name: "orchestration"
+    description: "Container orchestration approach"
+    type: "enum"
+    values: ["none", "docker_swarm", "kubernetes", "nomad", "custom"]
+    default: "kubernetes"
+    
+  - name: "deployment_model"
+    description: "Deployment architecture"
+    type: "enum"
+    values: ["on_premise", "cloud", "hybrid", "edge_cloud_continuum", "multi_cloud"]
+    default: "edge_cloud_continuum"
+    
+  - name: "optimization_focus"
+    description: "Primary optimization objective"
+    type: "list"
+    values: ["throughput", "latency", "cost", "energy", "accuracy", "scalability"]
+    default: ["throughput", "scalability"]
+
+dependencies:
+  required:
+    - "core_role_definition"
+    - "quality_production"
+  optional:
+    - "expertise_software_engineering"
+    - "expertise_machine_learning"
+    - "skills_performance_optimization"
+    - "skills_system_design"
+    - "methods_agile"
+
+compatible_tasks:
+  - "distributed_system_design"
+  - "parallel_algorithm_implementation"
+  - "hpc_optimization"
+  - "distributed_ml_training"
+  - "edge_computing_deployment"
+  - "real_time_analytics"
+  - "scientific_computing"
+
+tags:
+  - "parallel_computing"
+  - "distributed_systems"
+  - "hpc"
+  - "gpu_computing"
+  - "edge_computing"
+  - "cloud_computing"
+  - "heterogeneous_computing"
+  - "quantum_computing"
+  - "2024"
+  - "scalability"
+
+examples:
+  - name: "Large-Scale ML Training"
+    description: "Distributed training for large language models"
+    variables:
+      compute_scale: "massive"
+      workload_type: "deep_learning"
+      parallelism_model: ["data_parallel", "model_parallel", "pipeline_parallel"]
+      hardware_targets: ["gpu", "tpu"]
+      framework: ["horovod", "ray"]
+      
+  - name: "Real-Time IoT Analytics"
+    description: "Edge-cloud analytics for IoT sensor data"
+    variables:
+      workload_type: "iot_analytics"
+      distribution_model: "edge_cloud"
+      latency_requirement: "ultra_low"
+      data_locality: "edge_first"
+      deployment_model: "edge_cloud_continuum"
+      
+  - name: "Scientific HPC Cluster"
+    description: "High-performance computing for scientific simulations"
+    variables:
+      compute_scale: "exascale"
+      workload_type: "scientific_computing"
+      parallelism_model: ["data_parallel", "task_parallel"]
+      interconnect: "custom_hpc"
+      scheduler: "slurm"
+      
+  - name: "Blockchain Network"
+    description: "Distributed ledger with Byzantine fault tolerance"
+    variables:
+      distribution_model: "peer_to_peer"
+      fault_tolerance: "byzantine_fault_tolerant"
+      optimization_focus: ["latency", "accuracy"]
+      deployment_model: "multi_cloud"
