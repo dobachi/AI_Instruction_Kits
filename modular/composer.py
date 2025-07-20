@@ -606,13 +606,14 @@ def main():
         
     elif args.command == 'list':
         if args.type == 'presets':
-            presets_dir = composer.templates_dir / "presets"
+            presets_dir = composer.base_dir / lang / "presets"
             if lang == 'ja':
                 print("利用可能なプリセット:")
             else:
                 print("Available presets:")
-            for preset_file in presets_dir.glob("*.yaml"):
-                print(f"  - {preset_file.stem}")
+            if presets_dir.exists():
+                for preset_file in presets_dir.glob("*.yaml"):
+                    print(f"  - {preset_file.stem}")
                 
         elif args.type == 'modules':
             if lang == 'ja':
