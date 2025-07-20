@@ -1,0 +1,193 @@
+# Expertise Module Standard Template
+# Usage: Copy this template to create new expertise modules
+
+id: "expertise_[MODULE_NAME]"  # e.g., expertise_machine_learning, expertise_academic_writing
+name: "[Expertise Domain Name]"  # e.g., "Machine Learning Expertise", "Academic Writing Expertise"
+description: "[Detailed expertise description]"  # Specify cutting-edge knowledge and deep expertise
+version: "1.0.0"
+category: "expertise"
+subcategory: "[subcategory]"    # e.g., "ai_ml", "academic_research", "software_engineering"
+author: "AI Instruction Kits"
+
+# Domain-specific variable definitions (detailed configuration options)
+variables:
+  - name: "[domain_variable]"
+    description: "[Domain description]"
+    type: "enum"
+    values: ["[domain1]", "[domain2]", "[domain3]"]
+    default: "[default_domain]"
+  
+  - name: "[expertise_level_variable]"
+    description: "[Expertise level description]"
+    type: "enum"
+    values: ["beginner", "intermediate", "advanced", "expert"]
+    default: "intermediate"
+  
+  - name: "[approach_variable]"
+    description: "[Approach methodology description]"
+    type: "enum"
+    values: ["[method1]", "[method2]", "[method3]"]
+    default: "[recommended_method]"
+
+# Dependencies (expertise relies on foundational modules)
+dependencies:
+  required:
+    - "[foundational_skill_id]"    # e.g., skill_critical_thinking, skill_systems_thinking
+    - "[related_methodology_id]"   # e.g., method_research_methodology
+  optional:
+    - "[supporting_task_id]"       # e.g., task_documentation, task_data_analysis
+    - "[related_skill_id]"         # e.g., skill_visualization, skill_communication
+
+# Compatible tasks/modules
+compatible_tasks:
+  - "[related_task_id]"    # Tasks that can leverage this expertise
+compatible_domains:
+  - "[related_domain_id]"  # Related industries/domains
+
+# Knowledge structure (hierarchically organized)
+knowledge_structure:
+  fundamental_concepts:
+    - "[fundamental_concept1]"  # e.g., "ML basic principles", "Academic writing structure"
+    - "[fundamental_concept2]"
+  
+  advanced_topics:
+    - "[advanced_topic1]"  # e.g., "Deep learning architectures", "Peer review process"
+    - "[advanced_topic2]"
+  
+  current_trends:
+    - "[current_trend1]"  # 2024-2025 latest developments
+    - "[current_trend2]"
+  
+  best_practices:
+    - "[best_practice1]"  # Industry standards and recommendations
+    - "[best_practice2]"
+
+# Output configuration (comprehensive and detailed)
+output_format:
+  structure:
+    - "[section1]"        # e.g., "theoretical_background", "implementation_guidelines"
+    - "[section2]"        # e.g., "best_practices", "latest_trends"
+    - "[section3]"        # e.g., "examples_case_studies", "recommended_tools"
+  level_of_detail: comprehensive  # Expertise is always comprehensive
+  include_examples: true
+  include_references: true
+
+# Tags (for search and classification)
+tags:
+  - "[expertise_domain]"    # e.g., "machine_learning", "academic_writing"
+  - "[technology_stack]"    # e.g., "python", "tensorflow", "latex"
+  - "[industry_domain]"     # e.g., "academia", "healthcare", "finance"
+  - "[expertise_level]"     # e.g., "expert_level", "cutting_edge"
+  - "[year]"                # e.g., "2024_2025", "latest_trends"
+
+# Comprehensive usage examples (diverse scenarios)
+examples:
+  - title: "[Basic Usage Example]"
+    description: "[Beginner-oriented usage explanation]"
+    scenario: "[Usage scenario]"
+    variables:
+      [variable_name]: "[basic_setting]"
+    expected_depth: "foundational"
+  
+  - title: "[Advanced Usage Example]"
+    description: "[Expert-oriented usage explanation]"
+    scenario: "[Complex scenario]"
+    variables:
+      [variable_name]: "[advanced_setting]"
+    expected_depth: "comprehensive"
+  
+  - title: "[Latest Trends Application]"
+    description: "[Cutting-edge technology application example]"
+    scenario: "[State-of-the-art scenario]"
+    variables:
+      [variable_name]: "[latest_setting]"
+    expected_depth: "cutting_edge"
+
+# Metadata (expertise-specific)
+metadata:
+  complexity: "expert"  # Expertise is typically expert level
+  domain_depth: "comprehensive"
+  currency: "2024-2025"  # Information recency
+  authority_level: "expert"  # Authority level
+  
+  prerequisites:
+    - "[prerequisite1]"  # e.g., "Statistics fundamentals"
+    - "[prerequisite2]"  # e.g., "Programming experience"
+  
+  target_audience:
+    - "[target1]"    # e.g., "researchers", "senior_developers"
+    - "[target2]"    # e.g., "specialists", "decision_makers"
+
+# Professional guidelines and principles
+professional_guidelines:
+  ethical_considerations:
+    - "[ethical_consideration1]"  # e.g., "Research ethics compliance"
+    - "[ethical_consideration2]"
+  
+  industry_standards:
+    - "[industry_standard1]"      # e.g., "IEEE standards", "Academic publishing guidelines"
+    - "[industry_standard2]"
+  
+  quality_assurance:
+    - "[quality_assurance1]"      # e.g., "Peer review", "Reproducibility assurance"
+    - "[quality_assurance2]"
+
+# Current landscape and future outlook (2024-2025 edition)
+current_landscape:
+  emerging_trends:
+    - "[emerging_trend1]"   # e.g., "Generative AI development"
+    - "[emerging_trend2]"
+  
+  technology_evolution:
+    - "[tech_evolution1]"   # e.g., "New algorithms", "Tool advancement"
+    - "[tech_evolution2]"
+  
+  future_outlook:
+    - "[future_outlook1]"   # Future directions
+    - "[future_outlook2]"
+
+# Resources and references (authoritative sources)
+resources:
+  authoritative_sources:
+    - title: "[authoritative_source1]"
+      author: "[author_name]"
+      year: "[publication_year]"
+      relevance: "[relevance_description]"
+    
+    - title: "[authoritative_source2]"
+      author: "[author_name]"
+      year: "[publication_year]"
+      relevance: "[relevance_description]"
+  
+  online_resources:
+    - title: "[online_resource1]"
+      url: "[URL]"
+      description: "[description]"
+    
+    - title: "[online_resource2]"
+      url: "[URL]"
+      description: "[description]"
+  
+  tools_and_platforms:
+    - "[tool1]"  # e.g., "TensorFlow", "PyTorch", "Zotero"
+    - "[tool2]"
+
+# Continuous learning and updates
+continuous_learning:
+  update_frequency: "[update_frequency]"  # e.g., "quarterly", "biannually"
+  monitoring_sources:
+    - "[source1]"  # e.g., "major_conferences", "industry_reports"
+    - "[source2]"
+  
+  key_conferences:
+    - "[key_conference1]"  # e.g., "NeurIPS", "ICML"
+    - "[key_conference2]"
+
+# Creation date and version management
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"
+research_sources:  # Expertise-specific: explicit source attribution
+  - "[research_source1]"
+  - "[research_source2]"
+  - "[research_source3]"

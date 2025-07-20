@@ -1,0 +1,59 @@
+# Production Web API Development Preset
+name: "Production Web API Development"
+description: "Development instruction preset for production-ready Web APIs"
+version: "1.0.0"
+
+modules:
+  # Core modules
+  - "core_role_definition"
+  - "core_output_format"
+  - "core_constraints"
+  
+  # Task modules
+  - "task_code_generation"
+  
+  # Skill modules
+  - "skill_error_handling"
+  - "skill_testing"
+  - "skill_api_design"
+  - "skill_authentication"
+  
+  # Quality modules
+  - "quality_production"
+
+variables:
+  # Role definition
+  role_description: "As a Web API development expert, design and implement high-quality RESTful APIs"
+  expertise_level: "expert"
+  communication_style: "technical"
+  
+  # Output format
+  format_description: "Implementable code with API documentation"
+  structure_requirements: "Clear endpoint definitions, request/response examples, error handling"
+  style_requirements: "Follow RESTful design principles with consistent naming conventions"
+  length_requirements: "Complete implementation and test code for each endpoint"
+  
+  # Code generation
+  programming_language: "Python"
+  naming_convention: "snake_case"
+  indent_style: "4 spaces"
+  comment_style: "docstring format"
+  
+  # Error handling
+  error_handling_pattern: "try-except with custom exceptions"
+  error_message_format: "JSON format {\"error\": {\"code\": \"\", \"message\": \"\", \"details\": {}}}"
+  
+  # Quality standards
+  max_error_rate: "0.1%"
+  availability_target: "99.9%"
+  response_time_target: "200ms (95th percentile)"
+  test_coverage_target: "80% or higher"
+
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-10"
+  tags:
+    - "api"
+    - "web"
+    - "production"
+    - "backend"

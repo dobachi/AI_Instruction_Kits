@@ -1,0 +1,76 @@
+# Preset Template
+# Template file for creating new presets
+
+name: "{{preset_name}}"
+description: "{{preset_description}}"
+version: "1.0.0"
+
+# Expertise configuration (add if needed)
+expertise:
+  - "{{expertise_module}}"  # e.g., academic_writing, software_engineering
+
+# Role configuration (add if needed)
+roles:
+  - "{{role_module}}"  # e.g., role_reviewer, role_advisor
+
+# Task configuration (required)
+tasks:
+  - "{{primary_task}}"     # Primary task
+  - "{{secondary_task}}"   # Secondary task (if needed)
+
+# Skill configuration
+skills:
+  - "{{skill_1}}"  # e.g., critical_thinking, design_thinking
+  - "{{skill_2}}"  # e.g., visual_communication, problem_solving
+
+# Methodology configuration (add if needed)
+methods:
+  - "{{method_module}}"  # e.g., research_methodology, agile
+
+# Quality configuration (add if needed)
+quality:
+  - "{{quality_level}}"  # e.g., quality_production, quality_basic
+
+# Domain configuration (add if needed)
+domains:
+  - "{{domain_module}}"  # e.g., domain_fintech, domain_healthcare
+
+# Variable configuration (preset-specific settings)
+variables:
+  # Core variables
+  role_description: "{{role_description}}"
+  expertise_level: "{{expertise_level}}"  # beginner, intermediate, advanced, expert
+  communication_style: "{{communication_style}}"  # formal, technical, casual
+  
+  # Task-specific variables (example)
+  primary_focus: "{{primary_focus}}"
+  target_audience: "{{target_audience}}"
+  
+  # Common variables
+  language: "{{language}}"  # japanese, english, bilingual
+  output_format: "{{output_format}}"
+  collaboration_mode: "{{collaboration_mode}}"  # solo, small_team, large_team
+
+# Default values (overridable)
+defaults:
+  language: "english"
+  expertise_level: "intermediate"
+  communication_style: "formal"
+
+# Metadata
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "{{creation_date}}"  # YYYY-MM-DD format
+  tags:
+    - "{{tag_1}}"
+    - "{{tag_2}}"
+    - "{{tag_3}}"
+
+# Usage example comments
+# 
+# Steps to create a new preset:
+# 1. Copy this template
+# 2. Replace {{variables}} with actual values
+# 3. Remove unnecessary sections
+# 4. Place in both ja/presets/ and en/presets/
+# 5. Test execution to verify functionality

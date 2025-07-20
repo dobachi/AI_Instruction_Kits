@@ -1,0 +1,92 @@
+# Task Module Standard Template
+# Usage: Copy this template to create new task modules
+
+id: "task_[MODULE_NAME]"  # e.g., task_code_generation, task_data_analysis
+name: "[Task Name]"       # e.g., "Code Generation", "Data Analysis"
+description: "[Detailed task description]"  # Specify purpose and deliverables
+version: "1.0.0"
+category: "tasks"
+author: "AI Instruction Kits"
+
+# Required variable definitions
+variables:
+  - name: "[variable_name]"
+    description: "[Variable description]"
+    type: "enum"  # string, enum, boolean, integer
+    required: true  # true/false
+    values: ["[option1]", "[option2]", "[option3]"]  # for enum type
+    default: "[default_value]"
+    example: "[usage_example]"
+
+# Dependencies with other modules (object format recommended)
+dependencies:
+  required:
+    - "[required_dependency_id]"  # e.g., skill_api_design, core_role_definition
+  optional:
+    - "[optional_dependency_id]"  # e.g., skill_testing, skill_documentation
+
+# Compatible tasks/modules
+compatible_tasks:
+  - "[related_task_id]"  # Tasks that can be combined with this task
+
+# Output configuration
+output_format:
+  structure: "[output_structure]"  # e.g., "step_by_step", "checklist_format"
+  sections:
+    - "[section1]"  # e.g., "requirements", "implementation_steps", "test_plan"
+    - "[section2]"
+  level_of_detail: "standard"  # basic, standard, comprehensive
+
+# Tags (for search and classification)
+tags:
+  - "[main_category]"     # e.g., "development", "analysis", "design"
+  - "[technical_domain]"  # e.g., "programming", "data-science", "documentation"
+  - "[difficulty_level]"  # e.g., "beginner", "intermediate", "advanced"
+  - "[deliverable_type]"  # e.g., "code", "document", "analysis"
+
+# Usage examples (multiple patterns recommended)
+examples:
+  - title: "[Example 1 Title]"
+    description: "[Example description]"
+    variables:
+      [variable_name]: "[setting_value]"
+    expected_output: "[Expected output overview]"
+  
+  - title: "[Example 2 Title]"
+    description: "[Alternative scenario example]"
+    variables:
+      [variable_name]: "[alternative_value]"
+    expected_output: "[Expected output overview]"
+
+# Metadata
+metadata:
+  complexity: "intermediate"  # basic, intermediate, advanced, expert
+  estimated_time: "[Time estimate]"  # e.g., "30 minutes", "2-4 hours"
+  prerequisites:
+    - "[prerequisite1]"  # e.g., "Basic programming knowledge"
+    - "[prerequisite2]"
+  target_audience:
+    - "[target_user1]"   # e.g., "developers", "analysts", "managers"
+    - "[target_user2]"
+
+# Best practices
+best_practices:
+  - "[recommendation1]"  # Task execution recommendations
+  - "[recommendation2]"
+  - "[recommendation3]"
+
+# Constraints and limitations
+constraints:
+  - "[constraint1]"  # e.g., "Handle personal information carefully"
+  - "[constraint2]"  # e.g., "Consider external API limitations"
+
+# Success metrics
+success_metrics:
+  - "[metric1]"  # e.g., "Code meets requirements"
+  - "[metric2]"  # e.g., "Execution time within target range"
+  - "[metric3]"  # e.g., "Runs without errors"
+
+# Creation date and version management
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

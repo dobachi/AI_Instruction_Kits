@@ -1,0 +1,265 @@
+# Method Module Standard Template
+# Usage: Copy this template to create new methodology modules
+
+id: "method_[MODULE_NAME]"  # e.g., method_agile, method_lean, method_design_thinking
+name: "[Methodology Name]"  # e.g., "Agile Development", "Lean Methodology", "Design Thinking"
+description: "[Detailed methodology description]"  # Specify approach, process, and principles
+version: "1.0.0"
+category: "methods"
+author: "AI Instruction Kits"
+
+# Methodology-specific variable definitions
+variables:
+  - name: "[implementation_style_variable]"
+    description: "[Implementation approach description]"
+    type: "enum"
+    values: ["[style1]", "[style2]", "[style3]"]  # e.g., "strict", "flexible", "hybrid"
+    default: "[recommended_style]"
+  
+  - name: "[scale_variable]"
+    description: "[Application scale description]"
+    type: "enum"
+    values: ["small_team", "medium_team", "large_organization", "enterprise"]
+    default: "medium_team"
+  
+  - name: "[maturity_variable]"
+    description: "[Organization maturity level]"
+    type: "enum"
+    values: ["beginner", "developing", "mature", "optimizing"]
+    default: "developing"
+
+# Dependencies with other modules
+dependencies:
+  required:
+    - "[foundational_skill_id]"    # e.g., skill_facilitation, skill_communication
+  optional:
+    - "[supporting_skill_id]"      # e.g., skill_project_management, skill_measurement
+    - "[related_expertise_id]"     # e.g., expertise_change_management
+
+# Compatible tasks/modules
+compatible_tasks:
+  - "[related_task_id]"     # Tasks where this methodology applies
+compatible_methods:
+  - "[related_method_id]"   # Other methodologies that can be combined
+
+# Methodology framework and structure
+methodology_framework:
+  core_principles:
+    - "[core_principle1]"  # e.g., "individuals_over_processes", "working_software_focus"
+    - "[core_principle2]"
+    - "[core_principle3]"
+  
+  key_concepts:
+    - concept: "[key_concept1]"
+      definition: "[concept_definition]"
+      importance: "[importance_explanation]"
+    
+    - concept: "[key_concept2]"
+      definition: "[concept_definition]"
+      importance: "[importance_explanation]"
+  
+  foundational_elements:
+    - "[foundational_element1]"  # e.g., "iterations", "feedback_loops"
+    - "[foundational_element2]"
+
+# Process and workflow
+process_workflow:
+  phases:
+    - phase: "[phase1]"
+      description: "[phase_description]"
+      duration: "[duration_estimate]"
+      key_activities:
+        - "[key_activity1]"
+        - "[key_activity2]"
+      deliverables:
+        - "[deliverable1]"
+        - "[deliverable2]"
+    
+    - phase: "[phase2]"
+      description: "[phase_description]"
+      duration: "[duration_estimate]"
+      key_activities:
+        - "[key_activity1]"
+        - "[key_activity2]"
+      deliverables:
+        - "[deliverable1]"
+        - "[deliverable2]"
+  
+  iterative_cycles:
+    - cycle: "[cycle1]"
+      frequency: "[frequency]"  # e.g., "daily", "weekly", "monthly"
+      purpose: "[purpose]"
+      participants: "[participants]"
+    
+    - cycle: "[cycle2]"
+      frequency: "[frequency]"
+      purpose: "[purpose]"
+      participants: "[participants]"
+
+# Roles and responsibilities
+roles_and_responsibilities:
+  key_roles:
+    - role: "[role1]"
+      responsibilities:
+        - "[responsibility1]"
+        - "[responsibility2]"
+      required_skills:
+        - "[required_skill1]"
+        - "[required_skill2]"
+    
+    - role: "[role2]"
+      responsibilities:
+        - "[responsibility1]"
+        - "[responsibility2]"
+      required_skills:
+        - "[required_skill1]"
+        - "[required_skill2]"
+  
+  team_structure:
+    - "[team_structure_description]"
+    - "[collaboration_method]"
+
+# Output configuration
+output_format:
+  structure:
+    - "[section1]"        # e.g., "principles_values", "process_design"
+    - "[section2]"        # e.g., "implementation_guide", "metrics"
+    - "[section3]"        # e.g., "best_practices", "common_challenges"
+  
+  guidance_style: "[guidance_style]"  # e.g., "step_by_step", "principle_based", "framework_oriented"
+  detail_level: "comprehensive"
+  include_templates: true  # Include templates and checklists
+
+# Tags (for search and classification)
+tags:
+  - "[methodology_type]"    # e.g., "agile", "lean", "design_thinking"
+  - "[application_domain]"  # e.g., "software_development", "product_management", "innovation"
+  - "[organization_scale]"  # e.g., "startup", "enterprise", "team_level"
+  - "[change_level]"        # e.g., "incremental", "transformational"
+
+# Comprehensive usage examples
+examples:
+  - title: "[Basic Implementation Example]"
+    description: "[Basic implementation scenario]"
+    context: "[Application context]"
+    variables:
+      [variable_name]: "[basic_setting]"
+    implementation_steps:
+      - "[step1]"
+      - "[step2]"
+    expected_outcomes:
+      - "[expected_outcome1]"
+      - "[expected_outcome2]"
+  
+  - title: "[Advanced Implementation Example]"
+    description: "[Complex implementation scenario]"
+    context: "[Advanced context]"
+    variables:
+      [variable_name]: "[advanced_setting]"
+    implementation_steps:
+      - "[step1]"
+      - "[step2]"
+    expected_outcomes:
+      - "[expected_outcome1]"
+      - "[expected_outcome2]"
+
+# Metadata
+metadata:
+  complexity: "intermediate"  # basic, intermediate, advanced, expert
+  implementation_time: "[implementation_period]"  # e.g., "3-6 months", "1-2 years"
+  change_impact: "[change_impact]"  # e.g., "moderate", "significant", "transformational"
+  
+  prerequisites:
+    - "[prerequisite1]"  # e.g., "management_support", "team_willingness_to_change"
+    - "[prerequisite2]"
+  
+  success_factors:
+    - "[success_factor1]"  # e.g., "continuous_learning", "cultural_adaptation"
+    - "[success_factor2]"
+
+# Implementation guidance
+implementation_guidance:
+  getting_started:
+    - step: "[start_step1]"
+      description: "[step_description]"
+      resources_needed:
+        - "[needed_resource1]"
+        - "[needed_resource2]"
+    
+    - step: "[start_step2]"
+      description: "[step_description]"
+      resources_needed:
+        - "[needed_resource1]"
+        - "[needed_resource2]"
+  
+  scaling_considerations:
+    - "[scaling_consideration1]"  # e.g., "team_size_adjustments"
+    - "[scaling_consideration2]"
+  
+  adaptation_guidelines:
+    - "[adaptation_guideline1]"   # e.g., "industry_specific_adaptations"
+    - "[adaptation_guideline2]"
+
+# Measurement and evaluation
+measurement_evaluation:
+  key_metrics:
+    - metric: "[metric1]"
+      description: "[metric_description]"
+      measurement_method: "[measurement_method]"
+      target_value: "[target_value]"
+    
+    - metric: "[metric2]"
+      description: "[metric_description]"
+      measurement_method: "[measurement_method]"
+      target_value: "[target_value]"
+  
+  success_indicators:
+    - "[success_indicator1]"  # e.g., "improved_delivery_time"
+    - "[success_indicator2]"  # e.g., "increased_team_satisfaction"
+  
+  monitoring_practices:
+    - "[monitoring_practice1]"  # e.g., "regular_retrospectives"
+    - "[monitoring_practice2]"
+
+# Common challenges and solutions
+common_challenges:
+  typical_obstacles:
+    - challenge: "[challenge1]"
+      description: "[challenge_description]"
+      mitigation_strategies:
+        - "[mitigation1]"
+        - "[mitigation2]"
+    
+    - challenge: "[challenge2]"
+      description: "[challenge_description]"
+      mitigation_strategies:
+        - "[mitigation1]"
+        - "[mitigation2]"
+  
+  anti_patterns:
+    - "[anti_pattern1]"  # Implementation patterns to avoid
+    - "[anti_pattern2]"
+
+# Tools and resources
+tools_and_resources:
+  recommended_tools:
+    - tool: "[tool1]"
+      purpose: "[usage_purpose]"
+      category: "[category]"  # e.g., "planning", "tracking", "communication"
+    
+    - tool: "[tool2]"
+      purpose: "[usage_purpose]"
+      category: "[category]"
+  
+  templates_checklists:
+    - "[template1]"    # e.g., "project_planning_template"
+    - "[checklist1]"   # e.g., "quality_checklist"
+  
+  reference_materials:
+    - "[reference1]"   # e.g., "Agile Manifesto"
+    - "[reference2]"
+
+# Creation date and version management
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

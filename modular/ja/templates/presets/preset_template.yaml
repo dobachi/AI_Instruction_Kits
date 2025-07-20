@@ -1,0 +1,76 @@
+# プリセットテンプレート
+# 新しいプリセット作成時のテンプレートファイル
+
+name: "{{preset_name}}"
+description: "{{preset_description}}"
+version: "1.0.0"
+
+# 専門知識設定（必要に応じて追加）
+expertise:
+  - "{{expertise_module}}"  # 例: academic_writing, software_engineering
+
+# ロール設定（必要に応じて追加）
+roles:
+  - "{{role_module}}"  # 例: role_reviewer, role_advisor
+
+# タスク設定（必須）
+tasks:
+  - "{{primary_task}}"     # 主要タスク
+  - "{{secondary_task}}"   # 副次タスク（必要に応じて）
+
+# スキル設定
+skills:
+  - "{{skill_1}}"  # 例: critical_thinking, design_thinking
+  - "{{skill_2}}"  # 例: visual_communication, problem_solving
+
+# 方法論設定（必要に応じて追加）
+methods:
+  - "{{method_module}}"  # 例: research_methodology, agile
+
+# 品質設定（必要に応じて追加）
+quality:
+  - "{{quality_level}}"  # 例: quality_production, quality_basic
+
+# ドメイン設定（必要に応じて追加）
+domains:
+  - "{{domain_module}}"  # 例: domain_fintech, domain_healthcare
+
+# 変数設定（プリセット固有の設定）
+variables:
+  # コア変数
+  role_description: "{{role_description}}"
+  expertise_level: "{{expertise_level}}"  # beginner, intermediate, advanced, expert
+  communication_style: "{{communication_style}}"  # formal, technical, casual
+  
+  # タスク固有変数（例）
+  primary_focus: "{{primary_focus}}"
+  target_audience: "{{target_audience}}"
+  
+  # 共通変数
+  language: "{{language}}"  # japanese, english, bilingual
+  output_format: "{{output_format}}"
+  collaboration_mode: "{{collaboration_mode}}"  # solo, small_team, large_team
+
+# デフォルト値（オーバーライド可能）
+defaults:
+  language: "japanese"
+  expertise_level: "intermediate"
+  communication_style: "formal"
+
+# メタデータ
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "{{creation_date}}"  # YYYY-MM-DD形式
+  tags:
+    - "{{tag_1}}"
+    - "{{tag_2}}"
+    - "{{tag_3}}"
+
+# 使用例コメント
+# 
+# 新しいプリセット作成手順:
+# 1. このテンプレートをコピー
+# 2. {{変数}}を実際の値に置換
+# 3. 不要なセクションを削除
+# 4. ja/presets/とen/presets/両方に配置
+# 5. テスト実行で動作確認

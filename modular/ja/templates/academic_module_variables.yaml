@@ -1,0 +1,188 @@
+# 学術論文執筆支援モジュール共通変数設計
+
+# カテゴリ別変数定義
+
+## expertise/academic_writing 用変数
+academic_field:
+  type: enum
+  values: 
+    - humanities          # 人文科学
+    - social_sciences    # 社会科学
+    - natural_sciences   # 自然科学
+    - engineering        # 工学
+    - computer_science   # コンピュータサイエンス
+    - interdisciplinary  # 学際的
+  default: computer_science
+
+formality_level:
+  type: enum
+  values:
+    - highly_formal      # 最も形式的
+    - formal            # 標準的な学術文体
+    - semi_formal       # やや柔軟
+  default: formal
+
+target_publication:
+  type: enum
+  values:
+    - top_tier_journal   # トップジャーナル
+    - standard_journal   # 一般的なジャーナル
+    - conference        # 国際会議
+    - workshop          # ワークショップ
+    - thesis            # 学位論文
+  default: standard_journal
+
+## skills/citation_management 用変数
+citation_style:
+  type: enum
+  values: 
+    - apa               # APA (社会科学)
+    - mla               # MLA (人文科学)
+    - chicago           # Chicago (歴史)
+    - ieee              # IEEE (工学)
+    - harvard           # Harvard
+    - vancouver         # Vancouver (医学)
+    - jis               # JIS (日本)
+  default: apa
+
+reference_manager:
+  type: enum
+  values:
+    - zotero            # オープンソース
+    - mendeley          # Elsevier
+    - endnote           # Clarivate
+    - paperpile         # 独立系
+    - manual            # 手動管理
+  default: zotero
+
+## skills/literature_review 用変数
+review_type:
+  type: enum
+  values:
+    - narrative         # ナラティブレビュー
+    - systematic        # システマティックレビュー
+    - scoping          # スコーピングレビュー
+    - meta_analysis    # メタ分析
+    - rapid            # ラピッドレビュー
+    - living           # リビングレビュー
+  default: systematic
+
+search_databases:
+  type: list
+  default: 
+    - google_scholar
+    - pubmed
+    - ieee_xplore
+    - scopus
+    - web_of_science
+    - cinii             # 日本
+    - j_stage           # 日本
+
+## tasks/thesis_writing 用変数
+paper_type:
+  type: enum
+  values:
+    - journal_article   # ジャーナル論文
+    - conference_paper  # 会議論文
+    - master_thesis    # 修士論文
+    - doctoral_thesis  # 博士論文
+    - research_report  # 研究報告書
+  default: journal_article
+
+structure_format:
+  type: enum
+  values:
+    - imrad            # IMRAD形式
+    - traditional      # 伝統的形式
+    - humanities       # 人文科学形式
+    - case_study       # ケーススタディ形式
+  default: imrad
+
+writing_tool:
+  type: enum
+  values:
+    - word             # Microsoft Word
+    - latex            # LaTeX
+    - google_docs      # Google Docs
+    - markdown         # Markdown
+    - scrivener        # Scrivener
+  default: latex
+
+## methods/research_methodology 用変数
+research_approach:
+  type: enum
+  values:
+    - quantitative     # 定量的
+    - qualitative      # 定性的
+    - mixed_methods    # 混合研究法
+    - design_science   # デザインサイエンス
+    - action_research  # アクションリサーチ
+  default: quantitative
+
+research_design:
+  type: enum
+  values:
+    - experimental     # 実験研究
+    - survey          # 調査研究
+    - case_study      # ケーススタディ
+    - ethnography     # エスノグラフィー
+    - grounded_theory # グラウンデッドセオリー
+    - phenomenology   # 現象学
+  default: experimental
+
+data_analysis_method:
+  type: enum
+  values:
+    - statistical      # 統計分析
+    - thematic        # テーマ分析
+    - content         # 内容分析
+    - discourse       # 談話分析
+    - mixed           # 混合分析
+  default: statistical
+
+## 共通変数
+language:
+  type: enum
+  values:
+    - japanese        # 日本語
+    - english         # 英語
+    - bilingual       # 日英両方
+  default: japanese
+
+ai_assistance_level:
+  type: enum
+  values:
+    - none            # AI不使用
+    - minimal         # 文法チェックのみ
+    - moderate        # 構造提案含む
+    - extensive       # 積極的活用
+  default: moderate
+
+collaboration_mode:
+  type: enum
+  values:
+    - solo            # 単独執筆
+    - small_team      # 小規模チーム
+    - large_team      # 大規模チーム
+    - international   # 国際共同
+  default: solo
+
+experience_level:
+  type: enum
+  values:
+    - beginner        # 初心者
+    - intermediate    # 中級者
+    - advanced        # 上級者
+    - expert          # 専門家
+  default: intermediate
+
+# デフォルト変数セット
+default_variables:
+  academic_field: computer_science
+  formality_level: formal
+  citation_style: apa
+  review_type: systematic
+  paper_type: journal_article
+  research_approach: quantitative
+  language: japanese
+  ai_assistance_level: moderate

@@ -1,0 +1,243 @@
+# Core Module Standard Template
+# Usage: Copy this template to create new core modules
+
+id: "core_[MODULE_NAME]"  # e.g., core_role_definition, core_constraints, core_output_format
+name: "[Core Function Name]"  # e.g., "Role Definition", "Constraints", "Output Format"
+description: "[Detailed core function description]"  # Specify essential system functions
+version: "1.0.0"
+category: "core"
+author: "AI Instruction Kits"
+
+# Core function-specific variable definitions (system-wide impact)
+variables:
+  - name: "[system_level_variable]"
+    description: "[System-wide variable description]"
+    type: "enum"
+    required: true  # Core module variables are typically required
+    values: ["[option1]", "[option2]", "[option3]"]
+    default: "[system_default_value]"
+  
+  - name: "[operation_mode_variable]"
+    description: "[System operation mode setting]"
+    type: "enum"
+    required: true
+    values: ["strict", "flexible", "adaptive"]
+    default: "flexible"
+
+# Dependencies with other modules (core modules typically have minimal dependencies)
+dependencies:
+  required: []  # Core modules typically don't depend on others
+  optional:
+    - "[optional_dependency_id]"  # If needed
+
+# Compatibility (typically compatible with all modules)
+compatibility:
+  universal_compatibility: true  # Compatible with all modules
+  restricted_combinations: []    # Restricted combinations (if any)
+
+# Core functionality definition
+core_functionality:
+  primary_purpose: "[primary_purpose]"  # e.g., "define_basic_ai_behavior"
+  
+  system_level_impact:
+    - "[system_impact1]"  # e.g., "affects_all_outputs", "sets_operational_principles"
+    - "[system_impact2]"
+  
+  foundational_elements:
+    - element: "[foundational_element1]"
+      description: "[element_description]"
+      importance: "critical"  # critical, high, medium
+      scope: "[impact_scope]"
+    
+    - element: "[foundational_element2]"
+      description: "[element_description]"
+      importance: "high"
+      scope: "[impact_scope]"
+
+# System configuration and setup
+system_configuration:
+  default_behaviors:
+    - "[default_behavior1]"    # e.g., "polite_formal_responses"
+    - "[default_behavior2]"    # e.g., "structured_output"
+  
+  override_mechanisms:
+    - "[override_mechanism1]"        # e.g., "user_specified_behavior_changes"
+    - "[override_mechanism2]"
+  
+  configuration_hierarchy:
+    - level: "[configuration_level1]"  # e.g., "system_defaults"
+      priority: 1
+      description: "[level_description]"
+    
+    - level: "[configuration_level2]"  # e.g., "module_settings"
+      priority: 2
+      description: "[level_description]"
+
+# Constraints and guardrails
+constraints_guardrails:
+  mandatory_constraints:
+    - "[mandatory_constraint1]"          # e.g., "protect_personal_information"
+    - "[mandatory_constraint2]"          # e.g., "follow_ethical_guidelines"
+  
+  conditional_constraints:
+    - condition: "[condition1]"
+      constraint: "[conditional_constraint1]"
+    
+    - condition: "[condition2]"
+      constraint: "[conditional_constraint2]"
+  
+  validation_rules:
+    - "[validation_rule1]"        # e.g., "output_content_validity_check"
+    - "[validation_rule2]"
+
+# Output configuration (core function-specific)
+output_format:
+  structure_requirements:
+    - "[structure_requirement1]"          # e.g., "clear_heading_structure"
+    - "[structure_requirement2]"          # e.g., "logical_information_hierarchy"
+  
+  formatting_standards:
+    - "[formatting_standard1]"  # e.g., "markdown_format"
+    - "[formatting_standard2]"  # e.g., "consistent_symbol_usage"
+  
+  quality_requirements:
+    - "[quality_requirement1]"          # e.g., "clear_concise_expression"
+    - "[quality_requirement2]"          # e.g., "logical_consistency"
+
+# Tags (for search and classification)
+tags:
+  - "core"                   # Required: core module identification
+  - "[function_type]"        # e.g., "behavior", "format", "constraint"
+  - "[impact_scope]"         # e.g., "system_wide", "output_specific"
+  - "[importance_level]"     # e.g., "critical", "foundational"
+
+# Usage examples (showing system-wide impact)
+examples:
+  - title: "[Basic Configuration Example]"
+    description: "[Basic core configuration explanation]"
+    context: "[Overall applicable context]"
+    variables:
+      [variable_name]: "[basic_setting]"
+    system_impact:
+      - "[system_impact1]"
+      - "[system_impact2]"
+    expected_behavior:
+      - "[expected_behavior1]"
+      - "[expected_behavior2]"
+  
+  - title: "[Custom Configuration Example]"
+    description: "[Customized core configuration]"
+    context: "[Special application context]"
+    variables:
+      [variable_name]: "[custom_setting]"
+    system_impact:
+      - "[system_impact1]"
+      - "[system_impact2]"
+    expected_behavior:
+      - "[expected_behavior1]"
+      - "[expected_behavior2]"
+
+# Metadata
+metadata:
+  complexity: "basic"        # Core modules are typically simple
+  system_criticality: "critical"  # Importance to the system
+  modification_impact: "high"     # Impact when changed
+  
+  prerequisites:
+    - "[prerequisite1]"  # e.g., "system_initialization"
+    - "[prerequisite2]"
+  
+  affected_components:
+    - "[affected_component1]"  # e.g., "all_output_modules"
+    - "[affected_component2]"  # e.g., "behavior_control_system"
+
+# System integration
+system_integration:
+  initialization_order: "[initialization_order]"  # e.g., "1" (loaded first)
+  
+  integration_points:
+    - point: "[integration_point1]"
+      description: "[integration_description]"
+      interaction_type: "[interaction_type]"
+    
+    - point: "[integration_point2]"
+      description: "[integration_description]"
+      interaction_type: "[interaction_type]"
+  
+  module_interactions:
+    - "[module_interaction1]"  # e.g., "controls_other_module_behavior"
+    - "[module_interaction2]"
+
+# Performance and efficiency
+performance_efficiency:
+  processing_overhead: "[processing_overhead]"  # e.g., "minimal", "low", "medium"
+  
+  optimization_considerations:
+    - "[optimization_consideration1]"    # e.g., "frequently_accessed_settings"
+    - "[optimization_consideration2]"
+  
+  caching_strategy:
+    - "[caching_strategy1]"    # e.g., "memory_cache_settings"
+    - "[caching_strategy2]"
+
+# Error handling and fallback
+error_handling:
+  error_scenarios:
+    - scenario: "[error_scenario1]"
+      handling: "[handling_method1]"
+      fallback: "[fallback_behavior1]"
+    
+    - scenario: "[error_scenario2]"
+      handling: "[handling_method2]"
+      fallback: "[fallback_behavior2]"
+  
+  recovery_mechanisms:
+    - "[recovery_mechanism1]"   # e.g., "revert_to_default_values"
+    - "[recovery_mechanism2]"
+
+# Security and privacy
+security_privacy:
+  security_implications:
+    - "[security_implication1]"  # e.g., "system_control_related_settings"
+    - "[security_implication2]"
+  
+  privacy_considerations:
+    - "[privacy_consideration1]"  # e.g., "personal_data_processing_constraints"
+    - "[privacy_consideration2]"
+  
+  access_controls:
+    - "[access_control1]"      # e.g., "admin_only_modifications"
+    - "[access_control2]"
+
+# Validation and testing
+validation_testing:
+  unit_tests:
+    - "[unit_test1]"    # e.g., "setting_value_validity_verification"
+    - "[unit_test2]"
+  
+  integration_tests:
+    - "[integration_test1]"        # e.g., "interaction_with_other_modules"
+    - "[integration_test2]"
+  
+  system_tests:
+    - "[system_test1]"    # e.g., "overall_behavior_verification"
+    - "[system_test2]"
+
+# Monitoring and diagnostics
+monitoring_diagnostics:
+  health_checks:
+    - "[health_check1]"    # e.g., "core_function_health_verification"
+    - "[health_check2]"
+  
+  performance_metrics:
+    - "[performance_metric1]" # e.g., "setting_load_time"
+    - "[performance_metric2]"
+  
+  diagnostic_information:
+    - "[diagnostic_info1]"          # e.g., "current_configuration_state"
+    - "[diagnostic_info2]"
+
+# Creation date and version management
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

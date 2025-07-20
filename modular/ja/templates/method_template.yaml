@@ -1,0 +1,265 @@
+# メソッドモジュール標準テンプレート
+# 使用方法: このテンプレートをコピーして新しい方法論モジュールを作成
+
+id: "method_[MODULE_NAME]"  # 例: method_agile, method_lean, method_design_thinking
+name: "[方法論名]"           # 例: "アジャイル開発", "リーン手法", "デザイン思考"
+description: "[方法論の詳細説明]"  # アプローチ、プロセス、原則を明記
+version: "1.0.0"
+category: "methods"
+author: "AI Instruction Kits"
+
+# 方法論固有の変数定義
+variables:
+  - name: "[実装スタイル変数]"
+    description: "[実装アプローチの説明]"
+    type: "enum"
+    values: ["[スタイル1]", "[スタイル2]", "[スタイル3]"]  # 例: "strict", "flexible", "hybrid"
+    default: "[推奨スタイル]"
+  
+  - name: "[スケール変数]"
+    description: "[適用規模の説明]"
+    type: "enum"
+    values: ["small_team", "medium_team", "large_organization", "enterprise"]
+    default: "medium_team"
+  
+  - name: "[成熟度変数]"
+    description: "[組織の成熟度レベル]"
+    type: "enum"
+    values: ["beginner", "developing", "mature", "optimizing"]
+    default: "developing"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - "[基盤スキルID]"        # 例: skill_facilitation, skill_communication
+  optional:
+    - "[補助スキルID]"        # 例: skill_project_management, skill_measurement
+    - "[関連専門知識ID]"      # 例: expertise_change_management
+
+# 互換性のあるタスク・モジュール
+compatible_tasks:
+  - "[関連タスクID]"  # この方法論が適用できるタスク
+compatible_methods:
+  - "[関連方法論ID]"  # 組み合わせて使える他の方法論
+
+# 方法論の構造・フレームワーク
+methodology_framework:
+  core_principles:
+    - "[中核原則1]"  # 例: "個人と対話を重視", "動くソフトウェアを重視"
+    - "[中核原則2]"
+    - "[中核原則3]"
+  
+  key_concepts:
+    - concept: "[重要概念1]"
+      definition: "[概念の定義]"
+      importance: "[重要性の説明]"
+    
+    - concept: "[重要概念2]"
+      definition: "[概念の定義]"
+      importance: "[重要性の説明]"
+  
+  foundational_elements:
+    - "[基盤要素1]"  # 例: "イテレーション", "フィードバックループ"
+    - "[基盤要素2]"
+
+# プロセス・ワークフロー
+process_workflow:
+  phases:
+    - phase: "[フェーズ1]"
+      description: "[フェーズの説明]"
+      duration: "[期間の目安]"
+      key_activities:
+        - "[主要活動1]"
+        - "[主要活動2]"
+      deliverables:
+        - "[成果物1]"
+        - "[成果物2]"
+    
+    - phase: "[フェーズ2]"
+      description: "[フェーズの説明]"
+      duration: "[期間の目安]"
+      key_activities:
+        - "[主要活動1]"
+        - "[主要活動2]"
+      deliverables:
+        - "[成果物1]"
+        - "[成果物2]"
+  
+  iterative_cycles:
+    - cycle: "[サイクル1]"
+      frequency: "[頻度]"  # 例: "毎日", "週次", "月次"
+      purpose: "[目的]"
+      participants: "[参加者]"
+    
+    - cycle: "[サイクル2]"
+      frequency: "[頻度]"
+      purpose: "[目的]"
+      participants: "[参加者]"
+
+# 役割・責任
+roles_and_responsibilities:
+  key_roles:
+    - role: "[役割1]"
+      responsibilities:
+        - "[責任1]"
+        - "[責任2]"
+      required_skills:
+        - "[必要スキル1]"
+        - "[必要スキル2]"
+    
+    - role: "[役割2]"
+      responsibilities:
+        - "[責任1]"
+        - "[責任2]"
+      required_skills:
+        - "[必要スキル1]"
+        - "[必要スキル2]"
+  
+  team_structure:
+    - "[チーム構造の説明]"
+    - "[コラボレーション方法]"
+
+# 出力設定
+output_format:
+  structure:
+    - "[セクション1]"        # 例: "原則・価値観", "プロセス設計"
+    - "[セクション2]"        # 例: "実装ガイド", "測定指標"
+    - "[セクション3]"        # 例: "ベストプラクティス", "よくある課題"
+  
+  guidance_style: "[ガイダンススタイル]"  # 例: "step_by_step", "principle_based", "framework_oriented"
+  detail_level: "comprehensive"
+  include_templates: true  # テンプレート・チェックリストを含める
+
+# タグ（検索・分類用）
+tags:
+  - "[方法論タイプ]"        # 例: "agile", "lean", "design_thinking"
+  - "[適用領域]"            # 例: "software_development", "product_management", "innovation"
+  - "[組織規模]"            # 例: "startup", "enterprise", "team_level"
+  - "[変革レベル]"          # 例: "incremental", "transformational"
+
+# 包括的な使用例
+examples:
+  - title: "[基本実装例]"
+    description: "[基本的な実装シナリオ]"
+    context: "[適用文脈]"
+    variables:
+      [変数名]: "[基本設定値]"
+    implementation_steps:
+      - "[ステップ1]"
+      - "[ステップ2]"
+    expected_outcomes:
+      - "[期待成果1]"
+      - "[期待成果2]"
+  
+  - title: "[応用実装例]"
+    description: "[複雑な実装シナリオ]"
+    context: "[応用文脈]"
+    variables:
+      [変数名]: "[応用設定値]"
+    implementation_steps:
+      - "[ステップ1]"
+      - "[ステップ2]"
+    expected_outcomes:
+      - "[期待成果1]"
+      - "[期待成果2]"
+
+# メタデータ
+metadata:
+  complexity: "intermediate"  # basic, intermediate, advanced, expert
+  implementation_time: "[実装期間]"  # 例: "3-6ヶ月", "1-2年"
+  change_impact: "[変革インパクト]"  # 例: "moderate", "significant", "transformational"
+  
+  prerequisites:
+    - "[前提条件1]"  # 例: "経営陣の支援", "チームの変革意欲"
+    - "[前提条件2]"
+  
+  success_factors:
+    - "[成功要因1]"  # 例: "継続的な学習", "文化的適応"
+    - "[成功要因2]"
+
+# 実装ガイダンス
+implementation_guidance:
+  getting_started:
+    - step: "[開始ステップ1]"
+      description: "[ステップの説明]"
+      resources_needed:
+        - "[必要リソース1]"
+        - "[必要リソース2]"
+    
+    - step: "[開始ステップ2]"
+      description: "[ステップの説明]"
+      resources_needed:
+        - "[必要リソース1]"
+        - "[必要リソース2]"
+  
+  scaling_considerations:
+    - "[スケーリング考慮事項1]"  # 例: "チーム規模に応じた調整"
+    - "[スケーリング考慮事項2]"
+  
+  adaptation_guidelines:
+    - "[適応ガイドライン1]"    # 例: "業界特性への対応"
+    - "[適応ガイドライン2]"
+
+# 測定・評価
+measurement_evaluation:
+  key_metrics:
+    - metric: "[指標1]"
+      description: "[指標の説明]"
+      measurement_method: "[測定方法]"
+      target_value: "[目標値]"
+    
+    - metric: "[指標2]"
+      description: "[指標の説明]"
+      measurement_method: "[測定方法]"
+      target_value: "[目標値]"
+  
+  success_indicators:
+    - "[成功指標1]"  # 例: "納期遵守率の向上"
+    - "[成功指標2]"  # 例: "チーム満足度の向上"
+  
+  monitoring_practices:
+    - "[モニタリング実践1]"  # 例: "定期的な振り返り"
+    - "[モニタリング実践2]"
+
+# よくある課題・対処法
+common_challenges:
+  typical_obstacles:
+    - challenge: "[課題1]"
+      description: "[課題の説明]"
+      mitigation_strategies:
+        - "[対処法1]"
+        - "[対処法2]"
+    
+    - challenge: "[課題2]"
+      description: "[課題の説明]"
+      mitigation_strategies:
+        - "[対処法1]"
+        - "[対処法2]"
+  
+  anti_patterns:
+    - "[アンチパターン1]"  # 避けるべき実装パターン
+    - "[アンチパターン2]"
+
+# ツール・リソース
+tools_and_resources:
+  recommended_tools:
+    - tool: "[ツール1]"
+      purpose: "[使用目的]"
+      category: "[カテゴリ]"  # 例: "planning", "tracking", "communication"
+    
+    - tool: "[ツール2]"
+      purpose: "[使用目的]"
+      category: "[カテゴリ]"
+  
+  templates_checklists:
+    - "[テンプレート1]"  # 例: "プロジェクト計画テンプレート"
+    - "[チェックリスト1]"  # 例: "品質チェックリスト"
+  
+  reference_materials:
+    - "[参考資料1]"  # 例: "アジャイルマニフェスト"
+    - "[参考資料2]"
+
+# 作成日時とバージョン管理
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

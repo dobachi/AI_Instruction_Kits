@@ -1,0 +1,199 @@
+# ロールモジュール標準テンプレート
+# 使用方法: このテンプレートをコピーして新しいロールモジュールを作成
+
+id: "role_[MODULE_NAME]"  # 例: role_mentor, role_consultant, role_reviewer
+name: "[ロール名]"         # 例: "メンター", "コンサルタント", "レビュアー"
+description: "[ロールの詳細説明]"  # AIがどのような役割・ペルソナで振る舞うかを明記
+version: "1.0.0"
+category: "roles"
+author: "AI Instruction Kits"
+
+# ロール固有の変数定義
+variables:
+  - name: "[ロールスタイル変数]"
+    description: "[ロールのスタイル・アプローチ]"
+    type: "enum"
+    values: ["[スタイル1]", "[スタイル2]", "[スタイル3]"]  # 例: "directive", "collaborative", "supportive"
+    default: "[デフォルトスタイル]"
+  
+  - name: "[経験レベル変数]"
+    description: "[ロールの経験・専門性レベル]"
+    type: "enum"
+    values: ["junior", "senior", "expert", "veteran"]
+    default: "senior"
+  
+  - name: "[コミュニケーション変数]"
+    description: "[コミュニケーションスタイル]"
+    type: "enum"
+    values: ["formal", "casual", "technical", "business"]
+    default: "professional"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - "[基盤スキルID]"        # 例: skill_communication, skill_critical_thinking
+  optional:
+    - "[補助スキルID]"        # 例: skill_facilitation, skill_presentation
+    - "[関連専門知識ID]"      # 例: expertise_leadership, expertise_domain_specific
+
+# 互換性のあるタスク・モジュール
+compatible_tasks:
+  - "[関連タスクID]"  # このロールが実行できるタスク
+compatible_domains:
+  - "[関連ドメインID]"  # このロールが活用できる業界・ドメイン
+
+# ロールの特性・能力
+role_characteristics:
+  core_competencies:
+    - "[中核能力1]"  # 例: "戦略的思考", "問題解決", "チームリーダーシップ"
+    - "[中核能力2]"
+    - "[中核能力3]"
+  
+  behavioral_traits:
+    - "[行動特性1]"  # 例: "客観的分析", "共感的傾聴", "建設的フィードバック"
+    - "[行動特性2]"
+    - "[行動特性3]"
+  
+  communication_style:
+    - "[コミュニケーション特徴1]"  # 例: "明確で簡潔", "質問による気づき促進"
+    - "[コミュニケーション特徴2]"
+
+# ロールが実行するアクション・プロセス
+role_actions:
+  primary_activities:
+    - activity: "[主要活動1]"
+      description: "[活動の説明]"
+      approach: "[アプローチ方法]"
+    
+    - activity: "[主要活動2]"
+      description: "[活動の説明]"
+      approach: "[アプローチ方法]"
+  
+  interaction_patterns:
+    - pattern: "[交流パターン1]"
+      description: "[パターンの説明]"
+      when_to_use: "[使用場面]"
+    
+    - pattern: "[交流パターン2]"
+      description: "[パターンの説明]"
+      when_to_use: "[使用場面]"
+
+# 出力設定（ロール特有の出力スタイル）
+output_format:
+  tone: "[トーン]"              # 例: "supportive", "analytical", "directive"
+  style: "[スタイル]"           # 例: "conversational", "structured", "consultative"
+  perspective: "[視点]"          # 例: "strategic", "tactical", "holistic"
+  
+  structure:
+    - "[出力構造1]"             # 例: "現状分析", "課題特定", "解決策提案"
+    - "[出力構造2]"
+  
+  interaction_mode: "[交流モード]"  # 例: "guidance", "collaboration", "evaluation"
+
+# タグ（検索・分類用）
+tags:
+  - "[ロールタイプ]"          # 例: "advisor", "facilitator", "analyst"
+  - "[専門領域]"              # 例: "leadership", "technical", "creative"
+  - "[交流スタイル]"          # 例: "mentoring", "consulting", "coaching"
+  - "[対象レベル]"            # 例: "executive", "team_lead", "individual"
+
+# 使用例（多様なシナリオ）
+examples:
+  - title: "[使用例1のタイトル]"
+    description: "[使用例の説明]"
+    context: "[使用する文脈・状況]"
+    variables:
+      [変数名]: "[設定値]"
+    interaction_style: "[交流スタイル]"
+    expected_outcome: "[期待される成果]"
+  
+  - title: "[使用例2のタイトル]"
+    description: "[別のシナリオでの使用例]"
+    context: "[別の使用文脈]"
+    variables:
+      [変数名]: "[別の設定値]"
+    interaction_style: "[別の交流スタイル]"
+    expected_outcome: "[期待される成果]"
+
+# メタデータ
+metadata:
+  complexity: "intermediate"  # basic, intermediate, advanced, expert
+  interaction_depth: "[交流の深度]"  # 例: "surface", "moderate", "deep"
+  relationship_type: "[関係性タイプ]"  # 例: "professional", "mentoring", "collaborative"
+  
+  prerequisites:
+    - "[前提条件1]"  # 例: "基本的なビジネス知識"
+    - "[前提条件2]"
+  
+  target_scenarios:
+    - "[対象シナリオ1]"  # 例: "チーム会議", "戦略セッション", "個人指導"
+    - "[対象シナリオ2]"
+
+# ロール適応性・文脈対応
+adaptability:
+  situational_adjustments:
+    - situation: "[状況1]"
+      adjustment: "[調整方法1]"
+    
+    - situation: "[状況2]"
+      adjustment: "[調整方法2]"
+  
+  audience_adaptation:
+    - audience: "[対象者1]"  # 例: "経営陣", "技術者", "新人"
+      approach: "[アプローチ調整1]"
+    
+    - audience: "[対象者2]"
+      approach: "[アプローチ調整2]"
+
+# ロールの境界・制約
+role_boundaries:
+  responsibilities:
+    - "[責任範囲1]"  # 例: "戦略的アドバイス提供"
+    - "[責任範囲2]"
+  
+  limitations:
+    - "[制約1]"      # 例: "最終決定は行わない"
+    - "[制約2]"
+  
+  ethical_guidelines:
+    - "[倫理ガイドライン1]"  # 例: "守秘義務の遵守"
+    - "[倫理ガイドライン2]"
+
+# 成功指標・評価基準
+success_metrics:
+  relationship_quality:
+    - "[関係性指標1]"  # 例: "信頼関係の構築"
+    - "[関係性指標2]"
+  
+  output_quality:
+    - "[出力品質指標1]"  # 例: "アドバイスの実用性"
+    - "[出力品質指標2]"
+  
+  impact_measures:
+    - "[影響度指標1]"    # 例: "意思決定の改善"
+    - "[影響度指標2]"
+
+# 文化的・組織的考慮事項
+cultural_considerations:
+  cultural_sensitivity:
+    - "[文化的配慮1]"  # 例: "階層構造への理解"
+    - "[文化的配慮2]"
+  
+  organizational_context:
+    - "[組織的文脈1]"  # 例: "企業文化への適応"
+    - "[組織的文脈2]"
+
+# 継続的改善・学習
+continuous_improvement:
+  feedback_integration:
+    - "[フィードバック活用1]"  # 例: "相手の反応に応じた調整"
+    - "[フィードバック活用2]"
+  
+  skill_development:
+    - "[スキル向上1]"        # 例: "新しい手法の習得"
+    - "[スキル向上2]"
+
+# 作成日時とバージョン管理
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

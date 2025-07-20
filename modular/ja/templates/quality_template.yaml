@@ -1,0 +1,269 @@
+# 品質モジュール標準テンプレート
+# 使用方法: このテンプレートをコピーして新しい品質モジュールを作成
+
+id: "quality_[MODULE_NAME]"  # 例: quality_production, quality_security, quality_performance
+name: "[品質基準名]"          # 例: "本番品質", "セキュリティ品質", "パフォーマンス品質"
+description: "[品質基準の詳細説明]"  # 品質レベル、基準、要件を明記
+version: "1.0.0"
+category: "quality"
+author: "AI Instruction Kits"
+
+# 品質レベル固有の変数定義
+variables:
+  - name: "[品質レベル変数]"
+    description: "[品質レベルの説明]"
+    type: "enum"
+    values: ["basic", "standard", "high", "enterprise", "mission_critical"]
+    default: "standard"
+  
+  - name: "[適用スコープ変数]"
+    description: "[品質基準の適用範囲]"
+    type: "enum"
+    values: ["development", "testing", "deployment", "operations", "full_lifecycle"]
+    default: "full_lifecycle"
+  
+  - name: "[検証厳密度変数]"
+    description: "[検証・テストの厳密度]"
+    type: "enum"
+    values: ["minimal", "standard", "comprehensive", "exhaustive"]
+    default: "comprehensive"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - "[基盤スキルID]"        # 例: skill_testing, skill_monitoring
+  optional:
+    - "[関連スキルID]"        # 例: skill_performance, skill_security
+    - "[関連方法論ID]"        # 例: method_continuous_integration
+
+# 互換性のあるタスク・モジュール
+compatible_tasks:
+  - "[関連タスクID]"  # この品質基準が適用されるタスク
+compatible_domains:
+  - "[関連ドメインID]"  # この品質基準が重要なドメイン
+
+# 品質基準・要件
+quality_standards:
+  core_requirements:
+    - requirement: "[中核要件1]"
+      description: "[要件の詳細説明]"
+      criticality: "high"  # high, medium, low
+      validation_method: "[検証方法]"
+      acceptance_criteria:
+        - "[受入基準1]"
+        - "[受入基準2]"
+    
+    - requirement: "[中核要件2]"
+      description: "[要件の詳細説明]"
+      criticality: "medium"
+      validation_method: "[検証方法]"
+      acceptance_criteria:
+        - "[受入基準1]"
+        - "[受入基準2]"
+  
+  performance_criteria:
+    - metric: "[パフォーマンス指標1]"  # 例: "応答時間", "スループット"
+      target: "[目標値]"
+      threshold: "[閾値]"
+      measurement_method: "[測定方法]"
+    
+    - metric: "[パフォーマンス指標2]"
+      target: "[目標値]"
+      threshold: "[閾値]"
+      measurement_method: "[測定方法]"
+  
+  reliability_standards:
+    - "[信頼性基準1]"        # 例: "可用性99.9%", "MTBF目標"
+    - "[信頼性基準2]"
+
+# 検証・テスト要件
+validation_testing:
+  test_categories:
+    - category: "[テストカテゴリ1]"  # 例: "単体テスト", "統合テスト"
+      coverage_requirement: "[カバレッジ要件]"  # 例: "90%以上"
+      automation_level: "[自動化レベル]"       # 例: "完全自動化"
+      execution_frequency: "[実行頻度]"        # 例: "毎ビルド"
+    
+    - category: "[テストカテゴリ2]"
+      coverage_requirement: "[カバレッジ要件]"
+      automation_level: "[自動化レベル]"
+      execution_frequency: "[実行頻度]"
+  
+  quality_gates:
+    - gate: "[品質ゲート1]"   # 例: "コードレビュー完了"
+      criteria:
+        - "[基準1]"
+        - "[基準2]"
+      blocking: true         # true/false - ブロッキング要件か
+    
+    - gate: "[品質ゲート2]"
+      criteria:
+        - "[基準1]"
+        - "[基準2]"
+      blocking: false
+  
+  review_requirements:
+    - "[レビュー要件1]"      # 例: "コードレビュー必須"
+    - "[レビュー要件2]"      # 例: "アーキテクチャレビュー"
+
+# 監視・モニタリング
+monitoring_observability:
+  key_metrics:
+    - metric: "[監視指標1]"   # 例: "エラー率", "レスポンス時間"
+      alert_threshold: "[アラート閾値]"
+      monitoring_frequency: "[監視頻度]"
+      escalation_procedure: "[エスカレーション手順]"
+    
+    - metric: "[監視指標2]"
+      alert_threshold: "[アラート閾値]"
+      monitoring_frequency: "[監視頻度]"
+      escalation_procedure: "[エスカレーション手順]"
+  
+  logging_requirements:
+    - "[ログ要件1]"          # 例: "全API呼び出しをログ"
+    - "[ログ要件2]"          # 例: "エラー詳細の記録"
+  
+  alerting_strategy:
+    - "[アラート戦略1]"      # 例: "段階的エスカレーション"
+    - "[アラート戦略2]"
+
+# 出力設定
+output_format:
+  structure:
+    - "[セクション1]"        # 例: "品質要件", "検証プロセス"
+    - "[セクション2]"        # 例: "監視設定", "インシデント対応"
+    - "[セクション3]"        # 例: "改善プロセス", "レポート"
+  
+  enforcement_level: "[強制レベル]"  # 例: "mandatory", "recommended", "optional"
+  include_checklists: true          # チェックリストを含める
+  include_templates: true           # テンプレートを含める
+
+# タグ（検索・分類用）
+tags:
+  - "[品質タイプ]"          # 例: "functional", "non_functional", "security"
+  - "[適用フェーズ]"        # 例: "development", "testing", "production"
+  - "[重要度]"              # 例: "critical", "important", "standard"
+  - "[自動化レベル]"        # 例: "fully_automated", "semi_automated", "manual"
+
+# 包括的な使用例
+examples:
+  - title: "[基本実装例]"
+    description: "[基本的な品質基準適用例]"
+    context: "[適用文脈・環境]"
+    variables:
+      [変数名]: "[基本設定値]"
+    implementation_approach:
+      - "[実装アプローチ1]"
+      - "[実装アプローチ2]"
+    validation_checklist:
+      - "[検証項目1]"
+      - "[検証項目2]"
+  
+  - title: "[厳格実装例]"
+    description: "[厳格な品質基準適用例]"
+    context: "[高品質要求環境]"
+    variables:
+      [変数名]: "[厳格設定値]"
+    implementation_approach:
+      - "[実装アプローチ1]"
+      - "[実装アプローチ2]"
+    validation_checklist:
+      - "[検証項目1]"
+      - "[検証項目2]"
+
+# メタデータ
+metadata:
+  complexity: "advanced"           # 品質モジュールは通常高度
+  enforcement_strictness: "[強制厳密度]"  # 例: "strict", "flexible", "adaptive"
+  impact_scope: "[影響範囲]"              # 例: "system_wide", "component_level"
+  
+  prerequisites:
+    - "[前提条件1]"  # 例: "CI/CDパイプライン"
+    - "[前提条件2]"  # 例: "監視システム"
+  
+  stakeholders:
+    - "[ステークホルダー1]"  # 例: "開発チーム", "QAチーム"
+    - "[ステークホルダー2]"  # 例: "運用チーム", "セキュリティチーム"
+
+# プロセス統合
+process_integration:
+  development_integration:
+    - "[開発統合1]"         # 例: "IDE統合リンティング"
+    - "[開発統合2]"         # 例: "プリコミットフック"
+  
+  cicd_integration:
+    - "[CI/CD統合1]"        # 例: "自動テスト実行"
+    - "[CI/CD統合2]"        # 例: "品質ゲートチェック"
+  
+  deployment_integration:
+    - "[デプロイ統合1]"     # 例: "本番前品質確認"
+    - "[デプロイ統合2]"     # 例: "ロールバック基準"
+
+# 改善・最適化
+continuous_improvement:
+  feedback_loops:
+    - "[フィードバックループ1]"  # 例: "品質メトリクス分析"
+    - "[フィードバックループ2]"  # 例: "インシデント事後分析"
+  
+  optimization_strategies:
+    - "[最適化戦略1]"           # 例: "自動化拡大"
+    - "[最適化戦略2]"           # 例: "予測的品質管理"
+  
+  benchmark_tracking:
+    - "[ベンチマーク1]"         # 例: "業界標準との比較"
+    - "[ベンチマーク2]"         # 例: "過去パフォーマンス比較"
+
+# コンプライアンス・監査
+compliance_audit:
+  compliance_requirements:
+    - "[コンプライアンス要件1]"  # 例: "SOX法対応"
+    - "[コンプライアンス要件2]"  # 例: "ISO 27001準拠"
+  
+  audit_trails:
+    - "[監査証跡1]"             # 例: "すべての変更履歴"
+    - "[監査証跡2]"             # 例: "承認プロセス記録"
+  
+  documentation_requirements:
+    - "[文書化要件1]"           # 例: "品質計画書"
+    - "[文書化要件2]"           # 例: "テスト結果レポート"
+
+# インシデント対応
+incident_response:
+  escalation_matrix:
+    - severity: "[深刻度1]"     # 例: "Critical"
+      response_time: "[対応時間]"
+      stakeholders: "[関係者]"
+      actions:
+        - "[対応アクション1]"
+        - "[対応アクション2]"
+    
+    - severity: "[深刻度2]"
+      response_time: "[対応時間]"
+      stakeholders: "[関係者]"
+      actions:
+        - "[対応アクション1]"
+        - "[対応アクション2]"
+  
+  recovery_procedures:
+    - "[復旧手順1]"             # 例: "自動ロールバック"
+    - "[復旧手順2]"             # 例: "手動復旧プロセス"
+
+# ツール・自動化
+tools_automation:
+  quality_tools:
+    - tool: "[品質ツール1]"
+      purpose: "[使用目的]"
+      integration_level: "[統合レベル]"
+    
+    - tool: "[品質ツール2]"
+      purpose: "[使用目的]"
+      integration_level: "[統合レベル]"
+  
+  automation_frameworks:
+    - "[自動化フレームワーク1]"  # 例: "テスト自動化"
+    - "[自動化フレームワーク2]"  # 例: "デプロイ自動化"
+
+# 作成日時とバージョン管理
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

@@ -1,0 +1,193 @@
+# エクスパティーズモジュール標準テンプレート
+# 使用方法: このテンプレートをコピーして新しい専門知識モジュールを作成
+
+id: "expertise_[MODULE_NAME]"  # 例: expertise_machine_learning, expertise_academic_writing
+name: "[専門分野名]"             # 例: "機械学習専門知識", "学術文章作成専門知識"
+description: "[専門知識の詳細説明]"  # 最新トレンドと深い専門知識を提供することを明記
+version: "1.0.0"
+category: "expertise"
+subcategory: "[サブカテゴリ]"    # 例: "ai_ml", "academic_research", "software_engineering"
+author: "AI Instruction Kits"
+
+# 専門分野関連の変数定義（詳細な設定オプション）
+variables:
+  - name: "[専門領域変数]"
+    description: "[専門領域の説明]"
+    type: "enum"
+    values: ["[専門分野1]", "[専門分野2]", "[専門分野3]"]
+    default: "[デフォルト専門分野]"
+  
+  - name: "[専門レベル変数]"
+    description: "[専門レベルの説明]"
+    type: "enum"
+    values: ["beginner", "intermediate", "advanced", "expert"]
+    default: "intermediate"
+  
+  - name: "[アプローチ変数]"
+    description: "[アプローチ手法の説明]"
+    type: "enum"
+    values: ["[手法1]", "[手法2]", "[手法3]"]
+    default: "[推奨手法]"
+
+# 他のモジュールとの依存関係（専門知識は他の基盤モジュールに依存）
+dependencies:
+  required:
+    - "[基盤スキルID]"        # 例: skill_critical_thinking, skill_systems_thinking
+    - "[関連方法論ID]"        # 例: method_research_methodology
+  optional:
+    - "[補助タスクID]"        # 例: task_documentation, task_data_analysis
+    - "[関連スキルID]"        # 例: skill_visualization, skill_communication
+
+# 互換性のあるタスク・モジュール
+compatible_tasks:
+  - "[関連タスクID]"  # この専門知識が活用できるタスク
+compatible_domains:
+  - "[関連ドメインID]"  # 関連する業界・ドメイン
+
+# 専門知識の構造（階層的に整理）
+knowledge_structure:
+  fundamental_concepts:
+    - "[基礎概念1]"  # 例: "機械学習の基本原理", "学術文章の構造"
+    - "[基礎概念2]"
+  
+  advanced_topics:
+    - "[応用トピック1]"  # 例: "深層学習アーキテクチャ", "査読プロセス"
+    - "[応用トピック2]"
+  
+  current_trends:
+    - "[最新トレンド1]"  # 2024-2025年の最新動向
+    - "[最新トレンド2]"
+  
+  best_practices:
+    - "[ベストプラクティス1]"  # 業界標準・推奨事項
+    - "[ベストプラクティス2]"
+
+# 出力設定（包括的で詳細な出力）
+output_format:
+  structure:
+    - "[セクション1]"        # 例: "理論的背景", "実装ガイドライン"
+    - "[セクション2]"        # 例: "ベストプラクティス", "最新動向"
+    - "[セクション3]"        # 例: "実例・ケーススタディ", "推奨ツール"
+  level_of_detail: comprehensive  # 専門知識は常に包括的
+  include_examples: true
+  include_references: true
+
+# タグ（検索・分類用）
+tags:
+  - "[専門分野]"           # 例: "machine_learning", "academic_writing"
+  - "[技術スタック]"       # 例: "python", "tensorflow", "latex"
+  - "[業界・ドメイン]"     # 例: "academia", "healthcare", "finance"
+  - "[専門レベル]"         # 例: "expert_level", "cutting_edge"
+  - "[年度]"              # 例: "2024_2025", "latest_trends"
+
+# 包括的な使用例（多様なシナリオ）
+examples:
+  - title: "[基本的な使用例]"
+    description: "[初心者向けの使用説明]"
+    scenario: "[使用シナリオ]"
+    variables:
+      [変数名]: "[基本設定値]"
+    expected_depth: "foundational"
+  
+  - title: "[応用的な使用例]"
+    description: "[上級者向けの使用説明]"
+    scenario: "[複雑なシナリオ]"
+    variables:
+      [変数名]: "[応用設定値]"
+    expected_depth: "comprehensive"
+  
+  - title: "[最新トレンド適用例]"
+    description: "[最新技術を適用した例]"
+    scenario: "[最先端シナリオ]"
+    variables:
+      [変数名]: "[最新設定値]"
+    expected_depth: "cutting_edge"
+
+# メタデータ（専門知識特有）
+metadata:
+  complexity: "expert"  # 専門知識は通常expertレベル
+  domain_depth: "comprehensive"
+  currency: "2024-2025"  # 情報の最新性
+  authority_level: "expert"  # 権威性レベル
+  
+  prerequisites:
+    - "[前提知識1]"  # 例: "統計学の基礎知識"
+    - "[前提知識2]"  # 例: "プログラミング経験"
+  
+  target_audience:
+    - "[対象者1]"    # 例: "研究者", "上級開発者"
+    - "[対象者2]"    # 例: "専門家", "意思決定者"
+
+# 専門的なガイドライン・原則
+professional_guidelines:
+  ethical_considerations:
+    - "[倫理的考慮事項1]"  # 例: "研究倫理の遵守"
+    - "[倫理的考慮事項2]"
+  
+  industry_standards:
+    - "[業界標準1]"       # 例: "IEEE標準", "学術出版ガイドライン"
+    - "[業界標準2]"
+  
+  quality_assurance:
+    - "[品質保証1]"       # 例: "ピアレビュー", "再現性の確保"
+    - "[品質保証2]"
+
+# 最新動向・将来展望（2024-2025年版）
+current_landscape:
+  emerging_trends:
+    - "[新興トレンド1]"   # 例: "生成AI技術の発展"
+    - "[新興トレンド2]"
+  
+  technology_evolution:
+    - "[技術進化1]"       # 例: "新しいアルゴリズム", "ツールの発展"
+    - "[技術進化2]"
+  
+  future_outlook:
+    - "[将来展望1]"       # 今後の方向性
+    - "[将来展望2]"
+
+# リソース・参考文献（権威ある情報源）
+resources:
+  authoritative_sources:
+    - title: "[権威ある文献1]"
+      author: "[著者名]"
+      year: "[発行年]"
+      relevance: "[関連性の説明]"
+    
+    - title: "[権威ある文献2]"
+      author: "[著者名]"
+      year: "[発行年]"
+      relevance: "[関連性の説明]"
+  
+  online_resources:
+    - title: "[オンラインリソース1]"
+      url: "[URL]"
+      description: "[説明]"
+    
+    - title: "[オンラインリソース2]"
+      url: "[URL]"
+      description: "[説明]"
+  
+  tools_and_platforms:
+    - "[ツール1]"  # 例: "TensorFlow", "PyTorch", "Zotero"
+    - "[ツール2]"
+
+# 継続的学習・アップデート
+continuous_learning:
+  update_frequency: "[更新頻度]"  # 例: "四半期ごと", "年2回"
+  monitoring_sources:
+    - "[情報源1]"  # 例: "主要学会", "業界レポート"
+    - "[情報源2]"
+  
+  key_conferences:
+    - "[重要会議1]"  # 例: "NeurIPS", "ICML"
+    - "[重要会議2]"
+
+# 作成日時とバージョン管理
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"
+research_sources:  # 専門知識特有：情報源の明記
+  - "[研究源1]"
+  - "[研究源2]"
+  - "[研究源3]"

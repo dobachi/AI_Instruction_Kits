@@ -1,0 +1,260 @@
+# Domain Module Standard Template
+# Usage: Copy this template to create new domain modules
+
+id: "domain_[MODULE_NAME]"  # e.g., domain_fintech, domain_healthcare, domain_education
+name: "[Domain Name]"       # e.g., "Fintech", "Healthcare", "Education"
+description: "[Detailed domain description]"  # Specify industry-specific knowledge, practices, and regulatory requirements
+version: "1.0.0"
+category: "domains"
+author: "AI Instruction Kits"
+
+# Domain-specific variable definitions
+variables:
+  - name: "[regulatory_jurisdiction_variable]"
+    description: "[Regulatory region/jurisdiction description]"
+    type: "enum"
+    values: ["[region1]", "[region2]", "[region3]"]  # e.g., "JP", "US", "EU", "global"
+    default: "[default_region]"
+  
+  - name: "[compliance_level_variable]"
+    description: "[Compliance requirement level]"
+    type: "enum"
+    values: ["basic", "standard", "strict", "enterprise"]
+    default: "standard"
+  
+  - name: "[industry_segment_variable]"
+    description: "[Industry segment/field]"
+    type: "enum"
+    values: ["[segment1]", "[segment2]", "[segment3]"]
+    default: "[primary_segment]"
+
+# Dependencies with other modules
+dependencies:
+  required:
+    - "[foundational_skill_id]"    # e.g., skill_compliance, skill_risk_management
+    - "[quality_requirement_id]"   # e.g., quality_production, quality_security
+  optional:
+    - "[related_skill_id]"         # e.g., skill_data_privacy, skill_audit
+    - "[expertise_id]"             # e.g., expertise_regulatory_compliance
+
+# Compatible tasks/modules
+compatible_tasks:
+  - "[related_task_id]"    # Tasks executed in this domain
+compatible_roles:
+  - "[related_role_id]"    # Roles needed in this domain
+
+# Domain knowledge and characteristics
+domain_knowledge:
+  industry_overview:
+    - "[industry_overview1]"  # e.g., "market_size", "key_players", "growth_trends"
+    - "[industry_overview2]"
+  
+  key_stakeholders:
+    - stakeholder: "[stakeholder1]"  # e.g., "regulatory_authorities", "industry_associations"
+      role: "[role_influence]"
+      importance: "[importance_level]"
+    
+    - stakeholder: "[stakeholder2]"
+      role: "[role_influence]"
+      importance: "[importance_level]"
+  
+  value_chain:
+    - "[value_chain_element1]"  # e.g., "procurement", "manufacturing", "sales", "support"
+    - "[value_chain_element2]"
+
+# Regulatory and compliance requirements
+regulatory_compliance:
+  key_regulations:
+    - regulation: "[regulation1]"
+      description: "[regulation_description]"
+      scope: "[application_scope]"
+      compliance_requirements:
+        - "[requirement1]"
+        - "[requirement2]"
+    
+    - regulation: "[regulation2]"
+      description: "[regulation_description]"
+      scope: "[application_scope]"
+      compliance_requirements:
+        - "[requirement1]"
+        - "[requirement2]"
+  
+  industry_standards:
+    - "[industry_standard1]"  # e.g., "ISO 27001", "PCI DSS", "GDPR"
+    - "[industry_standard2]"
+  
+  audit_requirements:
+    - "[audit_requirement1]"  # e.g., "annual_audit", "continuous_monitoring"
+    - "[audit_requirement2]"
+
+# Risk management
+risk_management:
+  common_risks:
+    - risk: "[risk1]"
+      description: "[risk_description]"
+      impact: "[impact_level]"  # high, medium, low
+      probability: "[probability]"  # high, medium, low
+      mitigation_strategies:
+        - "[mitigation1]"
+        - "[mitigation2]"
+    
+    - risk: "[risk2]"
+      description: "[risk_description]"
+      impact: "[impact_level]"
+      probability: "[probability]"
+      mitigation_strategies:
+        - "[mitigation1]"
+        - "[mitigation2]"
+  
+  risk_assessment_framework:
+    - "[assessment_framework1]"  # e.g., "risk_matrix", "quantitative_assessment"
+    - "[assessment_framework2]"
+
+# Output configuration
+output_format:
+  structure:
+    - "[section1]"        # e.g., "domain_specific_requirements", "regulatory_compliance"
+    - "[section2]"        # e.g., "best_practices", "risk_mitigation"
+    - "[section3]"        # e.g., "implementation_guidelines", "audit_preparation"
+  
+  compliance_focus: true     # Compliance-focused output
+  include_templates: true    # Include domain-specific templates
+  detail_level: "comprehensive"
+
+# Tags (for search and classification)
+tags:
+  - "[industry_name]"        # e.g., "finance", "healthcare", "education"
+  - "[region]"               # e.g., "japan", "us", "europe", "global"
+  - "[regulatory_level]"     # e.g., "highly_regulated", "standard_compliance"
+  - "[business_model]"       # e.g., "b2b", "b2c", "saas", "platform"
+
+# Comprehensive usage examples
+examples:
+  - title: "[Basic Implementation Example]"
+    description: "[Basic domain application example]"
+    context: "[Application context/situation]"
+    variables:
+      [variable_name]: "[basic_setting]"
+    compliance_focus:
+      - "[compliance_focus1]"
+      - "[compliance_focus2]"
+    expected_deliverables:
+      - "[deliverable1]"
+      - "[deliverable2]"
+  
+  - title: "[Advanced Implementation Example]"
+    description: "[Complex domain application example]"
+    context: "[Advanced context/situation]"
+    variables:
+      [variable_name]: "[advanced_setting]"
+    compliance_focus:
+      - "[compliance_focus1]"
+      - "[compliance_focus2]"
+    expected_deliverables:
+      - "[deliverable1]"
+      - "[deliverable2]"
+
+# Metadata
+metadata:
+  complexity: "advanced"    # Domain modules are typically complex
+  regulatory_complexity: "[regulatory_complexity]"  # e.g., "high", "medium", "low"
+  market_maturity: "[market_maturity]"             # e.g., "emerging", "growing", "mature"
+  
+  prerequisites:
+    - "[prerequisite1]"  # e.g., "industry_basic_knowledge", "regulatory_understanding"
+    - "[prerequisite2]"
+  
+  target_organizations:
+    - "[target_organization1]"  # e.g., "financial_institutions", "healthcare_providers"
+    - "[target_organization2]"
+
+# Industry-specific best practices
+industry_best_practices:
+  operational_practices:
+    - "[operational_practice1]"  # e.g., "continuous_compliance_monitoring"
+    - "[operational_practice2]"
+  
+  technology_practices:
+    - "[technology_practice1]"   # e.g., "security_by_design"
+    - "[technology_practice2]"
+  
+  governance_practices:
+    - "[governance_practice1]"   # e.g., "risk_committee_establishment"
+    - "[governance_practice2]"
+
+# Security and privacy
+security_privacy:
+  data_protection:
+    - "[data_protection_requirement1]"  # e.g., "personal_data_encryption"
+    - "[data_protection_requirement2]"
+  
+  access_controls:
+    - "[access_control1]"    # e.g., "multi_factor_authentication", "access_management"
+    - "[access_control2]"
+  
+  incident_response:
+    - "[incident_response1]"  # e.g., "24_hour_reporting", "breach_notification"
+    - "[incident_response2]"
+
+# Quality and performance standards
+quality_performance:
+  service_levels:
+    - metric: "[sla_metric1]"  # e.g., "availability", "response_time"
+      target: "[target_value]"
+      measurement: "[measurement_method]"
+    
+    - metric: "[sla_metric2]"
+      target: "[target_value]"
+      measurement: "[measurement_method]"
+  
+  quality_standards:
+    - "[quality_standard1]"        # e.g., "ISO_certification", "industry_accreditation"
+    - "[quality_standard2]"
+
+# Business model and revenue structure
+business_considerations:
+  revenue_models:
+    - "[revenue_model1]"      # e.g., "subscription", "transaction_fees"
+    - "[revenue_model2]"
+  
+  cost_structures:
+    - "[cost_structure1]"     # e.g., "regulatory_compliance_costs", "technology_investment"
+    - "[cost_structure2]"
+  
+  competitive_factors:
+    - "[competitive_factor1]" # e.g., "regulatory_advantage", "technology_innovation"
+    - "[competitive_factor2]"
+
+# Domain tools and platforms
+domain_tools:
+  specialized_tools:
+    - tool: "[specialized_tool1]"
+      purpose: "[usage_purpose]"
+      compliance_relevance: "[compliance_relevance]"
+    
+    - tool: "[specialized_tool2]"
+      purpose: "[usage_purpose]"
+      compliance_relevance: "[compliance_relevance]"
+  
+  integration_platforms:
+    - "[integration_platform1]"  # e.g., "industry_standard_apis", "data_exchange_platforms"
+    - "[integration_platform2]"
+
+# Continuous compliance and updates
+continuous_compliance:
+  monitoring_requirements:
+    - "[monitoring_requirement1]"  # e.g., "real_time_transaction_monitoring"
+    - "[monitoring_requirement2]"
+  
+  update_procedures:
+    - "[update_procedure1]"        # e.g., "regulatory_change_response_process"
+    - "[update_procedure2]"
+  
+  training_requirements:
+    - "[training_requirement1]"    # e.g., "annual_compliance_training"
+    - "[training_requirement2]"
+
+# Creation date and version management
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

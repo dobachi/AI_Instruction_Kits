@@ -1,0 +1,92 @@
+# タスクモジュール標準テンプレート
+# 使用方法: このテンプレートをコピーして新しいタスクモジュールを作成
+
+id: "task_[MODULE_NAME]"  # 例: task_code_generation, task_data_analysis
+name: "[タスク名]"         # 例: "コード生成", "データ分析"
+description: "[タスクの詳細説明]"  # 何を行うタスクか、目的と成果物を明記
+version: "1.0.0"
+category: "tasks"
+author: "AI Instruction Kits"
+
+# 必要な変数定義
+variables:
+  - name: "[変数名]"
+    description: "[変数の説明]"
+    type: "enum"  # string, enum, boolean, integer
+    required: true  # true/false
+    values: ["[選択肢1]", "[選択肢2]", "[選択肢3]"]  # enum型の場合
+    default: "[デフォルト値]"
+    example: "[使用例]"
+
+# 他のモジュールとの依存関係（オブジェクト形式推奨）
+dependencies:
+  required:
+    - "[必須依存モジュールID]"  # 例: skill_api_design, core_role_definition
+  optional:
+    - "[オプション依存モジュールID]"  # 例: skill_testing, skill_documentation
+
+# 互換性のあるタスク・モジュール
+compatible_tasks:
+  - "[関連タスクID]"  # このタスクと組み合わせて使えるタスク
+
+# 出力設定
+output_format:
+  structure: "[出力の構造]"  # 例: "手順書形式", "チェックリスト形式"
+  sections:
+    - "[セクション1]"  # 例: "要件定義", "実装手順", "テスト計画"
+    - "[セクション2]"
+  level_of_detail: "standard"  # basic, standard, comprehensive
+
+# タグ（検索・分類用）
+tags:
+  - "[主要カテゴリ]"     # 例: "development", "analysis", "design"
+  - "[技術領域]"         # 例: "programming", "data-science", "documentation"
+  - "[難易度]"           # 例: "beginner", "intermediate", "advanced"
+  - "[成果物タイプ]"     # 例: "code", "document", "analysis"
+
+# 使用例（複数パターン推奨）
+examples:
+  - title: "[使用例1のタイトル]"
+    description: "[使用例の説明]"
+    variables:
+      [変数名]: "[設定値]"
+    expected_output: "[期待される出力の概要]"
+  
+  - title: "[使用例2のタイトル]"
+    description: "[別のシナリオでの使用例]"
+    variables:
+      [変数名]: "[別の設定値]"
+    expected_output: "[期待される出力の概要]"
+
+# メタデータ
+metadata:
+  complexity: "intermediate"  # basic, intermediate, advanced, expert
+  estimated_time: "[実行時間の目安]"  # 例: "30分", "2-4時間"
+  prerequisites:
+    - "[前提条件1]"  # 例: "基本的なプログラミング知識"
+    - "[前提条件2]"
+  target_audience:
+    - "[対象ユーザー1]"  # 例: "開発者", "アナリスト", "マネージャー"
+    - "[対象ユーザー2]"
+
+# ベストプラクティス
+best_practices:
+  - "[推奨事項1]"  # タスク実行時の推奨事項
+  - "[推奨事項2]"
+  - "[推奨事項3]"
+
+# 注意事項・制約
+constraints:
+  - "[制約1]"  # 例: "個人情報の取り扱いに注意"
+  - "[制約2]"  # 例: "外部APIの利用制限を考慮"
+
+# 成功指標
+success_metrics:
+  - "[指標1]"  # 例: "要件を満たすコードが生成される"
+  - "[指標2]"  # 例: "実行時間が目標範囲内"
+  - "[指標3]"  # 例: "エラーなく動作する"
+
+# 作成日時とバージョン管理
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

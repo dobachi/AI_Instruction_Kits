@@ -1,0 +1,243 @@
+# コアモジュール標準テンプレート
+# 使用方法: このテンプレートをコピーして新しいコアモジュールを作成
+
+id: "core_[MODULE_NAME]"  # 例: core_role_definition, core_constraints, core_output_format
+name: "[コア機能名]"       # 例: "役割定義", "制約事項", "出力形式"
+description: "[コア機能の詳細説明]"  # システムの基本動作に必要な機能を明記
+version: "1.0.0"
+category: "core"
+author: "AI Instruction Kits"
+
+# コア機能固有の変数定義（システム全体に影響）
+variables:
+  - name: "[システムレベル変数]"
+    description: "[システム全体に影響する変数の説明]"
+    type: "enum"
+    required: true  # コアモジュールの変数は通常必須
+    values: ["[選択肢1]", "[選択肢2]", "[選択肢3]"]
+    default: "[システムデフォルト値]"
+  
+  - name: "[動作モード変数]"
+    description: "[システムの動作モード設定]"
+    type: "enum"
+    required: true
+    values: ["strict", "flexible", "adaptive"]
+    default: "flexible"
+
+# 他のモジュールとの依存関係（コアモジュールは通常依存が少ない）
+dependencies:
+  required: []  # コアモジュールは通常他に依存しない
+  optional:
+    - "[オプション依存ID]"  # 必要に応じて
+
+# 互換性（すべてのモジュールと互換性があることが多い）
+compatibility:
+  universal_compatibility: true  # 全モジュールと互換
+  restricted_combinations: []    # 制限がある組み合わせ（あれば）
+
+# コア機能の定義
+core_functionality:
+  primary_purpose: "[主要目的]"  # 例: "AIの基本的な振る舞いを定義"
+  
+  system_level_impact:
+    - "[システム影響1]"  # 例: "全ての出力に影響", "動作原則の設定"
+    - "[システム影響2]"
+  
+  foundational_elements:
+    - element: "[基盤要素1]"
+      description: "[要素の説明]"
+      importance: "critical"  # critical, high, medium
+      scope: "[影響範囲]"
+    
+    - element: "[基盤要素2]"
+      description: "[要素の説明]"
+      importance: "high"
+      scope: "[影響範囲]"
+
+# システム設定・構成
+system_configuration:
+  default_behaviors:
+    - "[デフォルト動作1]"    # 例: "丁寧な敬語での応答"
+    - "[デフォルト動作2]"    # 例: "構造化された出力"
+  
+  override_mechanisms:
+    - "[上書き機構1]"        # 例: "ユーザー指定による動作変更"
+    - "[上書き機構2]"
+  
+  configuration_hierarchy:
+    - level: "[設定レベル1]"  # 例: "システムデフォルト"
+      priority: 1
+      description: "[レベルの説明]"
+    
+    - level: "[設定レベル2]"  # 例: "モジュール設定"
+      priority: 2
+      description: "[レベルの説明]"
+
+# 制約・ガードレール
+constraints_guardrails:
+  mandatory_constraints:
+    - "[必須制約1]"          # 例: "個人情報の保護"
+    - "[必須制約2]"          # 例: "倫理的ガイドラインの遵守"
+  
+  conditional_constraints:
+    - condition: "[条件1]"
+      constraint: "[条件付き制約1]"
+    
+    - condition: "[条件2]"
+      constraint: "[条件付き制約2]"
+  
+  validation_rules:
+    - "[検証ルール1]"        # 例: "出力内容の妥当性チェック"
+    - "[検証ルール2]"
+
+# 出力設定（コア機能特有）
+output_format:
+  structure_requirements:
+    - "[構造要件1]"          # 例: "明確な見出し構造"
+    - "[構造要件2]"          # 例: "論理的な情報階層"
+  
+  formatting_standards:
+    - "[フォーマット基準1]"  # 例: "Markdown形式"
+    - "[フォーマット基準2]"  # 例: "一貫した記号使用"
+  
+  quality_requirements:
+    - "[品質要件1]"          # 例: "明確で簡潔な表現"
+    - "[品質要件2]"          # 例: "論理的整合性の確保"
+
+# タグ（検索・分類用）
+tags:
+  - "core"                   # 必須: コアモジュール識別
+  - "[機能タイプ]"           # 例: "behavior", "format", "constraint"
+  - "[影響範囲]"             # 例: "system_wide", "output_specific"
+  - "[重要度]"               # 例: "critical", "foundational"
+
+# 使用例（システム全体への影響を示す）
+examples:
+  - title: "[基本設定例]"
+    description: "[基本的なコア設定の説明]"
+    context: "[適用される全体的な文脈]"
+    variables:
+      [変数名]: "[基本設定値]"
+    system_impact:
+      - "[システム影響1]"
+      - "[システム影響2]"
+    expected_behavior:
+      - "[期待される動作1]"
+      - "[期待される動作2]"
+  
+  - title: "[カスタム設定例]"
+    description: "[カスタマイズされたコア設定]"
+    context: "[特殊な適用文脈]"
+    variables:
+      [変数名]: "[カスタム設定値]"
+    system_impact:
+      - "[システム影響1]"
+      - "[システム影響2]"
+    expected_behavior:
+      - "[期待される動作1]"
+      - "[期待される動作2]"
+
+# メタデータ
+metadata:
+  complexity: "basic"        # コアモジュールは基本的にシンプル
+  system_criticality: "critical"  # システムにとっての重要度
+  modification_impact: "high"     # 変更時の影響度
+  
+  prerequisites:
+    - "[前提条件1]"  # 例: "システム初期化"
+    - "[前提条件2]"
+  
+  affected_components:
+    - "[影響コンポーネント1]"  # 例: "全出力モジュール"
+    - "[影響コンポーネント2]"  # 例: "動作制御システム"
+
+# システム統合
+system_integration:
+  initialization_order: "[初期化順序]"  # 例: "1" (最初に読み込まれる)
+  
+  integration_points:
+    - point: "[統合ポイント1]"
+      description: "[統合の説明]"
+      interaction_type: "[相互作用タイプ]"
+    
+    - point: "[統合ポイント2]"
+      description: "[統合の説明]"
+      interaction_type: "[相互作用タイプ]"
+  
+  module_interactions:
+    - "[モジュール相互作用1]"  # 例: "他モジュールの動作を制御"
+    - "[モジュール相互作用2]"
+
+# パフォーマンス・効率性
+performance_efficiency:
+  processing_overhead: "[処理オーバーヘッド]"  # 例: "minimal", "low", "medium"
+  
+  optimization_considerations:
+    - "[最適化考慮事項1]"    # 例: "頻繁にアクセスされる設定"
+    - "[最適化考慮事項2]"
+  
+  caching_strategy:
+    - "[キャッシュ戦略1]"    # 例: "設定値のメモリキャッシュ"
+    - "[キャッシュ戦略2]"
+
+# エラー処理・フォールバック
+error_handling:
+  error_scenarios:
+    - scenario: "[エラーシナリオ1]"
+      handling: "[対処方法1]"
+      fallback: "[フォールバック動作1]"
+    
+    - scenario: "[エラーシナリオ2]"
+      handling: "[対処方法2]"
+      fallback: "[フォールバック動作2]"
+  
+  recovery_mechanisms:
+    - "[復旧メカニズム1]"   # 例: "デフォルト値への復帰"
+    - "[復旧メカニズム2]"
+
+# セキュリティ・プライバシー
+security_privacy:
+  security_implications:
+    - "[セキュリティ影響1]"  # 例: "システム制御に関わる設定"
+    - "[セキュリティ影響2]"
+  
+  privacy_considerations:
+    - "[プライバシー考慮1]"  # 例: "個人データ処理の制約"
+    - "[プライバシー考慮2]"
+  
+  access_controls:
+    - "[アクセス制御1]"      # 例: "管理者のみ変更可能"
+    - "[アクセス制御2]"
+
+# 検証・テスト
+validation_testing:
+  unit_tests:
+    - "[ユニットテスト1]"    # 例: "設定値の妥当性検証"
+    - "[ユニットテスト2]"
+  
+  integration_tests:
+    - "[統合テスト1]"        # 例: "他モジュールとの相互作用"
+    - "[統合テスト2]"
+  
+  system_tests:
+    - "[システムテスト1]"    # 例: "全体動作の確認"
+    - "[システムテスト2]"
+
+# 監視・診断
+monitoring_diagnostics:
+  health_checks:
+    - "[ヘルスチェック1]"    # 例: "コア機能の正常性確認"
+    - "[ヘルスチェック2]"
+  
+  performance_metrics:
+    - "[パフォーマンス指標1]" # 例: "設定読み込み時間"
+    - "[パフォーマンス指標2]"
+  
+  diagnostic_information:
+    - "[診断情報1]"          # 例: "現在の設定状態"
+    - "[診断情報2]"
+
+# 作成日時とバージョン管理
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

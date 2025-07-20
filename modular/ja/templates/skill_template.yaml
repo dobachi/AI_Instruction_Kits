@@ -1,0 +1,139 @@
+# スキルモジュール標準テンプレート
+# 使用方法: このテンプレートをコピーして新しいスキルモジュールを作成
+
+id: "skill_[MODULE_NAME]"  # 例: skill_api_design, skill_testing
+name: "[スキル名]"          # 例: "API設計", "テスト実装"
+description: "[スキルの詳細説明]"  # どのような能力・技術を提供するかを明記
+version: "1.0.0"
+category: "skills"
+author: "AI Instruction Kits"
+
+# 必要な変数定義
+variables:
+  - name: "[変数名]"
+    description: "[変数の説明]"
+    type: "enum"  # string, enum, boolean, integer
+    required: false  # スキルモジュールは通常必須変数は少ない
+    values: ["[選択肢1]", "[選択肢2]", "[選択肢3]"]  # enum型の場合
+    default: "[デフォルト値]"
+    example: "[使用例]"
+
+# 他のモジュールとの依存関係（オブジェクト形式推奨）
+dependencies:
+  required:
+    - "[必須依存モジュールID]"  # 例: core_role_definition
+  optional:
+    - "[オプション依存モジュールID]"  # 例: skill_authentication, quality_production
+
+# 互換性のあるタスク・モジュール
+compatible_tasks:
+  - "[関連タスクID]"  # このスキルが活用できるタスク
+compatible_skills:
+  - "[関連スキルID]"  # 組み合わせて使えるスキル
+
+# スキルが提供する機能・能力
+capabilities:
+  primary_functions:
+    - "[主要機能1]"  # 例: "RESTful API設計", "認証システム実装"
+    - "[主要機能2]"
+  
+  supporting_functions:
+    - "[補助機能1]"  # 例: "ドキュメント生成", "エラーハンドリング"
+    - "[補助機能2]"
+
+# 技術的アプローチ・手法
+methodology:
+  approach: "[アプローチ手法]"  # 例: "設計優先", "テスト駆動開発"
+  frameworks:
+    - "[フレームワーク1]"  # 使用する手法・フレームワーク
+    - "[フレームワーク2]"
+  
+  key_principles:
+    - "[原則1]"  # 例: "単一責任の原則", "可読性重視"
+    - "[原則2]"
+
+# 出力設定
+output_format:
+  style: "[出力スタイル]"  # 例: "実装ガイド", "チェックリスト", "コード例"
+  components:
+    - "[構成要素1]"  # 例: "設計パターン", "実装例", "ベストプラクティス"
+    - "[構成要素2]"
+  detail_level: "comprehensive"  # basic, standard, comprehensive
+
+# タグ（検索・分類用）
+tags:
+  - "[技術領域]"        # 例: "web-development", "security", "testing"
+  - "[プログラミング言語]" # 例: "javascript", "python", "java"
+  - "[難易度]"          # 例: "beginner", "intermediate", "advanced"
+  - "[スキルタイプ]"    # 例: "technical", "design", "analysis"
+
+# 使用例（複数パターン推奨）
+examples:
+  - title: "[使用例1のタイトル]"
+    description: "[使用例の説明]"
+    context: "[使用する文脈・場面]"
+    variables:
+      [変数名]: "[設定値]"
+    expected_outcome: "[期待される成果]"
+  
+  - title: "[使用例2のタイトル]"
+    description: "[別のシナリオでの使用例]"
+    context: "[別の使用文脈]"
+    variables:
+      [変数名]: "[別の設定値]"
+    expected_outcome: "[期待される成果]"
+
+# メタデータ
+metadata:
+  complexity: "intermediate"  # basic, intermediate, advanced, expert
+  learning_curve: "[習得時間の目安]"  # 例: "短期間", "中期間", "長期間"
+  prerequisites:
+    - "[前提知識1]"  # 例: "基本的なプログラミング知識"
+    - "[前提知識2]"
+  domain_knowledge:
+    - "[ドメイン知識1]"  # 例: "Web開発基礎", "セキュリティ概念"
+    - "[ドメイン知識2]"
+
+# 実装パターン・ベストプラクティス
+implementation_patterns:
+  common_patterns:
+    - pattern: "[パターン名1]"
+      description: "[パターンの説明]"
+      use_case: "[使用場面]"
+    
+    - pattern: "[パターン名2]"
+      description: "[パターンの説明]"
+      use_case: "[使用場面]"
+
+# ベストプラクティス
+best_practices:
+  - "[推奨事項1]"  # スキル使用時の推奨事項
+  - "[推奨事項2]"
+  - "[推奨事項3]"
+
+# よくある間違い・注意点
+common_pitfalls:
+  - "[注意点1]"  # 例: "セキュリティ要件を見落としがち"
+  - "[注意点2]"
+  - "[注意点3]"
+
+# 品質指標
+quality_indicators:
+  - "[品質指標1]"  # 例: "コードの可読性"
+  - "[品質指標2]"  # 例: "パフォーマンス要件の満足"
+  - "[品質指標3]"  # 例: "セキュリティ基準の遵守"
+
+# ツール・リソース
+tools_and_resources:
+  recommended_tools:
+    - "[ツール名1]"  # 例: "Postman", "Jest", "ESLint"
+    - "[ツール名2]"
+  
+  reference_materials:
+    - "[参考資料1]"  # 例: "RESTful API設計ガイド"
+    - "[参考資料2]"
+
+# 作成日時とバージョン管理
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

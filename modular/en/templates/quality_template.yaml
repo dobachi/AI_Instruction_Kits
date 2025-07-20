@@ -1,0 +1,269 @@
+# Quality Module Standard Template
+# Usage: Copy this template to create new quality modules
+
+id: "quality_[MODULE_NAME]"  # e.g., quality_production, quality_security, quality_performance
+name: "[Quality Standard Name]"  # e.g., "Production Quality", "Security Quality", "Performance Quality"
+description: "[Detailed quality standard description]"  # Specify quality level, standards, and requirements
+version: "1.0.0"
+category: "quality"
+author: "AI Instruction Kits"
+
+# Quality level-specific variable definitions
+variables:
+  - name: "[quality_level_variable]"
+    description: "[Quality level description]"
+    type: "enum"
+    values: ["basic", "standard", "high", "enterprise", "mission_critical"]
+    default: "standard"
+  
+  - name: "[application_scope_variable]"
+    description: "[Quality standard application scope]"
+    type: "enum"
+    values: ["development", "testing", "deployment", "operations", "full_lifecycle"]
+    default: "full_lifecycle"
+  
+  - name: "[verification_rigor_variable]"
+    description: "[Verification and testing rigor]"
+    type: "enum"
+    values: ["minimal", "standard", "comprehensive", "exhaustive"]
+    default: "comprehensive"
+
+# Dependencies with other modules
+dependencies:
+  required:
+    - "[foundational_skill_id]"    # e.g., skill_testing, skill_monitoring
+  optional:
+    - "[related_skill_id]"         # e.g., skill_performance, skill_security
+    - "[related_methodology_id]"   # e.g., method_continuous_integration
+
+# Compatible tasks/modules
+compatible_tasks:
+  - "[related_task_id]"    # Tasks where this quality standard applies
+compatible_domains:
+  - "[related_domain_id]"  # Domains where this quality standard is important
+
+# Quality standards and requirements
+quality_standards:
+  core_requirements:
+    - requirement: "[core_requirement1]"
+      description: "[requirement_detailed_description]"
+      criticality: "high"  # high, medium, low
+      validation_method: "[validation_method]"
+      acceptance_criteria:
+        - "[acceptance_criterion1]"
+        - "[acceptance_criterion2]"
+    
+    - requirement: "[core_requirement2]"
+      description: "[requirement_detailed_description]"
+      criticality: "medium"
+      validation_method: "[validation_method]"
+      acceptance_criteria:
+        - "[acceptance_criterion1]"
+        - "[acceptance_criterion2]"
+  
+  performance_criteria:
+    - metric: "[performance_metric1]"  # e.g., "response_time", "throughput"
+      target: "[target_value]"
+      threshold: "[threshold_value]"
+      measurement_method: "[measurement_method]"
+    
+    - metric: "[performance_metric2]"
+      target: "[target_value]"
+      threshold: "[threshold_value]"
+      measurement_method: "[measurement_method]"
+  
+  reliability_standards:
+    - "[reliability_standard1]"        # e.g., "99.9%_availability", "MTBF_target"
+    - "[reliability_standard2]"
+
+# Validation and testing requirements
+validation_testing:
+  test_categories:
+    - category: "[test_category1]"  # e.g., "unit_testing", "integration_testing"
+      coverage_requirement: "[coverage_requirement]"  # e.g., "90%_or_higher"
+      automation_level: "[automation_level]"          # e.g., "fully_automated"
+      execution_frequency: "[execution_frequency]"    # e.g., "every_build"
+    
+    - category: "[test_category2]"
+      coverage_requirement: "[coverage_requirement]"
+      automation_level: "[automation_level]"
+      execution_frequency: "[execution_frequency]"
+  
+  quality_gates:
+    - gate: "[quality_gate1]"   # e.g., "code_review_completion"
+      criteria:
+        - "[criterion1]"
+        - "[criterion2]"
+      blocking: true         # true/false - whether this is a blocking requirement
+    
+    - gate: "[quality_gate2]"
+      criteria:
+        - "[criterion1]"
+        - "[criterion2]"
+      blocking: false
+  
+  review_requirements:
+    - "[review_requirement1]"      # e.g., "mandatory_code_review"
+    - "[review_requirement2]"      # e.g., "architecture_review"
+
+# Monitoring and observability
+monitoring_observability:
+  key_metrics:
+    - metric: "[monitoring_metric1]"   # e.g., "error_rate", "response_time"
+      alert_threshold: "[alert_threshold]"
+      monitoring_frequency: "[monitoring_frequency]"
+      escalation_procedure: "[escalation_procedure]"
+    
+    - metric: "[monitoring_metric2]"
+      alert_threshold: "[alert_threshold]"
+      monitoring_frequency: "[monitoring_frequency]"
+      escalation_procedure: "[escalation_procedure]"
+  
+  logging_requirements:
+    - "[logging_requirement1]"          # e.g., "log_all_api_calls"
+    - "[logging_requirement2]"          # e.g., "record_error_details"
+  
+  alerting_strategy:
+    - "[alerting_strategy1]"      # e.g., "graduated_escalation"
+    - "[alerting_strategy2]"
+
+# Output configuration
+output_format:
+  structure:
+    - "[section1]"        # e.g., "quality_requirements", "verification_process"
+    - "[section2]"        # e.g., "monitoring_setup", "incident_response"
+    - "[section3]"        # e.g., "improvement_process", "reporting"
+  
+  enforcement_level: "[enforcement_level]"  # e.g., "mandatory", "recommended", "optional"
+  include_checklists: true          # Include checklists
+  include_templates: true           # Include templates
+
+# Tags (for search and classification)
+tags:
+  - "[quality_type]"          # e.g., "functional", "non_functional", "security"
+  - "[application_phase]"     # e.g., "development", "testing", "production"
+  - "[importance_level]"      # e.g., "critical", "important", "standard"
+  - "[automation_level]"      # e.g., "fully_automated", "semi_automated", "manual"
+
+# Comprehensive usage examples
+examples:
+  - title: "[Basic Implementation Example]"
+    description: "[Basic quality standard application example]"
+    context: "[Application context/environment]"
+    variables:
+      [variable_name]: "[basic_setting]"
+    implementation_approach:
+      - "[implementation_approach1]"
+      - "[implementation_approach2]"
+    validation_checklist:
+      - "[validation_item1]"
+      - "[validation_item2]"
+  
+  - title: "[Strict Implementation Example]"
+    description: "[Strict quality standard application example]"
+    context: "[high_quality_requirement_environment]"
+    variables:
+      [variable_name]: "[strict_setting]"
+    implementation_approach:
+      - "[implementation_approach1]"
+      - "[implementation_approach2]"
+    validation_checklist:
+      - "[validation_item1]"
+      - "[validation_item2]"
+
+# Metadata
+metadata:
+  complexity: "advanced"           # Quality modules are typically advanced
+  enforcement_strictness: "[enforcement_strictness]"  # e.g., "strict", "flexible", "adaptive"
+  impact_scope: "[impact_scope]"                      # e.g., "system_wide", "component_level"
+  
+  prerequisites:
+    - "[prerequisite1]"  # e.g., "cicd_pipeline"
+    - "[prerequisite2]"  # e.g., "monitoring_system"
+  
+  stakeholders:
+    - "[stakeholder1]"  # e.g., "development_team", "qa_team"
+    - "[stakeholder2]"  # e.g., "operations_team", "security_team"
+
+# Process integration
+process_integration:
+  development_integration:
+    - "[development_integration1]"     # e.g., "ide_integrated_linting"
+    - "[development_integration2]"     # e.g., "pre_commit_hooks"
+  
+  cicd_integration:
+    - "[cicd_integration1]"        # e.g., "automated_test_execution"
+    - "[cicd_integration2]"        # e.g., "quality_gate_checks"
+  
+  deployment_integration:
+    - "[deployment_integration1]"     # e.g., "pre_production_quality_verification"
+    - "[deployment_integration2]"     # e.g., "rollback_criteria"
+
+# Continuous improvement and optimization
+continuous_improvement:
+  feedback_loops:
+    - "[feedback_loop1]"  # e.g., "quality_metrics_analysis"
+    - "[feedback_loop2]"  # e.g., "incident_post_mortem_analysis"
+  
+  optimization_strategies:
+    - "[optimization_strategy1]"           # e.g., "automation_expansion"
+    - "[optimization_strategy2]"           # e.g., "predictive_quality_management"
+  
+  benchmark_tracking:
+    - "[benchmark1]"         # e.g., "industry_standard_comparison"
+    - "[benchmark2]"         # e.g., "historical_performance_comparison"
+
+# Compliance and audit
+compliance_audit:
+  compliance_requirements:
+    - "[compliance_requirement1]"  # e.g., "sox_compliance"
+    - "[compliance_requirement2]"  # e.g., "iso_27001_compliance"
+  
+  audit_trails:
+    - "[audit_trail1]"             # e.g., "all_change_history"
+    - "[audit_trail2]"             # e.g., "approval_process_records"
+  
+  documentation_requirements:
+    - "[documentation_requirement1]"           # e.g., "quality_plan_document"
+    - "[documentation_requirement2]"           # e.g., "test_result_reports"
+
+# Incident response
+incident_response:
+  escalation_matrix:
+    - severity: "[severity1]"     # e.g., "Critical"
+      response_time: "[response_time]"
+      stakeholders: "[stakeholders]"
+      actions:
+        - "[response_action1]"
+        - "[response_action2]"
+    
+    - severity: "[severity2]"
+      response_time: "[response_time]"
+      stakeholders: "[stakeholders]"
+      actions:
+        - "[response_action1]"
+        - "[response_action2]"
+  
+  recovery_procedures:
+    - "[recovery_procedure1]"             # e.g., "automated_rollback"
+    - "[recovery_procedure2]"             # e.g., "manual_recovery_process"
+
+# Tools and automation
+tools_automation:
+  quality_tools:
+    - tool: "[quality_tool1]"
+      purpose: "[usage_purpose]"
+      integration_level: "[integration_level]"
+    
+    - tool: "[quality_tool2]"
+      purpose: "[usage_purpose]"
+      integration_level: "[integration_level]"
+  
+  automation_frameworks:
+    - "[automation_framework1]"  # e.g., "test_automation"
+    - "[automation_framework2]"  # e.g., "deployment_automation"
+
+# Creation date and version management
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

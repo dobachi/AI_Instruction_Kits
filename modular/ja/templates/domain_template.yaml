@@ -1,0 +1,260 @@
+# ドメインモジュール標準テンプレート
+# 使用方法: このテンプレートをコピーして新しいドメインモジュールを作成
+
+id: "domain_[MODULE_NAME]"  # 例: domain_fintech, domain_healthcare, domain_education
+name: "[ドメイン名]"         # 例: "フィンテック", "ヘルスケア", "教育"
+description: "[ドメインの詳細説明]"  # 業界固有の知識、慣習、規制要件を明記
+version: "1.0.0"
+category: "domains"
+author: "AI Instruction Kits"
+
+# ドメイン固有の変数定義
+variables:
+  - name: "[規制管轄変数]"
+    description: "[規制地域・管轄の説明]"
+    type: "enum"
+    values: ["[地域1]", "[地域2]", "[地域3]"]  # 例: "JP", "US", "EU", "global"
+    default: "[デフォルト地域]"
+  
+  - name: "[コンプライアンスレベル変数]"
+    description: "[コンプライアンス要件レベル]"
+    type: "enum"
+    values: ["basic", "standard", "strict", "enterprise"]
+    default: "standard"
+  
+  - name: "[業界セグメント変数]"
+    description: "[業界セグメント・分野]"
+    type: "enum"
+    values: ["[セグメント1]", "[セグメント2]", "[セグメント3]"]
+    default: "[主要セグメント]"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - "[基盤スキルID]"        # 例: skill_compliance, skill_risk_management
+    - "[品質要件ID]"          # 例: quality_production, quality_security
+  optional:
+    - "[関連スキルID]"        # 例: skill_data_privacy, skill_audit
+    - "[専門知識ID]"          # 例: expertise_regulatory_compliance
+
+# 互換性のあるタスク・モジュール
+compatible_tasks:
+  - "[関連タスクID]"  # このドメインで実行されるタスク
+compatible_roles:
+  - "[関連ロールID]"  # このドメインで必要な役割
+
+# ドメイン知識・特性
+domain_knowledge:
+  industry_overview:
+    - "[業界概要1]"  # 例: "市場規模", "主要プレイヤー", "成長トレンド"
+    - "[業界概要2]"
+  
+  key_stakeholders:
+    - stakeholder: "[ステークホルダー1]"  # 例: "規制当局", "業界団体"
+      role: "[役割・影響]"
+      importance: "[重要度]"
+    
+    - stakeholder: "[ステークホルダー2]"
+      role: "[役割・影響]"
+      importance: "[重要度]"
+  
+  value_chain:
+    - "[バリューチェーン要素1]"  # 例: "調達", "製造", "販売", "サポート"
+    - "[バリューチェーン要素2]"
+
+# 規制・コンプライアンス要件
+regulatory_compliance:
+  key_regulations:
+    - regulation: "[規制1]"
+      description: "[規制の説明]"
+      scope: "[適用範囲]"
+      compliance_requirements:
+        - "[要件1]"
+        - "[要件2]"
+    
+    - regulation: "[規制2]"
+      description: "[規制の説明]"
+      scope: "[適用範囲]"
+      compliance_requirements:
+        - "[要件1]"
+        - "[要件2]"
+  
+  industry_standards:
+    - "[業界標準1]"  # 例: "ISO 27001", "PCI DSS", "GDPR"
+    - "[業界標準2]"
+  
+  audit_requirements:
+    - "[監査要件1]"  # 例: "年次監査", "継続的モニタリング"
+    - "[監査要件2]"
+
+# リスク管理
+risk_management:
+  common_risks:
+    - risk: "[リスク1]"
+      description: "[リスクの説明]"
+      impact: "[影響度]"  # high, medium, low
+      probability: "[発生確率]"  # high, medium, low
+      mitigation_strategies:
+        - "[対策1]"
+        - "[対策2]"
+    
+    - risk: "[リスク2]"
+      description: "[リスクの説明]"
+      impact: "[影響度]"
+      probability: "[発生確率]"
+      mitigation_strategies:
+        - "[対策1]"
+        - "[対策2]"
+  
+  risk_assessment_framework:
+    - "[評価フレームワーク1]"  # 例: "リスクマトリックス", "定量的評価"
+    - "[評価フレームワーク2]"
+
+# 出力設定
+output_format:
+  structure:
+    - "[セクション1]"        # 例: "ドメイン固有要件", "規制対応"
+    - "[セクション2]"        # 例: "ベストプラクティス", "リスク対策"
+    - "[セクション3]"        # 例: "実装ガイドライン", "監査準備"
+  
+  compliance_focus: true     # コンプライアンス重視の出力
+  include_templates: true    # ドメイン固有テンプレートを含める
+  detail_level: "comprehensive"
+
+# タグ（検索・分類用）
+tags:
+  - "[業界名]"              # 例: "finance", "healthcare", "education"
+  - "[地域]"                # 例: "japan", "us", "europe", "global"
+  - "[規制レベル]"          # 例: "highly_regulated", "standard_compliance"
+  - "[ビジネスモデル]"      # 例: "b2b", "b2c", "saas", "platform"
+
+# 包括的な使用例
+examples:
+  - title: "[基本実装例]"
+    description: "[基本的なドメイン適用例]"
+    context: "[適用文脈・状況]"
+    variables:
+      [変数名]: "[基本設定値]"
+    compliance_focus:
+      - "[重点コンプライアンス1]"
+      - "[重点コンプライアンス2]"
+    expected_deliverables:
+      - "[成果物1]"
+      - "[成果物2]"
+  
+  - title: "[応用実装例]"
+    description: "[複雑なドメイン適用例]"
+    context: "[応用文脈・状況]"
+    variables:
+      [変数名]: "[応用設定値]"
+    compliance_focus:
+      - "[重点コンプライアンス1]"
+      - "[重点コンプライアンス2]"
+    expected_deliverables:
+      - "[成果物1]"
+      - "[成果物2]"
+
+# メタデータ
+metadata:
+  complexity: "advanced"    # ドメインモジュールは通常複雑
+  regulatory_complexity: "[規制複雑度]"  # 例: "high", "medium", "low"
+  market_maturity: "[市場成熟度]"       # 例: "emerging", "growing", "mature"
+  
+  prerequisites:
+    - "[前提知識1]"  # 例: "業界基礎知識", "規制理解"
+    - "[前提知識2]"
+  
+  target_organizations:
+    - "[対象組織1]"  # 例: "金融機関", "ヘルスケア提供者"
+    - "[対象組織2]"
+
+# 業界特有のベストプラクティス
+industry_best_practices:
+  operational_practices:
+    - "[運用実践1]"  # 例: "継続的コンプライアンス監視"
+    - "[運用実践2]"
+  
+  technology_practices:
+    - "[技術実践1]"  # 例: "セキュリティバイデザイン"
+    - "[技術実践2]"
+  
+  governance_practices:
+    - "[ガバナンス実践1]"  # 例: "リスク委員会の設置"
+    - "[ガバナンス実践2]"
+
+# セキュリティ・プライバシー
+security_privacy:
+  data_protection:
+    - "[データ保護要件1]"  # 例: "個人データ暗号化"
+    - "[データ保護要件2]"
+  
+  access_controls:
+    - "[アクセス制御1]"    # 例: "多要素認証", "権限管理"
+    - "[アクセス制御2]"
+  
+  incident_response:
+    - "[インシデント対応1]"  # 例: "24時間以内の報告"
+    - "[インシデント対応2]"
+
+# 品質・パフォーマンス基準
+quality_performance:
+  service_levels:
+    - metric: "[SLA指標1]"  # 例: "可用性", "応答時間"
+      target: "[目標値]"
+      measurement: "[測定方法]"
+    
+    - metric: "[SLA指標2]"
+      target: "[目標値]"
+      measurement: "[測定方法]"
+  
+  quality_standards:
+    - "[品質基準1]"        # 例: "ISO認証", "業界認定"
+    - "[品質基準2]"
+
+# ビジネスモデル・収益構造
+business_considerations:
+  revenue_models:
+    - "[収益モデル1]"      # 例: "サブスクリプション", "取引手数料"
+    - "[収益モデル2]"
+  
+  cost_structures:
+    - "[コスト構造1]"      # 例: "規制対応コスト", "技術投資"
+    - "[コスト構造2]"
+  
+  competitive_factors:
+    - "[競争要因1]"        # 例: "規制優位性", "技術革新"
+    - "[競争要因2]"
+
+# ツール・プラットフォーム
+domain_tools:
+  specialized_tools:
+    - tool: "[専門ツール1]"
+      purpose: "[使用目的]"
+      compliance_relevance: "[コンプライアンス関連性]"
+    
+    - tool: "[専門ツール2]"
+      purpose: "[使用目的]"
+      compliance_relevance: "[コンプライアンス関連性]"
+  
+  integration_platforms:
+    - "[統合プラットフォーム1]"  # 例: "業界標準API", "データ交換基盤"
+    - "[統合プラットフォーム2]"
+
+# 継続的コンプライアンス・アップデート
+continuous_compliance:
+  monitoring_requirements:
+    - "[監視要件1]"        # 例: "リアルタイム取引監視"
+    - "[監視要件2]"
+  
+  update_procedures:
+    - "[更新手順1]"        # 例: "規制変更への対応プロセス"
+    - "[更新手順2]"
+  
+  training_requirements:
+    - "[研修要件1]"        # 例: "年次コンプライアンス研修"
+    - "[研修要件2]"
+
+# 作成日時とバージョン管理
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

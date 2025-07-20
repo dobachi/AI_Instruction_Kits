@@ -1,0 +1,139 @@
+# Skill Module Standard Template
+# Usage: Copy this template to create new skill modules
+
+id: "skill_[MODULE_NAME]"  # e.g., skill_api_design, skill_testing
+name: "[Skill Name]"       # e.g., "API Design", "Testing Implementation"
+description: "[Detailed skill description]"  # Specify abilities and techniques provided
+version: "1.0.0"
+category: "skills"
+author: "AI Instruction Kits"
+
+# Required variable definitions
+variables:
+  - name: "[variable_name]"
+    description: "[Variable description]"
+    type: "enum"  # string, enum, boolean, integer
+    required: false  # Skill modules typically have fewer required variables
+    values: ["[option1]", "[option2]", "[option3]"]  # for enum type
+    default: "[default_value]"
+    example: "[usage_example]"
+
+# Dependencies with other modules (object format recommended)
+dependencies:
+  required:
+    - "[required_dependency_id]"  # e.g., core_role_definition
+  optional:
+    - "[optional_dependency_id]"  # e.g., skill_authentication, quality_production
+
+# Compatible tasks/modules
+compatible_tasks:
+  - "[related_task_id]"   # Tasks that can utilize this skill
+compatible_skills:
+  - "[related_skill_id]"  # Skills that can be combined
+
+# Skill capabilities and functions
+capabilities:
+  primary_functions:
+    - "[primary_function1]"  # e.g., "RESTful API design", "Authentication system implementation"
+    - "[primary_function2]"
+  
+  supporting_functions:
+    - "[supporting_function1]"  # e.g., "Documentation generation", "Error handling"
+    - "[supporting_function2]"
+
+# Technical approach and methodology
+methodology:
+  approach: "[approach_method]"  # e.g., "Design-first", "Test-driven development"
+  frameworks:
+    - "[framework1]"  # Methods/frameworks used
+    - "[framework2]"
+  
+  key_principles:
+    - "[principle1]"  # e.g., "Single responsibility principle", "Readability focus"
+    - "[principle2]"
+
+# Output configuration
+output_format:
+  style: "[output_style]"  # e.g., "implementation_guide", "checklist", "code_examples"
+  components:
+    - "[component1]"  # e.g., "design_patterns", "implementation_examples", "best_practices"
+    - "[component2]"
+  detail_level: "comprehensive"  # basic, standard, comprehensive
+
+# Tags (for search and classification)
+tags:
+  - "[technical_domain]"    # e.g., "web-development", "security", "testing"
+  - "[programming_language]" # e.g., "javascript", "python", "java"
+  - "[difficulty_level]"    # e.g., "beginner", "intermediate", "advanced"
+  - "[skill_type]"          # e.g., "technical", "design", "analysis"
+
+# Usage examples (multiple patterns recommended)
+examples:
+  - title: "[Example 1 Title]"
+    description: "[Example description]"
+    context: "[Usage context/scenario]"
+    variables:
+      [variable_name]: "[setting_value]"
+    expected_outcome: "[Expected outcome]"
+  
+  - title: "[Example 2 Title]"
+    description: "[Alternative scenario example]"
+    context: "[Alternative context]"
+    variables:
+      [variable_name]: "[alternative_value]"
+    expected_outcome: "[Expected outcome]"
+
+# Metadata
+metadata:
+  complexity: "intermediate"  # basic, intermediate, advanced, expert
+  learning_curve: "[Learning time estimate]"  # e.g., "short_term", "medium_term", "long_term"
+  prerequisites:
+    - "[prerequisite1]"  # e.g., "Basic programming knowledge"
+    - "[prerequisite2]"
+  domain_knowledge:
+    - "[domain_knowledge1]"  # e.g., "Web development basics", "Security concepts"
+    - "[domain_knowledge2]"
+
+# Implementation patterns and best practices
+implementation_patterns:
+  common_patterns:
+    - pattern: "[pattern_name1]"
+      description: "[Pattern description]"
+      use_case: "[Usage scenario]"
+    
+    - pattern: "[pattern_name2]"
+      description: "[Pattern description]"
+      use_case: "[Usage scenario]"
+
+# Best practices
+best_practices:
+  - "[recommendation1]"  # Skill usage recommendations
+  - "[recommendation2]"
+  - "[recommendation3]"
+
+# Common mistakes and pitfalls
+common_pitfalls:
+  - "[pitfall1]"  # e.g., "Tend to overlook security requirements"
+  - "[pitfall2]"
+  - "[pitfall3]"
+
+# Quality indicators
+quality_indicators:
+  - "[quality_indicator1]"  # e.g., "Code readability"
+  - "[quality_indicator2]"  # e.g., "Performance requirement satisfaction"
+  - "[quality_indicator3]"  # e.g., "Security standard compliance"
+
+# Tools and resources
+tools_and_resources:
+  recommended_tools:
+    - "[tool_name1]"  # e.g., "Postman", "Jest", "ESLint"
+    - "[tool_name2]"
+  
+  reference_materials:
+    - "[reference1]"  # e.g., "RESTful API Design Guide"
+    - "[reference2]"
+
+# Creation date and version management
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"

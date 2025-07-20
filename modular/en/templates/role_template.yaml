@@ -1,0 +1,199 @@
+# Role Module Standard Template
+# Usage: Copy this template to create new role modules
+
+id: "role_[MODULE_NAME]"  # e.g., role_mentor, role_consultant, role_reviewer
+name: "[Role Name]"       # e.g., "Mentor", "Consultant", "Reviewer"
+description: "[Detailed role description]"  # Specify how AI should behave in this role/persona
+version: "1.0.0"
+category: "roles"
+author: "AI Instruction Kits"
+
+# Role-specific variable definitions
+variables:
+  - name: "[role_style_variable]"
+    description: "[Role style/approach description]"
+    type: "enum"
+    values: ["[style1]", "[style2]", "[style3]"]  # e.g., "directive", "collaborative", "supportive"
+    default: "[default_style]"
+  
+  - name: "[experience_level_variable]"
+    description: "[Role experience/expertise level]"
+    type: "enum"
+    values: ["junior", "senior", "expert", "veteran"]
+    default: "senior"
+  
+  - name: "[communication_variable]"
+    description: "[Communication style]"
+    type: "enum"
+    values: ["formal", "casual", "technical", "business"]
+    default: "professional"
+
+# Dependencies with other modules
+dependencies:
+  required:
+    - "[foundational_skill_id]"    # e.g., skill_communication, skill_critical_thinking
+  optional:
+    - "[supporting_skill_id]"      # e.g., skill_facilitation, skill_presentation
+    - "[related_expertise_id]"     # e.g., expertise_leadership, expertise_domain_specific
+
+# Compatible tasks/modules
+compatible_tasks:
+  - "[related_task_id]"    # Tasks this role can execute
+compatible_domains:
+  - "[related_domain_id]"  # Industries/domains where this role is valuable
+
+# Role characteristics and capabilities
+role_characteristics:
+  core_competencies:
+    - "[core_competency1]"  # e.g., "strategic_thinking", "problem_solving", "team_leadership"
+    - "[core_competency2]"
+    - "[core_competency3]"
+  
+  behavioral_traits:
+    - "[behavioral_trait1]"  # e.g., "objective_analysis", "empathetic_listening", "constructive_feedback"
+    - "[behavioral_trait2]"
+    - "[behavioral_trait3]"
+  
+  communication_style:
+    - "[communication_feature1]"  # e.g., "clear_and_concise", "insight_through_questions"
+    - "[communication_feature2]"
+
+# Role actions and processes
+role_actions:
+  primary_activities:
+    - activity: "[primary_activity1]"
+      description: "[Activity description]"
+      approach: "[Approach method]"
+    
+    - activity: "[primary_activity2]"
+      description: "[Activity description]"
+      approach: "[Approach method]"
+  
+  interaction_patterns:
+    - pattern: "[interaction_pattern1]"
+      description: "[Pattern description]"
+      when_to_use: "[Usage scenario]"
+    
+    - pattern: "[interaction_pattern2]"
+      description: "[Pattern description]"
+      when_to_use: "[Usage scenario]"
+
+# Output configuration (role-specific output style)
+output_format:
+  tone: "[tone]"              # e.g., "supportive", "analytical", "directive"
+  style: "[style]"           # e.g., "conversational", "structured", "consultative"
+  perspective: "[perspective]"  # e.g., "strategic", "tactical", "holistic"
+  
+  structure:
+    - "[output_structure1]"   # e.g., "situation_analysis", "issue_identification", "solution_proposal"
+    - "[output_structure2]"
+  
+  interaction_mode: "[interaction_mode]"  # e.g., "guidance", "collaboration", "evaluation"
+
+# Tags (for search and classification)
+tags:
+  - "[role_type]"            # e.g., "advisor", "facilitator", "analyst"
+  - "[expertise_domain]"     # e.g., "leadership", "technical", "creative"
+  - "[interaction_style]"    # e.g., "mentoring", "consulting", "coaching"
+  - "[target_level]"         # e.g., "executive", "team_lead", "individual"
+
+# Usage examples (diverse scenarios)
+examples:
+  - title: "[Example 1 Title]"
+    description: "[Example description]"
+    context: "[Usage context/situation]"
+    variables:
+      [variable_name]: "[setting_value]"
+    interaction_style: "[Interaction style]"
+    expected_outcome: "[Expected outcome]"
+  
+  - title: "[Example 2 Title]"
+    description: "[Alternative scenario example]"
+    context: "[Alternative context]"
+    variables:
+      [variable_name]: "[alternative_value]"
+    interaction_style: "[Alternative interaction style]"
+    expected_outcome: "[Expected outcome]"
+
+# Metadata
+metadata:
+  complexity: "intermediate"  # basic, intermediate, advanced, expert
+  interaction_depth: "[interaction_depth]"  # e.g., "surface", "moderate", "deep"
+  relationship_type: "[relationship_type]"  # e.g., "professional", "mentoring", "collaborative"
+  
+  prerequisites:
+    - "[prerequisite1]"  # e.g., "Basic business knowledge"
+    - "[prerequisite2]"
+  
+  target_scenarios:
+    - "[target_scenario1]"  # e.g., "team_meetings", "strategy_sessions", "individual_coaching"
+    - "[target_scenario2]"
+
+# Role adaptability and contextual response
+adaptability:
+  situational_adjustments:
+    - situation: "[situation1]"
+      adjustment: "[adjustment_method1]"
+    
+    - situation: "[situation2]"
+      adjustment: "[adjustment_method2]"
+  
+  audience_adaptation:
+    - audience: "[audience1]"  # e.g., "executives", "engineers", "newcomers"
+      approach: "[approach_adjustment1]"
+    
+    - audience: "[audience2]"
+      approach: "[approach_adjustment2]"
+
+# Role boundaries and constraints
+role_boundaries:
+  responsibilities:
+    - "[responsibility1]"  # e.g., "provide_strategic_advice"
+    - "[responsibility2]"
+  
+  limitations:
+    - "[limitation1]"      # e.g., "does_not_make_final_decisions"
+    - "[limitation2]"
+  
+  ethical_guidelines:
+    - "[ethical_guideline1]"  # e.g., "maintain_confidentiality"
+    - "[ethical_guideline2]"
+
+# Success metrics and evaluation criteria
+success_metrics:
+  relationship_quality:
+    - "[relationship_metric1]"  # e.g., "trust_building"
+    - "[relationship_metric2]"
+  
+  output_quality:
+    - "[output_quality_metric1]"  # e.g., "advice_practicality"
+    - "[output_quality_metric2]"
+  
+  impact_measures:
+    - "[impact_metric1]"    # e.g., "decision_improvement"
+    - "[impact_metric2]"
+
+# Cultural and organizational considerations
+cultural_considerations:
+  cultural_sensitivity:
+    - "[cultural_consideration1]"  # e.g., "hierarchy_awareness"
+    - "[cultural_consideration2]"
+  
+  organizational_context:
+    - "[organizational_context1]"  # e.g., "corporate_culture_adaptation"
+    - "[organizational_context2]"
+
+# Continuous improvement and learning
+continuous_improvement:
+  feedback_integration:
+    - "[feedback_integration1]"  # e.g., "adjust_based_on_reactions"
+    - "[feedback_integration2]"
+  
+  skill_development:
+    - "[skill_development1]"     # e.g., "learn_new_methods"
+    - "[skill_development2]"
+
+# Creation date and version management
+created: "[YYYY-MM-DD]"
+updated: "[YYYY-MM-DD]"
+license: "Apache-2.0"
