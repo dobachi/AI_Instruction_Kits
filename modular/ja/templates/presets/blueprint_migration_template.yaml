@@ -1,0 +1,67 @@
+# Blueprint仕様移行テンプレート
+# 既存プリセットをblueprint + variables仕様に移行する際のテンプレート
+
+# === メタデータ ===
+name: preset_name
+version: "2.0"
+description: blueprint仕様に移行されたプリセット
+
+# === 機能定義（既存モジュール参照） ===
+capabilities:
+  expertise: []      # expertise_* モジュール
+  roles: []          # role_* モジュール  
+  tasks: []          # task_* モジュール
+  skills: []         # skill_* モジュール
+  methods: []        # method_* モジュール
+  quality: []        # quality_* モジュール
+
+# === 設計図（プリセット固有の指示内容） ===
+blueprint:
+  # コミュニケーション方針
+  communication_framework:
+    tone: "{{tone_style}}"
+    approach: professional
+    detail_level: comprehensive
+  
+  # 作業フロー定義
+  workflow_definition:
+    - "段階的なアプローチの採用"
+    - "{{methodology}}手法の活用"
+    - "継続的な品質改善"
+  
+  # 品質基準
+  quality_standards:
+    - "{{quality_level}}レベルの成果物"
+    - "ベストプラクティスの遵守" 
+    - "{{target_audience}}向けの最適化"
+  
+  # 専門機能
+  specialized_features:
+    - "{{domain}}分野の専門知識活用"
+    - "{{output_format}}での構造化出力"
+    - "{{custom_requirement}}への対応"
+
+# === 変数（ユーザーカスタマイズ） ===
+variables:
+  # 基本設定
+  tone_style: professional
+  methodology: standard
+  quality_level: production
+  target_audience: general
+  
+  # 専門設定
+  domain: general
+  output_format: structured
+  custom_requirement: standard_compliance
+  
+  # 個人設定
+  language: japanese
+  experience_level: intermediate
+  collaboration_mode: solo
+
+# === メタデータ ===
+metadata:
+  tags: ["blueprint", "migrated"]
+  compatible_with: []
+  migration_date: "2025-01-20"
+  original_format: "categories"  # or "modules"

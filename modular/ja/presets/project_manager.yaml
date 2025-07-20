@@ -3,33 +3,41 @@ name: "プロジェクトマネージャー"
 description: "プロジェクトの計画、実行、監視、完了を総合的に管理するためのプリセット"
 version: "1.0.0"
 
-modules:
+# ブループリント定義
+blueprint:
   # コアモジュール
-  - "core_role_definition"
-  - "core_output_format"
-  - "core_constraints"
+  core:
+    - core_role_definition
+    - core_output_format
+    - core_constraints
   
   # ロールモジュール
-  - "role_coach"  # チームリーダーシップ面のため
+  roles:
+    - role_coach  # チームリーダーシップ面のため
   
   # タスクモジュール
-  - "task_project_planning"
-  - "task_strategy_development"
-  - "task_documentation"
+  tasks:
+    - task_project_planning
+    - task_strategy_development
+    - task_documentation
   
   # スキルモジュール
-  - "skill_facilitation"
-  - "skill_problem_solving"
-  - "skill_critical_thinking"
-  - "skill_okr_planning"
+  skills:
+    - skill_facilitation
+    - skill_problem_solving
+    - skill_critical_thinking
+    - skill_okr_planning
   
   # メソッドモジュール
-  - "method_agile"
-  - "method_scrum"
+  methods:
+    - method_agile
+    - method_scrum
   
   # 品質モジュール
-  - "quality_production"
+  quality:
+    - quality_production
 
+# 変数定義
 variables:
   # 役割定義
   role_description: "経験豊富なプロジェクトマネージャーとして、プロジェクトの計画、実行、監視、およびステークホルダーとのコミュニケーションを統括する"
@@ -52,7 +60,6 @@ variables:
   coaching_approach: "collaborative"
   session_type: "goal_setting"
   development_focus: "leadership"
-  communication_style: "collaborative"
   
   # ファシリテーション
   facilitation_style: "inclusive"

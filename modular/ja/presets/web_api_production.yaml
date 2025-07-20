@@ -1,0 +1,109 @@
+# 本番用Web API開発プリセット
+name: "本番用Web API開発"
+description: "本番環境で使用するWeb APIの開発指示書プリセット"
+version: "1.0.0"
+
+# ブループリント定義
+blueprint:
+  # コアモジュール
+  core:
+    - core_role_definition
+    - core_output_format
+    - core_constraints
+  
+  # タスクモジュール
+  tasks:
+    - task_code_generation
+  
+  # スキルモジュール
+  skills:
+    - skill_error_handling
+    - skill_testing
+    - skill_api_design
+    - skill_authentication
+  
+  # 品質モジュール
+  quality:
+    - quality_production
+
+# 変数定義
+variables:
+  # 役割定義
+  role_description: "Web API開発の専門家として、高品質なRESTful APIを設計・実装する"
+  expertise_level: "専門家"
+  communication_style: "技術的"
+  
+  # 出力形式
+  format_description: "実装可能なコードとAPIドキュメント"
+  structure_requirements: "明確なエンドポイント定義、リクエスト/レスポンス例、エラーハンドリング"
+  style_requirements: "RESTfulな設計原則に従い、一貫性のある命名規則を使用"
+  length_requirements: "各エンドポイントに対して完全な実装とテストコード"
+  
+  # コード生成
+  programming_language: "{{language}}"  # ユーザー指定
+  framework: "{{framework}}"  # ユーザー指定
+  naming_convention: "snake_case"
+  indent_style: "スペース4つ"
+  comment_style: "docstring形式"
+  
+  # API設計
+  api_style: "restful"
+  versioning_strategy: "url_path"
+  response_format: "json"
+  pagination_style: "offset_limit"
+  
+  # 認証
+  auth_method: "{{auth_method}}"  # ユーザー指定 (jwt, oauth2, api_key)
+  token_expiration: "{{token_expiry}}"  # ユーザー指定
+  permission_model: "rbac"
+  
+  # エラーハンドリング
+  error_handling_pattern: "try-except with custom exceptions"
+  error_message_format: "JSON形式 {\"error\": {\"code\": \"\", \"message\": \"\", \"details\": {}}}"
+  validation_level: "comprehensive"
+  
+  # テスト
+  test_framework: "{{test_framework}}"  # ユーザー指定
+  test_coverage_target: "80%以上"
+  test_types: "unit, integration, e2e"
+  
+  # 品質基準（quality_productionから）
+  max_error_rate: "0.1%"
+  availability_target: "99.9%"
+  response_time_target: "200ms (95パーセンタイル)"
+  security_level: "high"
+  
+  # パフォーマンス
+  caching_strategy: "redis"
+  rate_limiting: "100 req/min per user"
+  database_optimization: "connection_pooling"
+  
+  # セキュリティ
+  input_validation: "strict"
+  output_sanitization: "enabled"
+  cors_policy: "restrictive"
+  
+  # ドキュメント
+  api_documentation: "openapi_3.0"
+  example_requests: "comprehensive"
+  error_catalog: "complete"
+
+# デフォルト値（オーバーライド可能）
+defaults:
+  language: "Python"
+  framework: "FastAPI"
+  auth_method: "jwt"
+  token_expiry: "1h"
+  test_framework: "pytest"
+
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  tags:
+    - "api"
+    - "web"
+    - "production"
+    - "backend"
+    - "restful"
+    - "security"
+    - "performance"

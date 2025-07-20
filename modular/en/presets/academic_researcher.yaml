@@ -3,7 +3,11 @@
 
 name: academic_researcher
 display_name: Academic Researcher
-description: Preset for academic research projects including literature review, methodology design, academic writing, and data analysis
+description: Comprehensive academic research support preset including academic writing, literature review, citation management, and research methodology (2024-2025 Edition)
+
+# Expertise configuration (newly added)
+expertise:
+  - academic_writing     # Academic writing expertise
 
 # Role configuration
 roles:
@@ -11,17 +15,24 @@ roles:
 
 # Task configuration
 tasks:
-  - research        # Literature review and research design
-  - report_writing  # Academic papers and report writing
-  - documentation   # Research documentation
-  - data_analysis   # Quantitative and qualitative data analysis
+  - research         # Literature review and research design
+  - thesis_writing   # Thesis writing (newly added)
+  - report_writing   # Academic papers and report writing
+  - documentation    # Research documentation
+  - data_analysis    # Quantitative and qualitative data analysis
 
 # Skill configuration
 skills:
-  - critical_thinking    # Critical thinking and logical analysis
-  - systems_thinking     # Systems thinking and complexity understanding
+  - citation_management  # Citation management (newly added)
+  - literature_review   # Literature review (newly added)
+  - critical_thinking   # Critical thinking and logical analysis
+  - systems_thinking    # Systems thinking and complexity understanding
   - visual_communication # Charts, graphs, and visualizations
-  - design_thinking      # Research design and methodology development
+  - design_thinking     # Research design and methodology development
+
+# Methodology configuration (newly added)
+methods:
+  - research_methodology  # Research methodology
 
 # Custom configuration
 custom_config:
@@ -106,6 +117,41 @@ custom_config:
     - Data reproducibility
     - Statistical validity verification
 
+# Variables configuration (newly added)
+variables:
+  # Academic writing variables
+  academic_field: computer_science
+  formality_level: formal
+  target_publication: standard_journal
+  
+  # Citation management variables
+  citation_style: apa
+  reference_manager: zotero
+  
+  # Literature review variables
+  review_type: systematic
+  search_databases:
+    - google_scholar
+    - pubmed
+    - ieee_xplore
+    - scopus
+  
+  # Thesis writing variables
+  paper_type: journal_article
+  structure_format: imrad
+  writing_tool: latex
+  
+  # Research methodology variables
+  research_approach: quantitative
+  research_design: experimental
+  data_analysis_method: statistical
+  
+  # Common settings
+  language: english
+  ai_assistance_level: moderate
+  collaboration_mode: solo
+  experience_level: intermediate
+
 # Tags
 tags:
   - academic
@@ -118,3 +164,5 @@ tags:
   - ethics
   - data-analysis
   - academic-writing
+  - ai-assisted
+  - 2024-2025

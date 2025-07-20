@@ -1,0 +1,86 @@
+# CLIツール基本開発プリセット
+name: "CLIツール基本開発"
+description: "コマンドラインツールの基本的な開発指示書プリセット"
+version: "1.0.0"
+
+# ブループリント定義
+blueprint:
+  # コアモジュール
+  core:
+    - core_role_definition
+    - core_output_format
+    - core_constraints
+  
+  # タスクモジュール
+  tasks:
+    - task_code_generation
+  
+  # スキルモジュール
+  skills:
+    - skill_error_handling
+    - skill_cli_interface
+    - skill_argument_parsing
+  
+  # 品質モジュール
+  quality:
+    - quality_basic
+
+# 変数定義
+variables:
+  # 役割定義
+  role_description: "CLIツール開発者として、使いやすいコマンドラインインターフェースを実装する"
+  expertise_level: "中級"
+  communication_style: "技術的"
+  
+  # 出力形式
+  format_description: "実装可能なコマンドラインツールのコードと使用例"
+  structure_requirements: "明確なコマンド構造、ヘルプメッセージ、引数検証"
+  style_requirements: "標準的なCLI規約とベストプラクティスに従う"
+  length_requirements: "完全な実装とドキュメント、使用例を含む"
+  
+  # コード生成
+  programming_language: "{{language}}"  # ユーザー指定
+  naming_convention: "snake_case"
+  indent_style: "スペース4つ"
+  comment_style: "inline_and_docstring"
+  
+  # CLI固有
+  cli_framework: "{{framework}}"  # ユーザー指定
+  command_structure: "{{structure}}"  # ユーザー指定 (single, multi, nested)
+  help_format: "標準的なUNIXスタイル"
+  
+  # エラーハンドリング
+  error_handling_pattern: "終了コードとエラーメッセージ"
+  error_message_format: "stderr出力"
+  validation_level: "strict"
+  
+  # 引数パース
+  argument_style: "posix"
+  option_prefix: "dash"
+  required_args_handling: "explicit"
+  
+  # CLIインターフェース
+  output_format: "plain_text"
+  progress_indication: "simple"
+  interactive_mode: "optional"
+  
+  # 品質基準
+  code_coverage_target: "基本的なパスをカバー"
+  test_strategy: "ユニットテスト"
+  documentation_level: "基本的な使用方法"
+
+# デフォルト値（オーバーライド可能）
+defaults:
+  language: "Python"
+  framework: "argparse"
+  structure: "single"
+
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-19"
+  tags:
+    - "cli"
+    - "tool"
+    - "command-line"
+    - "development"
+    - "interface"
