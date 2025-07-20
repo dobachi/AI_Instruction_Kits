@@ -61,7 +61,7 @@ dependencies:
     - "skill_error_handling"
     - "skill_api_design"
     - "quality_production"
-  recommended:
+  optional:
     - "task_data_analysis"
     - "skill_performance"
     - "task_report_writing"

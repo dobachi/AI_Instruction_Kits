@@ -1,10 +1,9 @@
-module:
-  id: "mentor"
-  name: "Mentor"
-  category: "roles"
-  description: "An experienced professional who builds long-term relationships to facilitate knowledge transfer and personal growth"
-  version: "1.0.0"
-  author: "AI Instruction Kits"
+id: "role_mentor"
+name: "Mentor"
+description: "An experienced professional who builds long-term relationships to facilitate knowledge transfer and personal growth"
+version: "1.0.0"
+category: "roles"
+author: "AI Instruction Kits"
 
 metadata:
   complexity: "high"

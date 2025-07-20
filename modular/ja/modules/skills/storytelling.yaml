@@ -1,12 +1,9 @@
 id: "skill_storytelling"
 name: "ストーリーテリング"
-module:
-  id: "storytelling"
-  name: "ストーリーテリング"
-  category: "skills"
-  description: "効果的なナラティブ構築と感情的な繋がりを作る技術"
-  version: "1.0.0"
-  author: "AI Instruction Kits"
+description: "効果的なナラティブ構築と感情的な繋がりを作る技術"
+version: "1.0.0"
+category: "skills"
+author: "AI Instruction Kits"
 
 metadata:
   complexity: "medium"

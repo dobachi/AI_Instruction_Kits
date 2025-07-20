@@ -1,10 +1,9 @@
-module:
-  id: "mentor"
-  name: "メンター"
-  category: "roles"
-  description: "経験豊富な専門家として長期的な関係性を築き、知識移転と個人成長を支援する役割"
-  version: "1.0.0"
-  author: "AI Instruction Kits"
+id: "role_mentor"
+name: "メンター"
+description: "経験豊富な専門家として長期的な関係性を築き、知識移転と個人成長を支援する役割"
+version: "1.0.0"
+category: "roles"
+author: "AI Instruction Kits"
 
 metadata:
   complexity: "high"

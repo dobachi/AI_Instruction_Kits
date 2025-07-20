@@ -1,12 +1,9 @@
 id: "skill_storytelling"
 name: "Storytelling"
-module:
-  id: "storytelling"
-  name: "Storytelling"
-  category: "skills"
-  description: "Techniques for effective narrative construction and emotional connection"
-  version: "1.0.0"
-  author: "AI Instruction Kits"
+description: "Techniques for effective narrative construction and emotional connection"
+version: "1.0.0"
+category: "skills"
+author: "AI Instruction Kits"
 
 metadata:
   complexity: "medium"

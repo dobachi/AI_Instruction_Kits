@@ -39,13 +39,13 @@ variables:
 
 dependencies:
   required:
-    - customer_research
-    - market_analysis
+    - skill_customer_research
+    - skill_market_analysis
   
-  recommended:
-    - value_proposition_design
-    - business_model_canvas
-    - metrics_tracking
+  optional:
+    - skill_value_proposition_design
+    - skill_business_model_canvas
+    - skill_metrics_tracking
 
 compatibility:
   tasks:

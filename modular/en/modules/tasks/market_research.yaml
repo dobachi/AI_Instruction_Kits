@@ -56,17 +56,11 @@ variables:
     default: "standard"
 
 dependencies:
-  - module: data_analysis
-    version: ">=1.0"
-    relationship: "complementary"
-  
-  - module: competitive_analysis
-    version: ">=1.0"
-    relationship: "extends"
-  
-  - module: report_writing
-    version: ">=1.0"
-    relationship: "output"
+  required:
+    - skill_data_analysis
+    - task_competitive_analysis
+  optional:
+    - task_report_writing
 
 outputs:
   - market_size_report:

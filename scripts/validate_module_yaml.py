@@ -25,6 +25,63 @@ def get_message(key, en_msg, ja_msg):
     return ja_msg if lang == 'ja' else en_msg
 
 
+def validate_dependencies_format(dependencies_data, file_path):
+    """
+    Check dependencies field format
+    
+    Supports both formats:
+    - Array format (legacy): ["module1", "module2"]
+    - Object format (recommended): {required: ["module1"], optional: ["module2"]}
+    """
+    if not dependencies_data:
+        return []
+    
+    errors = []
+    
+    # Validate format - should be array or object with required/optional
+    if isinstance(dependencies_data, list):
+        # Array format (legacy but supported)
+        for i, dep in enumerate(dependencies_data):
+            if not isinstance(dep, str):
+                errors.append(get_message(
+                    'dependencies_array_item',
+                    f'dependencies[{i}] should be string, got {type(dep).__name__}',
+                    f'dependencies[{i}]は文字列である必要があります（{type(dep).__name__}が指定されています）'
+                ))
+    elif isinstance(dependencies_data, dict):
+        # Object format (recommended)
+        valid_keys = {'required', 'optional'}
+        for key in dependencies_data:
+            if key not in valid_keys:
+                errors.append(get_message(
+                    'dependencies_invalid_key',
+                    f'dependencies.{key} is not a valid key (valid: {valid_keys})',
+                    f'dependencies.{key}は無効なキーです（有効: {valid_keys}）'
+                ))
+            elif not isinstance(dependencies_data[key], list):
+                errors.append(get_message(
+                    'dependencies_object_value',
+                    f'dependencies.{key} should be array, got {type(dependencies_data[key]).__name__}',
+                    f'dependencies.{key}は配列である必要があります（{type(dependencies_data[key]).__name__}が指定されています）'
+                ))
+            else:
+                for i, dep in enumerate(dependencies_data[key]):
+                    if not isinstance(dep, str):
+                        errors.append(get_message(
+                            'dependencies_object_item',
+                            f'dependencies.{key}[{i}] should be string, got {type(dep).__name__}',
+                            f'dependencies.{key}[{i}]は文字列である必要があります（{type(dep).__name__}が指定されています）'
+                        ))
+    else:
+        errors.append(get_message(
+            'dependencies_format',
+            f'dependencies should be array or object, got {type(dependencies_data).__name__}',
+            f'dependenciesは配列またはオブジェクトである必要があります（{type(dependencies_data).__name__}が指定されています）'
+        ))
+    
+    return errors
+
+
 def validate_module_yaml(file_path, category):
     """
     モジュールYAMLファイルを検証
@@ -113,7 +170,7 @@ def validate_module_yaml(file_path, category):
             ))
         
         # 配列フィールドの形式チェック / Check array field formats
-        array_fields = ['tags', 'dependencies', 'prerequisites', 'compatible_tasks']
+        array_fields = ['tags', 'prerequisites', 'compatible_tasks']
         for field in array_fields:
             if field in data and not isinstance(data[field], list):
                 errors.append(get_message(
@@ -121,6 +178,11 @@ def validate_module_yaml(file_path, category):
                     f'{field} field must be an array',
                     f'{field}フィールドは配列形式である必要があります'
                 ))
+        
+        # dependenciesフィールドの特別処理 / Special handling for dependencies field
+        if 'dependencies' in data:
+            dep_errors = validate_dependencies_format(data['dependencies'], file_path)
+            errors.extend(dep_errors)
         
         # 文字列フィールドの形式チェック / Check string field formats
         string_fields = ['id', 'name', 'description', 'author']
