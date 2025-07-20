@@ -228,7 +228,7 @@ modular/
 ## Category-Specific Guidelines
 
 ### Expertise Modules
-See [EXPERTISE_MODULE_GUIDE_en.md](../docs/development/EXPERTISE_MODULE_GUIDE_en.md) for details
+See [expertise-module.md](../docs/en/developers/guides/expertise-module.md) for details
 
 Features:
 - Deep expertise

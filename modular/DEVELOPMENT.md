@@ -42,6 +42,46 @@ AIの振る舞いやペルソナを定義
 
 ## 開発プロセス
 
+### Phase 0: テンプレート使用による初期作成
+
+#### 0.1 適切なテンプレート選択
+```bash
+# 1. カテゴリに応じたテンプレートを選択
+modular/ja/templates/  # 日本語版
+modular/en/templates/  # 英語版
+├── task_template.yaml      # タスクモジュール用
+├── skill_template.yaml     # スキルモジュール用
+├── expertise_template.yaml # 専門知識モジュール用
+├── role_template.yaml      # ロールモジュール用
+├── method_template.yaml    # 方法論モジュール用
+├── domain_template.yaml    # ドメインモジュール用
+├── quality_template.yaml   # 品質モジュール用
+└── core_template.yaml      # コアモジュール用
+```
+
+#### 0.2 テンプレートからの新規作成
+```bash
+# 1. テンプレートをコピー
+cp modular/ja/templates/task_template.yaml modular/ja/modules/tasks/new_task.yaml
+
+# 2. プレースホルダーを実際の値に置換
+# [MODULE_NAME] → 実際のモジュール名
+# [タスク名] → 実際のタスク名
+# [詳細説明] → 実際の説明
+# etc.
+
+# 3. 不要なセクションを削除・必要なセクションを追加
+
+# 4. 検証スクリプトで確認
+python3 scripts/validate_module_yaml.py modular/ja/modules/tasks/new_task.yaml tasks
+```
+
+#### 0.3 テンプレート活用のメリット
+- **一貫性**: 標準的な構造とフィールドを保証
+- **完全性**: 必要なメタデータの漏れを防止
+- **品質**: 依存関係フィールドのオブジェクト形式を自動適用
+- **効率性**: プレースホルダー置換で迅速な作成
+
 ### Phase 1: 計画
 
 #### 1.1 モジュールタイプの決定
@@ -205,22 +245,28 @@ modular/
 
 ## ベストプラクティス
 
-### 1. 一貫性の維持
+### 1. テンプレート活用による一貫性
+- **必須**: 新規モジュール作成時はテンプレートを使用
+- **標準化**: 依存関係はオブジェクト形式（required/optional）を採用
+- **検証**: 作成後は必ず検証スクリプトを実行
+- **命名規則**: カテゴリプレフィックスの自動適用
+
+### 2. 一貫性の維持
 - 統一された構造
 - 命名規則の遵守
 - スタイルガイドの順守
 
-### 2. 実用性の重視
+### 3. 実用性の重視
 - 理論より実践
 - 具体的な例の提供
 - すぐに使える内容
 
-### 3. 保守性の確保
+### 4. 保守性の確保
 - 明確なバージョニング
 - 更新履歴の記録
 - 依存関係の最小化
 
-### 4. 協調性
+### 5. 協調性
 - 他モジュールとの連携
 - 再利用可能な設計
 - 明確なインターフェース
@@ -228,7 +274,7 @@ modular/
 ## カテゴリ別ガイドライン
 
 ### Expertiseモジュール
-詳細は [EXPERTISE_MODULE_GUIDE.md](../docs/development/EXPERTISE_MODULE_GUIDE.md) を参照
+詳細は [EXPERTISE_MODULE_GUIDE.md](../docs/developers/guides/expertise-module.md) を参照
 
 特徴:
 - 深い専門知識
@@ -277,6 +323,66 @@ modular/
   - テンプレート構文の確認
 ```
 
+## テンプレート使用ガイド
+
+### 1. 新規モジュール作成手順
+```bash
+# 1. 適切なテンプレート選択
+ls modular/ja/templates/  # 利用可能なテンプレート確認
+
+# 2. テンプレートコピー
+cp modular/ja/templates/[category]_template.yaml modular/ja/modules/[category]/[new_module].yaml
+
+# 3. プレースホルダー置換
+# エディタで以下を置換：
+# [MODULE_NAME] → actual_module_name
+# [説明文] → 実際の説明文
+# [変数名] → 実際の変数名
+# etc.
+
+# 4. 検証実行
+python3 scripts/validate_module_yaml.py modular/ja/modules/[category]/[new_module].yaml [category]
+
+# 5. 英語版作成（必要に応じて）
+cp modular/en/templates/[category]_template.yaml modular/en/modules/[category]/[new_module].yaml
+```
+
+### 2. テンプレート活用のチェックリスト
+```markdown
+## 作成前チェック
+- [ ] 適切なカテゴリのテンプレートを選択
+- [ ] 既存の類似モジュールを確認（重複回避）
+- [ ] 依存関係を事前に整理
+
+## 編集中チェック
+- [ ] id命名規則に従う（例: task_code_generation）
+- [ ] dependenciesはオブジェクト形式を使用
+- [ ] 必須フィールド（id, name, version, description）を入力
+- [ ] 適切なタグを設定
+
+## 完成後チェック
+- [ ] 検証スクリプトでエラーなし
+- [ ] 英語版も作成（必要に応じて）
+- [ ] 統合テストで正常動作確認
+```
+
+### 3. 依存関係の正しい記述
+```yaml
+# ✅ 推奨: オブジェクト形式
+dependencies:
+  required:
+    - skill_api_design
+    - core_role_definition
+  optional:
+    - skill_testing
+    - quality_production
+
+# ❌ 非推奨: 配列形式（後方互換性のみ）
+dependencies:
+  - skill_api_design
+  - skill_testing
+```
+
 ## 開発ツール
 
 ### 1. モジュール生成テスト
@@ -288,12 +394,18 @@ python modular/composer.py --modules [id]
 python modular/composer.py --modules [id1] [id2] [id3]
 ```
 
-### 2. 品質チェックツール（今後実装予定）
+### 2. 品質チェックツール
 ```bash
-# 構造チェック
+# モジュール検証（現在利用可能）
+python3 scripts/validate_module_yaml.py [module_path] [category]
+
+# 全モジュール一括検証
+scripts/validate-modules.sh
+
+# 構造チェック（今後実装予定）
 scripts/validate-module.sh [module_path]
 
-# スタイルチェック
+# スタイルチェック（今後実装予定）
 scripts/check-style.sh [module_path]
 ```
 
@@ -303,16 +415,27 @@ scripts/check-style.sh [module_path]
 1. Issueで提案
 2. 既存モジュールとの差別化を説明
 3. 使用例を提示
+4. **必須**: 適切なテンプレートを使用
 
 ### 2. 既存モジュール改善
 1. 小さな改善から開始
 2. 後方互換性の維持
 3. テストの追加
+4. **推奨**: 依存関係をオブジェクト形式に移行
 
 ### 3. レビュープロセス
-1. セルフチェックリスト完了
-2. プルリクエスト作成
-3. レビューフィードバック対応
+1. **必須**: テンプレート使用の確認
+2. **必須**: 検証スクリプト実行
+3. セルフチェックリスト完了
+4. プルリクエスト作成
+5. レビューフィードバック対応
+
+### 4. テンプレート使用義務
+新規モジュール作成時は、以下を必須とする：
+- 対応するカテゴリのテンプレートを使用
+- dependencies フィールドはオブジェクト形式を採用
+- 検証スクリプトでエラーなしを確認
+- 命名規則の遵守（カテゴリプレフィックス必須）
 
 ## 今後の展望
 

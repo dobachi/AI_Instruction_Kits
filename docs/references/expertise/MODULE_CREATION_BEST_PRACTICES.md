@@ -343,6 +343,6 @@ expertiseモジュールの作成は、深い専門知識と実装可能な具�
 ---
 
 ## 参考リンク
-- [Expertiseモジュール開発ガイド](../../development/EXPERTISE_MODULE_GUIDE.md)
+- [Expertiseモジュール開発ガイド](../../developers/guides/expertise-module.md)
 - [モジュラーシステム開発ガイド](../../../modular/DEVELOPMENT.md)
 - 各分野の調査結果（同ディレクトリ内）

@@ -343,6 +343,6 @@ Based on this experience, we expect future module development to become more eff
 ---
 
 ## Reference Links
-- [Expertise Module Development Guide](../../development/EXPERTISE_MODULE_GUIDE_en.md)
+- [Expertise Module Development Guide](../../en/developers/guides/expertise-module.md)
 - [Modular System Development Guide](../../../modular/DEVELOPMENT_en.md)
 - Research results for each field (in same directory)
