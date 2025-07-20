@@ -63,7 +63,20 @@ Edit the generated `instructions/PROJECT.md`:
 
 ## 💬 Step 4: Give Instructions to AI
 
-### For Claude
+### 🆕 Using the Modular System (Recommended)
+```bash
+# Just give tasks in natural language!
+claude "Create an e-commerce website"
+# → MODULE_COMPOSER automatically selects and combines optimal modules
+
+claude "Write a research paper"
+# → academic_researcher preset is automatically selected
+
+claude "Analyze data"
+# → data_analyst preset is automatically selected
+```
+
+### Traditional Method
 ```bash
 # Load project settings and start working
 claude "Refer to CLAUDE.md and implement user authentication API"

@@ -27,6 +27,11 @@ By centralizing management of scattered AI instructions, it achieves:
 
 ## 🚀 Key Features
 
+### 🧩 NEW! Modular Instruction System
+- **Dynamic instruction generation**: Customized to match your project
+- **6 presets**: Academic research, business consulting, data analysis, and more
+- **5 expertise modules**: Software engineering, legal engineering, ML/AI, parallel/distributed, data spaces
+
 ### 1. One-command Setup
 ```bash
 bash scripts/setup-project.sh
@@ -78,6 +83,11 @@ Automatically track work progress, enabling smooth task handover and continuity:
 
 2. **Give Instructions to AI**
    ```bash
+   # Using the modular system (recommended)
+   claude "Create a website"
+   # → MODULE_COMPOSER automatically selects optimal modules
+   
+   # Traditional method
    claude "Refer to CLAUDE.md and implement user authentication API"
    ```
 

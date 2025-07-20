@@ -9,6 +9,66 @@ lang: en
 
 Detailed introduction to all features of AI Instruction Kits.
 
+## 🧩 NEW! Modular Instruction System
+
+### Overview
+Revolutionary feature released in July 2025 that dynamically generates instructions based on project requirements.
+
+### MODULE_COMPOSER
+Analyzes tasks and automatically generates customized instructions by combining optimal modules.
+
+**Key Features:**
+- **Automatic task analysis**: Just input tasks in natural language
+- **Intelligent selection**: Uses metadata to select optimal modules
+- **Flexible combination**: Can integrate multiple modules
+- **Default value support**: Start with minimal configuration
+
+### Available Presets (6 types)
+
+1. **academic_researcher**: For academic researchers (literature review, paper writing, data analysis)
+2. **business_consultant**: For business consultants
+3. **data_analyst**: Specialized in data analysis and visualization
+4. **project_manager**: For project managers
+5. **startup_advisor**: For startup advisors
+6. **technical_writer**: For technical documentation specialists
+
+### Expertise Modules (5 types)
+
+1. **software_engineering**: Latest software engineering compliant with SWEBOK v4.0
+2. **legal_engineering**: Legal engineering and regulatory technology expertise
+3. **machine_learning**: ML/AI design, implementation, and operations
+4. **parallel_distributed**: Parallel and distributed system expertise
+5. **data_space**: Data space construction including GAIA-X, IDS
+
+### Module Types
+
+- **Core**: Defines basic system structure
+- **Tasks**: Specific work content (code generation, data analysis, documentation, etc.)
+- **Skills**: Specific abilities (API design, testing, error handling, etc.)
+- **Methods**: Work approaches (agile, lean, design thinking, etc.)
+- **Domains**: Industry-specific knowledge (finance, healthcare, education, etc.)
+- **Roles**: AI behavior (mentor, reviewer, consultant, etc.)
+- **Quality**: Quality levels and standards
+- **Expertise**: Deep expertise and latest best practices
+
+### Usage Examples
+```bash
+# Writing academic papers
+claude "Write a research paper"
+# → MODULE_COMPOSER selects academic_researcher preset
+# → Also adds citation management, methodology design, statistical analysis modules
+
+# Data analysis
+claude "Analyze sales data"
+# → data_analyst preset is automatically selected
+# → Combines visualization, statistical processing, report creation modules
+
+# Specialized tasks
+claude "Design a distributed system"
+# → parallel_distributed expertise module is selected
+# → Design based on 2024-2025 latest technology trends
+```
+
 ## 📚 Instruction Categories
 
 ### 1. System Management

@@ -63,7 +63,20 @@ bash path/to/AI_Instruction_Kits/scripts/setup-project.sh
 
 ## 💬 ステップ4: AIに指示を出す
 
-### Claude の場合
+### 🆕 モジュラーシステムを使う場合（推奨）
+```bash
+# 自然言語でタスクを指示するだけ！
+claude "ECサイトを作成してください"
+# → MODULE_COMPOSERが自動的に最適なモジュールを選択・組み合わせ
+
+claude "研究論文を書いてください"
+# → academic_researcherプリセットが自動選択
+
+claude "データを分析してください"
+# → data_analystプリセットが自動選択
+```
+
+### 従来の方法
 ```bash
 # プロジェクト設定を読み込んで作業開始
 claude "CLAUDE.mdを参照して、ユーザー認証APIを実装して"
