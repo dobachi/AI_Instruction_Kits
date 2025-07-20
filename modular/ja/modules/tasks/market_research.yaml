@@ -3,8 +3,8 @@ name: "市場調査"
 version: "1.0"
 description: "体系的な市場調査を実施するための包括的フレームワーク"
 author: "AI Instruction Kits"
-created_date: "2025-01-19"
-last_updated: "2025-01-19"
+created_date: "2025-07-19"
+last_updated: "2025-07-19"
 language: ja
 
 tags:
@@ -165,7 +165,7 @@ integration_points:
 
 version_history:
   - version: "1.0"
-    date: "2025-01-19"
+    date: "2025-07-19"
     changes: "初版作成 - 包括的な市場調査フレームワーク"
 
 metadata:

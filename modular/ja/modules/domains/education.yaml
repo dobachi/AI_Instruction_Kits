@@ -74,6 +74,6 @@ integrations:
   - module: "skill_visual_communication"
     purpose: "効果的な教育コンテンツの作成"
 author: "AI Instruction Kits Project"
-created: "2025-01-19"
-updated: "2025-01-19"
+created: "2025-07-19"
+updated: "2025-07-19"
 license: "MIT"

@@ -17,7 +17,7 @@ Latest technical materials by specialty field available for AI Instruction Kit d
   <h3>🏛️ Legal Engineering</h3>
   <p>Differences between Legal Tech and Legal Engineering, Agile Legal, Compliance-by-Design, and the fusion of law and technology</p>
   <ul style="list-style-type: none; padding: 0;">
-    <li>📅 Research Date: 2025-01-19</li>
+    <li>📅 Research Date: 2025-07-19</li>
     <li>🎯 Main Topics: 5 areas</li>
     <li>📚 Implementation Examples: 3 patterns</li>
   </ul>
@@ -28,7 +28,7 @@ Latest technical materials by specialty field available for AI Instruction Kit d
   <h3>💻 Software Engineering</h3>
   <p>Latest software engineering compliant with SWEBOK v4. Integrated approach for sustainable development, accessibility, and AI-assisted development</p>
   <ul style="list-style-type: none; padding: 0;">
-    <li>📅 Research Date: 2025-01-19</li>
+    <li>📅 Research Date: 2025-07-19</li>
     <li>🎯 Main Topics: 6 areas</li>
     <li>📚 Implementation Examples: 4 patterns</li>
   </ul>
@@ -39,7 +39,7 @@ Latest technical materials by specialty field available for AI Instruction Kit d
   <h3>🔀 Parallel and Distributed Computing</h3>
   <p>Latest parallel processing technologies including GPU/CUDA optimization, quantum computing integration, and edge-cloud coordination</p>
   <ul style="list-style-type: none; padding: 0;">
-    <li>📅 Research Date: 2025-01-19</li>
+    <li>📅 Research Date: 2025-07-19</li>
     <li>🎯 Main Topics: 7 areas</li>
     <li>📚 Implementation Examples: 4 patterns</li>
   </ul>
@@ -50,7 +50,7 @@ Latest technical materials by specialty field available for AI Instruction Kit d
   <h3>🤖 Machine Learning & AI</h3>
   <p>Best practices for MLOps, Responsible AI, latest algorithms, and production deployment</p>
   <ul style="list-style-type: none; padding: 0;">
-    <li>📅 Research Date: 2025-01-19</li>
+    <li>📅 Research Date: 2025-07-19</li>
     <li>🎯 Main Topics: 8 areas</li>
     <li>📚 Implementation Examples: 5 patterns</li>
   </ul>

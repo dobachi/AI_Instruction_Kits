@@ -66,8 +66,8 @@ defaults:
 # Metadata
 metadata:
   author: "AI Instruction Kits Project"
-  created: "2025-01-19"
-  updated: "2025-01-19"
+  created: "2025-07-19"
+  updated: "2025-07-19"
   tags:
     - "technical presentation"
     - "architecture diagram"
