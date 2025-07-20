@@ -1,0 +1,215 @@
+id: expertise_data_space
+name: Data Space Expertise
+description: Latest data space concepts and implementation methods for 2024-2025. Comprehensive expertise in GAIA-X, IDS standards, data sovereignty, interoperability, and secure data sharing architectures
+version: 1.0.0
+category: expertise
+subcategory: data_architecture
+
+# Data space related variables
+variables:
+  - name: "data_space_type"
+    description: "Type of data space"
+    type: "enum"
+    values: ["enterprise", "public_sector", "research", "cross_domain", "vertical_industry"]
+    default: "enterprise"
+    
+  - name: "compliance_framework"
+    description: "Compliance framework to adhere to"
+    type: "enum"
+    values: ["gaia_x", "ids_ram", "dsba", "national_regulations", "fair_principles"]
+    default: "gaia_x"
+    
+  - name: "connector_type"
+    description: "Type of connector to use"
+    type: "enum"
+    values: ["edc", "ids_connector", "fiware", "true_connector", "custom"]
+    default: "edc"
+    
+  - name: "governance_model"
+    description: "Governance model"
+    type: "enum"
+    values: ["centralized", "federated", "decentralized", "hybrid", "hierarchical"]
+    default: "federated"
+    
+  - name: "industry_sector"
+    description: "Target industry sector"
+    type: "enum"
+    values: ["automotive", "healthcare", "manufacturing", "finance", "energy", "agriculture", "logistics", "general"]
+    default: "general"
+    
+  - name: "security_level"
+    description: "Security level"
+    type: "enum"
+    values: ["standard", "high", "critical", "military_grade"]
+    default: "high"
+    
+  - name: "interoperability_standard"
+    description: "Interoperability standard"
+    type: "enum"
+    values: ["ids_ram", "ngsi_ld", "openapi", "graphql", "custom_api"]
+    default: "ids_ram"
+    
+  - name: "data_sovereignty"
+    description: "Strictness of data sovereignty"
+    type: "enum"
+    values: ["flexible", "moderate", "strict", "absolute"]
+    default: "strict"
+    
+  - name: "encryption_approach"
+    description: "Encryption approach"
+    type: "enum"
+    values: ["standard", "quantum_resistant", "homomorphic", "mpc_enabled"]
+    default: "quantum_resistant"
+    
+  - name: "metadata_standard"
+    description: "Metadata standard"
+    type: "enum"
+    values: ["dcat", "datacite", "schema_org", "custom", "industry_specific"]
+    default: "dcat"
+    
+  - name: "deployment_model"
+    description: "Deployment model"
+    type: "enum"
+    values: ["cloud_native", "on_premise", "hybrid_cloud", "edge_integrated"]
+    default: "hybrid_cloud"
+    
+  - name: "privacy_approach"
+    description: "Privacy approach"
+    type: "enum"
+    values: ["privacy_by_design", "compliance_driven", "minimal", "enhanced"]
+    default: "privacy_by_design"
+    
+  - name: "collaboration_model"
+    description: "Collaboration model"
+    type: "enum"
+    values: ["bilateral", "multilateral", "ecosystem", "consortium", "open_science"]
+    default: "ecosystem"
+    
+  - name: "data_sharing_level"
+    description: "Data sharing level"
+    type: "enum"
+    values: ["metadata_only", "controlled", "selective", "open", "tiered"]
+    default: "controlled"
+    
+  - name: "maturity_stage"
+    description: "Data space maturity stage"
+    type: "enum"
+    values: ["pilot", "production_ready", "scaling", "mature", "evolving"]
+    default: "production_ready"
+
+# Dependencies on other modules
+dependencies:
+  required:
+    - skill_api_design        # API design skills
+    - skill_authentication    # Authentication & authorization skills
+  optional:
+    - expertise_software_engineering  # Software engineering expertise
+    - expertise_legal_engineering     # Legal engineering expertise
+    - method_agile                    # Agile development methodology
+    - domain_fintech                  # FinTech domain knowledge
+    - domain_healthcare               # Healthcare domain knowledge
+
+# Compatible tasks
+compatible_tasks:
+  - task_data_analysis        # Data analysis
+  - task_documentation        # Documentation creation
+  - task_project_planning     # Project planning
+  - task_strategy_development # Strategy development
+  - task_research            # Research
+
+# Tags
+tags:
+  - data_space
+  - gaia_x
+  - ids
+  - data_sovereignty
+  - interoperability
+  - federated_architecture
+  - secure_data_sharing
+  - zero_trust
+  - privacy_by_design
+  - european_data_strategy
+  - data_governance
+  - trust_framework
+  - connector
+  - metadata_broker
+  - catena_x
+
+# Output format
+output_format:
+  structure:
+    - data_space_principles
+    - governance_framework
+    - technical_architecture
+    - security_implementation
+    - interoperability_approach
+    - industry_specific_guidance
+    - implementation_roadmap
+    - best_practices_checklist
+  level_of_detail: comprehensive
+
+# Examples
+examples:
+  - title: Automotive Industry Data Space
+    variables:
+      data_space_type: vertical_industry
+      compliance_framework: gaia_x
+      connector_type: edc
+      industry_sector: automotive
+      governance_model: federated
+      security_level: high
+      interoperability_standard: ids_ram
+      deployment_model: hybrid_cloud
+    description: Building an automotive supply chain data space like Catena-X
+
+  - title: Healthcare Data Space
+    variables:
+      data_space_type: public_sector
+      compliance_framework: national_regulations
+      connector_type: fiware
+      industry_sector: healthcare
+      data_sovereignty: absolute
+      privacy_approach: enhanced
+      encryption_approach: homomorphic
+      data_sharing_level: controlled
+    description: Medical data space for secure patient data sharing
+
+  - title: Research Data Space
+    variables:
+      data_space_type: research
+      compliance_framework: fair_principles
+      connector_type: custom
+      governance_model: decentralized
+      collaboration_model: open_science
+      data_sharing_level: open
+      metadata_standard: datacite
+      maturity_stage: evolving
+    description: Research data sharing platform for open science
+
+  - title: Smart City Data Space
+    variables:
+      data_space_type: public_sector
+      compliance_framework: dsba
+      connector_type: fiware
+      deployment_model: edge_integrated
+      security_level: high
+      interoperability_standard: ngsi_ld
+      collaboration_model: ecosystem
+    description: Urban data platform leveraging IoT devices and edge computing
+
+# Metadata
+author: "AI Instruction Kits Project"
+created: "2025-01-19"
+updated: "2025-01-19"
+license: "Apache-2.0"
+research_sources:
+  - "GAIA-X Loire Release 2024"
+  - "IDS Reference Architecture Model v4.0"
+  - "Data Spaces Business Alliance (DSBA) Technical Guidelines"
+  - "European Data Strategy 2024"
+  - "Catena-X Automotive Network Documentation"
+  - "FIWARE Data Space Connector Specifications"
+  - "Eclipse Dataspace Components (EDC) Architecture"
+  - "NIST Post-Quantum Cryptography Standards 2024"
+  - "Zero Trust Architecture for Data Spaces"
+  - "Privacy Enhancing Technologies in Data Spaces"
