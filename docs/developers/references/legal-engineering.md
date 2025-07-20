@@ -77,7 +77,7 @@ Legal Engineering（法令工学）は、法的ワークフロー内でのツー
 
 ## 関連リソース
 
-- [詳細な調査資料](/home/dobachi/Sources/AI_Instruction_Kits/docs/references/expertise/legal_engineering_best_practices_2024.md)
+- [詳細な調査資料](../research/legal_engineering_best_practices_2024.md)
 - [Legal Engineering モジュール](/home/dobachi/Sources/AI_Instruction_Kits/modular/ja/modules/expertise/legal_engineering.md)（利用可能）
 
 ## 実装推奨事項

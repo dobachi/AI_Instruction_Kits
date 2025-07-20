@@ -64,7 +64,7 @@ Authoritative sources:
 #### 1.3 Saving Research Results
 ```bash
 # Systematic storage of reference materials
-docs/references/expertise/
+docs/developers/research/
 ├── legal_engineering_best_practices_2024.md
 ├── software_engineering_best_practices_2024.md
 ├── parallel_distributed_best_practices_2024.md
@@ -298,7 +298,7 @@ Expertise module development requires integration of deep specialized knowledge 
 Day 1 - Research Phase:
   - Conduct parallel research (4 fields simultaneously)
   - Collect and organize reference materials
-  - Save to docs/references/expertise/
+  - Save to docs/developers/research/
 
 Day 2 - Implementation Phase:
   - Create module bodies (.md)

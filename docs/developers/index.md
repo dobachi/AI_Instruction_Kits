@@ -25,7 +25,8 @@ AI_Instruction_Kits/
 │   └── en/           # 英語モジュール
 ├── scripts/          # ユーティリティスクリプト
 └── docs/            # ドキュメント
-    └── references/   # 技術リファレンス資料
+    └── developers/   # 開発者向けドキュメント
+        └── research/ # 研究資料・ベストプラクティス
 ```
 
 ## 📚 開発ガイド
@@ -73,6 +74,19 @@ AI_Instruction_Kits/
   - MLOpsのベストプラクティス
   - 責任あるAIの実装
   - 最新アルゴリズムとフレームワーク
+
+## 📖 研究資料・ベストプラクティス
+
+### [研究資料](research/)
+各分野の詳細な調査結果とベストプラクティス文書です。
+
+**利用可能な資料:**
+- **モジュール作成**: MODULE_CREATION_BEST_PRACTICES
+- **コンテキスト最適化**: context_optimization_best_practices_2025
+- **学術モジュール**: academic_writing, citation_management等
+- **技術分野**: software_engineering, machine_learning等の詳細版
+
+これらの資料は、expertiseモジュール作成時の重要な参考文献として活用されています。
 
 ## 🛠️ 開発環境セットアップ
 

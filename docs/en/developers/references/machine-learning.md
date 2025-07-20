@@ -166,5 +166,5 @@ Machine Learning & AI encompasses the development and operation of systems that 
 
 ## Related Resources
 
-- [Detailed Research Material](/home/dobachi/Sources/AI_Instruction_Kits/docs/references/expertise/machine_learning_best_practices_2024.md)
+- [Detailed Research Material](../research/machine_learning_best_practices_2024.md)
 - [Machine Learning Module](/home/dobachi/Sources/AI_Instruction_Kits/modular/en/modules/expertise/machine_learning.md) (available)

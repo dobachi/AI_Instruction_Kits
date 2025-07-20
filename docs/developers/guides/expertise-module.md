@@ -64,7 +64,7 @@ Expertiseモジュールは、特定の専門分野における深い知識と�
 #### 1.3 調査結果の保存
 ```bash
 # 参考資料の体系的な保存
-docs/references/expertise/
+docs/developers/research/
 ├── legal_engineering_best_practices_2024.md
 ├── software_engineering_best_practices_2024.md
 ├── parallel_distributed_best_practices_2024.md
@@ -298,7 +298,7 @@ Expertiseモジュールの開発は、深い専門知識と最新技術トレ�
 Day 1 - 調査フェーズ:
   - 並列調査の実施（4分野同時）
   - 参考資料の収集と整理
-  - docs/references/expertise/への保存
+  - docs/developers/research/への保存
 
 Day 2 - 実装フェーズ:
   - モジュール本体（.md）の作成

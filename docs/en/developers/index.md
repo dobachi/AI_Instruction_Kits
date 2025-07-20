@@ -25,7 +25,8 @@ AI_Instruction_Kits/
 │   └── en/           # English modules
 ├── scripts/          # Utility scripts
 └── docs/            # Documentation
-    └── references/   # Technical reference materials
+    └── developers/   # Developer documentation
+        └── research/ # Research materials & best practices
 ```
 
 ## 📚 Development Guide
@@ -73,6 +74,19 @@ Our project investigates the latest technology trends in each specialty field an
   - MLOps best practices
   - Responsible AI implementation
   - Latest algorithms and frameworks
+
+## 📖 Research Materials & Best Practices
+
+### [Research Materials](research/)
+Detailed research results and best practice documents for each field.
+
+**Available Materials:**
+- **Module Creation**: MODULE_CREATION_BEST_PRACTICES
+- **Context Optimization**: context_optimization_best_practices_2025
+- **Academic Modules**: academic_writing, citation_management, etc.
+- **Technical Fields**: Detailed versions of software_engineering, machine_learning, etc.
+
+These materials are utilized as important references when creating expertise modules.
 
 ## 🛠️ Development Environment Setup
 

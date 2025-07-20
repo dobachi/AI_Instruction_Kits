@@ -138,5 +138,5 @@ Parallel & Distributed Computing（並列・分散コンピューティング）
 
 ## 関連リソース
 
-- [詳細な調査資料](/home/dobachi/Sources/AI_Instruction_Kits/docs/references/expertise/parallel_distributed_best_practices_2024.md)
+- [詳細な調査資料](../research/parallel_distributed_best_practices_2024.md)
 - [Parallel & Distributed モジュール](/home/dobachi/Sources/AI_Instruction_Kits/modular/ja/modules/expertise/parallel_distributed.md)（利用可能）
