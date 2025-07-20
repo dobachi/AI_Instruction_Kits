@@ -28,4 +28,3 @@ plugins:
 
 # 除外ファイル
 exclude:
-  - examples/
