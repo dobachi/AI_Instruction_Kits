@@ -1,4 +1,5 @@
-name: market_research
+id: "task_market_research"
+name: "Market Research"
 version: "1.0"
 description: "Comprehensive framework for conducting systematic market research"
 author: "AI Instruction Kits"
@@ -33,19 +34,19 @@ variables:
     description: "Industry to be researched"
     type: string
     required: true
-    example: "SaaS", "Manufacturing", "Retail"
+    example: ["SaaS", "Manufacturing", "Retail"]
   
   - name: TARGET_MARKET
     description: "Target market (region/segment)"
     type: string
     required: true
-    example: "North American B2B market", "Japanese consumer market"
+    example: ["North American B2B market", "Japanese consumer market"]
   
   - name: PRODUCT_CATEGORY
     description: "Product/service category"
     type: string
     required: true
-    example: "CRM software", "Health supplements"
+    example: ["CRM software", "Health supplements"]
   
   - name: ANALYSIS_SCOPE
     description: "Scope and depth of analysis"

@@ -1,4 +1,5 @@
-name: lean_canvas
+id: "skill_lean_canvas"
+name: "Lean Canvas"
 display_name: Lean Canvas
 category: skills
 description: Framework to visualize startup or new business models through 9 key elements and conduct hypothesis validation

@@ -1,4 +1,5 @@
-name: lean_canvas
+id: "skill_lean_canvas"
+name: "リーンキャンバス"
 display_name: リーンキャンバス
 category: skills
 description: スタートアップや新規事業のビジネスモデルを9つの要素で可視化し、仮説検証を行うフレームワーク

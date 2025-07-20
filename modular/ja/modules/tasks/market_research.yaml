@@ -1,4 +1,5 @@
-name: market_research
+id: "task_market_research"
+name: "市場調査"
 version: "1.0"
 description: "体系的な市場調査を実施するための包括的フレームワーク"
 author: "AI Instruction Kits"
@@ -33,19 +34,19 @@ variables:
     description: "調査対象の業界"
     type: string
     required: true
-    example: "SaaS", "製造業", "小売業"
+    example: ["SaaS", "製造業", "小売業"]
   
   - name: TARGET_MARKET
     description: "ターゲット市場（地域/セグメント）"
     type: string
     required: true
-    example: "日本国内B2B市場", "北米消費者市場"
+    example: ["日本国内B2B市場", "北米消費者市場"]
   
   - name: PRODUCT_CATEGORY
     description: "製品/サービスカテゴリー"
     type: string
     required: true
-    example: "CRMソフトウェア", "健康食品"
+    example: ["CRMソフトウェア", "健康食品"]
   
   - name: ANALYSIS_SCOPE
     description: "分析の範囲と深さ"

@@ -1,0 +1,51 @@
+id: "skill_citation_management"
+name: "Citation Management"
+display_name: Citation Management
+category: skills
+description: Best practices and modern tool utilization for citation management in academic research and technical documentation
+version: 1.0.0
+author: AI Instruction Kits
+tags:
+  - citation management
+  - academic research
+  - reference management
+  - Zotero
+  - Mendeley
+  - EndNote
+  - Paperpile
+  - LaTeX
+  - BibTeX
+  - APA
+  - MLA
+  - IEEE
+  - Chicago
+  - AI citation
+  - Japanese literature
+dependencies: []
+compatible_models:
+  - gpt-4
+  - gpt-3.5-turbo
+  - claude-3
+  - gemini-pro
+configuration:
+  default_tool: "Zotero"
+  citation_style: "APA"
+  language_support: ["en", "ja"]
+  sync_enabled: true
+examples:
+  - task: "Set up literature management for new research project"
+    context: "Building citation management system for PhD dissertation"
+    expected_outcome: "Organized folder structure and naming conventions established"
+  - task: "Properly cite AI-generated content"
+    context: "Disclosing ChatGPT usage for research assistance"
+    expected_outcome: "Transparent citations with prompt documentation"
+resources:
+  - name: "Zotero Official Site"
+    url: "https://www.zotero.org/"
+    type: "tool"
+  - name: "Citation Style Language"
+    url: "https://citationstyles.org/"
+    type: "reference"
+  - name: "J-STAGE"
+    url: "https://www.jstage.jst.go.jp/"
+    type: "database"
