@@ -139,4 +139,4 @@ Parallel & Distributed Computing uses multiple processing elements simultaneousl
 ## Related Resources
 
 - [Detailed Research Material](/home/dobachi/Sources/AI_Instruction_Kits/docs/references/expertise/parallel_distributed_best_practices_2024.md)
-- [Parallel & Distributed Module](/home/dobachi/Sources/AI_Instruction_Kits/modular/en/modules/expertise/parallel_distributed.md) (planned)
+- [Parallel & Distributed Module](/home/dobachi/Sources/AI_Instruction_Kits/modular/en/modules/expertise/parallel_distributed.md) (available)

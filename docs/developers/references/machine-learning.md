@@ -167,4 +167,4 @@ Machine Learning & AI（機械学習・AI）は、データからパターンを
 ## 関連リソース
 
 - [詳細な調査資料](/home/dobachi/Sources/AI_Instruction_Kits/docs/references/expertise/machine_learning_best_practices_2024.md)
-- [Machine Learning モジュール](/home/dobachi/Sources/AI_Instruction_Kits/modular/en/modules/expertise/machine_learning.md)（作成予定）
+- [Machine Learning モジュール](/home/dobachi/Sources/AI_Instruction_Kits/modular/ja/modules/expertise/machine_learning.md)（利用可能）

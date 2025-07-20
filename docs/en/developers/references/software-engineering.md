@@ -117,7 +117,7 @@ This expands the knowledge areas from 15 to 18.
 ## Related Resources
 
 - [Detailed Research Material](/home/dobachi/Sources/AI_Instruction_Kits/docs/references/expertise/software_engineering_best_practices_2024.md)
-- [Software Engineering Module](/home/dobachi/Sources/AI_Instruction_Kits/modular/en/modules/expertise/software_engineering.md) (planned)
+- [Software Engineering Module](/home/dobachi/Sources/AI_Instruction_Kits/modular/en/modules/expertise/software_engineering.md) (available)
 
 ## Japan-Specific Considerations
 

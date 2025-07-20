@@ -78,7 +78,7 @@ Legal Engineering focuses on the strategic design and implementation of tools wi
 ## Related Resources
 
 - [Detailed Research Material](/home/dobachi/Sources/AI_Instruction_Kits/docs/references/expertise/legal_engineering_best_practices_2024.md)
-- [Legal Engineering Module](/home/dobachi/Sources/AI_Instruction_Kits/modular/en/modules/expertise/legal_engineering.md) (planned)
+- [Legal Engineering Module](/home/dobachi/Sources/AI_Instruction_Kits/modular/en/modules/expertise/legal_engineering.md) (available)
 
 ## Implementation Recommendations
 
