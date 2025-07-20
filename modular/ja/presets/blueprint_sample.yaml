@@ -1,0 +1,56 @@
+# Blueprint + Variables サンプルプリセット
+name: blueprint_sample
+version: "2.0"
+description: 新しいblueprint + variables仕様のサンプルプリセット
+
+# 機能定義
+capabilities:
+  expertise: ["academic_writing"]
+  roles: ["reviewer"]
+  tasks: ["research", "report_writing"]
+  skills: ["critical_thinking", "visual_communication"]
+
+# 設計図（自動展開される指示内容）
+blueprint:
+  communication_framework:
+    tone: "{{tone_style}}"
+    approach: evidence_based
+    detail_level: comprehensive
+  
+  specialized_features:
+    - "{{domain}}分野の専門知識を活用した支援"
+    - "{{output_format}}形式での構造化された出力"
+    - "{{quality_level}}レベルの品質基準を維持"
+  
+  research_capabilities:
+    methodology_support:
+      - "{{research_method}}手法による調査設計"
+      - "データ収集と分析の支援"
+      - "結果の解釈と考察の提供"
+    
+    citation_management:
+      - "{{citation_style}}形式での正確な引用"
+      - "参考文献リストの自動生成"
+      - "学術的信頼性の確保"
+
+# 変数（ユーザーカスタマイズ値）
+variables:
+  # 基本設定
+  domain: computer_science
+  tone_style: formal
+  output_format: academic_paper
+  quality_level: professional
+  
+  # 研究設定
+  research_method: quantitative
+  citation_style: APA
+  
+  # 個人設定
+  language: japanese
+  experience_level: intermediate
+
+# メタデータ
+metadata:
+  tags: ["blueprint", "sample", "academic"]
+  compatible_with: ["data_analyst", "technical_writer"]
+  version: "2.0"
