@@ -1,0 +1,208 @@
+id: method_research_methodology
+name: Research Methodology
+description: Latest research methodology for 2024-2025. Systematic research approach including research design selection, data collection methods, analysis techniques, AI integration, and ethical considerations
+version: 1.0.0
+category: methods
+subcategory: research_methods
+
+# Research methodology related variables
+variables:
+  - name: "research_paradigm"
+    description: "Research paradigm"
+    type: "enum"
+    values: ["positivist", "interpretivist", "critical", "pragmatist", "transformative", "mixed"]
+    default: "pragmatist"
+    
+  - name: "research_approach"
+    description: "Research approach"
+    type: "enum"
+    values: ["quantitative", "qualitative", "mixed_methods", "design_science", "action_research", "systematic"]
+    default: "mixed_methods"
+    
+  - name: "research_design"
+    description: "Research design"
+    type: "enum"
+    values: ["experimental", "quasi_experimental", "survey", "case_study", "ethnography", "grounded_theory", "phenomenology"]
+    default: "case_study"
+    
+  - name: "sampling_strategy"
+    description: "Sampling strategy"
+    type: "enum"
+    values: ["random", "stratified", "cluster", "purposive", "theoretical", "convenience", "mixed"]
+    default: "purposive"
+    
+  - name: "data_collection"
+    description: "Data collection method"
+    type: "enum"
+    values: ["survey", "interview", "observation", "documents", "sensors", "digital", "multiple"]
+    default: "multiple"
+    
+  - name: "analysis_method"
+    description: "Analysis method"
+    type: "enum"
+    values: ["statistical", "thematic", "content", "narrative", "ml_enhanced", "integrated", "meta_analysis"]
+    default: "integrated"
+    
+  - name: "technology_integration"
+    description: "Technology integration level"
+    type: "enum"
+    values: ["minimal", "basic", "intermediate", "advanced", "ai_driven", "cutting_edge"]
+    default: "advanced"
+    
+  - name: "ethical_complexity"
+    description: "Ethical complexity"
+    type: "enum"
+    values: ["low", "moderate", "high", "very_high", "critical", "emerging"]
+    default: "high"
+    
+  - name: "data_sensitivity"
+    description: "Data sensitivity"
+    type: "enum"
+    values: ["public", "internal", "confidential", "sensitive", "highly_sensitive", "classified"]
+    default: "sensitive"
+    
+  - name: "temporal_design"
+    description: "Temporal design"
+    type: "enum"
+    values: ["cross_sectional", "longitudinal", "retrospective", "prospective", "time_series", "real_time"]
+    default: "cross_sectional"
+    
+  - name: "validity_priority"
+    description: "Validity priority"
+    type: "enum"
+    values: ["internal", "external", "construct", "statistical", "ecological", "balanced"]
+    default: "balanced"
+    
+  - name: "stakeholder_involvement"
+    description: "Stakeholder involvement"
+    type: "enum"
+    values: ["minimal", "consultative", "collaborative", "participatory", "co_creation", "community_led"]
+    default: "collaborative"
+    
+  - name: "dissemination_strategy"
+    description: "Dissemination strategy"
+    type: "enum"
+    values: ["academic_only", "dual_track", "open_access", "multimedia", "community_focused", "policy_oriented"]
+    default: "dual_track"
+    
+  - name: "reproducibility_level"
+    description: "Reproducibility level"
+    type: "enum"
+    values: ["basic", "computational", "empirical", "full", "automated", "certified"]
+    default: "computational"
+    
+  - name: "resource_constraints"
+    description: "Resource constraints"
+    type: "enum"
+    values: ["minimal", "limited", "moderate", "adequate", "abundant", "unlimited"]
+    default: "moderate"
+
+# Dependencies on other modules
+dependencies:
+  required:
+    - skill_literature_review      # Literature review skills
+  optional:
+    - expertise_academic_writing   # Academic writing expertise
+    - skill_citation_management    # Citation management skills
+    - skill_data_analysis         # Data analysis skills
+    - skill_statistical_analysis  # Statistical analysis skills
+    - task_thesis_writing         # Thesis writing task
+    - task_grant_writing          # Grant writing task
+
+# Compatible tasks
+compatible_tasks:
+  - task_research_planning       # Research planning
+  - task_data_collection        # Data collection
+  - task_data_analysis          # Data analysis
+  - task_thesis_writing         # Thesis writing
+  - task_grant_writing          # Grant writing
+  - task_ethics_application     # Ethics application
+  - task_systematic_review      # Systematic review
+
+# Tags
+tags:
+  - research_methodology
+  - research_design
+  - data_collection
+  - data_analysis
+  - mixed_methods
+  - qualitative_research
+  - quantitative_research
+  - research_ethics
+  - ai_research
+  - big_data
+  - open_science
+  - reproducibility
+  - causal_inference
+  - participatory_research
+  - digital_methods
+
+# Output format
+output_format:
+  structure:
+    - research_design_rationale
+    - methodology_framework
+    - data_collection_plan
+    - analysis_strategy
+    - ethical_considerations
+    - quality_assurance
+    - timeline_milestones
+    - resource_requirements
+  level_of_detail: comprehensive
+
+# Use examples
+examples:
+  - title: AI-Integrated Mixed Methods
+    variables:
+      research_approach: mixed_methods
+      technology_integration: ai_driven
+      analysis_method: ml_enhanced
+      data_collection: digital
+      ethical_complexity: very_high
+      reproducibility_level: automated
+    description: Advanced mixed methods approach utilizing AI technology
+
+  - title: Participatory Action Research
+    variables:
+      research_approach: action_research
+      stakeholder_involvement: co_creation
+      dissemination_strategy: community_focused
+      validity_priority: ecological
+      temporal_design: longitudinal
+    description: Community-led participatory research project
+
+  - title: Big Data Empirical Research
+    variables:
+      research_approach: quantitative
+      data_collection: sensors
+      analysis_method: statistical
+      technology_integration: cutting_edge
+      data_sensitivity: highly_sensitive
+      validity_priority: statistical
+    description: Large-scale empirical research utilizing IoT sensor data
+
+  - title: Digital Ethnography
+    variables:
+      research_design: ethnography
+      data_collection: digital
+      analysis_method: narrative
+      ethical_complexity: emerging
+      stakeholder_involvement: participatory
+    description: Digital ethnography research of online communities
+
+# Metadata
+author: "AI Instruction Kits Project"
+created: "2025-01-20"
+updated: "2025-01-20"
+license: "Apache-2.0"
+research_sources:
+  - "Research Design 6th Edition (Creswell & Creswell, 2024)"
+  - "Mixed Methods Research Guidelines (2024)"
+  - "DESRIST 2024 Conference Proceedings"
+  - "AI Ethics in Research (IEEE/ACM 2024)"
+  - "Open Science Framework Guidelines"
+  - "FAIR Data Principles Implementation"
+  - "Causal Inference Methods (2024)"
+  - "Digital Research Methods Handbook"
+  - "Research Ethics in the AI Era"
+  - "Reproducible Research Standards"

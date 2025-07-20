@@ -1,0 +1,209 @@
+id: expertise_academic_writing
+name: Academic Writing Expertise
+description: Latest academic writing expertise for 2024-2025. Comprehensive approach including academic tone and structure, citation management, ethical use of AI-assisted writing, discipline-specific conventions, and writing techniques for international audiences
+version: 1.0.0
+category: expertise
+subcategory: academic_research
+
+# Academic writing related variables
+variables:
+  - name: "discipline"
+    description: "Academic discipline"
+    type: "enum"
+    values: ["stem", "social_sciences", "humanities", "interdisciplinary", "medical", "business"]
+    default: "interdisciplinary"
+    
+  - name: "document_type"
+    description: "Document type"
+    type: "enum"
+    values: ["research_article", "thesis", "dissertation", "review_paper", "conference_paper", "grant_proposal"]
+    default: "research_article"
+    
+  - name: "target_audience"
+    description: "Target audience"
+    type: "enum"
+    values: ["specialists", "interdisciplinary", "general_academic", "international", "mixed"]
+    default: "interdisciplinary"
+    
+  - name: "writing_style"
+    description: "Writing style"
+    type: "enum"
+    values: ["formal_traditional", "formal_modern", "accessible_academic", "technical", "narrative"]
+    default: "formal_modern"
+    
+  - name: "citation_style"
+    description: "Citation style"
+    type: "enum"
+    values: ["apa7", "mla9", "chicago18", "ieee", "vancouver", "harvard"]
+    default: "apa7"
+    
+  - name: "language_level"
+    description: "Language level"
+    type: "enum"
+    values: ["native", "near_native", "advanced", "intermediate", "esl_friendly"]
+    default: "advanced"
+    
+  - name: "ai_usage"
+    description: "AI usage level"
+    type: "enum"
+    values: ["none", "grammar_only", "style_enhancement", "research_assistance", "collaborative_writing"]
+    default: "style_enhancement"
+    
+  - name: "publication_target"
+    description: "Publication target"
+    type: "enum"
+    values: ["high_impact", "specialized", "open_access", "conference", "institutional", "preprint"]
+    default: "specialized"
+    
+  - name: "collaboration_type"
+    description: "Collaboration type"
+    type: "enum"
+    values: ["solo", "small_team", "large_team", "international", "interdisciplinary_team"]
+    default: "small_team"
+    
+  - name: "digital_tools"
+    description: "Digital tools usage"
+    type: "enum"
+    values: ["minimal", "basic", "standard", "advanced", "comprehensive"]
+    default: "standard"
+    
+  - name: "quality_focus"
+    description: "Quality focus level"
+    type: "enum"
+    values: ["draft", "standard", "high_quality", "publication_ready", "award_worthy"]
+    default: "publication_ready"
+    
+  - name: "time_constraint"
+    description: "Time constraint"
+    type: "enum"
+    values: ["flexible", "moderate", "tight", "urgent", "critical"]
+    default: "moderate"
+    
+  - name: "revision_depth"
+    description: "Revision depth"
+    type: "enum"
+    values: ["basic", "thorough", "extensive", "multiple_rounds", "peer_reviewed"]
+    default: "thorough"
+    
+  - name: "cultural_context"
+    description: "Cultural context"
+    type: "enum"
+    values: ["western", "eastern", "global", "bicultural", "multicultural"]
+    default: "global"
+    
+  - name: "accessibility_level"
+    description: "Accessibility level"
+    type: "enum"
+    values: ["standard", "enhanced", "universal", "multilingual", "barrier_free"]
+    default: "enhanced"
+
+# Dependencies on other modules
+dependencies:
+  required:
+    - skill_citation_management    # Citation management skills
+    - skill_literature_review     # Literature review skills
+  optional:
+    - task_thesis_writing        # Thesis writing task
+    - method_research_methodology # Research methodology
+    - skill_presentation         # Presentation skills
+    - skill_data_visualization   # Data visualization skills
+    - expertise_machine_learning # Machine learning expertise (for AI-assisted writing)
+
+# Compatible tasks
+compatible_tasks:
+  - task_thesis_writing         # Thesis writing
+  - task_grant_writing         # Grant proposal writing
+  - task_literature_review     # Literature review
+  - task_abstract_writing      # Abstract writing
+  - task_peer_review          # Peer review
+  - task_conference_submission # Conference submission
+  - task_journal_submission    # Journal submission
+
+# Tags
+tags:
+  - academic_writing
+  - scholarly_communication
+  - research_writing
+  - citation_management
+  - ai_ethics
+  - international_publishing
+  - peer_review
+  - open_science
+  - academic_integrity
+  - cross_cultural_writing
+  - digital_scholarship
+  - writing_tools
+  - publication_ethics
+  - accessibility
+  - inclusive_language
+
+# Output format
+output_format:
+  structure:
+    - writing_style_guidelines
+    - citation_requirements
+    - ai_usage_disclosure
+    - discipline_conventions
+    - quality_checklist
+    - tool_recommendations
+    - revision_strategy
+    - publication_roadmap
+  level_of_detail: comprehensive
+
+# Use examples
+examples:
+  - title: International Journal Submission
+    variables:
+      discipline: stem
+      document_type: research_article
+      target_audience: international
+      publication_target: high_impact
+      citation_style: ieee
+      language_level: near_native
+      quality_focus: award_worthy
+    description: Preparing submission for high-impact international STEM journal
+
+  - title: Doctoral Dissertation Writing
+    variables:
+      document_type: dissertation
+      writing_style: formal_traditional
+      collaboration_type: solo
+      time_constraint: flexible
+      revision_depth: extensive
+      digital_tools: comprehensive
+    description: Writing doctoral dissertation with comprehensive tool utilization
+
+  - title: Interdisciplinary Collaborative Paper
+    variables:
+      discipline: interdisciplinary
+      collaboration_type: interdisciplinary_team
+      target_audience: mixed
+      writing_style: accessible_academic
+      cultural_context: multicultural
+    description: Creating collaborative paper across different disciplines
+
+  - title: AI-Assisted Grant Proposal
+    variables:
+      document_type: grant_proposal
+      ai_usage: collaborative_writing
+      quality_focus: publication_ready
+      time_constraint: tight
+      digital_tools: advanced
+    description: Creating competitive grant proposal with AI assistance
+
+# Metadata
+author: "AI Instruction Kits Project"
+created: "2025-01-20"
+updated: "2025-01-20"
+license: "Apache-2.0"
+research_sources:
+  - "APA Publication Manual 7th Edition (2019)"
+  - "MLA Handbook 9th Edition (2021)"
+  - "Chicago Manual of Style 18th Edition (2024)"
+  - "IEEE Editorial Style Manual (2024)"
+  - "Academic Writing Best Practices 2025"
+  - "AI Ethics in Academic Publishing (2024)"
+  - "International Academic Writing Guidelines"
+  - "Open Science Publishing Standards"
+  - "Cross-cultural Academic Communication"
+  - "Digital Scholarship Handbook 2024"

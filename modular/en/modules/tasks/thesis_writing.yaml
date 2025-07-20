@@ -1,0 +1,213 @@
+id: task_thesis_writing
+name: Thesis Writing Task
+description: Latest academic dissertation and research paper writing task for 2024-2025. Comprehensive practical approach including thesis structure design, writing process management, digital tool utilization, and quality improvement strategies
+version: 1.0.0
+category: tasks
+subcategory: academic_writing
+
+# Thesis writing related variables
+variables:
+  - name: "thesis_type"
+    description: "Thesis type"
+    type: "enum"
+    values: ["bachelor", "master", "doctoral", "research_article", "monograph", "article_based"]
+    default: "doctoral"
+    
+  - name: "thesis_format"
+    description: "Thesis format"
+    type: "enum"
+    values: ["traditional_monograph", "publication_based", "three_paper", "hybrid", "creative_work"]
+    default: "traditional_monograph"
+    
+  - name: "discipline"
+    description: "Academic discipline"
+    type: "enum"
+    values: ["stem", "social_sciences", "humanities", "interdisciplinary", "professional", "applied"]
+    default: "interdisciplinary"
+    
+  - name: "writing_stage"
+    description: "Writing stage"
+    type: "enum"
+    values: ["planning", "literature_review", "methodology", "data_collection", "analysis", "writing", "revision", "submission"]
+    default: "writing"
+    
+  - name: "timeline"
+    description: "Writing timeline"
+    type: "enum"
+    values: ["3_months", "6_months", "1_year", "2_years", "3_years", "flexible"]
+    default: "1_year"
+    
+  - name: "writing_tool"
+    description: "Primary writing tool"
+    type: "enum"
+    values: ["word", "latex", "google_docs", "scrivener", "markdown", "mixed"]
+    default: "latex"
+    
+  - name: "collaboration_level"
+    description: "Collaboration level"
+    type: "enum"
+    values: ["solo", "advisor_only", "committee", "co_authors", "research_group"]
+    default: "advisor_only"
+    
+  - name: "language"
+    description: "Writing language"
+    type: "enum"
+    values: ["english", "bilingual", "multilingual", "translation_needed"]
+    default: "english"
+    
+  - name: "chapter_count"
+    description: "Number of chapters"
+    type: "enum"
+    values: ["5_chapters", "6_8_chapters", "9_12_chapters", "flexible", "article_collection"]
+    default: "6_8_chapters"
+    
+  - name: "revision_depth"
+    description: "Revision depth"
+    type: "enum"
+    values: ["minimal", "standard", "extensive", "multiple_rounds", "continuous"]
+    default: "extensive"
+    
+  - name: "quality_target"
+    description: "Quality target"
+    type: "enum"
+    values: ["pass", "good", "excellent", "publication_ready", "award_worthy"]
+    default: "excellent"
+    
+  - name: "support_system"
+    description: "Support system"
+    type: "enum"
+    values: ["minimal", "standard", "comprehensive", "writing_center", "professional_editing"]
+    default: "standard"
+    
+  - name: "digital_tools"
+    description: "Digital tool utilization"
+    type: "enum"
+    values: ["basic", "intermediate", "advanced", "integrated", "ai_enhanced"]
+    default: "advanced"
+    
+  - name: "workflow_type"
+    description: "Workflow type"
+    type: "enum"
+    values: ["linear", "iterative", "agile", "spiral", "adaptive"]
+    default: "iterative"
+    
+  - name: "stress_level"
+    description: "Stress level"
+    type: "enum"
+    values: ["low", "manageable", "moderate", "high", "critical"]
+    default: "moderate"
+
+# Dependencies on other modules
+dependencies:
+  required:
+    - expertise_academic_writing  # Academic writing expertise
+    - skill_citation_management  # Citation management skills
+    - skill_literature_review    # Literature review skills
+  optional:
+    - method_research_methodology # Research methodology
+    - skill_time_management      # Time management skills
+    - skill_project_management   # Project management skills
+    - skill_data_visualization   # Data visualization skills
+    - task_grant_writing        # Grant writing task
+
+# Compatible tasks
+compatible_tasks:
+  - task_literature_review      # Literature review
+  - task_data_analysis         # Data analysis
+  - task_conference_presentation # Conference presentation
+  - task_journal_submission    # Journal submission
+  - task_dissertation_defense  # Dissertation defense
+  - task_research_planning     # Research planning
+  - task_academic_poster       # Academic poster creation
+
+# Tags
+tags:
+  - thesis_writing
+  - dissertation
+  - academic_writing
+  - research_communication
+  - scholarly_publishing
+  - graduate_studies
+  - writing_process
+  - time_management
+  - quality_assurance
+  - digital_scholarship
+  - latex
+  - version_control
+  - peer_review
+  - writing_support
+  - motivation
+
+# Output format
+output_format:
+  structure:
+    - thesis_outline
+    - chapter_templates
+    - writing_schedule
+    - milestone_checklist
+    - revision_plan
+    - tool_configuration
+    - quality_criteria
+    - submission_checklist
+  level_of_detail: comprehensive
+
+# Use examples
+examples:
+  - title: 3-Year Doctoral Thesis Plan
+    variables:
+      thesis_type: doctoral
+      thesis_format: traditional_monograph
+      timeline: 3_years
+      chapter_count: 9_12_chapters
+      writing_tool: latex
+      quality_target: publication_ready
+      support_system: comprehensive
+    description: Comprehensive plan for traditional monograph-style doctoral thesis writing
+
+  - title: Publication-Based Master's Thesis
+    variables:
+      thesis_type: master
+      thesis_format: publication_based
+      timeline: 1_year
+      chapter_count: article_collection
+      collaboration_level: co_authors
+      language: english
+      workflow_type: agile
+    description: Efficient writing of master's thesis based on 3 publications
+
+  - title: Interdisciplinary Research Paper
+    variables:
+      discipline: interdisciplinary
+      writing_stage: analysis
+      collaboration_level: research_group
+      digital_tools: ai_enhanced
+      revision_depth: continuous
+      stress_level: high
+    description: Managing collaborative interdisciplinary research paper writing
+
+  - title: Rapid Thesis Completion
+    variables:
+      timeline: 3_months
+      writing_tool: google_docs
+      workflow_type: agile
+      support_system: writing_center
+      quality_target: good
+      stress_level: critical
+    description: Efficient thesis completion strategy under tight deadlines
+
+# Metadata
+author: "AI Instruction Kits Project"
+created: "2025-01-20"
+updated: "2025-01-20"
+license: "Apache-2.0"
+research_sources:
+  - "Graduate Writing Handbooks 2024-2025"
+  - "Thesis and Dissertation Guidelines"
+  - "Academic Writing Centers Best Practices"
+  - "Digital Tools for Academic Writing"
+  - "Writing Productivity Research"
+  - "LaTeX Documentation"
+  - "Git for Academic Writing"
+  - "AI Ethics in Academic Writing"
+  - "Time Management for Graduate Students"
+  - "Peer Support in Academic Writing"

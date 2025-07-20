@@ -2,25 +2,25 @@ id: "skill_citation_management"
 name: "Citation Management"
 display_name: Citation Management
 category: skills
-description: Best practices and modern tool utilization for citation management in academic research and technical documentation
+description: Best practices and latest tool utilization for citation management in academic research and technical documentation
 version: 1.0.0
 author: AI Instruction Kits
 tags:
-  - citation management
-  - academic research
-  - reference management
-  - Zotero
-  - Mendeley
-  - EndNote
-  - Paperpile
-  - LaTeX
-  - BibTeX
-  - APA
-  - MLA
-  - IEEE
-  - Chicago
-  - AI citation
-  - Japanese literature
+  - citation_management
+  - academic_research
+  - literature_management
+  - zotero
+  - mendeley
+  - endnote
+  - paperpile
+  - latex
+  - bibtex
+  - apa
+  - mla
+  - ieee
+  - chicago
+  - ai_citation
+  - international_literature
 dependencies: []
 compatible_models:
   - gpt-4
@@ -30,15 +30,15 @@ compatible_models:
 configuration:
   default_tool: "Zotero"
   citation_style: "APA"
-  language_support: ["en", "ja"]
+  language_support: ["en", "international"]
   sync_enabled: true
 examples:
-  - task: "Set up literature management for new research project"
-    context: "Building citation management system for PhD dissertation"
-    expected_outcome: "Organized folder structure and naming conventions established"
-  - task: "Properly cite AI-generated content"
-    context: "Disclosing ChatGPT usage for research assistance"
-    expected_outcome: "Transparent citations with prompt documentation"
+  - task: "New research project literature management setup"
+    context: "Citation management system construction for dissertation writing"
+    expected_outcome: "Established organized folder structure and naming conventions"
+  - task: "Appropriate citation of AI-generated content"
+    context: "Disclosure of ChatGPT use for research assistance"
+    expected_outcome: "Transparent citation and prompt recording"
 resources:
   - name: "Zotero Official Site"
     url: "https://www.zotero.org/"
@@ -46,6 +46,6 @@ resources:
   - name: "Citation Style Language"
     url: "https://citationstyles.org/"
     type: "reference"
-  - name: "J-STAGE"
-    url: "https://www.jstage.jst.go.jp/"
+  - name: "International Academic Databases"
+    url: "https://www.crossref.org/"
     type: "database"

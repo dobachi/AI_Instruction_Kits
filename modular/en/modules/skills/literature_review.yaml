@@ -1,0 +1,209 @@
+id: skill_literature_review
+name: Literature Review Skills
+description: Latest literature review skills for 2024-2025. Comprehensive practical approach including systematic reviews, scoping reviews, AI-assisted tool utilization, efficient search strategies, and quality assessment methods
+version: 1.0.0
+category: skills
+subcategory: research_synthesis
+
+# Literature review related variables
+variables:
+  - name: "review_type"
+    description: "Review type"
+    type: "enum"
+    values: ["systematic", "scoping", "rapid", "narrative", "living", "umbrella", "realist"]
+    default: "systematic"
+    
+  - name: "search_comprehensiveness"
+    description: "Search comprehensiveness"
+    type: "enum"
+    values: ["focused", "standard", "comprehensive", "exhaustive", "continuous"]
+    default: "comprehensive"
+    
+  - name: "database_coverage"
+    description: "Database coverage"
+    type: "enum"
+    values: ["basic", "standard", "extensive", "specialized", "global"]
+    default: "extensive"
+    
+  - name: "screening_method"
+    description: "Screening method"
+    type: "enum"
+    values: ["manual", "ai_assisted", "hybrid", "automated", "machine_learning"]
+    default: "ai_assisted"
+    
+  - name: "quality_assessment"
+    description: "Quality assessment approach"
+    type: "enum"
+    values: ["basic", "standard", "rigorous", "comprehensive", "multi_tool"]
+    default: "rigorous"
+    
+  - name: "synthesis_method"
+    description: "Synthesis method"
+    type: "enum"
+    values: ["narrative", "tabular", "meta_analysis", "meta_synthesis", "mixed_methods"]
+    default: "narrative"
+    
+  - name: "team_size"
+    description: "Team size"
+    type: "enum"
+    values: ["solo", "pair", "small_team", "large_team", "consortium"]
+    default: "pair"
+    
+  - name: "timeline"
+    description: "Timeline"
+    type: "enum"
+    values: ["rapid", "standard", "extended", "ongoing", "iterative"]
+    default: "standard"
+    
+  - name: "protocol_registration"
+    description: "Protocol registration"
+    type: "enum"
+    values: ["none", "institutional", "prospero", "osf", "published"]
+    default: "prospero"
+    
+  - name: "reporting_standard"
+    description: "Reporting standard"
+    type: "enum"
+    values: ["basic", "prisma", "prisma_s", "roses", "moose", "entreq"]
+    default: "prisma"
+    
+  - name: "language_scope"
+    description: "Language scope"
+    type: "enum"
+    values: ["english_only", "bilingual", "multilingual", "no_restriction", "translated"]
+    default: "bilingual"
+    
+  - name: "grey_literature"
+    description: "Grey literature inclusion"
+    type: "enum"
+    values: ["excluded", "limited", "standard", "extensive", "comprehensive"]
+    default: "standard"
+    
+  - name: "update_strategy"
+    description: "Update strategy"
+    type: "enum"
+    values: ["one_time", "periodic", "triggered", "continuous", "living"]
+    default: "one_time"
+    
+  - name: "transparency_level"
+    description: "Transparency level"
+    type: "enum"
+    values: ["basic", "standard", "enhanced", "full", "open_science"]
+    default: "enhanced"
+    
+  - name: "stakeholder_involvement"
+    description: "Stakeholder involvement"
+    type: "enum"
+    values: ["none", "consultation", "collaboration", "co_production", "patient_led"]
+    default: "consultation"
+
+# Dependencies on other modules
+dependencies:
+  required:
+    - skill_citation_management   # Citation management skills
+  optional:
+    - expertise_academic_writing  # Academic writing expertise
+    - method_research_methodology # Research methodology
+    - skill_data_analysis        # Data analysis skills
+    - skill_critical_appraisal   # Critical appraisal skills
+    - task_systematic_review     # Systematic review task
+    - task_meta_analysis        # Meta-analysis task
+
+# Compatible tasks
+compatible_tasks:
+  - task_systematic_review      # Systematic review
+  - task_scoping_review        # Scoping review
+  - task_evidence_synthesis    # Evidence synthesis
+  - task_grant_writing         # Grant writing
+  - task_guideline_development # Guideline development
+  - task_hta                   # Health technology assessment
+  - task_policy_brief         # Policy brief
+
+# Tags
+tags:
+  - literature_review
+  - systematic_review
+  - evidence_synthesis
+  - research_methods
+  - prisma
+  - grade
+  - ai_screening
+  - meta_analysis
+  - scoping_review
+  - rapid_review
+  - living_review
+  - quality_assessment
+  - search_strategy
+  - grey_literature
+  - open_science
+
+# Output format
+output_format:
+  structure:
+    - review_protocol
+    - search_strategy
+    - screening_plan
+    - data_extraction_form
+    - quality_assessment_guide
+    - synthesis_approach
+    - reporting_template
+    - timeline_milestones
+  level_of_detail: comprehensive
+
+# Use examples
+examples:
+  - title: Healthcare Intervention Effectiveness
+    variables:
+      review_type: systematic
+      search_comprehensiveness: exhaustive
+      quality_assessment: comprehensive
+      synthesis_method: meta_analysis
+      protocol_registration: prospero
+      reporting_standard: prisma
+    description: Systematic review and meta-analysis of healthcare intervention effectiveness targeting RCTs
+
+  - title: Emerging Technology Scoping
+    variables:
+      review_type: scoping
+      database_coverage: global
+      screening_method: ai_assisted
+      grey_literature: extensive
+      timeline: rapid
+      language_scope: multilingual
+    description: International scoping review of AI/ML applications in healthcare
+
+  - title: Rapid Review for Policy
+    variables:
+      review_type: rapid
+      timeline: rapid
+      search_comprehensiveness: focused
+      team_size: small_team
+      stakeholder_involvement: collaboration
+      reporting_standard: roses
+    description: 2-week rapid evidence review for policymakers
+
+  - title: Living Review with Continuous Updates
+    variables:
+      review_type: living
+      update_strategy: continuous
+      screening_method: machine_learning
+      database_coverage: specialized
+      transparency_level: open_science
+    description: Continuously updated systematic review of COVID-19 treatments
+
+# Metadata
+author: "AI Instruction Kits Project"
+created: "2025-01-20"
+updated: "2025-01-20"
+license: "Apache-2.0"
+research_sources:
+  - "PRISMA 2020 Statement"
+  - "Cochrane Handbook v6.4 (2024)"
+  - "JBI Manual for Evidence Synthesis"
+  - "GRADE Handbook"
+  - "SWiM Reporting Guidelines"
+  - "Rayyan AI Screening Tools"
+  - "Covidence Systematic Review Software"
+  - "Living Evidence Framework"
+  - "AMSTAR 2 Guidelines"
+  - "Campbell Collaboration Standards"

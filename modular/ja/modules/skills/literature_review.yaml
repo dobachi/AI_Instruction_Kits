@@ -1,0 +1,209 @@
+id: skill_literature_review
+name: 文献レビュースキル
+description: 2024-2025年の最新文献レビュースキル。システマティックレビュー、スコーピングレビュー、AI支援ツール活用、効率的検索戦略、品質評価方法を含む包括的な実践的アプローチ
+version: 1.0.0
+category: skills
+subcategory: research_synthesis
+
+# 文献レビュー関連の変数
+variables:
+  - name: "review_type"
+    description: "レビュータイプ"
+    type: "enum"
+    values: ["systematic", "scoping", "rapid", "narrative", "living", "umbrella", "realist"]
+    default: "systematic"
+    
+  - name: "search_comprehensiveness"
+    description: "検索の包括性"
+    type: "enum"
+    values: ["focused", "standard", "comprehensive", "exhaustive", "continuous"]
+    default: "comprehensive"
+    
+  - name: "database_coverage"
+    description: "データベースカバレッジ"
+    type: "enum"
+    values: ["basic", "standard", "extensive", "specialized", "global"]
+    default: "extensive"
+    
+  - name: "screening_method"
+    description: "スクリーニング方法"
+    type: "enum"
+    values: ["manual", "ai_assisted", "hybrid", "automated", "machine_learning"]
+    default: "ai_assisted"
+    
+  - name: "quality_assessment"
+    description: "品質評価アプローチ"
+    type: "enum"
+    values: ["basic", "standard", "rigorous", "comprehensive", "multi_tool"]
+    default: "rigorous"
+    
+  - name: "synthesis_method"
+    description: "統合方法"
+    type: "enum"
+    values: ["narrative", "tabular", "meta_analysis", "meta_synthesis", "mixed_methods"]
+    default: "narrative"
+    
+  - name: "team_size"
+    description: "チームサイズ"
+    type: "enum"
+    values: ["solo", "pair", "small_team", "large_team", "consortium"]
+    default: "pair"
+    
+  - name: "timeline"
+    description: "タイムライン"
+    type: "enum"
+    values: ["rapid", "standard", "extended", "ongoing", "iterative"]
+    default: "standard"
+    
+  - name: "protocol_registration"
+    description: "プロトコル登録"
+    type: "enum"
+    values: ["none", "institutional", "prospero", "osf", "published"]
+    default: "prospero"
+    
+  - name: "reporting_standard"
+    description: "報告基準"
+    type: "enum"
+    values: ["basic", "prisma", "prisma_s", "roses", "moose", "entreq"]
+    default: "prisma"
+    
+  - name: "language_scope"
+    description: "言語範囲"
+    type: "enum"
+    values: ["english_only", "bilingual", "multilingual", "no_restriction", "translated"]
+    default: "bilingual"
+    
+  - name: "grey_literature"
+    description: "グレー文献の包含"
+    type: "enum"
+    values: ["excluded", "limited", "standard", "extensive", "comprehensive"]
+    default: "standard"
+    
+  - name: "update_strategy"
+    description: "更新戦略"
+    type: "enum"
+    values: ["one_time", "periodic", "triggered", "continuous", "living"]
+    default: "one_time"
+    
+  - name: "transparency_level"
+    description: "透明性レベル"
+    type: "enum"
+    values: ["basic", "standard", "enhanced", "full", "open_science"]
+    default: "enhanced"
+    
+  - name: "stakeholder_involvement"
+    description: "ステークホルダー関与"
+    type: "enum"
+    values: ["none", "consultation", "collaboration", "co_production", "patient_led"]
+    default: "consultation"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - skill_citation_management   # 引用管理スキル
+  optional:
+    - expertise_academic_writing  # 学術文章作成専門知識
+    - method_research_methodology # 研究方法論
+    - skill_data_analysis        # データ分析スキル
+    - skill_critical_appraisal   # 批判的吟味スキル
+    - task_systematic_review     # システマティックレビュータスク
+    - task_meta_analysis        # メタ分析タスク
+
+# 互換性のあるタスク
+compatible_tasks:
+  - task_systematic_review      # システマティックレビュー
+  - task_scoping_review        # スコーピングレビュー
+  - task_evidence_synthesis    # エビデンス統合
+  - task_grant_writing         # 研究費申請
+  - task_guideline_development # ガイドライン開発
+  - task_hta                   # 医療技術評価
+  - task_policy_brief         # 政策提言
+
+# タグ
+tags:
+  - literature_review
+  - systematic_review
+  - evidence_synthesis
+  - research_methods
+  - prisma
+  - grade
+  - ai_screening
+  - meta_analysis
+  - scoping_review
+  - rapid_review
+  - living_review
+  - quality_assessment
+  - search_strategy
+  - grey_literature
+  - open_science
+
+# 出力形式
+output_format:
+  structure:
+    - review_protocol
+    - search_strategy
+    - screening_plan
+    - data_extraction_form
+    - quality_assessment_guide
+    - synthesis_approach
+    - reporting_template
+    - timeline_milestones
+  level_of_detail: comprehensive
+
+# 使用例
+examples:
+  - title: 医療介入の効果評価
+    variables:
+      review_type: systematic
+      search_comprehensiveness: exhaustive
+      quality_assessment: comprehensive
+      synthesis_method: meta_analysis
+      protocol_registration: prospero
+      reporting_standard: prisma
+    description: RCTを対象とした医療介入の効果に関するシステマティックレビューとメタ分析
+
+  - title: 新興技術のスコーピング
+    variables:
+      review_type: scoping
+      database_coverage: global
+      screening_method: ai_assisted
+      grey_literature: extensive
+      timeline: rapid
+      language_scope: multilingual
+    description: AI/ML技術の医療応用に関する国際的スコーピングレビュー
+
+  - title: 政策決定のための迅速レビュー
+    variables:
+      review_type: rapid
+      timeline: rapid
+      search_comprehensiveness: focused
+      team_size: small_team
+      stakeholder_involvement: collaboration
+      reporting_standard: roses
+    description: 政策立案者のための2週間迅速エビデンスレビュー
+
+  - title: 継続更新型リビングレビュー
+    variables:
+      review_type: living
+      update_strategy: continuous
+      screening_method: machine_learning
+      database_coverage: specialized
+      transparency_level: open_science
+    description: COVID-19治療法の継続的更新システマティックレビュー
+
+# メタデータ
+author: "AI Instruction Kits Project"
+created: "2025-01-20"
+updated: "2025-01-20"
+license: "Apache-2.0"
+research_sources:
+  - "PRISMA 2020 Statement"
+  - "Cochrane Handbook v6.4 (2024)"
+  - "JBI Manual for Evidence Synthesis"
+  - "GRADE Handbook"
+  - "SWiM Reporting Guidelines"
+  - "Rayyan AI Screening Tools"
+  - "Covidence Systematic Review Software"
+  - "Living Evidence Framework"
+  - "AMSTAR 2 Guidelines"
+  - "Campbell Collaboration Standards"

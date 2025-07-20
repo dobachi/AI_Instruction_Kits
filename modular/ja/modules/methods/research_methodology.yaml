@@ -1,0 +1,208 @@
+id: method_research_methodology
+name: 研究方法論
+description: 2024-2025年の最新研究方法論。研究デザイン選択、データ収集方法、分析技術、AI統合、倫理的配慮を含む体系的な研究アプローチ
+version: 1.0.0
+category: methods
+subcategory: research_methods
+
+# 研究方法論関連の変数
+variables:
+  - name: "research_paradigm"
+    description: "研究パラダイム"
+    type: "enum"
+    values: ["positivist", "interpretivist", "critical", "pragmatist", "transformative", "mixed"]
+    default: "pragmatist"
+    
+  - name: "research_approach"
+    description: "研究アプローチ"
+    type: "enum"
+    values: ["quantitative", "qualitative", "mixed_methods", "design_science", "action_research", "systematic"]
+    default: "mixed_methods"
+    
+  - name: "research_design"
+    description: "研究デザイン"
+    type: "enum"
+    values: ["experimental", "quasi_experimental", "survey", "case_study", "ethnography", "grounded_theory", "phenomenology"]
+    default: "case_study"
+    
+  - name: "sampling_strategy"
+    description: "サンプリング戦略"
+    type: "enum"
+    values: ["random", "stratified", "cluster", "purposive", "theoretical", "convenience", "mixed"]
+    default: "purposive"
+    
+  - name: "data_collection"
+    description: "データ収集方法"
+    type: "enum"
+    values: ["survey", "interview", "observation", "documents", "sensors", "digital", "multiple"]
+    default: "multiple"
+    
+  - name: "analysis_method"
+    description: "分析方法"
+    type: "enum"
+    values: ["statistical", "thematic", "content", "narrative", "ml_enhanced", "integrated", "meta_analysis"]
+    default: "integrated"
+    
+  - name: "technology_integration"
+    description: "技術統合レベル"
+    type: "enum"
+    values: ["minimal", "basic", "intermediate", "advanced", "ai_driven", "cutting_edge"]
+    default: "advanced"
+    
+  - name: "ethical_complexity"
+    description: "倫理的複雑性"
+    type: "enum"
+    values: ["low", "moderate", "high", "very_high", "critical", "emerging"]
+    default: "high"
+    
+  - name: "data_sensitivity"
+    description: "データ機密性"
+    type: "enum"
+    values: ["public", "internal", "confidential", "sensitive", "highly_sensitive", "classified"]
+    default: "sensitive"
+    
+  - name: "temporal_design"
+    description: "時間的デザイン"
+    type: "enum"
+    values: ["cross_sectional", "longitudinal", "retrospective", "prospective", "time_series", "real_time"]
+    default: "cross_sectional"
+    
+  - name: "validity_priority"
+    description: "妥当性の優先度"
+    type: "enum"
+    values: ["internal", "external", "construct", "statistical", "ecological", "balanced"]
+    default: "balanced"
+    
+  - name: "stakeholder_involvement"
+    description: "ステークホルダー関与"
+    type: "enum"
+    values: ["minimal", "consultative", "collaborative", "participatory", "co_creation", "community_led"]
+    default: "collaborative"
+    
+  - name: "dissemination_strategy"
+    description: "成果発信戦略"
+    type: "enum"
+    values: ["academic_only", "dual_track", "open_access", "multimedia", "community_focused", "policy_oriented"]
+    default: "dual_track"
+    
+  - name: "reproducibility_level"
+    description: "再現可能性レベル"
+    type: "enum"
+    values: ["basic", "computational", "empirical", "full", "automated", "certified"]
+    default: "computational"
+    
+  - name: "resource_constraints"
+    description: "リソース制約"
+    type: "enum"
+    values: ["minimal", "limited", "moderate", "adequate", "abundant", "unlimited"]
+    default: "moderate"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - skill_literature_review      # 文献レビュースキル
+  optional:
+    - expertise_academic_writing   # 学術文章作成専門知識
+    - skill_citation_management    # 引用管理スキル
+    - skill_data_analysis         # データ分析スキル
+    - skill_statistical_analysis  # 統計分析スキル
+    - task_thesis_writing         # 論文執筆タスク
+    - task_grant_writing          # 研究費申請タスク
+
+# 互換性のあるタスク
+compatible_tasks:
+  - task_research_planning       # 研究計画
+  - task_data_collection        # データ収集
+  - task_data_analysis          # データ分析
+  - task_thesis_writing         # 論文執筆
+  - task_grant_writing          # 研究費申請
+  - task_ethics_application     # 倫理申請
+  - task_systematic_review      # システマティックレビュー
+
+# タグ
+tags:
+  - research_methodology
+  - research_design
+  - data_collection
+  - data_analysis
+  - mixed_methods
+  - qualitative_research
+  - quantitative_research
+  - research_ethics
+  - ai_research
+  - big_data
+  - open_science
+  - reproducibility
+  - causal_inference
+  - participatory_research
+  - digital_methods
+
+# 出力形式
+output_format:
+  structure:
+    - research_design_rationale
+    - methodology_framework
+    - data_collection_plan
+    - analysis_strategy
+    - ethical_considerations
+    - quality_assurance
+    - timeline_milestones
+    - resource_requirements
+  level_of_detail: comprehensive
+
+# 使用例
+examples:
+  - title: AI統合混合研究法
+    variables:
+      research_approach: mixed_methods
+      technology_integration: ai_driven
+      analysis_method: ml_enhanced
+      data_collection: digital
+      ethical_complexity: very_high
+      reproducibility_level: automated
+    description: AI技術を活用した先進的混合研究法アプローチ
+
+  - title: 参加型アクションリサーチ
+    variables:
+      research_approach: action_research
+      stakeholder_involvement: co_creation
+      dissemination_strategy: community_focused
+      validity_priority: ecological
+      temporal_design: longitudinal
+    description: コミュニティ主導の参加型研究プロジェクト
+
+  - title: ビッグデータ実証研究
+    variables:
+      research_approach: quantitative
+      data_collection: sensors
+      analysis_method: statistical
+      technology_integration: cutting_edge
+      data_sensitivity: highly_sensitive
+      validity_priority: statistical
+    description: IoTセンサーデータを活用した大規模実証研究
+
+  - title: デジタルエスノグラフィー
+    variables:
+      research_design: ethnography
+      data_collection: digital
+      analysis_method: narrative
+      ethical_complexity: emerging
+      stakeholder_involvement: participatory
+    description: オンラインコミュニティのデジタルエスノグラフィー研究
+
+# メタデータ
+author: "AI Instruction Kits Project"
+created: "2025-01-20"
+updated: "2025-01-20"
+license: "Apache-2.0"
+research_sources:
+  - "Research Design 6th Edition (Creswell & Creswell, 2024)"
+  - "Mixed Methods Research Guidelines (2024)"
+  - "DESRIST 2024 Conference Proceedings"
+  - "AI Ethics in Research (IEEE/ACM 2024)"
+  - "Open Science Framework Guidelines"
+  - "FAIR Data Principles Implementation"
+  - "Causal Inference Methods (2024)"
+  - "Digital Research Methods Handbook"
+  - "Research Ethics in the AI Era"
+  - "Reproducible Research Standards"
