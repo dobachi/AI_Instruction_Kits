@@ -37,6 +37,11 @@ AIを活用したモジュール自動生成・最適化システムの提案で
 
 **関連Issue**: [#35](https://github.com/dobachi/AI_Instruction_Kits/issues/35)
 
+### [OpenHandsでオープンソースモデルを使用するガイド](openhands_oss_models.html)
+OpenHandsで無料のオープンソースLLMモデル（Llama 3.1、Gemma 2、Qwen2.5など）を使用する方法の包括的なガイドです。Ollama、Groq、Google AI Studioなどを活用し、商用APIに依存せずにAI支援開発を実現する実践的な設定方法を提供します。
+
+**関連Issue**: [#38](https://github.com/dobachi/AI_Instruction_Kits/issues/38)
+
 ## 🚀 新しい提案の作成
 
 新しい機能や改善の提案がある場合は、以下の手順で提案ドキュメントを作成してください：
