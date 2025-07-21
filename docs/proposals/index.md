@@ -32,6 +32,11 @@ AIを活用したモジュール自動生成・最適化システムの提案で
 
 **関連Issue**: [#35](https://github.com/dobachi/AI_Instruction_Kits/issues/35)
 
+### [モジュラーファイル命名規則の改訂](modular_file_naming_revision.html)
+簡潔版をデフォルトとする設計思想に基づき、モジュールファイルの命名規則を改訂する提案です。標準ファイル名で簡潔版、`_detailed`サフィックスで詳細版とすることで、より直感的で効率的なシステムを実現します。
+
+**関連Issue**: [#35](https://github.com/dobachi/AI_Instruction_Kits/issues/35)
+
 ## 🚀 新しい提案の作成
 
 新しい機能や改善の提案がある場合は、以下の手順で提案ドキュメントを作成してください：
