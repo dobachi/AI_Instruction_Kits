@@ -13,13 +13,14 @@ import re
 
 
 class ModuleComposer:
-    def __init__(self, base_dir: str = "modular", lang: str = "ja"):
+    def __init__(self, base_dir: str = "modular", lang: str = "ja", use_concise: bool = True):
         self.base_dir = Path(base_dir)
         self.lang = lang
         self.modules_dir = self.base_dir / lang / "modules"
         self.templates_dir = self.base_dir / lang / "templates"
         self.cache_dir = self.base_dir / "cache"
         self.cache_dir.mkdir(exist_ok=True)
+        self.use_concise = use_concise  # 簡潔版の使用フラグ
         
     def load_module(self, module_id: str) -> Dict[str, Any]:
         """モジュールを読み込む"""
@@ -38,14 +39,28 @@ class ModuleComposer:
             if module_id.startswith(f"{prefix}_"):
                 # プレフィックスを削除してファイル名を作成
                 file_name = module_id.replace(f"{prefix}_", "")
-                module_path = self.modules_dir / category / f"{file_name}.md"
-                meta_path = module_path.with_suffix('.yaml')
+                
+                # 簡潔版のパスを先に確認
+                if self.use_concise:
+                    concise_path = self.modules_dir / category / f"{file_name}_concise.md"
+                    if concise_path.exists():
+                        module_path = concise_path
+                    else:
+                        module_path = self.modules_dir / category / f"{file_name}.md"
+                else:
+                    module_path = self.modules_dir / category / f"{file_name}.md"
+                
+                meta_path = self.modules_dir / category / f"{file_name}.yaml"
                 
                 if module_path.exists() and meta_path.exists():
                     with open(module_path, 'r', encoding='utf-8') as f:
                         content = f.read()
                     with open(meta_path, 'r', encoding='utf-8') as f:
                         metadata = yaml.safe_load(f)
+                    
+                    # 簡潔版を使用している場合はメタデータに情報を追加
+                    if self.use_concise and module_path.name.endswith('_concise.md'):
+                        metadata['is_concise'] = True
                     
                     return {
                         'id': module_id,
@@ -532,6 +547,8 @@ def main():
     # グローバルオプション
     parser.add_argument('-l', '--lang', default='ja', choices=['ja', 'en'],
                        help='言語を指定 (デフォルト: ja)')
+    parser.add_argument('--verbose', action='store_true',
+                       help='詳細版モジュールを使用 (デフォルト: 簡潔版)')
     
     # サブコマンド
     subparsers = parser.add_subparsers(dest='command', help='コマンド')
@@ -562,7 +579,9 @@ def main():
     
     # 言語パラメータを取得
     lang = getattr(args, 'lang', 'ja')
-    composer = ModuleComposer(lang=lang)
+    # verboseフラグがある場合は詳細版を使用（デフォルトは簡潔版）
+    use_concise = not getattr(args, 'verbose', False)
+    composer = ModuleComposer(lang=lang, use_concise=use_concise)
     
     if args.command == 'preset':
         # 変数のパース

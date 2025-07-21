@@ -15,6 +15,7 @@ PRESET=""
 VARIABLES=()
 LIST_TYPE=""
 LANG="ja"
+VERBOSE=false
 
 # ヘルプメッセージ
 show_help() {
@@ -27,6 +28,7 @@ show_help() {
     MSG_LIST_DESC=$(get_message "list_desc" "Show available items" "利用可能な要素を表示")
     MSG_METADATA_DESC=$(get_message "metadata_desc" "Show metadata summary for AI analysis" "AIが分析するためのメタデータサマリーを表示")
     MSG_LANG_DESC=$(get_message "lang_desc" "Language for modules (ja|en, default: ja)" "モジュール言語 (ja|en, デフォルト: ja)")
+    MSG_VERBOSE_DESC=$(get_message "verbose_desc" "Use detailed version modules (default: concise)" "詳細版モジュールを使用 (デフォルト: 簡潔版)")
     MSG_HELP_DESC=$(get_message "help_desc" "Show this help" "このヘルプを表示")
     MSG_EXAMPLES=$(get_message "examples" "Examples" "例")
     MSG_DIRECT_MODULES=$(get_message "direct_modules" "Specify modules directly" "モジュールを直接指定")
@@ -46,6 +48,7 @@ $MSG_OPTIONS:
   --list TYPE                   $MSG_LIST_DESC (presets|modules)
   --metadata                    $MSG_METADATA_DESC
   --lang LANG                   $MSG_LANG_DESC
+  --verbose                     $MSG_VERBOSE_DESC
   --help                        $MSG_HELP_DESC
 
 $MSG_EXAMPLES:
@@ -100,6 +103,10 @@ while [[ $# -gt 0 ]]; do
             LANG="$2"
             shift 2
             ;;
+        --verbose)
+            VERBOSE=true
+            shift
+            ;;
         --help)
             show_help
             exit 0
@@ -128,12 +135,18 @@ if [[ ! -f "$COMPOSER_PY" ]]; then
     exit 1
 fi
 
+# verboseフラグを追加
+VERBOSE_FLAG=""
+if [[ "$VERBOSE" == "true" ]]; then
+    VERBOSE_FLAG="--verbose"
+fi
+
 # listコマンドまたはmetadataコマンドの処理
 if [[ -n "$LIST_TYPE" ]]; then
     if [[ "$LIST_TYPE" == "metadata" ]]; then
-        python3 "$COMPOSER_PY" --lang "$LANG" metadata
+        python3 "$COMPOSER_PY" --lang "$LANG" $VERBOSE_FLAG metadata
     else
-        python3 "$COMPOSER_PY" --lang "$LANG" list "$LIST_TYPE"
+        python3 "$COMPOSER_PY" --lang "$LANG" $VERBOSE_FLAG list "$LIST_TYPE"
     fi
     exit 0
 fi
@@ -156,7 +169,9 @@ fi
 # Pythonコンポーザーを呼び出す
 if [[ -n "$PRESET" ]]; then
     # プリセットを使用
-    ARGS=("--lang" "$LANG" "preset" "$PRESET")
+    ARGS=("--lang" "$LANG")
+    [[ -n "$VERBOSE_FLAG" ]] && ARGS+=($VERBOSE_FLAG)
+    ARGS+=("preset" "$PRESET")
     [[ -n "$OUTPUT_FILE" ]] && ARGS+=("-o" "$OUTPUT_FILE")
     for var in "${VARIABLES[@]}"; do
         ARGS+=("-v" "$var")
@@ -164,7 +179,9 @@ if [[ -n "$PRESET" ]]; then
     python3 "$COMPOSER_PY" "${ARGS[@]}"
 else
     # モジュールを直接指定
-    ARGS=("--lang" "$LANG" "modules")
+    ARGS=("--lang" "$LANG")
+    [[ -n "$VERBOSE_FLAG" ]] && ARGS+=($VERBOSE_FLAG)
+    ARGS+=("modules")
     for module in "${MODULES[@]}"; do
         ARGS+=("$module")
     done

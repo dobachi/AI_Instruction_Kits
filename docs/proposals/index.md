@@ -27,6 +27,11 @@ AIを活用したモジュール自動生成・最適化システムの提案で
 
 **関連Issue**: [#13](https://github.com/dobachi/AI_Instruction_Kits/issues/13)
 
+### [モジュラーシステムのトークン数削減](modular_token_reduction.html)
+モジュラーシステムで生成される指示書のトークン数が過大になる問題に対する解決策の提案と実装計画です。簡潔版モジュールの導入により、AIモデルの制限内で効率的に動作する最適化されたシステムを実現します。
+
+**関連Issue**: [#35](https://github.com/dobachi/AI_Instruction_Kits/issues/35)
+
 ## 🚀 新しい提案の作成
 
 新しい機能や改善の提案がある場合は、以下の手順で提案ドキュメントを作成してください：
