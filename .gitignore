@@ -55,3 +55,6 @@ venv/
 env/
 ENV/
 .python-version
+
+# OpenHands configuration
+.openhands/
