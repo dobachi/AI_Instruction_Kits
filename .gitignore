@@ -48,3 +48,10 @@ work/
 
 # Checkpoint files
 checkpoints/
+
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+.python-version

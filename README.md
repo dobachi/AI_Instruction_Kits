@@ -59,6 +59,45 @@
   - [使用ガイド](https://dobachi.github.io/AI_Instruction_Kits/usage)
   - [機能詳細](https://dobachi.github.io/AI_Instruction_Kits/features)
 
+## 開発環境のセットアップ（OpenHandsを使いたい方向け）
+
+### Python環境の構築（uvを使用）
+
+OpenHandsを使ってこのプロジェクトのAI支援開発を行いたい方は、以下の手順でPython環境を構築してください：
+
+```bash
+# uvのインストール（まだの場合）
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# プロジェクトのクローン
+git clone https://github.com/dobachi/AI_Instruction_Kits.git
+cd AI_Instruction_Kits
+
+# Python仮想環境の作成と有効化
+uv venv
+source .venv/bin/activate  # Linux/Mac
+# または
+.venv\Scripts\activate  # Windows
+
+# 依存パッケージのインストール（OpenHandsを含む）
+uv pip install -e .
+
+# 開発用パッケージも含めてインストール
+uv pip install -e ".[dev]"
+
+# または、完全な環境を再現する場合（全てのパッケージ）
+uv pip install -r requirements.txt
+```
+
+### OpenHandsの利用
+
+環境構築後、OpenHandsを使用してAI支援開発が可能になります：
+
+```bash
+# OpenHandsの起動
+openhands
+```
+
 ## 使い方
 
 ### プロジェクトへの統合（推奨）
