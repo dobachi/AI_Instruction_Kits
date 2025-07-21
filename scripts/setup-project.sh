@@ -648,6 +648,67 @@ for file in "${ai_files_en[@]}"; do
     fi
 done
 
+# OpenHands用の設定
+echo ""
+MSG_CREATE_OPENHANDS_DIR=$(get_message "create_openhands_dir" "Creating OpenHands configuration directory" "OpenHands設定ディレクトリを作成")
+echo "📁 $MSG_CREATE_OPENHANDS_DIR..."
+OPENHANDS_DIR_CREATED=false
+if [ ! -d ".openhands/microagents" ]; then
+    MSG_CREATE_OPENHANDS_MICROAGENTS=$(get_message "create_openhands_microagents" "Create .openhands/microagents directory for OpenHands?" "OpenHands用の.openhands/microagentsディレクトリを作成しますか？")
+    if confirm "$MSG_CREATE_OPENHANDS_MICROAGENTS"; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "mkdir -p .openhands/microagents"
+            OPENHANDS_DIR_CREATED=true
+        else
+            mkdir -p .openhands/microagents
+            MSG_OPENHANDS_DIR_CREATED=$(get_message "openhands_dir_created" "OpenHands directory created" "OpenHandsディレクトリを作成しました")
+            echo "✅ $MSG_OPENHANDS_DIR_CREATED"
+            OPENHANDS_DIR_CREATED=true
+        fi
+    fi
+else
+    MSG_OPENHANDS_DIR_EXISTS=$(get_message "openhands_dir_exists" ".openhands/microagents directory already exists" ".openhands/microagentsディレクトリは既に存在します")
+    echo "✓ $MSG_OPENHANDS_DIR_EXISTS"
+    OPENHANDS_DIR_CREATED=true
+fi
+
+# repo.mdへのシンボリックリンク作成
+if [ "$OPENHANDS_DIR_CREATED" = true ] || [ -d ".openhands/microagents" ]; then
+    echo ""
+    MSG_CREATE_REPO_MD_LINK=$(get_message "create_repo_md_link" "Creating symbolic link for OpenHands repo.md" "OpenHands repo.mdへのシンボリックリンクを作成")
+    echo "🔗 $MSG_CREATE_REPO_MD_LINK..."
+    if [ -e ".openhands/microagents/repo.md" ]; then
+        if [ -L ".openhands/microagents/repo.md" ]; then
+            MSG_REPO_MD_LINK_EXISTS=$(get_message "repo_md_link_exists" "repo.md symbolic link already exists" "repo.mdシンボリックリンクは既に存在します")
+            echo "✓ $MSG_REPO_MD_LINK_EXISTS"
+        else
+            MSG_REPO_MD_EXISTS_NOT_LINK=$(get_message "repo_md_exists_not_link" ".openhands/microagents/repo.md already exists (not a symbolic link)" ".openhands/microagents/repo.mdが既に存在します（シンボリックリンクではありません）")
+            MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
+            echo "⚠️  $MSG_REPO_MD_EXISTS_NOT_LINK"
+            if confirm "$MSG_BACKUP_AND_REPLACE"; then
+                backup_file ".openhands/microagents/repo.md"
+                if [ "$DRY_RUN" = true ]; then
+                    dry_echo "rm .openhands/microagents/repo.md && ln -sf ../../instructions/PROJECT.md .openhands/microagents/repo.md"
+                else
+                    rm .openhands/microagents/repo.md
+                    ln -sf ../../instructions/PROJECT.md .openhands/microagents/repo.md
+                fi
+            fi
+        fi
+    else
+        MSG_CREATE_OPENHANDS_REPO_LINK=$(get_message "create_openhands_repo_link" "Create symbolic link to PROJECT.md for OpenHands?" "OpenHands用にPROJECT.mdへのシンボリックリンクを作成しますか？")
+        if confirm "$MSG_CREATE_OPENHANDS_REPO_LINK"; then
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "ln -sf ../../instructions/PROJECT.md .openhands/microagents/repo.md"
+            else
+                ln -sf ../../instructions/PROJECT.md .openhands/microagents/repo.md
+                MSG_OPENHANDS_LINK_CREATED=$(get_message "openhands_link_created" "OpenHands repo.md link created" "OpenHands repo.mdリンクを作成しました")
+                echo "✅ $MSG_OPENHANDS_LINK_CREATED"
+            fi
+        fi
+    fi
+fi
+
 # Gitフックの設定
 echo ""
 MSG_SETUP_GIT_HOOKS=$(get_message "setup_git_hooks" "Setting up Git hooks" "Gitフックを設定")
@@ -762,6 +823,28 @@ if [ "$SELECTED_MODE" = "submodule" ]; then
     fi
 fi
 
+# .openhandsディレクトリを.gitignoreに追加
+echo ""
+MSG_UPDATE_GITIGNORE_OPENHANDS=$(get_message "update_gitignore_openhands" "Adding .openhands to .gitignore" ".openhandsを.gitignoreに追加")
+echo "📄 $MSG_UPDATE_GITIGNORE_OPENHANDS..."
+if [ -f ".gitignore" ]; then
+    if ! grep -q "^\.openhands/$" .gitignore 2>/dev/null; then
+        MSG_ADD_OPENHANDS_TO_GITIGNORE=$(get_message "add_openhands_to_gitignore" "Add '.openhands/' to .gitignore?" ".gitignoreに'.openhands/'を追加しますか？")
+        if confirm "$MSG_ADD_OPENHANDS_TO_GITIGNORE"; then
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "echo '.openhands/' >> .gitignore"
+            else
+                echo '.openhands/' >> .gitignore
+                MSG_OPENHANDS_GITIGNORE_ADDED=$(get_message "openhands_gitignore_added" ".openhands added to .gitignore" ".openhandsを.gitignoreに追加しました")
+                echo "✅ $MSG_OPENHANDS_GITIGNORE_ADDED"
+            fi
+        fi
+    else
+        MSG_OPENHANDS_GITIGNORE_EXISTS=$(get_message "openhands_gitignore_exists" ".gitignore already has .openhands entry" ".gitignoreには既に.openhandsエントリが存在します")
+        echo "✓ $MSG_OPENHANDS_GITIGNORE_EXISTS"
+    fi
+fi
+
 if [ "$DRY_RUN" = true ]; then
     echo ""
     MSG_DRY_RUN_COMPLETE=$(get_message "dry_run_complete" "Dry run completed" "ドライラン完了")
@@ -798,6 +881,9 @@ else
     echo "  CLAUDE.md → instructions/PROJECT.md"
     echo "  GEMINI.md → instructions/PROJECT.md"
     echo "  CURSOR.md → instructions/PROJECT.md"
+    echo "  .openhands/"
+    echo "    └── microagents/"
+    echo "        └── repo.md → ../../instructions/PROJECT.md"
     echo ""
     
     # モード別の次のステップ
