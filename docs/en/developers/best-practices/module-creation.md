@@ -72,6 +72,22 @@ Implementation steps:
   4. Add implementation examples
 ```
 
+#### Phase 3.5: Creating Concise Version
+```yaml
+Important principles:
+  - Create detailed version first: Complete version based on broad and deep research with best practices
+  - Extract essence: Extract only the most important concepts from the detailed version
+  - Size target: 20-30% of detailed version (focusing on token efficiency)
+  
+Creation steps:
+  1. Confirm detailed version completion
+  2. Identify core concepts (express in 1-2 sentences)
+  3. Convert to quick reference in tabular format
+  4. List essential best practices as bullet points
+```
+
+This order enables creation of a well-founded concise version based on deep understanding.
+
 #### Phase 4: Quality Assurance
 ```yaml
 Quality checks:

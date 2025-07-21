@@ -143,6 +143,42 @@ tags: []
 examples: []
 ```
 
+### Phase 4.5: Creating Concise Version
+
+#### Importance of Creating Concise Versions
+Creating a concise version based on the detailed version enables a well-founded summary based on deep understanding.
+
+#### 4.5.1 Creation Process
+```yaml
+Steps:
+  1. Confirm detailed version completion: Including broad and deep research with best practices
+  2. Extract essence: Identify the most important concepts and patterns
+  3. Focus on practicality: Restructure as a quick reference that's immediately usable
+  4. Size target: 20-30% or less of the detailed version (considering token efficiency)
+```
+
+#### 4.5.2 Components of Concise Version
+```markdown
+## Elements to Retain
+- Core concept definitions (1-2 sentences)
+- Key patterns in tabular format
+- Essential best practices (bullet points)
+- Basic usage examples (minimal)
+
+## Elements to Remove/Simplify
+- Detailed implementation code → API signatures only
+- Theoretical explanations → Practical points only
+- Comprehensive lists → Top 3-5 items only
+- Step-by-step guides → Overview level only
+```
+
+#### 4.5.3 File Naming
+```bash
+# Naming convention
+modular/en/modules/[category]/[name].md          # Concise version (default)
+modular/en/modules/[category]/[name]_detailed.md # Detailed version
+```
+
 ### Phase 5: Quality Assurance
 
 #### 5.1 Self-Review Checklist
