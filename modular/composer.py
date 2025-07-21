@@ -40,15 +40,18 @@ class ModuleComposer:
                 # プレフィックスを削除してファイル名を作成
                 file_name = module_id.replace(f"{prefix}_", "")
                 
-                # 簡潔版のパスを先に確認
+                # 新しいロジック：デフォルト（簡潔版）と詳細版の選択
                 if self.use_concise:
-                    concise_path = self.modules_dir / category / f"{file_name}_concise.md"
-                    if concise_path.exists():
-                        module_path = concise_path
-                    else:
-                        module_path = self.modules_dir / category / f"{file_name}.md"
-                else:
+                    # デフォルトパス（簡潔版）
                     module_path = self.modules_dir / category / f"{file_name}.md"
+                else:
+                    # 詳細版を探す
+                    detailed_path = self.modules_dir / category / f"{file_name}_detailed.md"
+                    if detailed_path.exists():
+                        module_path = detailed_path
+                    else:
+                        # 詳細版がない場合はデフォルトを使用（後方互換性）
+                        module_path = self.modules_dir / category / f"{file_name}.md"
                 
                 meta_path = self.modules_dir / category / f"{file_name}.yaml"
                 
@@ -58,8 +61,10 @@ class ModuleComposer:
                     with open(meta_path, 'r', encoding='utf-8') as f:
                         metadata = yaml.safe_load(f)
                     
-                    # 簡潔版を使用している場合はメタデータに情報を追加
-                    if self.use_concise and module_path.name.endswith('_concise.md'):
+                    # 使用しているバージョンの情報をメタデータに追加
+                    if not self.use_concise and module_path.name.endswith('_detailed.md'):
+                        metadata['is_detailed'] = True
+                    else:
                         metadata['is_concise'] = True
                     
                     return {
