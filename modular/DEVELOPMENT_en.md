@@ -157,7 +157,79 @@ Steps:
   4. Size target: 20-30% or less of the detailed version (considering token efficiency)
 ```
 
-#### 4.5.2 Components of Concise Version
+#### 4.5.2 Information Prioritization
+```yaml
+High Priority (Essential):
+  - Practical information: Implementation over theory
+  - Common patterns: 20% knowledge covering 80% of cases
+  - Immediately applicable: Content that can be used right away
+  - Decision criteria: Guidelines needed for choices
+
+Low Priority (Remove):
+  - Detailed theory: Background and history
+  - Long code examples: 50+ line implementations
+  - Edge cases: Handling rare situations
+  - Redundant explanations: Repetition and decorative text
+```
+
+#### 4.5.3 Structure Optimization Techniques
+```yaml
+Table Format Usage:
+  Purpose: Comparison, selection criteria, matrices
+  Examples: Architecture selection table, troubleshooting reference
+
+Checklist Format:
+  Purpose: Procedures, checkpoints, implementation steps
+  Examples: Quality checklist, pre-deploy verification
+
+Quick Reference Format:
+  Purpose: Problem solving, parameter selection, settings
+  Examples: Performance metrics, error handling
+
+YAML Structuring:
+  Purpose: Hierarchical info, config examples, flows
+  Examples: CI/CD pipeline, system configuration
+```
+
+#### 4.5.4 Cognitive Load Reduction
+```markdown
+Visual Hierarchy Creation:
+- **Bold**: Important keywords and concepts
+- Tables: Comparing multiple items
+- Lists: Clarifying order and procedures
+- Code blocks: Minimal signatures only
+
+7±2 Rule:
+- Limit items per section to 5-9
+- Apply same limit to subsections
+- Group information for easier memory
+
+Scannability:
+- Clear heading structure
+- Place important info at beginning
+- Keep related info close together
+```
+
+#### 4.5.5 Specific Compression Methods
+```yaml
+Code Example Compression:
+  Detailed: Complete implementation (50-100 lines)
+  Concise: Signature and key parts only (5-10 lines)
+
+Description Condensation:
+  Detailed: Theory + implementation details + examples
+  Concise: Implementation points + use cases
+
+List Conversion:
+  Detailed: Paragraph explanations
+  Concise: Bullet points or numbered lists
+
+Quantification:
+  Detailed: Qualitative descriptions
+  Concise: Specific numerical targets and thresholds
+```
+
+#### 4.5.6 Components of Concise Version
 ```markdown
 ## Elements to Retain
 - Core concept definitions (1-2 sentences)
@@ -172,7 +244,25 @@ Steps:
 - Step-by-step guides → Overview level only
 ```
 
-#### 4.5.3 File Naming
+#### 4.5.7 Example: Parallel Distributed Processing Module
+```yaml
+Detailed Version (22KB) Contents:
+  - Detailed GPU optimization code (100+ lines)
+  - Theoretical background explanations
+  - Multiple implementation patterns
+  - Edge case handling
+
+Conversion to Concise Version (7KB):
+  - GPU optimization checklist (10 lines)
+  - Performance metric targets (table format)
+  - Major framework selection criteria (quick reference)
+  - Troubleshooting table
+
+Compression Rate: ~32% (7KB/22KB)
+Practicality: Covers 80% of use cases
+```
+
+#### 4.5.8 File Naming
 ```bash
 # Naming convention
 modular/en/modules/[category]/[name].md          # Concise version (default)
