@@ -1,50 +1,56 @@
-## API設計
+# API設計スキルモジュール（簡潔版）
 
-### RESTful API設計原則
+## コア概念
+RESTful原則に基づいた一貫性あるAPI設計。リソースベースのURL、適切なHTTPメソッド、ステータスコードで直感的なAPIを実現。
 
-1. **リソースベースのURL設計**
-   - 名詞を使用し、動詞はHTTPメソッドで表現
-   - 階層構造を明確に: `/resources/{id}/sub-resources`
-   - 複数形をコレクションに使用
+## RESTful設計原則
 
-2. **HTTPメソッドの適切な使用**
-   - GET: リソースの取得
-   - POST: 新規リソースの作成
-   - PUT/PATCH: リソースの更新
-   - DELETE: リソースの削除
+### URL設計
+- 名詞使用（動詞はHTTPメソッド）
+- 階層構造: `/resources/{id}/sub-resources`
+- コレクションは複数形
 
-3. **ステータスコードの正しい使用**
-   - 200 OK: 成功
-   - 201 Created: リソース作成成功
-   - 400 Bad Request: クライアントエラー
-   - 401 Unauthorized: 認証必要
-   - 404 Not Found: リソースが存在しない
-   - 500 Internal Server Error: サーバーエラー
+### HTTPメソッド
+| メソッド | 用途 | 冗長性 |
+|---------|------|-------|
+| GET | リソース取得 | 冗長 |
+| POST | 新規作成 | 非冗長 |
+| PUT/PATCH | 更新 | 冗長 |
+| DELETE | 削除 | 冗長 |
 
-### APIドキュメント
+### ステータスコード
+```yaml
+2xx: 成功
+  200: OK
+  201: Created
+  204: No Content
+4xx: クライアントエラー
+  400: Bad Request
+  401: Unauthorized
+  404: Not Found
+5xx: サーバーエラー
+  500: Internal Server Error
+```
 
-{{#if api_documentation_format}}形式: {{api_documentation_format}}{{/if}}
-
-各エンドポイントについて：
+## ドキュメント構成
 - 目的と概要
-- リクエスト/レスポンスのスキーマ
-- パラメータの説明
-- 使用例
+- リクエスト/レスポンススキーマ
+- パラメータ説明
+- 使用例（curl, SDK）
 - エラーレスポンス
 
-### バージョニング
+## バージョニング
+- URLパス: `/api/v1/resources`
+- 互換性維持
+- 非推奨APIの段階的廃止
 
-{{#if api_versioning_strategy}}
-戦略: {{api_versioning_strategy}}
-{{else}}
-- URLパスにバージョンを含める: `/api/v1/resources`
-- バージョン間の互換性を維持
-- 非推奨APIの段階的な廃止
-{{/if}}
+## パフォーマンス
+- ページネーション
+- フィールドフィルタリング
+- キャッシュヘッダー
+- レートリミット
 
-### パフォーマンス最適化
-
-- ページネーションの実装
-- フィールドフィルタリングのサポート
-- キャッシュヘッダーの適切な設定
-- レートリミットの実装
+---
+**モジュール作成日**: 2025-01-21
+**カテゴリ**: skills/api_design
+**バージョン**: 1.0.0-concise
