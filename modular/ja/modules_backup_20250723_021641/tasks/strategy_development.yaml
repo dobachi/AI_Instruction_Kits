@@ -1,0 +1,91 @@
+# task_strategy_development.yaml - 戦略策定タスクモジュールのメタデータ
+id: "task_strategy_development"
+name: "戦略策定タスク"
+description: "組織の目標達成に向けた包括的な戦略を策定し、競争優位性を確立するためのタスクモジュール"
+version: "1.0.0"
+category: "tasks"
+
+# 依存関係
+dependencies: []
+
+# 提供される変数
+provides:
+  - strategic_frameworks
+  - strategy_analysis_methods
+  - implementation_roadmap
+  - change_management_approach
+  - performance_monitoring_system
+
+# 必要な変数
+requires:
+  - organization_level:
+      description: "戦略策定の組織レベル"
+      example: "全社レベル、事業部レベル、部門レベル"
+  - strategy_type:
+      description: "策定する戦略のタイプ"
+      example: "成長戦略、競争戦略、変革戦略、イノベーション戦略"
+  - planning_horizon:
+      description: "戦略計画の期間"
+      example: "3年計画、5年計画、10年ビジョン"
+
+# オプション変数
+optional_variables:
+  - strategic_focus:
+      description: "戦略的な焦点領域"
+      example: "市場拡大、デジタル化、サステナビリティ、グローバル展開"
+  - selected_framework:
+      description: "使用する戦略フレームワーク"
+      example: "ブルーオーシャン戦略、ポーターの競争戦略、アンゾフ・マトリックス"
+  - digital_maturity:
+      description: "デジタル成熟度レベル"
+      example: "初期段階、発展段階、成熟段階、先進段階"
+  - analysis_scope:
+      description: "環境分析の範囲"
+      example: "国内市場、グローバル市場、特定地域"
+  - scenario_count:
+      description: "シナリオプランニングのシナリオ数"
+      example: "3シナリオ、4シナリオ、5シナリオ"
+  - core_competencies:
+      description: "組織のコア・コンピタンス"
+      example: "技術力、ブランド力、顧客関係、オペレーション効率"
+  - evaluation_criteria:
+      description: "戦略評価の基準"
+      example: "ROI、市場シェア、顧客満足度、イノベーション指標"
+  - implementation_phases:
+      description: "実装フェーズの数"
+      example: "3フェーズ、4フェーズ、5フェーズ"
+  - communication_channels:
+      description: "コミュニケーションチャネル"
+      example: "タウンホール、イントラネット、部門会議、ニュースレター"
+  - kpi_categories:
+      description: "KPIのカテゴリ"
+      example: "財務指標、顧客指標、プロセス指標、学習成長指標"
+
+# デフォルト値
+defaults:
+  review_cycle: "四半期レビュー推奨"
+  strategy_horizon: "3-5年の中長期視点"
+  implementation_approach: "段階的実装とアジャイル調整"
+  change_management: "コッターの8段階プロセス"
+
+# メタデータ
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-07-19"
+  updated: "2025-07-19"
+  tags:
+    - "strategy development"
+    - "strategic planning"
+    - "blue ocean strategy"
+    - "competitive strategy"
+    - "ansoff matrix"
+    - "digital transformation"
+    - "innovation strategy"
+    - "change management"
+    - "strategic roadmap"
+  references:
+    - "Blue Ocean Strategy Framework"
+    - "Porter's Generic Strategies"
+    - "Kotter's 8-Step Change Model"
+    - "Balanced Scorecard Methodology"
+    - "Digital Transformation Playbook"

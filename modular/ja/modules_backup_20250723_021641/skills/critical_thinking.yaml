@@ -1,0 +1,101 @@
+# 批判的思考スキルモジュールのメタデータ
+id: "skill_critical_thinking"
+name: "批判的思考"
+description: "分析的思考と論理的推論の手法を定義するスキルモジュール"
+version: "3.0.0"
+category: "skills"
+tags:
+  - "critical-thinking"
+  - "analysis"
+  - "reasoning"
+  - "logic"
+  - "evidence"
+
+variables:
+  - name: "analysis_depth"
+    description: "分析の深さレベル"
+    type: "enum"
+    values: ["基本", "中級", "上級"]
+    default: "中級"
+    
+  - name: "questioning_style"
+    description: "質問手法のスタイル"
+    type: "enum"
+    values: ["ソクラテス式", "弁証法的", "分析的"]
+    default: "ソクラテス式"
+    
+  - name: "evidence_threshold"
+    description: "証拠の信頼性基準"
+    type: "string"
+    default: "複数の独立した情報源による裏付け"
+    examples: ["単一の信頼できる情報源", "複数の独立した情報源", "学術的査読済み資料"]
+    
+  - name: "bias_awareness_level"
+    description: "バイアス認識のレベル"
+    type: "enum"
+    values: ["基本的認識", "積極的検出", "体系的排除"]
+    default: "積極的検出"
+    
+  - name: "logical_framework"
+    description: "使用する論理的フレームワーク"
+    type: "string"
+    default: "演繹的・帰納的推論の組み合わせ"
+    examples: ["演繹的推論", "帰納的推論", "アブダクション", "批判的実在論"]
+    
+  - name: "theoretical_framework"
+    description: "採用する理論的フレームワーク"
+    type: "enum"
+    values: ["Paul-Elder", "REDモデル", "Bloom改訂版"]
+    default: "Paul-Elder"
+    
+  - name: "digital_context"
+    description: "デジタル環境での批判的思考の焦点"
+    type: "enum"
+    values: ["AI生成コンテンツ対応", "誤情報対策", "データ駆動型分析"]
+    default: "AI生成コンテンツ対応"
+    
+  - name: "metacognitive_approach"
+    description: "メタ認知的アプローチの採用"
+    type: "boolean"
+    default: true
+    
+  - name: "business_context"
+    description: "ビジネス分野での適用"
+    type: "boolean"
+    default: false
+    
+  - name: "tech_context"
+    description: "テクノロジー分野での適用"
+    type: "boolean"
+    default: false
+    
+  - name: "education_context"
+    description: "教育分野での適用"
+    type: "boolean"
+    default: false
+    
+  - name: "structured_analytical_techniques"
+    description: "構造化分析技法の活用"
+    type: "boolean"
+    default: true
+    
+  - name: "intelligence_methods"
+    description: "情報機関由来の分析手法"
+    type: "enum"
+    values: ["基本", "中級", "上級"]
+    default: "中級"
+
+compatible_with:
+  - "task_research"
+  - "task_data_analysis"
+  - "task_documentation"
+  - "task_report_writing"
+  - "task_competitive_analysis"
+  - "task_code_generation"
+  - "task_code_review"
+  - "quality_production"
+
+author: "AI Instruction Kits Project"
+created: "2025-07-19"
+updated: "2025-07-19"
+license: "Apache-2.0"

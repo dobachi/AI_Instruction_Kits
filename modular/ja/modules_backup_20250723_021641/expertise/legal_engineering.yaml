@@ -1,0 +1,214 @@
+id: expertise_legal_engineering
+name: 法令工学専門知識
+description: 2024-2025年の最新法令工学専門知識。Legal Techを超えた法的要件の形式化、コンプライアンス自動化、スマートコントラクトと法的拘束力、リーガルオペレーション最適化の包括的アプローチ
+version: 1.0.0
+category: expertise
+subcategory: legal_technology
+
+# 法令工学関連の変数
+variables:
+  - name: "legal_domain"
+    description: "対象法務ドメイン"
+    type: "enum"
+    values: ["general", "financial_services", "healthcare", "manufacturing", "retail", "technology", "government"]
+    default: "general"
+    
+  - name: "regulation_framework"
+    description: "準拠する規制フレームワーク"
+    type: "enum"
+    values: ["gdpr", "ccpa", "hipaa", "sox", "mifid_basel", "ai_act", "dsa", "national_regulations", "mixed"]
+    default: "mixed"
+    
+  - name: "automation_level"
+    description: "自動化レベル"
+    type: "enum"
+    values: ["basic", "moderate", "advanced", "full_automation"]
+    default: "moderate"
+    
+  - name: "compliance_approach"
+    description: "コンプライアンスアプローチ"
+    type: "enum"
+    values: ["reactive", "proactive", "real_time", "predictive"]
+    default: "proactive"
+    
+  - name: "contract_type"
+    description: "契約タイプ"
+    type: "enum"
+    values: ["traditional", "smart_contract", "hybrid_smart_contract", "automated_contract"]
+    default: "traditional"
+    
+  - name: "legal_framework"
+    description: "法体系"
+    type: "enum"
+    values: ["common_law", "civil_law", "mixed_system", "international"]
+    default: "civil_law"
+    
+  - name: "risk_tolerance"
+    description: "リスク許容度"
+    type: "enum"
+    values: ["conservative", "moderate", "aggressive", "adaptive"]
+    default: "moderate"
+    
+  - name: "geographical_scope"
+    description: "地理的範囲"
+    type: "enum"
+    values: ["domestic", "regional", "eu", "us", "eu_us", "global", "apac"]
+    default: "domestic"
+    
+  - name: "technology_stack"
+    description: "技術スタック"
+    type: "enum"
+    values: ["traditional", "cloud_based", "ai_ml", "blockchain", "ai_blockchain", "quantum_ready"]
+    default: "ai_ml"
+    
+  - name: "verification_approach"
+    description: "検証アプローチ"
+    type: "enum"
+    values: ["manual", "automated", "formal_methods", "ai_assisted", "hybrid"]
+    default: "automated"
+    
+  - name: "dispute_resolution"
+    description: "紛争解決方法"
+    type: "enum"
+    values: ["traditional_court", "arbitration", "mediation", "odr_enabled", "smart_contract_automated"]
+    default: "arbitration"
+    
+  - name: "data_sovereignty"
+    description: "データ主権要件"
+    type: "enum"
+    values: ["flexible", "moderate", "strict", "absolute"]
+    default: "strict"
+    
+  - name: "audit_trail"
+    description: "監査証跡"
+    type: "enum"
+    values: ["basic", "comprehensive", "blockchain_backed", "immutable"]
+    default: "comprehensive"
+    
+  - name: "multi_jurisdiction"
+    description: "多法域対応"
+    type: "enum"
+    values: ["single", "limited", "enabled", "advanced"]
+    default: "limited"
+    
+  - name: "reporting_frequency"
+    description: "報告頻度"
+    type: "enum"
+    values: ["quarterly", "monthly", "weekly", "daily", "real_time", "continuous"]
+    default: "monthly"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - skill_api_design             # API設計スキル（コンプライアンスAPI）
+    - skill_authentication         # 認証・認可スキル（アクセス制御）
+  optional:
+    - expertise_software_engineering  # ソフトウェア工学専門知識
+    - expertise_data_space           # データスペース専門知識
+    - method_agile                   # アジャイル法務プロセス
+    - domain_fintech                 # 金融ドメイン知識
+    - domain_healthcare              # ヘルスケアドメイン知識
+    - skill_problem_solving          # 問題解決スキル
+
+# 互換性のあるタスク
+compatible_tasks:
+  - task_documentation        # コンプライアンス文書作成
+  - task_data_analysis       # 法的データ分析
+  - task_project_planning    # 法務プロジェクト計画
+  - task_strategy_development # 法務戦略策定
+  - task_research            # 規制調査
+  - task_report_writing      # 法務レポート作成
+
+# タグ
+tags:
+  - legal_engineering
+  - legal_tech
+  - compliance_automation
+  - smart_contracts
+  - regulatory_technology
+  - legal_ops
+  - gdpr
+  - ai_act
+  - digital_services_act
+  - contract_automation
+  - legal_ai
+  - regtech
+  - legalops
+  - digital_transformation
+  - risk_management
+
+# 出力形式
+output_format:
+  structure:
+    - legal_engineering_principles
+    - compliance_automation_framework
+    - smart_contract_implementation
+    - legal_operations_optimization
+    - regulatory_technology
+    - international_compliance
+    - industry_specific_guidance
+    - implementation_roadmap
+    - best_practices_checklist
+  level_of_detail: comprehensive
+
+# 使用例
+examples:
+  - title: 金融機関コンプライアンス自動化
+    variables:
+      legal_domain: financial_services
+      regulation_framework: mifid_basel
+      automation_level: advanced
+      compliance_approach: real_time
+      risk_tolerance: conservative
+      geographical_scope: eu_us
+      technology_stack: ai_blockchain
+      reporting_frequency: continuous
+    description: MiFID II/Basel III準拠のリアルタイムコンプライアンス監視システム
+
+  - title: ヘルスケア規制対応システム
+    variables:
+      legal_domain: healthcare
+      regulation_framework: hipaa
+      patient_rights_focus: enhanced
+      data_sovereignty: absolute
+      audit_trail: immutable
+      automation_level: moderate
+      compliance_approach: proactive
+    description: HIPAA準拠の患者データ管理と監査システム
+
+  - title: グローバル企業スマートコントラクト
+    variables:
+      contract_type: hybrid_smart_contract
+      legal_framework: international
+      multi_jurisdiction: advanced
+      dispute_resolution: odr_enabled
+      verification_approach: formal_methods
+      technology_stack: blockchain
+    description: 国際取引対応のハイブリッドスマートコントラクトシステム
+
+  - title: 製造業IoTコンプライアンス
+    variables:
+      legal_domain: manufacturing
+      regulation_framework: mixed
+      geographical_scope: global
+      technology_stack: ai_ml
+      compliance_approach: predictive
+      risk_tolerance: adaptive
+    description: グローバル製造業向けIoT機器コンプライアンス管理
+
+# メタデータ
+author: "AI Instruction Kits Project"
+created: "2025-01-20"
+updated: "2025-01-20"
+license: "Apache-2.0"
+research_sources:
+  - "EU AI Act 2024 Implementation Guidelines"
+  - "Digital Services Act 2024 Compliance Framework"
+  - "Legal Engineering Best Practices 2024-2025"
+  - "Smart Contract Legal Framework Evolution"
+  - "RegTech Market Analysis 2024"
+  - "Corporate Sustainability Reporting Directive"
+  - "Legal Operations Maturity Model"
+  - "International Bar Association Digital Guidelines"
+  - "OECD AI Governance Principles"
+  - "ISO/IEC Standards for Legal Technology"

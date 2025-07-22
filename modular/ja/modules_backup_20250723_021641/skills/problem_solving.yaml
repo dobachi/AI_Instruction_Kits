@@ -1,0 +1,99 @@
+# 問題解決スキルモジュールのメタデータ
+id: "skill_problem_solving"
+name: "問題解決"
+description: "体系的な問題解決手法とフレームワークを提供するスキルモジュール（Cynefinフレームワーク、A3/8D手法、TRIZ、AI/ML統合対応）"
+version: "2.0.0"
+category: "skills"
+tags:
+  - "problem-solving"
+  - "analysis"
+  - "decision-making"
+  - "framework"
+  - "methodology"
+  - "cynefin"
+  - "a3"
+  - "8d"
+  - "triz"
+  - "wicked-problems"
+  - "data-driven"
+  - "ai-ml"
+
+variables:
+  - name: "methodology"
+    description: "問題解決のアプローチ方法"
+    type: "enum"
+    values: ["analytical", "creative", "systematic"]
+    default: "systematic"
+    
+  - name: "problem_complexity"
+    description: "問題の複雑性レベル"
+    type: "enum"
+    values: ["simple", "moderate", "complex"]
+    default: "moderate"
+    
+  - name: "time_constraint"
+    description: "時間的制約"
+    type: "string"
+    default: "適切な時間をかけて慎重に分析"
+    examples: ["緊急対応が必要", "1週間以内", "長期的な取り組み"]
+    
+  - name: "analysis_depth"
+    description: "分析の深さ"
+    type: "enum"
+    values: ["surface", "standard", "deep"]
+    default: "standard"
+    
+  - name: "collaboration_level"
+    description: "協働のレベル"
+    type: "enum"
+    values: ["individual", "team", "cross-functional"]
+    default: "individual"
+    
+  - name: "decision_criteria"
+    description: "意思決定の評価基準"
+    type: "string"
+    default: "効果性、実現可能性、リスク、コスト"
+    
+  - name: "documentation_style"
+    description: "ドキュメント化のスタイル"
+    type: "enum"
+    values: ["minimal", "standard", "comprehensive"]
+    default: "standard"
+    
+  - name: "cynefin_domain"
+    description: "Cynefinフレームワークでの問題領域"
+    type: "enum"
+    values: ["simple", "complicated", "complex", "chaotic", "disorder"]
+    default: "complicated"
+    
+  - name: "modern_framework"
+    description: "適用する現代的問題解決フレームワーク"
+    type: "enum"
+    values: ["a3", "8d", "triz", "design_sprint", "traditional"]
+    default: "traditional"
+    
+  - name: "data_availability"
+    description: "データの可用性レベル"
+    type: "enum"
+    values: ["rich", "moderate", "limited"]
+    default: "moderate"
+    
+  - name: "wicked_characteristics"
+    description: "悪い問題（Wicked Problems）の特徴の強さ"
+    type: "enum"
+    values: ["low", "moderate", "high"]
+    default: "low"
+
+compatible_with:
+  - "task_research"
+  - "task_data_analysis"
+  - "task_documentation"
+  - "task_report_writing"
+  - "task_competitive_analysis"
+  - "task_code_generation"
+  - "quality_production"
+
+author: "AI Instruction Kits Project"
+created: "2025-07-19"
+updated: "2025-01-20"
+license: "Apache-2.0"

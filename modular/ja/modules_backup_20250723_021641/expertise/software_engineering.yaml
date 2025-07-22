@@ -1,0 +1,216 @@
+id: expertise_software_engineering
+name: ソフトウェア工学専門知識
+description: 2024-2025年の最新ソフトウェア工学専門知識。SWEBOK v4.0準拠の体系的知識、現代の開発プロセスモデル、品質保証とメトリクス、アーキテクチャパターン、セキュリティと持続可能性の包括的アプローチ
+version: 1.0.0
+category: expertise
+subcategory: software_development
+
+# ソフトウェア工学関連の変数
+variables:
+  - name: "organization_size"
+    description: "組織規模"
+    type: "enum"
+    values: ["startup", "small", "medium", "large", "enterprise"]
+    default: "medium"
+    
+  - name: "development_process"
+    description: "開発プロセス"
+    type: "enum"
+    values: ["waterfall", "agile", "devops", "hybrid_agile_devops", "devsecops", "mlops"]
+    default: "hybrid_agile_devops"
+    
+  - name: "architecture_style"
+    description: "アーキテクチャスタイル"
+    type: "enum"
+    values: ["monolithic", "modular_monolith", "microservices", "serverless", "event_driven", "edge_native"]
+    default: "microservices"
+    
+  - name: "deployment_model"
+    description: "デプロイメントモデル"
+    type: "enum"
+    values: ["on_premise", "cloud", "hybrid_cloud", "multi_cloud", "edge_cloud_hybrid", "serverless"]
+    default: "cloud"
+    
+  - name: "quality_focus"
+    description: "品質重点"
+    type: "enum"
+    values: ["basic", "balanced", "high_quality", "mission_critical", "safety_critical"]
+    default: "balanced"
+    
+  - name: "technology_stack"
+    description: "技術スタック"
+    type: "enum"
+    values: ["traditional", "modern", "cloud_native", "jamstack", "full_stack", "emerging"]
+    default: "cloud_native"
+    
+  - name: "security_requirements"
+    description: "セキュリティ要件"
+    type: "enum"
+    values: ["basic", "standard", "high", "critical", "military_grade"]
+    default: "high"
+    
+  - name: "compliance_needs"
+    description: "コンプライアンスニーズ"
+    type: "enum"
+    values: ["none", "basic", "regulated", "highly_regulated", "global_compliance"]
+    default: "basic"
+    
+  - name: "development_speed"
+    description: "開発速度"
+    type: "enum"
+    values: ["conservative", "moderate", "rapid", "aggressive", "experimental"]
+    default: "moderate"
+    
+  - name: "team_maturity"
+    description: "チーム成熟度"
+    type: "enum"
+    values: ["beginner", "intermediate", "advanced", "expert", "cutting_edge"]
+    default: "intermediate"
+    
+  - name: "scaling_strategy"
+    description: "スケーリング戦略"
+    type: "enum"
+    values: ["vertical", "horizontal", "elastic", "on_demand", "predictive"]
+    default: "horizontal"
+    
+  - name: "testing_strategy"
+    description: "テスト戦略"
+    type: "enum"
+    values: ["manual", "automated", "tdd", "bdd", "chaos_engineering", "ml_testing"]
+    default: "automated"
+    
+  - name: "monitoring_approach"
+    description: "監視アプローチ"
+    type: "enum"
+    values: ["basic", "apm", "observability", "comprehensive", "ai_driven"]
+    default: "observability"
+    
+  - name: "sustainability_focus"
+    description: "持続可能性重視度"
+    type: "enum"
+    values: ["none", "aware", "active", "committed", "carbon_neutral"]
+    default: "active"
+    
+  - name: "ai_integration"
+    description: "AI統合レベル"
+    type: "enum"
+    values: ["none", "tools_only", "development_aid", "core_feature", "ai_first"]
+    default: "development_aid"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - skill_testing               # テストスキル
+    - skill_code_documentation    # コードドキュメントスキル
+  optional:
+    - expertise_parallel_distributed  # 並列分散処理専門知識
+    - expertise_machine_learning     # 機械学習専門知識
+    - expertise_legal_engineering    # 法令工学専門知識
+    - method_agile                   # アジャイル方法論
+    - method_scrum                   # スクラム方法論
+    - skill_api_design              # API設計スキル
+    - skill_performance             # パフォーマンス最適化スキル
+    - skill_error_handling          # エラーハンドリングスキル
+
+# 互換性のあるタスク
+compatible_tasks:
+  - task_code_generation      # コード生成
+  - task_documentation        # ドキュメント作成
+  - task_project_planning     # プロジェクト計画
+  - task_technical_presentation # 技術プレゼンテーション
+  - task_problem_solving      # 問題解決
+  - task_research            # 技術調査
+  - task_strategy_development # 技術戦略策定
+
+# タグ
+tags:
+  - swebok_v4
+  - software_engineering
+  - agile_devops
+  - microservices
+  - cloud_native
+  - devsecops
+  - quality_assurance
+  - architecture_patterns
+  - sustainable_software
+  - ai_assisted_development
+  - continuous_delivery
+  - test_automation
+  - observability
+  - zero_trust
+  - green_coding
+
+# 出力形式
+output_format:
+  structure:
+    - swebok_knowledge_areas
+    - development_methodology
+    - architecture_design
+    - quality_framework
+    - security_implementation
+    - sustainability_practices
+    - ai_integration
+    - implementation_roadmap
+    - best_practices_checklist
+  level_of_detail: comprehensive
+
+# 使用例
+examples:
+  - title: エンタープライズモダナイゼーション
+    variables:
+      organization_size: enterprise
+      development_process: devsecops
+      architecture_style: microservices
+      deployment_model: hybrid_cloud
+      security_requirements: critical
+      compliance_needs: highly_regulated
+      team_maturity: advanced
+    description: 大企業向けマイクロサービス移行とDevSecOps導入
+
+  - title: スタートアップ高速開発
+    variables:
+      organization_size: startup
+      development_speed: rapid
+      architecture_style: serverless
+      deployment_model: serverless
+      technology_stack: jamstack
+      quality_focus: balanced
+      scaling_strategy: on_demand
+    description: スタートアップ向けサーバーレス高速開発環境
+
+  - title: AI駆動開発プラットフォーム
+    variables:
+      development_process: mlops
+      ai_integration: ai_first
+      architecture_style: event_driven
+      monitoring_approach: ai_driven
+      testing_strategy: ml_testing
+      deployment_model: edge_cloud_hybrid
+    description: AI/ML製品開発のためのMLOpsプラットフォーム
+
+  - title: 高信頼性システム開発
+    variables:
+      quality_focus: mission_critical
+      security_requirements: military_grade
+      testing_strategy: chaos_engineering
+      monitoring_approach: comprehensive
+      compliance_needs: highly_regulated
+      development_speed: conservative
+    description: ミッションクリティカルシステムの高信頼性開発
+
+# メタデータ
+author: "AI Instruction Kits Project"
+created: "2025-01-20"
+updated: "2025-01-20"
+license: "Apache-2.0"
+research_sources:
+  - "SWEBOK v4.0 (October 2024)"
+  - "IEEE Software Engineering Standards 2024"
+  - "ACM Computing Curricula 2024"
+  - "DevOps State Report 2024"
+  - "OWASP Top 10:2025 (Draft)"
+  - "Cloud Native Computing Foundation Reports"
+  - "Green Software Foundation Guidelines"
+  - "MLOps Maturity Model 2024"
+  - "Gartner Software Engineering Trends"
+  - "ISO/IEC 25000 Series (SQuaRE)"

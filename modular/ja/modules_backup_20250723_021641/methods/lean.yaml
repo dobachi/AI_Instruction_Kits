@@ -1,0 +1,196 @@
+id: method_lean
+name: リーン開発方法論
+description: 2024年の研究成果に基づくリーンソフトウェア開発手法。7つのリーン原則、価値ストリームマッピング、ムダの排除、カイゼン、リーンスタートアップ統合を含む包括的アプローチ
+version: 2.0.0
+category: methods
+subcategory: development
+
+# リーン開発関連の変数
+variables:
+  - name: "lean_application"
+    description: "リーン手法の適用領域"
+    type: "enum"
+    values: ["lean_startup", "lean_software", "lean_ux", "lean_analytics", "enterprise_optimization", "continuous_flow", "waste_elimination"]
+    default: "lean_software"
+    
+  - name: "waste_focus"
+    description: "重点的に排除するムダの種類"
+    type: "enum"
+    values: ["partially_done_work", "extra_features", "relearning", "handoffs", "task_switching", "delays", "defects", "underutilized_talent", "all"]
+    default: "all"
+    
+  - name: "value_stream_scope"
+    description: "価値ストリームの範囲"
+    type: "enum"
+    values: ["idea_to_customer", "commit_to_production", "request_to_delivery", "end_to_end", "specific_process"]
+    default: "idea_to_customer"
+    
+  - name: "improvement_approach"
+    description: "改善アプローチの方法"
+    type: "enum"
+    values: ["continuous_kaizen", "kaizen_events", "rapid_experimentation", "automation_first", "data_driven", "gemba_walks"]
+    default: "continuous_kaizen"
+    
+  - name: "jit_level"
+    description: "ジャストインタイム開発のレベル"
+    type: "enum"
+    values: ["basic_pull", "kanban_driven", "demand_driven", "predictive_pull", "ai_optimized"]
+    default: "kanban_driven"
+    
+  - name: "quality_approach"
+    description: "品質作り込みのアプローチ"
+    type: "enum"
+    values: ["prevention_focused", "jidoka_automation", "continuous_testing", "shift_left", "built_in_quality"]
+    default: "built_in_quality"
+    
+  - name: "metrics_focus"
+    description: "メトリクスの重点領域"
+    type: "enum"
+    values: ["flow_efficiency", "quality_metrics", "business_value", "team_productivity", "customer_satisfaction", "comprehensive"]
+    default: "flow_efficiency"
+    
+  - name: "learning_amplification"
+    description: "学習増幅の方法"
+    type: "enum"
+    values: ["fast_feedback", "experimental_culture", "fail_fast", "data_analytics", "ai_insights", "cross_team_sharing"]
+    default: "fast_feedback"
+    
+  - name: "decision_timing"
+    description: "意思決定タイミングの戦略"
+    type: "enum"
+    values: ["last_responsible_moment", "option_based", "data_driven_timing", "risk_balanced", "adaptive"]
+    default: "last_responsible_moment"
+    
+  - name: "team_empowerment"
+    description: "チーム権限委譲のレベル"
+    type: "enum"
+    values: ["basic_autonomy", "self_organizing", "full_ownership", "distributed_decision", "entrepreneurial"]
+    default: "self_organizing"
+    
+  - name: "integration_level"
+    description: "他手法との統合レベル"
+    type: "enum"
+    values: ["lean_only", "lean_agile", "lean_devops", "lean_startup_integrated", "full_integration"]
+    default: "lean_agile"
+    
+  - name: "organizational_scope"
+    description: "組織的な適用範囲"
+    type: "enum"
+    values: ["team_level", "department_level", "division_level", "enterprise_wide", "ecosystem"]
+    default: "team_level"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - skill_systems_thinking    # システム思考（全体最適化）
+    - skill_lean_canvas         # リーンキャンバス（リーンスタートアップ）
+  optional:
+    - method_agile             # アジャイル手法
+    - method_devops            # DevOps手法
+    - skill_data_analysis      # データ分析
+    - skill_facilitation       # ファシリテーション
+    - task_process_improvement # プロセス改善
+    - skill_value_stream_mapping # 価値ストリームマッピング
+
+# 互換性のあるタスク
+compatible_tasks:
+  - task_process_improvement     # プロセス改善
+  - task_project_planning        # プロジェクト計画
+  - task_problem_solving         # 問題解決
+  - task_optimization            # 最適化
+  - task_quality_assurance       # 品質保証
+  - task_cost_reduction          # コスト削減
+  - task_product_development     # 製品開発
+
+# タグ
+tags:
+  - lean
+  - waste_elimination
+  - continuous_improvement
+  - kaizen
+  - value_stream
+  - just_in_time
+  - lean_startup
+  - mvp
+  - flow_optimization
+  - quality_first
+  - gemba
+  - jidoka
+  - pull_system
+  - customer_value
+  - efficiency
+
+# 出力形式
+output_format:
+  structure:
+    - lean_principles_application
+    - value_stream_analysis
+    - waste_identification_elimination
+    - improvement_strategy
+    - quality_approach
+    - metrics_and_measurement
+    - implementation_roadmap
+  level_of_detail: comprehensive
+
+# 使用例
+examples:
+  - title: スタートアップMVP開発
+    variables:
+      lean_application: lean_startup
+      waste_focus: extra_features
+      value_stream_scope: idea_to_customer
+      improvement_approach: rapid_experimentation
+      learning_amplification: fail_fast
+      decision_timing: adaptive
+      integration_level: lean_startup_integrated
+    description: リーンスタートアップ手法を用いた高速MVP開発と検証
+
+  - title: エンタープライズ効率化
+    variables:
+      lean_application: enterprise_optimization
+      waste_focus: handoffs
+      value_stream_scope: end_to_end
+      improvement_approach: kaizen_events
+      quality_approach: built_in_quality
+      metrics_focus: comprehensive
+      organizational_scope: enterprise_wide
+    description: 大規模組織での全社的なリーン変革
+
+  - title: DevOpsフロー最適化
+    variables:
+      lean_application: continuous_flow
+      waste_focus: delays
+      value_stream_scope: commit_to_production
+      improvement_approach: automation_first
+      jit_level: demand_driven
+      integration_level: lean_devops
+      metrics_focus: flow_efficiency
+    description: DevOpsパイプラインのリーン最適化
+
+  - title: 品質重視の開発改善
+    variables:
+      lean_application: waste_elimination
+      waste_focus: defects
+      quality_approach: jidoka_automation
+      improvement_approach: continuous_kaizen
+      team_empowerment: full_ownership
+      learning_amplification: cross_team_sharing
+      metrics_focus: quality_metrics
+    description: 品質作り込みとジドウカによる欠陥ゼロ開発
+
+# メタデータ
+author: "AI Instruction Kits Project"
+created: "2025-07-19"
+updated: "2025-07-19"
+license: "Apache-2.0"
+research_sources:
+  - "Lean Software Development: An Agile Toolkit (2024 Edition)"
+  - "The Lean Startup (Updated for 2024)"
+  - "Value Stream Mapping for Software Development"
+  - "Toyota Production System in Software"
+  - "Lean Enterprise: How High Performance Organizations Innovate at Scale"
+  - "Continuous Delivery and Lean Principles"
+  - "Kaizen in Software Development"
+  - "Modern Lean Metrics and Analytics"
+  - "DevOps and Lean Integration Patterns"
+  - "Psychological Safety in Lean Organizations"

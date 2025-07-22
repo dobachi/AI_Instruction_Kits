@@ -1,0 +1,84 @@
+# システム思考スキルモジュールのメタデータ
+id: "skill_systems_thinking"
+name: "システム思考"
+description: "相互接続されたシステムを理解・分析するためのスキルモジュール（現代的手法とツールを含む）"
+version: "2.0.0"
+category: "skills"
+tags:
+  - "systems"
+  - "thinking"
+  - "analysis"
+  - "complexity"
+  - "feedback"
+  - "emergence"
+  - "leverage_points"
+  - "digital_twins"
+  - "network_analysis"
+  - "agent_based_modeling"
+  - "sustainability"
+  - "soft_systems"
+
+variables:
+  - name: "complexity_level"
+    description: "システムの複雑性レベル"
+    type: "enum"
+    values: ["simple", "moderate", "complex"]
+    default: "moderate"
+    
+  - name: "diagram_style"
+    description: "システム図の表現スタイル"
+    type: "enum"
+    values: ["causal_loop", "stock_flow", "rich_picture"]
+    default: "causal_loop"
+    
+  - name: "time_horizon"
+    description: "分析の時間軸"
+    type: "string"
+    default: "短期・中期・長期の影響を考慮"
+    examples: ["短期（数日〜数週間）", "中期（数ヶ月〜1年）", "長期（数年以上）"]
+    
+  - name: "system_boundaries"
+    description: "システム境界の定義"
+    type: "string"
+    default: "明確な境界設定と外部要因の識別"
+    
+  - name: "feedback_loop_analysis"
+    description: "フィードバックループの分析深度"
+    type: "enum"
+    values: ["basic", "detailed", "comprehensive"]
+    default: "detailed"
+    
+  - name: "leverage_points"
+    description: "Meadowsの12レバレッジポイントの適用レベル"
+    type: "enum"
+    values: ["parameters", "structure", "paradigm", "comprehensive"]
+    default: "structure"
+    examples: ["数値調整レベル", "フィードバック構造レベル", "パラダイム変革レベル"]
+    
+  - name: "modern_tools"
+    description: "使用する現代的ツールセット"
+    type: "enum"
+    values: ["traditional", "digital_twins", "network_analysis", "agent_based", "integrated"]
+    default: "traditional"
+    examples: ["従来手法のみ", "デジタルツイン活用", "ネットワーク分析重視", "エージェントベースモデリング", "統合アプローチ"]
+    
+  - name: "application_domain"
+    description: "主要な応用領域"
+    type: "enum"
+    values: ["general", "sustainability", "digital_transformation", "organizational", "urban_planning"]
+    default: "general"
+    examples: ["一般的分析", "気候・持続可能性", "デジタル変革", "組織変革", "都市計画"]
+
+compatible_with:
+  - "task_analysis"
+  - "task_planning"
+  - "task_research"
+  - "task_competitive_analysis"
+  - "task_data_analysis"
+  - "task_documentation"
+  - "task_report_writing"
+
+author: "AI Instruction Kits Project"
+created: "2025-07-19"
+updated: "2025-07-19"
+license: "Apache-2.0"

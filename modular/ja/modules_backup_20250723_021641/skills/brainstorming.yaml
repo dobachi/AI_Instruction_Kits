@@ -1,0 +1,80 @@
+# ブレインストーミングスキルモジュールのメタデータ
+id: "skill_brainstorming"
+name: "ブレインストーミング"
+description: "創造的なアイデア生成のための思考技法を定義するスキルモジュール"
+version: "2.0.0"
+category: "skills"
+tags:
+  - "creativity"
+  - "ideation"
+  - "problem-solving"
+  - "innovation"
+  - "facilitation"
+  - "neurodiversity"
+  - "cultural_diversity"
+  - "bias_mitigation"
+  - "digital_transformation"
+  - "psychological_safety"
+
+variables:
+  - name: "technique"
+    description: "使用するブレインストーミング手法"
+    type: "enum"
+    values: ["classic", "mindmap", "scamper", "635", "reverse", "brainwriting", "async_brainstorming", "hybrid_session", "ai_assisted", "question_storming"]
+    default: "classic"
+    
+  - name: "group_size"
+    description: "参加人数の規模"
+    type: "enum"
+    values: ["individual", "small", "large"]
+    default: "small"
+    
+  - name: "time_limit"
+    description: "セッションの時間制限"
+    type: "string"
+    default: "30分"
+    examples: ["15分", "30分", "60分", "無制限"]
+    
+  - name: "evaluation_method"
+    description: "アイデアの評価方法"
+    type: "string"
+    default: "投票による優先順位付け"
+    examples: ["投票", "スコアリング", "分類整理", "実現可能性マトリクス", "イノベーション指数", "多次元評価マトリクス"]
+    
+  - name: "neurodiversity_accommodations"
+    description: "神経多様性への配慮事項"
+    type: "array"
+    default: ["構造化された進行", "視覚的手がかり"]
+    examples: ["ADHD配慮", "自閉症スペクトラム配慮", "感覚過敏対応", "多様な表現手段"]
+    
+  - name: "cultural_considerations"
+    description: "文化的多様性への配慮"
+    type: "array"
+    default: ["フラットな参加促進"]
+    examples: ["階層意識の軽減", "多様なコミュニケーションスタイル", "時間認識の違い", "集団行動vs個人主義"]
+    
+  - name: "bias_mitigation"
+    description: "バイアス軽減手法"
+    type: "array"
+    default: ["匿名化", "多様性チェック"]
+    examples: ["匿名評価", "多様性確認", "悪魔の代弁者", "ローテーション", "異議申し立て"]
+    
+  - name: "digital_tools"
+    description: "使用するデジタルツール"
+    type: "array"
+    default: []
+    examples: ["Miro", "Mural", "Conceptboard", "FigJam", "Stormboard", "AI支援ツール"]
+
+compatible_with:
+  - "task_research"
+  - "task_data_analysis"
+  - "task_report_writing"
+  - "task_documentation"
+  - "task_competitive_analysis"
+  - "quality_creative"
+  - "quality_problem_solving"
+
+author: "AI Instruction Kits Project"
+created: "2025-07-19"
+updated: "2025-07-19"
+license: "Apache-2.0"

@@ -1,0 +1,170 @@
+id: skill_facilitation
+name: ファシリテーションスキル
+description: 効果的なグループファシリテーションのための包括的な技術とツール。Liberating Structures、ToP、Art of Hosting、AI支援、ユニバーサルデザイン、トラウマインフォームドアプローチを含む
+version: 2.0.0
+category: skills
+subcategory: leadership
+
+# ファシリテーション関連の変数
+variables:
+  - name: "facilitation_approach"
+    description: "使用するファシリテーション手法"
+    type: "enum"
+    values: ["traditional", "liberating_structures", "art_of_hosting", "technology_of_participation", "hybrid"]
+    default: "traditional"
+    
+  - name: "ai_assistance"
+    description: "AI支援のレベル"
+    type: "enum"
+    values: ["none", "basic", "advanced", "full_integration"]
+    default: "none"
+    
+  - name: "accessibility_level"
+    description: "アクセシビリティ対応レベル"
+    type: "enum"
+    values: ["standard", "enhanced", "comprehensive"]
+    default: "standard"
+    
+  - name: "trauma_informed"
+    description: "トラウマインフォームドアプローチのレベル"
+    type: "enum"
+    values: ["basic", "informed", "specialized"]
+    default: "basic"
+    
+  - name: "meeting_type"
+    description: "ファシリテートする会議の種類"
+    type: "enum"
+    values: ["brainstorming", "decision", "planning", "retrospective"]
+    default: "decision"
+    
+  - name: "group_size"
+    description: "参加者の人数"
+    type: "integer"
+    default: "8"
+    min: 2
+    max: 50
+    
+  - name: "format"
+    description: "会議の実施形式"
+    type: "enum"
+    values: ["in_person", "virtual", "hybrid"]
+    default: "in_person"
+    
+  - name: "decision_method"
+    description: "意思決定の方法"
+    type: "enum"
+    values: ["consensus", "voting", "authority"]
+    default: "consensus"
+    
+  - name: "time_constraint"
+    description: "時間的な制約レベル"
+    type: "enum"
+    values: ["tight", "moderate", "flexible"]
+    default: "moderate"
+    
+  - name: "diversity_level"
+    description: "参加者の背景や意見の多様性"
+    type: "enum"
+    values: ["low", "moderate", "high"]
+    default: "moderate"
+
+# 他のモジュールとの依存関係
+dependencies:
+  optional:
+    - skill_communication     # コミュニケーションスキル
+    - skill_active_listening  # アクティブリスニング
+    - method_workshop         # ワークショップ手法
+
+# 互換性のあるタスク
+compatible_tasks:
+  - task_planning           # 計画タスク
+  - task_problem_solving    # 問題解決タスク
+  - task_brainstorming      # ブレインストーミングタスク
+  - task_decision_making    # 意思決定タスク
+  - task_retrospective      # 振り返りタスク
+
+# タグ
+tags:
+  - facilitation
+  - meeting_management
+  - group_dynamics
+  - leadership
+  - collaboration
+  - decision_making
+  - virtual_meetings
+  - team_building
+  - liberating_structures
+  - art_of_hosting
+  - technology_of_participation
+  - accessibility
+  - inclusion
+  - trauma_informed
+  - ai_assisted
+  - universal_design
+
+# 出力形式
+output_format:
+  structure:
+    - meeting_preparation
+    - facilitation_process
+    - participation_techniques
+    - decision_support
+    - follow_up_actions
+  level_of_detail: comprehensive
+
+# 使用例
+examples:
+  - title: Liberating Structuresを使ったイノベーションセッション
+    variables:
+      facilitation_approach: liberating_structures
+      meeting_type: brainstorming
+      group_size: 20
+      format: hybrid
+      ai_assistance: basic
+      accessibility_level: enhanced
+    description: 1-2-4-AllとTroika Consultingを組み合わせた新サービスアイデア創出
+
+  - title: トラウマインフォームドアプローチでの危機対応会議
+    variables:
+      facilitation_approach: art_of_hosting
+      meeting_type: decision
+      group_size: 8
+      format: in_person
+      trauma_informed: specialized
+      accessibility_level: comprehensive
+      decision_method: consensus
+    description: 心理的安全性を重視した緊急対応計画策定
+
+  - title: AI支援によるグローバルチーム振り返り
+    variables:
+      facilitation_approach: technology_of_participation
+      meeting_type: retrospective
+      group_size: 25
+      format: virtual
+      ai_assistance: advanced
+      accessibility_level: comprehensive
+      diversity_level: high
+    description: 多言語・多文化チームでのORID法を用いたプロジェクト振り返り
+
+  - title: フリップドワークショップアプローチでのスキル開発
+    variables:
+      facilitation_approach: hybrid
+      meeting_type: planning
+      group_size: 15
+      format: hybrid
+      ai_assistance: full_integration
+      accessibility_level: standard
+    description: 事前学習と対面実践を組み合わせたリーダーシップ開発プログラム
+
+# メタデータ
+author: "AI Instruction Kits Project"
+created: "2025-07-19"
+updated: "2025-07-19"
+license: "Apache-2.0"
+research_sources:
+  - "Liberating Structures"
+  - "Technology of Participation (ToP)"
+  - "Art of Hosting practices"
+  - "Trauma-informed facilitation"
+  - "Universal Design principles"
+  - "ABDEIJ equity framework"

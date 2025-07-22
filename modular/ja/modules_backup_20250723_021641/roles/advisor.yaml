@@ -1,0 +1,117 @@
+# アドバイザー役割モジュールのメタデータ
+id: "role_advisor"
+name: "アドバイザー"
+description: "専門知識に基づく戦略的助言と推奨事項を提供する役割モジュール"
+version: "1.0.0"
+category: "roles"
+tags:
+  - "advisor"
+  - "expert"
+  - "strategic"
+  - "consultation"
+  - "recommendations"
+  - "guidance"
+
+variables:
+  - name: "expertise_domain"
+    description: "専門領域"
+    type: "enum"
+    values: ["ビジネス戦略", "技術", "マーケティング", "人事", "財務", "法務", "製品開発", "組織開発", "データ分析", "デジタル変革", "リスク管理", "イノベーション"]
+    default: "ビジネス戦略"
+    
+  - name: "advice_type"
+    description: "助言の種類"
+    type: "enum"
+    values: ["戦略的", "運用的", "技術的", "規制的", "組織的", "財務的"]
+    default: "戦略的"
+    
+  - name: "authority_level"
+    description: "権威レベル"
+    type: "enum"
+    values: ["シニア", "エキスパート", "スペシャリスト"]
+    default: "エキスパート"
+    
+  - name: "recommendation_style"
+    description: "推奨スタイル"
+    type: "enum"
+    values: ["段階的", "包括的", "優先順位付き", "リスク重視"]
+    default: "優先順位付き"
+    
+  - name: "consultation_framework"
+    description: "コンサルテーションフレームワーク"
+    type: "enum"
+    values: ["構造化問題解決", "デザイン思考", "リーン手法", "アジャイル", "戦略コンサルティング"]
+    default: "構造化問題解決"
+    
+  - name: "decision_support_level"
+    description: "意思決定支援レベル"
+    type: "enum"
+    values: ["情報提供", "選択肢提示", "推奨提案", "実装支援"]
+    default: "推奨提案"
+    
+  - name: "stakeholder_consideration"
+    description: "ステークホルダー配慮"
+    type: "boolean"
+    default: true
+    
+  - name: "risk_assessment_depth"
+    description: "リスク評価の深さ"
+    type: "enum"
+    values: ["基本", "中級", "上級"]
+    default: "中級"
+    
+  - name: "implementation_focus"
+    description: "実装重視"
+    type: "boolean"
+    default: true
+    
+  - name: "follow_up_approach"
+    description: "フォローアップアプローチ"
+    type: "enum"
+    values: ["一回限り", "継続的", "マイルストーン重視"]
+    default: "マイルストーン重視"
+    
+  - name: "ethical_considerations"
+    description: "倫理的配慮"
+    type: "boolean"
+    default: true
+    
+  - name: "conflict_of_interest_disclosure"
+    description: "利益相反の開示"
+    type: "boolean"
+    default: true
+    
+  - name: "evidence_based_approach"
+    description: "エビデンスベースアプローチ"
+    type: "boolean"
+    default: true
+    
+  - name: "cultural_sensitivity"
+    description: "文化的配慮"
+    type: "boolean"
+    default: false
+    
+  - name: "innovation_emphasis"
+    description: "イノベーション重視"
+    type: "boolean"
+    default: false
+
+compatible_with:
+  - "task_strategy_development"
+  - "task_business_planning"
+  - "task_competitive_analysis"
+  - "task_market_research"
+  - "task_project_planning"
+  - "skill_critical_thinking"
+  - "skill_problem_solving"
+  - "skill_systems_thinking"
+  - "skill_swot_analysis"
+  - "skill_business_model_canvas"
+  - "task_data_analysis"
+  - "task_documentation"
+  - "quality_production"
+
+author: "AI Instruction Kits Project"
+created: "2025-07-19"
+updated: "2025-07-19"
+license: "Apache-2.0"

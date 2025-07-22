@@ -1,0 +1,93 @@
+# task_problem_solving.yaml - 問題解決タスクモジュールのメタデータ
+id: "task_problem_solving"
+name: "問題解決タスク"
+description: "複雑な問題に対して体系的なアプローチを適用し、効果的で持続可能な解決策を導き出すためのタスクモジュール"
+version: "1.0.0"
+category: "tasks"
+
+# 依存関係
+dependencies: []
+
+# 提供される変数
+provides:
+  - cynefin_framework_guidance
+  - a3_problem_solving_structure
+  - eight_disciplines_methodology
+  - triz_innovation_principles
+  - design_sprint_process
+  - data_driven_analysis_tools
+  - systems_thinking_approach
+  - stakeholder_collaboration_framework
+
+# 必要な変数
+requires:
+  - problem_complexity:
+      description: "問題の複雑度レベル"
+      example: "シンプル、複雑、非常に複雑、ウィケッド問題"
+  - problem_type:
+      description: "問題のタイプ分類"
+      example: "技術的問題、組織的問題、戦略的問題、運用的問題"
+  - stakeholder_count:
+      description: "関与するステークホルダーの数"
+      example: "1-5人、6-15人、16-50人、51人以上"
+
+# オプション変数
+optional_variables:
+  - time_constraint:
+      description: "解決までの時間制約"
+      example: "緊急（1日以内）、短期（1週間）、中期（1ヶ月）、長期（3ヶ月以上）"
+  - cynefin_domain:
+      description: "Cynefinフレームワークでの問題ドメイン"
+      example: "明確、煩雑、複雑、混沌、混乱"
+  - a3_template:
+      description: "使用するA3テンプレートタイプ"
+      example: "標準A3、改善A3、戦略A3、学習A3"
+  - problem_severity:
+      description: "問題の深刻度（8D用）"
+      example: "軽微、中程度、重大、致命的"
+  - innovation_level:
+      description: "必要なイノベーションレベル（TRIZ用）"
+      example: "レベル1（改善）、レベル2（改良）、レベル3（革新）、レベル4（画期的）"
+  - data_availability:
+      description: "利用可能なデータの種類と量"
+      example: "履歴データ豊富、リアルタイムデータ、限定的データ、データなし"
+  - wicked_characteristics:
+      description: "ウィケッド問題の特性"
+      example: "定義困難、解決策不明確、ステークホルダー多数、価値観対立"
+  - sprint_goal:
+      description: "デザインスプリントの具体的目標"
+      example: "プロトタイプ検証、ユーザビリティ改善、新機能アイデア、課題特定"
+
+# デフォルト値
+defaults:
+  framework_selection: "問題の複雑度に応じた適切なフレームワーク選択"
+  iteration_approach: "反復的改善とアジャイル調整"
+  stakeholder_engagement: "マルチステークホルダー協働重視"
+  data_driven_decision: "可能な限りデータに基づく意思決定"
+  learning_focus: "継続的学習と知識共有"
+
+# メタデータ
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-07-19"
+  updated: "2025-07-19"
+  tags:
+    - "problem solving"
+    - "cynefin framework"
+    - "a3 methodology"
+    - "8d methodology"
+    - "triz"
+    - "design sprint"
+    - "systems thinking"
+    - "wicked problems"
+    - "data-driven analysis"
+    - "continuous improvement"
+  references:
+    - "Cynefin Framework by Dave Snowden"
+    - "A3 Problem Solving from Toyota Production System"
+    - "8D Methodology - Eight Disciplines"
+    - "TRIZ - Theory of Inventive Problem Solving"
+    - "Design Sprint by Google Ventures"
+    - "Systems Thinking approaches"
+    - "Predictive Analytics and Machine Learning (2024)"
+    - "Wicked Problems and Adaptive Management"

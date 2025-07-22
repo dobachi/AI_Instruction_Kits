@@ -1,0 +1,216 @@
+id: expertise_machine_learning
+name: 機械学習・AI専門知識
+description: 2024-2025年の最新機械学習・AI専門知識。MLOpsとライフサイクル管理、モデル評価手法、責任あるAIと倫理、本番環境でのデプロイメント戦略、最新アルゴリズムと技術トレンドの包括的アプローチ
+version: 1.0.0
+category: expertise
+subcategory: artificial_intelligence
+
+# 機械学習・AI関連の変数
+variables:
+  - name: "ml_task"
+    description: "機械学習タスクタイプ"
+    type: "enum"
+    values: ["classification", "regression", "clustering", "recommendation", "nlp", "computer_vision", "time_series", "reinforcement_learning", "generative_ai", "multimodal"]
+    default: "classification"
+    
+  - name: "model_type"
+    description: "モデルタイプ"
+    type: "enum"
+    values: ["traditional_ml", "deep_learning", "ensemble", "transformer", "foundation_model", "hybrid"]
+    default: "deep_learning"
+    
+  - name: "deployment"
+    description: "デプロイメント環境"
+    type: "enum"
+    values: ["cloud", "edge", "mobile", "embedded", "edge_cloud_hybrid", "federated"]
+    default: "cloud"
+    
+  - name: "mlops_maturity"
+    description: "MLOps成熟度"
+    type: "enum"
+    values: ["manual", "automated_training", "automated_deployment", "full_mlops", "autonomous"]
+    default: "automated_deployment"
+    
+  - name: "data_volume"
+    description: "データ量"
+    type: "enum"
+    values: ["small", "medium", "large", "big_data", "streaming", "petabyte"]
+    default: "large"
+    
+  - name: "latency_requirement"
+    description: "レイテンシ要件"
+    type: "enum"
+    values: ["batch", "near_real_time", "real_time", "ultra_low", "10ms", "1ms"]
+    default: "near_real_time"
+    
+  - name: "privacy_requirement"
+    description: "プライバシー要件"
+    type: "enum"
+    values: ["none", "basic", "gdpr_compliant", "differential_privacy", "federated_learning", "homomorphic"]
+    default: "gdpr_compliant"
+    
+  - name: "explainability"
+    description: "説明可能性要件"
+    type: "enum"
+    values: ["not_required", "helpful", "required", "regulatory_required", "comprehensive"]
+    default: "required"
+    
+  - name: "optimization"
+    description: "最適化手法"
+    type: "enum"
+    values: ["none", "quantization", "pruning", "distillation", "quantization_pruning", "nas"]
+    default: "quantization"
+    
+  - name: "monitoring"
+    description: "モニタリングレベル"
+    type: "enum"
+    values: ["basic", "performance", "drift_detection", "comprehensive", "ai_driven"]
+    default: "comprehensive"
+    
+  - name: "infrastructure"
+    description: "インフラストラクチャ"
+    type: "enum"
+    values: ["single_machine", "gpu_server", "cluster", "kubernetes", "spark_cluster", "tpu_pod"]
+    default: "gpu_server"
+    
+  - name: "experimentation"
+    description: "実験管理"
+    type: "enum"
+    values: ["notebooks", "scripts", "experiment_tracking", "mlflow", "continuous"]
+    default: "experiment_tracking"
+    
+  - name: "robustness"
+    description: "堅牢性要件"
+    type: "enum"
+    values: ["standard", "adversarial_resistant", "certified", "byzantine_fault_tolerant"]
+    default: "standard"
+    
+  - name: "multi_objective"
+    description: "多目的最適化"
+    type: "enum"
+    values: ["single", "accuracy_latency", "accuracy_cost", "accuracy_fairness", "complex"]
+    default: "accuracy_latency"
+    
+  - name: "update_strategy"
+    description: "モデル更新戦略"
+    type: "enum"
+    values: ["static", "periodic", "triggered", "continuous", "online_learning"]
+    default: "periodic"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - skill_data_analysis        # データ分析スキル
+    - skill_testing             # モデルテストスキル
+  optional:
+    - expertise_software_engineering  # ソフトウェア工学専門知識
+    - expertise_parallel_distributed  # 並列分散処理専門知識
+    - expertise_legal_engineering    # 法令工学専門知識（AI規制）
+    - method_agile                   # アジャイル方法論
+    - skill_api_design              # API設計スキル（モデルサービング）
+    - skill_performance             # パフォーマンス最適化
+    - domain_healthcare             # ヘルスケアドメイン知識
+    - domain_fintech                # 金融ドメイン知識
+
+# 互換性のあるタスク
+compatible_tasks:
+  - task_data_analysis       # データ分析・前処理
+  - task_code_generation     # MLコード生成
+  - task_research           # ML手法調査
+  - task_documentation      # モデルドキュメント
+  - task_problem_solving    # ML問題解決
+  - task_project_planning   # MLプロジェクト計画
+  - task_report_writing     # 実験レポート作成
+
+# タグ
+tags:
+  - machine_learning
+  - artificial_intelligence
+  - deep_learning
+  - mlops
+  - model_deployment
+  - responsible_ai
+  - federated_learning
+  - transformer
+  - computer_vision
+  - natural_language_processing
+  - reinforcement_learning
+  - automl
+  - edge_ai
+  - explainable_ai
+  - ai_ethics
+
+# 出力形式
+output_format:
+  structure:
+    - learning_algorithms
+    - model_evaluation
+    - mlops_lifecycle
+    - deployment_strategies
+    - responsible_ai_practices
+    - optimization_techniques
+    - monitoring_systems
+    - latest_trends
+    - implementation_guide
+  level_of_detail: comprehensive
+
+# 使用例
+examples:
+  - title: リアルタイム推論システム
+    variables:
+      ml_task: computer_vision
+      model_type: deep_learning
+      deployment: edge_cloud_hybrid
+      latency_requirement: 10ms
+      optimization: quantization_pruning
+      monitoring: comprehensive
+      infrastructure: kubernetes
+    description: エッジ-クラウドハイブリッドのリアルタイム画像認識
+
+  - title: 大規模NLPプラットフォーム
+    variables:
+      ml_task: nlp
+      model_type: transformer
+      deployment: cloud
+      mlops_maturity: full_mlops
+      data_volume: petabyte
+      infrastructure: tpu_pod
+      experimentation: continuous
+    description: ペタバイト規模の大規模言語モデル運用
+
+  - title: プライバシー保護医療AI
+    variables:
+      ml_task: classification
+      deployment: federated
+      privacy_requirement: federated_learning
+      explainability: regulatory_required
+      robustness: certified
+      update_strategy: continuous
+    description: フェデレーテッドラーニングによる医療診断支援
+
+  - title: 自動運転エッジAI
+    variables:
+      ml_task: computer_vision
+      deployment: embedded
+      latency_requirement: 1ms
+      optimization: nas
+      robustness: adversarial_resistant
+      multi_objective: complex
+    description: 自動運転車向け超低遅延エッジAI
+
+# メタデータ
+author: "AI Instruction Kits Project"
+created: "2025-01-20"
+updated: "2025-01-20"
+license: "Apache-2.0"
+research_sources:
+  - "MLOps: Machine Learning Operations 2024"
+  - "Advances in Neural Information Processing Systems 2024"
+  - "Google AI Responsible AI Practices"
+  - "OpenAI Safety Research 2024"
+  - "MLOps Maturity Model 2024-2025"
+  - "Edge AI Market Report 2024"
+  - "Federated Learning Survey 2024"
+  - "Transformer Models: State of the Art"
+  - "AI Ethics Guidelines IEEE 2024"
+  - "AutoML: Current State and Future"

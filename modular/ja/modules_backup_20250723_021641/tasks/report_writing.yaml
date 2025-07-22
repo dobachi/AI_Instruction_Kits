@@ -1,0 +1,75 @@
+# task_report_writing.yaml - レポート・報告書作成タスクモジュールのメタデータ
+id: "task_report_writing"
+name: "レポート・報告書作成タスク"
+description: "効果的なビジネスレポートと報告書を作成するためのタスクモジュール"
+version: "1.0.0"
+category: "tasks"
+
+# 依存関係
+dependencies: []
+
+# 提供される変数
+provides:
+  - report_writing_methodology
+  - executive_summary_principles
+  - data_visualization_guidelines
+  - report_structure_best_practices
+
+# 必要な変数
+requires:
+  - report_type:
+      description: "作成するレポートの種類"
+      example: "財務報告書、進捗報告書、分析レポート、実現可能性調査、研究報告書"
+  - target_audience:
+      description: "レポートの主要な読者"
+      example: "経営陣、プロジェクトステークホルダー、投資家、技術チーム"
+
+# オプション変数
+optional_variables:
+  - report_purpose:
+      description: "レポートの具体的な目的"
+      example: "四半期の売上分析を経営陣に報告し、戦略的意思決定を支援する"
+  - reporting_period:
+      description: "レポート対象期間"
+      example: "2024年第1四半期、2024年1月、プロジェクト開始から現在まで"
+  - key_metrics:
+      description: "重要な指標やKPI"
+      example: "売上高、利益率、顧客満足度、プロジェクト進捗率"
+  - visual_requirements:
+      description: "データ視覚化の要件"
+      example: "グラフ、チャート、ダッシュボード、インフォグラフィック"
+  - report_length:
+      description: "レポートの想定長さ"
+      example: "エグゼクティブサマリー1ページ、本文10ページ"
+  - decision_context:
+      description: "意思決定の文脈"
+      example: "新規事業投資の判断、プロジェクト継続の可否、予算配分の見直し"
+  - urgency_level:
+      description: "緊急度レベル"
+      example: "高（即時対応必要）、中（1週間以内）、低（定期報告）"
+
+# デフォルト値
+defaults:
+  executive_summary_ratio: "全体の10-15%"
+  visualization_approach: "データに応じて適切なグラフやチャートを選択"
+  language_style: "専門用語を避け、明確で簡潔な表現を使用"
+  recommendation_placement: "エグゼクティブサマリーの最後と結論部分"
+
+# メタデータ
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-16"
+  updated: "2025-01-16"
+  tags:
+    - "business reports"
+    - "executive summary"
+    - "data visualization"
+    - "financial reports"
+    - "progress reports"
+    - "analytical reports"
+    - "feasibility studies"
+  references:
+    - "Business Report Writing Best Practices 2024"
+    - "Executive Summary Guidelines"
+    - "Data Visualization State of the Industry 2024"
+    - "Modern Report Writing Methodologies"

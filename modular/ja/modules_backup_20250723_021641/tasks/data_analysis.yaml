@@ -1,0 +1,83 @@
+# task_data_analysis.yaml - データ分析タスクモジュールのメタデータ
+id: "task_data_analysis"
+name: "データ分析タスク"
+description: "体系的なデータ分析を通じて洞察を抽出するタスクモジュール"
+version: "1.0.0"
+category: "tasks"
+
+# 依存関係
+dependencies: []
+
+# 提供される変数
+provides:
+  - data_analysis_methodology
+  - statistical_methods
+  - visualization_techniques
+  - crisp_dm_process
+
+# 必要な変数
+requires:
+  - analysis_purpose:
+      description: "分析の目的"
+      example: "売上トレンドの把握と顧客セグメンテーション"
+
+# オプション変数（データソースに応じて使い分け）
+optional_variables:
+  # 既存データの場合
+  - data_location:
+      description: "既存データの場所（ファイルパス、URL、データベース等）"
+      example: "/data/sales_2024.csv または https://api.example.com/data"
+  - data_description:
+      description: "既存データの説明"
+      example: "過去3年間の売上データと顧客属性情報"
+  
+  # データ収集が必要な場合
+  - data_collection_target:
+      description: "収集対象の定義（データ収集が必要な場合）"
+      example: "競合5社の製品価格と機能比較データ"
+  - collection_methods:
+      description: "データ収集方法"
+      example: "ウェブスクレイピング、API利用、公開データセット検索"
+  
+  # 共通オプション
+  - expected_outcomes:
+      description: "期待される成果"
+      example: "売上予測モデルの構築"
+  - analysis_methods:
+      description: "使用する分析手法"
+      example: "時系列分析、クラスター分析"
+  - feature_engineering:
+      description: "特徴量エンジニアリング手法"
+      example: "季節性の抽出、カテゴリ変数のone-hotエンコーディング"
+  - data_governance:
+      description: "データガバナンス要件"
+      example: "GDPR準拠、個人情報の匿名化"
+  - analysis_constraints:
+      description: "分析上の制約"
+      example: "計算リソースの制限、リアルタイム処理不要"
+
+# デフォルト値
+defaults:
+  data_source_type: "判断をAIに委ねる（既存データ優先）"
+  visualization_tools: "適切な可視化ツールを選択"
+  statistical_significance: "p < 0.05"
+  reporting_format: "エグゼクティブサマリーと詳細レポート"
+
+# メタデータ
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-01-16"
+  updated: "2025-01-16"
+  tags:
+    - "data analysis"
+    - "CRISP-DM"
+    - "EDA"
+    - "statistics"
+    - "data visualization"
+    - "business intelligence"
+    - "data collection"
+  references:
+    - "CRISP-DM Methodology"
+    - "Exploratory Data Analysis Best Practices"
+    - "Statistical Analysis Guidelines"
+    - "Data Visualization Principles"

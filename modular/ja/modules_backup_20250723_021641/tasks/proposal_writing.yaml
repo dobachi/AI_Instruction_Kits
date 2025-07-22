@@ -1,0 +1,85 @@
+# task_proposal_writing.yaml - 提案書作成タスクモジュールのメタデータ
+id: "task_proposal_writing"
+name: "提案書作成タスク"
+description: "説得力のある勝てる提案書を作成するためのタスクモジュール"
+version: "1.0.0"
+category: "tasks"
+
+# 依存関係
+dependencies: []
+
+# 提供される変数
+provides:
+  - proposal_writing_methodology
+  - win_theme_development
+  - value_proposition_framework
+  - risk_mitigation_strategies
+
+# 必要な変数
+requires:
+  - proposal_type:
+      description: "作成する提案書の種類"
+      example: "新規事業提案、プロジェクト提案、予算提案、助成金申請、RFP対応"
+  - target_audience:
+      description: "提案書の主要な意思決定者"
+      example: "経営陣、投資委員会、事業パートナー、政府機関、助成財団"
+
+# オプション変数
+optional_variables:
+  - proposal_purpose:
+      description: "提案の具体的な目的"
+      example: "新規事業の立ち上げ承認、プロジェクト予算の確保、戦略的パートナーシップの締結"
+  - proposal_value:
+      description: "提案の金額規模または価値"
+      example: "5000万円の予算、3年間の契約、年間売上1億円の新規事業"
+  - competitive_context:
+      description: "競合状況"
+      example: "3社競合のコンペティション、単独指名、公開入札"
+  - evaluation_criteria:
+      description: "評価基準"
+      example: "価格40%、技術力30%、実績20%、提案内容10%"
+  - win_themes:
+      description: "勝利テーマ"
+      example: "コスト効率性、イノベーション、実績と信頼性、地域貢献"
+  - differentiators:
+      description: "差別化要因"
+      example: "独自技術、豊富な実績、専門チーム、リスク軽減策"
+  - submission_deadline:
+      description: "提出期限"
+      example: "2024年3月31日、RFP受領後30日以内"
+  - page_limit:
+      description: "ページ数制限"
+      example: "エグゼクティブサマリー2ページ、本文30ページ以内"
+  - visual_requirements:
+      description: "ビジュアル要件"
+      example: "図表必須、インフォグラフィック推奨、カラー印刷対応"
+  - compliance_requirements:
+      description: "コンプライアンス要件"
+      example: "指定フォーマット準拠、必須項目の網羅、証明書類の添付"
+
+# デフォルト値
+defaults:
+  executive_summary_approach: "提案の価値と差別化要因を強調"
+  structure_pattern: "問題・解決策・実装・成果の流れ"
+  visual_design_principle: "プロフェッショナルかつ読みやすいデザイン"
+  win_rate_target: "競争入札で30%以上、指名案件で80%以上"
+
+# メタデータ
+metadata:
+  author: "AI Instruction Kits Project"
+  created: "2025-07-19"
+  updated: "2025-07-19"
+  tags:
+    - "business proposals"
+    - "project proposals"
+    - "budget proposals"
+    - "grant proposals"
+    - "RFP responses"
+    - "win themes"
+    - "value proposition"
+    - "competitive bidding"
+  references:
+    - "Proposal Writing Best Practices 2024"
+    - "Win Theme Development Framework"
+    - "RFP Response Strategies"
+    - "Grant Writing Excellence Guide"

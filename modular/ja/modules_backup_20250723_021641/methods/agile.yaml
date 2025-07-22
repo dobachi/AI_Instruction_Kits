@@ -1,0 +1,194 @@
+id: method_agile
+name: アジャイル開発方法論
+description: 2024年の研究成果に基づく現代的なアジャイル開発手法。原則重視の適応、スケールドアジャイル、リモートファースト、DevOps統合を含む包括的なアプローチ
+version: 2.0.0
+category: methods
+subcategory: development
+
+# アジャイル開発関連の変数
+variables:
+  - name: "agile_framework"
+    description: "使用するアジャイルフレームワーク"
+    type: "enum"
+    values: ["scrum", "kanban", "xp", "safe", "less", "nexus", "spotify_model", "hybrid"]
+    default: "scrum"
+    
+  - name: "team_distribution"
+    description: "チームの分散状況"
+    type: "enum"
+    values: ["co_located", "remote_first", "hybrid", "distributed_global"]
+    default: "hybrid"
+    
+  - name: "iteration_length"
+    description: "イテレーション（スプリント）期間"
+    type: "enum"
+    values: ["1_week", "2_weeks", "3_weeks", "4_weeks", "continuous_flow"]
+    default: "2_weeks"
+    
+  - name: "adaptation_level"
+    description: "アジャイル原則の適応レベル"
+    type: "enum"
+    values: ["principle_based", "framework_strict", "context_adaptive", "experimental"]
+    default: "principle_based"
+    
+  - name: "team_size"
+    description: "開発チームのサイズ"
+    type: "integer"
+    default: 7
+    min: 3
+    max: 15
+    
+  - name: "scaled_approach"
+    description: "スケールドアジャイルのアプローチ"
+    type: "enum"
+    values: ["none", "safe", "less", "nexus", "spotify", "custom"]
+    default: "none"
+    
+  - name: "devops_integration"
+    description: "DevOps統合レベル"
+    type: "enum"
+    values: ["basic", "ci_cd", "full_automation", "platform_engineering"]
+    default: "ci_cd"
+    
+  - name: "data_driven_level"
+    description: "データ駆動意思決定のレベル"
+    type: "enum"
+    values: ["minimal", "metrics_based", "analytics_driven", "ai_augmented"]
+    default: "metrics_based"
+    
+  - name: "psychological_safety"
+    description: "心理的安全性の重視レベル"
+    type: "enum"
+    values: ["standard", "high_focus", "trauma_informed"]
+    default: "high_focus"
+    
+  - name: "customer_collaboration"
+    description: "顧客協調のアプローチ"
+    type: "enum"
+    values: ["traditional", "co_creation", "design_thinking", "lean_startup"]
+    default: "co_creation"
+    
+  - name: "technical_practices"
+    description: "技術プラクティスの重視度"
+    type: "enum"
+    values: ["basic", "xp_practices", "craft_focused", "platform_native"]
+    default: "xp_practices"
+    
+  - name: "complexity_context"
+    description: "プロジェクトの複雑性コンテキスト"
+    type: "enum"
+    values: ["simple", "complicated", "complex", "chaotic"]
+    default: "complex"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - skill_facilitation      # ファシリテーションスキル
+    - task_project_planning   # プロジェクト計画
+  optional:
+    - skill_systems_thinking  # システム思考
+    - skill_design_thinking   # デザイン思考
+    - skill_lean_canvas       # リーンキャンバス
+    - method_devops          # DevOps手法
+    - skill_okr_planning     # OKR計画
+
+# 互換性のあるタスク
+compatible_tasks:
+  - task_project_planning      # プロジェクト計画
+  - task_problem_solving       # 問題解決
+  - task_strategy_development  # 戦略策定
+  - task_user_research        # ユーザーリサーチ
+  - task_technical_presentation # 技術プレゼンテーション
+
+# タグ
+tags:
+  - agile
+  - scrum
+  - kanban
+  - lean
+  - devops
+  - remote_work
+  - scaled_agile
+  - team_collaboration
+  - iterative_development
+  - customer_centric
+  - data_driven
+  - continuous_improvement
+  - psychological_safety
+  - principle_based
+  - adaptive_planning
+
+# 出力形式
+output_format:
+  structure:
+    - agile_principles_application
+    - framework_implementation
+    - team_practices
+    - technical_practices
+    - measurement_and_metrics
+    - continuous_improvement
+    - scaling_considerations
+  level_of_detail: comprehensive
+
+# 使用例
+examples:
+  - title: リモートファーストスクラムチーム
+    variables:
+      agile_framework: scrum
+      team_distribution: remote_first
+      iteration_length: 2_weeks
+      adaptation_level: principle_based
+      devops_integration: full_automation
+      data_driven_level: analytics_driven
+      psychological_safety: high_focus
+    description: 地理的に分散したチームでの原則重視スクラム実装
+
+  - title: スケールドアジャイル（SAFe）導入
+    variables:
+      agile_framework: safe
+      team_distribution: hybrid
+      scaled_approach: safe
+      team_size: 12
+      devops_integration: platform_engineering
+      complexity_context: complicated
+      technical_practices: platform_native
+    description: 大規模組織でのSAFe導入とプラットフォームエンジニアリング
+
+  - title: スタートアップ向けリーンアジャイル
+    variables:
+      agile_framework: kanban
+      team_distribution: co_located
+      iteration_length: continuous_flow
+      adaptation_level: experimental
+      customer_collaboration: lean_startup
+      data_driven_level: ai_augmented
+      complexity_context: chaotic
+    description: 不確実性の高い環境でのリーンスタートアップ手法統合
+
+  - title: レガシーシステム移行プロジェクト
+    variables:
+      agile_framework: hybrid
+      team_distribution: hybrid
+      iteration_length: 3_weeks
+      adaptation_level: context_adaptive
+      technical_practices: craft_focused
+      devops_integration: ci_cd
+      complexity_context: complicated
+    description: 既存システムとの並行開発におけるハイブリッドアプローチ
+
+# メタデータ
+author: "AI Instruction Kits Project"
+created: "2025-07-19"
+updated: "2025-07-19"
+license: "Apache-2.0"
+research_sources:
+  - "Agile Manifesto 2024 Evolution"
+  - "State of Agile 2024 Report"
+  - "Scaled Agile Framework (SAFe) 6.0"
+  - "LeSS (Large-Scale Scrum) Guide"
+  - "Nexus Framework Guide"
+  - "Team Topologies"
+  - "Platform Engineering practices"
+  - "Psychological Safety in Agile Teams"
+  - "Remote-first Agile practices"
+  - "Data-driven Agile metrics"

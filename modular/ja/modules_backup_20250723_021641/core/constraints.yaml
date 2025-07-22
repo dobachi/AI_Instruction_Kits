@@ -1,0 +1,35 @@
+# 制約事項モジュールのメタデータ
+id: "core_constraints"
+name: "制約事項"
+description: "重要な制約事項と禁止事項を定義するコアモジュール"
+version: "1.0.0"
+category: "core"
+tags:
+  - "constraints"
+  - "rules"
+  - "safety"
+
+variables:
+  - name: "project_constraints"
+    description: "プロジェクト固有の制約事項"
+    type: "string"
+    default: ""
+    
+  - name: "technical_constraints"
+    description: "技術的な制約事項"
+    type: "string"
+    default: ""
+    
+  - name: "prohibited_items"
+    description: "明示的な禁止事項のリスト"
+    type: "string"
+    default: ""
+
+compatible_modules:
+  - "core_role_definition"
+  - "core_output_format"
+
+author: "AI Instruction Kits Project"
+created: "2025-01-10"
+updated: "2025-01-10"
+license: "Apache-2.0"

@@ -1,0 +1,136 @@
+id: skill_okr_planning
+name: OKR計画スキル
+description: 効果的なOKR（Objectives and Key Results）の策定と運用のための包括的なフレームワーク
+version: 1.0.0
+category: skills
+subcategory: planning
+
+# OKR計画関連の変数
+variables:
+  - name: "planning_level"
+    description: "OKR計画のレベル"
+    type: "enum"
+    values: ["company", "team", "individual"]
+    default: "team"
+    
+  - name: "time_horizon"
+    description: "OKRの計画期間"
+    type: "enum"
+    values: ["quarterly", "annual"]
+    default: "quarterly"
+    
+  - name: "okr_maturity"
+    description: "組織のOKR成熟度レベル"
+    type: "enum"
+    values: ["beginner", "intermediate", "advanced"]
+    default: "intermediate"
+    
+  - name: "tracking_frequency"
+    description: "OKR追跡の頻度"
+    type: "enum"
+    values: ["weekly", "biweekly", "monthly"]
+    default: "weekly"
+    
+  - name: "alignment_approach"
+    description: "OKRの整合性アプローチ"
+    type: "enum"
+    values: ["top_down", "bottom_up", "hybrid"]
+    default: "hybrid"
+    
+  - name: "scoring_method"
+    description: "OKRスコアリング方法"
+    type: "enum"
+    values: ["simple", "weighted", "confidence_based"]
+    default: "simple"
+
+# 他のモジュールとの依存関係
+dependencies:
+  optional:
+    - skill_strategic_thinking  # 戦略的思考スキル
+    - skill_data_analysis      # データ分析スキル
+    - skill_facilitation       # ファシリテーションスキル
+    - method_goal_setting      # 目標設定手法
+
+# 互換性のあるタスク
+compatible_tasks:
+  - task_planning            # 計画タスク
+  - task_strategy_development # 戦略策定タスク
+  - task_performance_review  # パフォーマンスレビュータスク
+  - task_team_alignment      # チーム整合性タスク
+  - task_progress_tracking   # 進捗追跡タスク
+
+# タグ
+tags:
+  - okr
+  - goal_setting
+  - performance_management
+  - strategic_planning
+  - team_alignment
+  - metrics
+  - kpi
+  - objectives
+  - key_results
+  - google_methodology
+
+# 出力形式
+output_format:
+  structure:
+    - objective_definition
+    - key_results_specification
+    - alignment_mapping
+    - tracking_schedule
+    - review_process
+  level_of_detail: comprehensive
+
+# 使用例
+examples:
+  - title: スタートアップの四半期OKR設定
+    variables:
+      planning_level: company
+      time_horizon: quarterly
+      okr_maturity: beginner
+      tracking_frequency: weekly
+      alignment_approach: top_down
+    description: 急成長スタートアップの第3四半期OKR策定セッション
+    sample_okr:
+      objective: "製品市場フィットを確立し、持続可能な成長基盤を構築する"
+      key_results:
+        - "月間アクティブユーザー数を5,000から20,000に増加"
+        - "月次解約率を15%から5%に削減"
+        - "NPS（ネットプロモータースコア）を30から50に向上"
+
+  - title: エンジニアリングチームの年次OKR
+    variables:
+      planning_level: team
+      time_horizon: annual
+      okr_maturity: advanced
+      tracking_frequency: biweekly
+      alignment_approach: hybrid
+    description: 大企業のエンジニアリング部門における年次技術目標設定
+    sample_okr:
+      objective: "世界クラスのエンジニアリング組織を構築する"
+      key_results:
+        - "デプロイ頻度を週1回から日5回に向上"
+        - "システム可用性を99.5%から99.99%に改善"
+        - "エンジニア満足度スコアを70から85に向上"
+
+  - title: 個人のキャリア開発OKR
+    variables:
+      planning_level: individual
+      time_horizon: quarterly
+      okr_maturity: intermediate
+      tracking_frequency: weekly
+      scoring_method: confidence_based
+    description: ミドルマネージャーの個人成長目標設定
+    sample_okr:
+      objective: "次世代のリーダーシップスキルを習得する"
+      key_results:
+        - "360度フィードバックスコアを3.5から4.2に向上"
+        - "3つの主要プロジェクトを期限内に完遂"
+        - "2名のメンティーの昇進をサポート"
+
+# メタデータ
+author: "AI Instruction Kits Project"
+created: "2025-07-19"
+updated: "2025-07-19"
+license: "Apache-2.0"
