@@ -791,6 +791,38 @@ else
     fi
 fi
 
+# generate-instruction.shのリンク作成
+echo ""
+echo "🔗 $MSG_CREATE_SYMLINK generate-instruction.sh..."
+if [ -e "scripts/generate-instruction.sh" ]; then
+    if [ -L "scripts/generate-instruction.sh" ]; then
+        MSG_GENERATE_SYMLINK_EXISTS=$(get_message "generate_symlink_exists" "generate-instruction.sh symbolic link already exists" "generate-instruction.shシンボリックリンクは既に存在します")
+        echo "✓ $MSG_GENERATE_SYMLINK_EXISTS"
+    else
+        MSG_GENERATE_EXISTS_NOT_LINK=$(get_message "generate_exists_not_link" "scripts/generate-instruction.sh already exists (not a symbolic link)" "scripts/generate-instruction.shが既に存在します（シンボリックリンクではありません）")
+        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
+        echo "⚠️  $MSG_GENERATE_EXISTS_NOT_LINK"
+        if confirm "$MSG_BACKUP_AND_REPLACE"; then
+            backup_file "scripts/generate-instruction.sh"
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "rm scripts/generate-instruction.sh && ln -sf ../instructions/ai_instruction_kits/scripts/generate-instruction.sh scripts/generate-instruction.sh"
+            else
+                rm scripts/generate-instruction.sh
+                ln -sf ../instructions/ai_instruction_kits/scripts/generate-instruction.sh scripts/generate-instruction.sh
+            fi
+        fi
+    fi
+else
+    MSG_CREATE_GENERATE_LINK=$(get_message "create_generate_link" "Create symbolic link to generate-instruction.sh?" "generate-instruction.shへのシンボリックリンクを作成しますか？")
+    if confirm "$MSG_CREATE_GENERATE_LINK"; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/generate-instruction.sh scripts/generate-instruction.sh"
+        else
+            ln -sf ../instructions/ai_instruction_kits/scripts/generate-instruction.sh scripts/generate-instruction.sh
+        fi
+    fi
+fi
+
 # .gitignoreに追加（サブモジュールモードの場合のみ）
 if [ "$SELECTED_MODE" = "submodule" ]; then
     echo ""
@@ -872,7 +904,9 @@ else
     MSG_CREATED_STRUCTURE=$(get_message "created_structure" "Created structure" "作成された構成")
     echo "📁 $MSG_CREATED_STRUCTURE:"
     echo "  scripts/"
-    echo "    └── checkpoint.sh → ../instructions/ai_instruction_kits/scripts/checkpoint.sh"
+    echo "    ├── checkpoint.sh → ../instructions/ai_instruction_kits/scripts/checkpoint.sh"
+    echo "    ├── commit.sh → ../instructions/ai_instruction_kits/scripts/commit.sh"
+    echo "    └── generate-instruction.sh → ../instructions/ai_instruction_kits/scripts/generate-instruction.sh"
     echo "  instructions/"
     echo "    ├── ai_instruction_kits/ ($SELECTED_MODE $(get_message "mode" "mode" "モード"))"
     MSG_PROJECT_CONFIG=$(get_message "project_config" "Project configuration" "プロジェクト設定")
