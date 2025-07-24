@@ -1,61 +1,48 @@
-## パフォーマンス最適化
+# パフォーマンス最適化スキルモジュール（簡潔版）
 
-### 目標設定
-- **読み込み時間**: {{target_load_time}}
-- **Core Web Vitals**の改善
+## コア概念
+Webアプリケーションの速度と快適性を最大化。リソース最適化、読み込み戦略、キャッシュ戦略を統合的に実施し、Core Web Vitalsを改善。
 
-### リソース最適化
+## リソース最適化
 
-{{#if image_optimization}}
-#### 画像の最適化
-- 適切な画像形式の選択（WebP、AVIF）
-- レスポンシブ画像（srcset）の使用
-- 画像圧縮の実施
-- アスペクト比の指定でレイアウトシフト防止
-{{/if}}
+### 最適化チェックリスト
+| 対象 | 手法 |
+|------|------|
+| **画像** | WebP/AVIF、srcset、圧縮、アスペクト比指定 |
+| **CSS/JS** | Minify、Tree Shaking、Critical CSSインライン |
+| **フォント** | サブセット化、font-display設定 |
 
-{{#if minification}}
-#### CSS/JSの最適化
-- ファイルの最小化（minify）
-- 不要なコードの削除
-- Tree Shakingの活用
-- Critical CSSのインライン化
-{{/if}}
+## 読み込み戦略
 
-#### フォントの最適化
-- Web フォントのサブセット化
-- font-displayの適切な設定
-- ローカルフォントの優先使用
+### 優先順位付け
+```yaml
+preload: 重要リソースの事前読み込み
+prefetch: 次ページの準備
+defer/async: スクリプトの非同期化
+lazy loading: 画像の遅延読み込み
+```
 
-### 読み込み戦略
+## キャッシュ戦略
+- Cache-Controlヘッダー設定
+- Service Worker活用
+- CDN利用
+- ブラウザキャッシュ最適化
 
-{{#if lazy_loading}}
-#### 遅延読み込み
-- 画像の遅延読み込み（loading="lazy"）
-- スクロールに応じたコンテンツ読み込み
-- Intersection Observerの活用
-{{/if}}
+## Core Web Vitals
 
-#### リソースの優先順位
-- preloadによる重要リソースの事前読み込み
-- prefetchによる次ページの準備
-- deferとasyncの適切な使い分け
+| 指標 | 目標 | 改善方法 |
+|------|------|----------|
+| **FCP** | <1.8s | リソース最適化 |
+| **LCP** | <2.5s | 画像最適化、CDN |
+| **FID** | <100ms | JS最適化 |
+| **CLS** | <0.1 | レイアウト固定 |
 
-### キャッシュ戦略
-- {{cache_strategy}}
-- 適切なCache-Controlヘッダー
-- Service Workerの活用検討
-- CDNの利用
-
-### 計測と監視
-
-#### パフォーマンス指標
-- First Contentful Paint (FCP)
-- Largest Contentful Paint (LCP)
-- First Input Delay (FID)
-- Cumulative Layout Shift (CLS)
-
-#### 最適化の継続
-- Lighthouseによる定期的な計測
+## 計測と監視
+- Lighthouse定期計測
 - Real User Monitoring (RUM)
-- パフォーマンスバジェットの設定
+- パフォーマンスバジェット設定
+
+---
+**モジュール作成日**: 2025-01-21
+**カテゴリ**: skills/performance
+**バージョン**: 1.0.0-concise
