@@ -823,6 +823,102 @@ else
     fi
 fi
 
+# validate-modules.shのリンク作成
+echo ""
+echo "🔗 $MSG_CREATE_SYMLINK validate-modules.sh..."
+if [ -e "scripts/validate-modules.sh" ]; then
+    if [ -L "scripts/validate-modules.sh" ]; then
+        MSG_VALIDATE_SYMLINK_EXISTS=$(get_message "validate_symlink_exists" "validate-modules.sh symbolic link already exists" "validate-modules.shシンボリックリンクは既に存在します")
+        echo "✓ $MSG_VALIDATE_SYMLINK_EXISTS"
+    else
+        MSG_VALIDATE_EXISTS_NOT_LINK=$(get_message "validate_exists_not_link" "scripts/validate-modules.sh already exists (not a symbolic link)" "scripts/validate-modules.shが既に存在します（シンボリックリンクではありません）")
+        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
+        echo "⚠️  $MSG_VALIDATE_EXISTS_NOT_LINK"
+        if confirm "$MSG_BACKUP_AND_REPLACE"; then
+            backup_file "scripts/validate-modules.sh"
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "rm scripts/validate-modules.sh && ln -sf ../instructions/ai_instruction_kits/scripts/validate-modules.sh scripts/validate-modules.sh"
+            else
+                rm scripts/validate-modules.sh
+                ln -sf ../instructions/ai_instruction_kits/scripts/validate-modules.sh scripts/validate-modules.sh
+            fi
+        fi
+    fi
+else
+    MSG_CREATE_VALIDATE_LINK=$(get_message "create_validate_link" "Create symbolic link to validate-modules.sh?" "validate-modules.shへのシンボリックリンクを作成しますか？")
+    if confirm "$MSG_CREATE_VALIDATE_LINK"; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/validate-modules.sh scripts/validate-modules.sh"
+        else
+            ln -sf ../instructions/ai_instruction_kits/scripts/validate-modules.sh scripts/validate-modules.sh
+        fi
+    fi
+fi
+
+# search-instructions.shのリンク作成
+echo ""
+echo "🔗 $MSG_CREATE_SYMLINK search-instructions.sh..."
+if [ -e "scripts/search-instructions.sh" ]; then
+    if [ -L "scripts/search-instructions.sh" ]; then
+        MSG_SEARCH_SYMLINK_EXISTS=$(get_message "search_symlink_exists" "search-instructions.sh symbolic link already exists" "search-instructions.shシンボリックリンクは既に存在します")
+        echo "✓ $MSG_SEARCH_SYMLINK_EXISTS"
+    else
+        MSG_SEARCH_EXISTS_NOT_LINK=$(get_message "search_exists_not_link" "scripts/search-instructions.sh already exists (not a symbolic link)" "scripts/search-instructions.shが既に存在します（シンボリックリンクではありません）")
+        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
+        echo "⚠️  $MSG_SEARCH_EXISTS_NOT_LINK"
+        if confirm "$MSG_BACKUP_AND_REPLACE"; then
+            backup_file "scripts/search-instructions.sh"
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "rm scripts/search-instructions.sh && ln -sf ../instructions/ai_instruction_kits/scripts/search-instructions.sh scripts/search-instructions.sh"
+            else
+                rm scripts/search-instructions.sh
+                ln -sf ../instructions/ai_instruction_kits/scripts/search-instructions.sh scripts/search-instructions.sh
+            fi
+        fi
+    fi
+else
+    MSG_CREATE_SEARCH_LINK=$(get_message "create_search_link" "Create symbolic link to search-instructions.sh?" "search-instructions.shへのシンボリックリンクを作成しますか？")
+    if confirm "$MSG_CREATE_SEARCH_LINK"; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/search-instructions.sh scripts/search-instructions.sh"
+        else
+            ln -sf ../instructions/ai_instruction_kits/scripts/search-instructions.sh scripts/search-instructions.sh
+        fi
+    fi
+fi
+
+# generate-metadata.shのリンク作成
+echo ""
+echo "🔗 $MSG_CREATE_SYMLINK generate-metadata.sh..."
+if [ -e "scripts/generate-metadata.sh" ]; then
+    if [ -L "scripts/generate-metadata.sh" ]; then
+        MSG_METADATA_SYMLINK_EXISTS=$(get_message "metadata_symlink_exists" "generate-metadata.sh symbolic link already exists" "generate-metadata.shシンボリックリンクは既に存在します")
+        echo "✓ $MSG_METADATA_SYMLINK_EXISTS"
+    else
+        MSG_METADATA_EXISTS_NOT_LINK=$(get_message "metadata_exists_not_link" "scripts/generate-metadata.sh already exists (not a symbolic link)" "scripts/generate-metadata.shが既に存在します（シンボリックリンクではありません）")
+        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
+        echo "⚠️  $MSG_METADATA_EXISTS_NOT_LINK"
+        if confirm "$MSG_BACKUP_AND_REPLACE"; then
+            backup_file "scripts/generate-metadata.sh"
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "rm scripts/generate-metadata.sh && ln -sf ../instructions/ai_instruction_kits/scripts/generate-metadata.sh scripts/generate-metadata.sh"
+            else
+                rm scripts/generate-metadata.sh
+                ln -sf ../instructions/ai_instruction_kits/scripts/generate-metadata.sh scripts/generate-metadata.sh
+            fi
+        fi
+    fi
+else
+    MSG_CREATE_METADATA_LINK=$(get_message "create_metadata_link" "Create symbolic link to generate-metadata.sh?" "generate-metadata.shへのシンボリックリンクを作成しますか？")
+    if confirm "$MSG_CREATE_METADATA_LINK"; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/generate-metadata.sh scripts/generate-metadata.sh"
+        else
+            ln -sf ../instructions/ai_instruction_kits/scripts/generate-metadata.sh scripts/generate-metadata.sh
+        fi
+    fi
+fi
+
 # .gitignoreに追加（サブモジュールモードの場合のみ）
 if [ "$SELECTED_MODE" = "submodule" ]; then
     echo ""
@@ -906,7 +1002,10 @@ else
     echo "  scripts/"
     echo "    ├── checkpoint.sh → ../instructions/ai_instruction_kits/scripts/checkpoint.sh"
     echo "    ├── commit.sh → ../instructions/ai_instruction_kits/scripts/commit.sh"
-    echo "    └── generate-instruction.sh → ../instructions/ai_instruction_kits/scripts/generate-instruction.sh"
+    echo "    ├── generate-instruction.sh → ../instructions/ai_instruction_kits/scripts/generate-instruction.sh"
+    echo "    ├── validate-modules.sh → ../instructions/ai_instruction_kits/scripts/validate-modules.sh"
+    echo "    ├── search-instructions.sh → ../instructions/ai_instruction_kits/scripts/search-instructions.sh"
+    echo "    └── generate-metadata.sh → ../instructions/ai_instruction_kits/scripts/generate-metadata.sh"
     echo "  instructions/"
     echo "    ├── ai_instruction_kits/ ($SELECTED_MODE $(get_message "mode" "mode" "モード"))"
     MSG_PROJECT_CONFIG=$(get_message "project_config" "Project configuration" "プロジェクト設定")
