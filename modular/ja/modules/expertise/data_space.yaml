@@ -16,19 +16,19 @@ variables:
   - name: "compliance_framework"
     description: "準拠するコンプライアンスフレームワーク"
     type: "enum"
-    values: ["gaia_x", "ids_ram", "dsba", "national_regulations", "fair_principles"]
+    values: ["gaia_x", "ids_ram", "dsba", "national_regulations", "fair_principles", "ouranos", "data_ex"]
     default: "gaia_x"
     
   - name: "connector_type"
     description: "使用するコネクタタイプ"
     type: "enum"
-    values: ["edc", "ids_connector", "fiware", "true_connector", "custom"]
+    values: ["edc", "ids_connector", "fiware", "true_connector", "custom", "ouranos_connector", "hybrid_connector"]
     default: "edc"
     
   - name: "governance_model"
     description: "ガバナンスモデル"
     type: "enum"
-    values: ["centralized", "federated", "decentralized", "hybrid", "hierarchical"]
+    values: ["centralized", "federated", "decentralized", "hybrid", "hierarchical", "consortium", "multi_stakeholder"]
     default: "federated"
     
   - name: "industry_sector"
@@ -96,6 +96,18 @@ variables:
     type: "enum"
     values: ["pilot", "production_ready", "scaling", "mature", "evolving"]
     default: "production_ready"
+    
+  - name: "region_model"
+    description: "地域モデル"
+    type: "enum"
+    values: ["europe", "japan", "us", "asia_pacific", "global", "hybrid"]
+    default: "europe"
+    
+  - name: "language_support"
+    description: "言語サポート"
+    type: "enum"
+    values: ["en", "ja", "ja_en", "multi"]
+    default: "en"
 
 # 他のモジュールとの依存関係
 dependencies:
@@ -134,6 +146,10 @@ tags:
   - connector
   - metadata_broker
   - catena_x
+  - ouranos_ecosystem
+  - data_ex
+  - japan_data_space
+  - cross_border_data_flow
 
 # 出力形式
 output_format:
@@ -197,14 +213,37 @@ examples:
       collaboration_model: ecosystem
     description: IoTデバイスとエッジコンピューティングを活用した都市データプラットフォーム
 
+  - title: 日本型製造業データスペース
+    variables:
+      data_space_type: vertical_industry
+      region_model: japan
+      compliance_framework: ouranos
+      connector_type: ouranos_connector
+      industry_sector: manufacturing
+      governance_model: consortium
+      deployment_model: edge_integrated
+      language_support: ja_en
+    description: Ouranos Ecosystemを活用したスマートファクトリーのデータ連携基盤
+
+  - title: 日本型分野横断データスペース
+    variables:
+      data_space_type: cross_domain
+      region_model: japan
+      compliance_framework: data_ex
+      governance_model: multi_stakeholder
+      industry_sector: general
+      data_sharing_level: controlled
+      maturity_stage: scaling
+    description: DATA-EXを活用した農業・物流・金融の分野横断データ連携
+
 # メタデータ
 author: "AI Instruction Kits Project"
 created: "2025-07-19"
-updated: "2025-07-19"
+updated: "2025-07-26"
 license: "Apache-2.0"
 research_sources:
   - "GAIA-X Loire Release 2024"
-  - "IDS Reference Architecture Model v4.0"
+  - "IDS Reference Architecture Model v5.0"
   - "Data Spaces Business Alliance (DSBA) Technical Guidelines"
   - "European Data Strategy 2024"
   - "Catena-X Automotive Network Documentation"
@@ -213,3 +252,8 @@ research_sources:
   - "NIST Post-Quantum Cryptography Standards 2024"
   - "Zero Trust Architecture for Data Spaces"
   - "Privacy Enhancing Technologies in Data Spaces"
+  - "Ouranos Ecosystem Architecture Documentation 2024"
+  - "DSA DATA-EX Technical Specifications 2024"
+  - "日本のデータ連携基盤白書 2024"
+  - "SIPサイバー/フィジカル統合システム実装ガイド"
+  - "G7 Data Free Flow with Trust Framework 2024"
