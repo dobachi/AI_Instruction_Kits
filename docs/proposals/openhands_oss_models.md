@@ -322,6 +322,71 @@ timeout = 300
 
 ## トラブルシューティング（2025年版）
 
+### パフォーマンス問題の解決
+
+#### 極端に遅い処理速度（重要）
+**症状**: OpenHandsでの応答が極端に遅い（30分ごとの出力など）  
+**原因**: コンテキスト長の設定ミス、スレッド数の未最適化  
+**解決策**:
+
+1. **コンテキスト長の最適化**（最重要）
+   ```bash
+   # デフォルトの131072は遅すぎる
+   # 4096の倍数に設定
+   ollama run llama3.1:8b --context-size 24576
+   ```
+
+2. **スレッド数の最適化**
+   ```bash
+   # Ollama側で環境変数を設定
+   export OLLAMA_NUM_THREAD=20  # CPUコア数の80-90%
+   export OLLAMA_NUM_PARALLEL=2
+   export OLLAMA_MAX_LOADED_MODELS=1
+   
+   # 永続的な設定（推奨）
+   sudo systemctl edit ollama.service
+   ```
+   
+   systemdサービスファイルに追加：
+   ```ini
+   [Service]
+   Environment="OLLAMA_NUM_THREAD=20"
+   Environment="OLLAMA_NUM_PARALLEL=2"
+   Environment="OLLAMA_MAX_LOADED_MODELS=1"
+   ```
+
+3. **量子化モデルの使用**
+   ```bash
+   # より高速な量子化モデル
+   ollama pull llama3.1:8b-q4_K_M
+   ollama pull gemma2:9b-q4_K_M
+   ```
+
+4. **OpenHands設定の最適化**
+   ```json
+   {
+     "llm_model": "ollama/llama3.1:8b-q4_K_M",
+     "llm_api_key": "ollama",
+     "llm_base_url": "http://localhost:11434",
+     "max_iterations": 30
+   }
+   ```
+
+#### パフォーマンス診断コマンド
+```bash
+# CPU使用状況の詳細確認
+htop  # または top -H
+
+# Ollamaのステータス確認
+ollama ps --verbose
+
+# デバッグモード
+OLLAMA_DEBUG=1 ollama serve
+
+# GPU使用状況（NVIDIA）
+watch -n 1 nvidia-smi
+```
+
 ### CUDA 12.x対応
 ```bash
 # NVIDIA GPU最新ドライバー確認
