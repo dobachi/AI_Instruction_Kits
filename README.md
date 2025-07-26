@@ -98,6 +98,17 @@ uv pip install -r requirements.txt
 openhands
 ```
 
+#### OpenHands専用統合（自動検出）
+
+AI指示書キットは、OpenHands環境を自動的に検出し、専用の指示書（`OPENHANDS_ROOT.md`）を読み込みます。これにより：
+
+- **並列処理の最適化**: 独立したタスクを自動的に並列実行
+- **エラーリカバリー**: 一時的なエラーを自動リトライ
+- **進捗可視化**: タスクの進行状況を詳細に報告
+- **リソース最適化**: ファイル操作のバッチ処理、キャッシュ活用
+
+OpenHandsを使用する場合、`setup-project.sh`が自動的に`.openhands/microagents/repo.md`を適切な指示書にリンクします。
+
 ## 使い方
 
 ### プロジェクトへの統合（推奨）

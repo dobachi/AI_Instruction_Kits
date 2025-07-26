@@ -698,12 +698,32 @@ if [ "$OPENHANDS_DIR_CREATED" = true ] || [ -d ".openhands/microagents" ]; then
     else
         MSG_CREATE_OPENHANDS_REPO_LINK=$(get_message "create_openhands_repo_link" "Create symbolic link to PROJECT.md for OpenHands?" "OpenHands用にPROJECT.mdへのシンボリックリンクを作成しますか？")
         if confirm "$MSG_CREATE_OPENHANDS_REPO_LINK"; then
+            # OPENHANDS_ROOT.mdが存在する場合はそれを優先、なければPROJECT.mdへリンク
             if [ "$DRY_RUN" = true ]; then
-                dry_echo "ln -sf ../../instructions/PROJECT.md .openhands/microagents/repo.md"
+                if [ -f "instructions/ja/system/OPENHANDS_ROOT.md" ]; then
+                    dry_echo "ln -sf ../../instructions/ja/system/OPENHANDS_ROOT.md .openhands/microagents/repo.md"
+                elif [ -f "instructions/ai_instruction_kits/instructions/ja/system/OPENHANDS_ROOT.md" ]; then
+                    dry_echo "ln -sf ../../instructions/ai_instruction_kits/instructions/ja/system/OPENHANDS_ROOT.md .openhands/microagents/repo.md"
+                else
+                    dry_echo "ln -sf ../../instructions/PROJECT.md .openhands/microagents/repo.md"
+                fi
             else
-                ln -sf ../../instructions/PROJECT.md .openhands/microagents/repo.md
-                MSG_OPENHANDS_LINK_CREATED=$(get_message "openhands_link_created" "OpenHands repo.md link created" "OpenHands repo.mdリンクを作成しました")
-                echo "✅ $MSG_OPENHANDS_LINK_CREATED"
+                if [ -f "instructions/ja/system/OPENHANDS_ROOT.md" ]; then
+                    # AI指示書キット自体の開発時
+                    ln -sf ../../instructions/ja/system/OPENHANDS_ROOT.md .openhands/microagents/repo.md
+                    MSG_OPENHANDS_ROOT_LINKED=$(get_message "openhands_root_linked" "OpenHands repo.md linked to OPENHANDS_ROOT.md" "OpenHands repo.mdをOPENHANDS_ROOT.mdにリンクしました")
+                    echo "✅ $MSG_OPENHANDS_ROOT_LINKED"
+                elif [ -f "instructions/ai_instruction_kits/instructions/ja/system/OPENHANDS_ROOT.md" ]; then
+                    # 通常のプロジェクト（サブモジュール使用時）
+                    ln -sf ../../instructions/ai_instruction_kits/instructions/ja/system/OPENHANDS_ROOT.md .openhands/microagents/repo.md
+                    MSG_OPENHANDS_ROOT_LINKED=$(get_message "openhands_root_linked" "OpenHands repo.md linked to OPENHANDS_ROOT.md" "OpenHands repo.mdをOPENHANDS_ROOT.mdにリンクしました")
+                    echo "✅ $MSG_OPENHANDS_ROOT_LINKED"
+                else
+                    # OPENHANDS_ROOT.mdが存在しない場合は従来のPROJECT.mdへリンク
+                    ln -sf ../../instructions/PROJECT.md .openhands/microagents/repo.md
+                    MSG_OPENHANDS_LINK_CREATED=$(get_message "openhands_link_created" "OpenHands repo.md link created" "OpenHands repo.mdリンクを作成しました")
+                    echo "✅ $MSG_OPENHANDS_LINK_CREATED"
+                fi
             fi
         fi
     fi

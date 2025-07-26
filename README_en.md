@@ -52,6 +52,56 @@ This repository manages instruction sheets for AI systems.
   - [Usage Guide](https://dobachi.github.io/AI_Instruction_Kits/en/usage)
   - [Features](https://dobachi.github.io/AI_Instruction_Kits/en/features)
 
+## Development Setup (For OpenHands Users)
+
+### Python Environment Setup (Using uv)
+
+For those who want to use OpenHands for AI-assisted development of this project:
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Clone the project
+git clone https://github.com/dobachi/AI_Instruction_Kits.git
+cd AI_Instruction_Kits
+
+# Create and activate Python virtual environment
+uv venv
+source .venv/bin/activate  # Linux/Mac
+# or
+.venv\Scripts\activate  # Windows
+
+# Install dependencies (including OpenHands)
+uv pip install -e .
+
+# Install with development packages
+uv pip install -e ".[dev]"
+
+# Or reproduce complete environment (all packages)
+uv pip install -r requirements.txt
+```
+
+### Using OpenHands
+
+After setting up the environment, you can use OpenHands for AI-assisted development:
+
+```bash
+# Launch OpenHands
+openhands
+```
+
+#### OpenHands-Specific Integration (Auto-Detection)
+
+The AI Instruction Kits automatically detects OpenHands environments and loads a dedicated instruction set (`OPENHANDS_ROOT.md`). This enables:
+
+- **Parallel Processing Optimization**: Automatically executes independent tasks in parallel
+- **Error Recovery**: Automatically retries temporary errors
+- **Progress Visualization**: Detailed reporting of task progress
+- **Resource Optimization**: Batch file operations, cache utilization
+
+When using OpenHands, `setup-project.sh` automatically links `.openhands/microagents/repo.md` to the appropriate instruction file.
+
 ## Usage
 
 ### Project Integration (Recommended)
