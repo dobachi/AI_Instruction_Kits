@@ -106,12 +106,21 @@ case "$ACTION" in
                 
                 if echo "$LATEST_TASK" | grep -q "\[COMPLETE\]"; then
                     echo "\`📊 $MSG_LATEST_TASK: $MSG_COMPLETED\`"
+                    # 新しいタスク開始を促す
+                    MSG_READY_FOR_NEW=$(get_message "ready_for_new" "🎯 Ready for new task - use 'scripts/checkpoint.sh start <task-id> <name> <steps>' when starting work" "🎯 新規タスク準備完了 - 作業開始時は 'scripts/checkpoint.sh start <task-id> <name> <steps>' を使用")
+                    echo "\`$MSG_READY_FOR_NEW\`"
                 elif echo "$LATEST_TASK" | grep -q "\[ERROR\]"; then
                     echo "\`📊 $MSG_LATEST_TASK: $MSG_ERROR_OCCURRED\`"
+                    # エラー時の対応促し
+                    MSG_ERROR_RECOVERY=$(get_message "error_recovery" "⚠️ Previous task had errors - address issues or start new task" "⚠️ 前回タスクでエラー - 問題解決または新規タスク開始")
+                    echo "\`$MSG_ERROR_RECOVERY\`"
                 else
                     # 進行中のタスク
                     TASK_INFO=$(echo "$LATEST_TASK" | sed 's/.*\[START\] //')
                     echo "\`📊 $MSG_CURRENT_TASK: $TASK_INFO\`"
+                    # 進行中タスクの継続促し
+                    MSG_CONTINUE_WORK=$(get_message "continue_work" "🔄 Task in progress - continue with next steps or use 'progress/complete/error' commands" "🔄 タスク進行中 - 次のステップを続行するか 'progress/complete/error' コマンドを使用")
+                    echo "\`$MSG_CONTINUE_WORK\`"
                 fi
                 MSG_DETAILS=$(get_message "details" "Details" "詳細")
                 MSG_TASK_RECORDS=$(get_message "task_records" "task records" "件のタスク記録")

@@ -441,10 +441,16 @@ curl -X DELETE http://localhost:11434/api/models/llama3.1:8b
 - **Groqクラウド**：無料で超高速な推論
 
 推奨構成（2025年7月版）：
-1. **標準開発環境**: Ollama + Llama 3.1 8B
+1. **標準開発環境**: Ollama + Llama 3.1 8B（量子化モデル推奨）
 2. **日本語重視**: Ollama + Qwen2.5 7B  
 3. **高速クラウド**: Groq + Llama 3.1 70B
 4. **コード特化**: Ollama + DeepSeek-Coder-V2.5
+
+### パフォーマンス最適化のポイント
+1. **コンテキスト長**: 24576（4096の倍数）に設定
+2. **スレッド数**: CPUコア数の80-90%を`OLLAMA_NUM_THREAD`で設定
+3. **量子化モデル**: q4_K_Mバリアントを使用
+4. **設定ファイル**: OpenHandsの`settings.json`で適切な設定
 
 ## 関連リンク
 

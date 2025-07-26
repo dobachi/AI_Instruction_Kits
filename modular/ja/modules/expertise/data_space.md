@@ -13,13 +13,21 @@
 | データ | メタデータ、データ資産 |
 | ビジネス | 価値創造、エコシステム |
 
-## 欧州標準準拠
+## 主要データスペースモデル
 
-### 主要フレームワーク
+### 欧州標準
 | 標準 | 重要要素 |
 |------|----------|
-| **GAIA-X** | デジタルクリアリングハウス、自己記述 |
-| **IDS-RAM** | IDSコネクタ、使用制御、認証要件 |
+| **GAIA-X** | デジタルクリアリングハウス、自己記述、Loire Release |
+| **IDS-RAM** | IDSコネクタ、使用制御、認証要件、RAM 5.0 |
+| **DSBA** | データスペース成熟度評価フレームワーク |
+
+### 日本モデル
+| プロジェクト | 重要要素 |
+|--------------|----------|
+| **Ouranos Ecosystem** | 分散型データ連携、トラスト基盤、製造業特化 |
+| **DSA DATA-EX** | 分野間データ連携、認定制度、品質保証 |
+| **SIPサイバー/フィジカル** | サイバーフィジカル統合、Society 5.0 |
 
 ## データ主権実装
 
@@ -65,20 +73,29 @@
 
 ## 産業別実装
 
-### ユースケース
+### 欧州ユースケース
 | 産業 | 主要用途 |
 |------|----------|
 | 自動車（Catena-X） | サプライチェーン、品質データ、CO2計算 |
 | ヘルスケア | 患者データ保護、HL7 FHIR統合 |
 | 製造業 | IoTデータ、予知保全、需給最適化 |
 
+### 日本ユースケース
+| 産業 | 主要用途 |
+|------|----------|
+| 製造業（Ouranos） | スマートファクトリー、サプライチェーン最適化 |
+| 農業（DATA-EX） | 営農データ連携、スマート農業、流通効率化 |
+| スマートシティ | 都市OS連携、官民データ活用、防災情報共有 |
+
 ## 実装チェックリスト
 
 ### 技術要件
-- [ ] IDS-RAM準拠アーキテクチャ
-- [ ] GAIA-X Trust Framework適合
-- [ ] コネクタ実装（EDC等）
+- [ ] IDS-RAM準拠アーキテクチャ（欧州）
+- [ ] GAIA-X Trust Framework適合（欧州）
+- [ ] Ouranos/DATA-EX仕様準拠（日本）
+- [ ] コネクタ実装（EDC、Ouranos Connector等）
 - [ ] 暗号化とアクセス制御
+- [ ] 相互接続性の確保（欧日連携）
 
 ### ガバナンス要件
 - [ ] データ使用ポリシー明確化
@@ -97,11 +114,22 @@ Phase3（12ヶ月+）: 本格展開、拡大
 - **技術KPI**: データ交換成功率、レスポンスタイム
 - **ビジネスKPI**: 参加組織数、共有資産数、ROI
 
+## 日欧モデル比較
+
+| 観点 | 欧州（GAIA-X） | 日本（Ouranos/DATA-EX） |
+|------|----------------|------------------------|
+| アプローチ | 規制主導、主権重視 | 実用主導、協調重視 |
+| ガバナンス | 厳格な法的枠組み | 柔軟なコンソーシアム型 |
+| 技術標準 | IDS-RAM、FIWARE | 独自仕様＋国際標準採用 |
+| 重点分野 | 製造、モビリティ、エネルギー | 製造、農業、スマートシティ |
+
 ## 変数活用例
 ```yaml
 data_space_type: "enterprise"
-compliance_framework: "gaia_x"
-connector_type: "edc"
-governance_model: "federated"
+region_model: "japan"  # "europe" or "japan" or "hybrid"
+compliance_framework: "data_ex"  # "gaia_x" or "data_ex" or "ouranos"
+connector_type: "ouranos_connector"  # "edc" or "ouranos_connector"
+governance_model: "consortium"  # "federated" or "consortium"
 security_level: "high"
+language_support: "ja_en"  # "en" or "ja" or "ja_en"
 ```
