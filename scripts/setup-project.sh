@@ -779,6 +779,38 @@ else
     echo "⚠️  $MSG_HOOKS_DIR_NOT_FOUND"
 fi
 
+# scripts/libディレクトリのリンク作成（commit.shが依存するi18n.shのため）
+echo ""
+echo "🔗 $MSG_CREATE_SYMLINK scripts/lib..."
+if [ -e "scripts/lib" ]; then
+    if [ -L "scripts/lib" ]; then
+        MSG_LIB_SYMLINK_EXISTS=$(get_message "lib_symlink_exists" "scripts/lib symbolic link already exists" "scripts/libシンボリックリンクは既に存在します")
+        echo "✓ $MSG_LIB_SYMLINK_EXISTS"
+    else
+        MSG_LIB_EXISTS_NOT_LINK=$(get_message "lib_exists_not_link" "scripts/lib already exists (not a symbolic link)" "scripts/libが既に存在します（シンボリックリンクではありません）")
+        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing directory and replace with symbolic link?" "既存のディレクトリをバックアップして、シンボリックリンクに置き換えますか？")
+        echo "⚠️  $MSG_LIB_EXISTS_NOT_LINK"
+        if confirm "$MSG_BACKUP_AND_REPLACE"; then
+            backup_file "scripts/lib"
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "rm -rf scripts/lib && ln -sf ../instructions/ai_instruction_kits/scripts/lib scripts/lib"
+            else
+                rm -rf scripts/lib
+                ln -sf ../instructions/ai_instruction_kits/scripts/lib scripts/lib
+            fi
+        fi
+    fi
+else
+    MSG_CREATE_LIB_LINK=$(get_message "create_lib_link" "Create symbolic link to scripts/lib?" "scripts/libへのシンボリックリンクを作成しますか？")
+    if confirm "$MSG_CREATE_LIB_LINK"; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/lib scripts/lib"
+        else
+            ln -sf ../instructions/ai_instruction_kits/scripts/lib scripts/lib
+        fi
+    fi
+fi
+
 # commit.shのリンク作成
 echo ""
 echo "🔗 $MSG_CREATE_SYMLINK commit.sh..."
@@ -1020,6 +1052,7 @@ else
     MSG_CREATED_STRUCTURE=$(get_message "created_structure" "Created structure" "作成された構成")
     echo "📁 $MSG_CREATED_STRUCTURE:"
     echo "  scripts/"
+    echo "    ├── lib/ → ../instructions/ai_instruction_kits/scripts/lib"
     echo "    ├── checkpoint.sh → ../instructions/ai_instruction_kits/scripts/checkpoint.sh"
     echo "    ├── commit.sh → ../instructions/ai_instruction_kits/scripts/commit.sh"
     echo "    ├── generate-instruction.sh → ../instructions/ai_instruction_kits/scripts/generate-instruction.sh"
