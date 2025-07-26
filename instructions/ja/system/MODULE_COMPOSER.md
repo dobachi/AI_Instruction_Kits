@@ -59,11 +59,12 @@
    出力ファイルは modular/cache/ ディレクトリに作成されます。
 
 4. **実行**
-   - 生成された指示書を読み込み:
+   - **【必須】生成された指示書を必ず読み込んでください**:
    ```bash
    cat modular/cache/my_instruction.md
    ```
-   - タスクを実行
+   - **【重要】読み込んだ指示書の内容に従ってタスクを実行**
+   - ⚠️ **警告**: 指示書を読み込まずにタスクを実行しないでください
 
 ## 効率的な流れ（AI分析）
 
@@ -123,7 +124,11 @@
 
 [実行: ./scripts/generate-instruction.sh --preset cli_tool_basic --variable language=Python --output cli_tool.md]
 
-指示書が生成されました。実装を開始します。
+指示書が生成されました。
+
+[実行: cat modular/cache/cli_tool.md]
+
+**【重要】生成された指示書を読み込みました。この指示書に従って実装を開始します。**
 ```
 
 ### 対話例（プリセット + カスタマイズ）
@@ -141,6 +146,10 @@
 [実行: ./scripts/generate-instruction.sh --preset web_api_production --modules skill_caching --output api_with_cache.md]
 
 プリセット + キャッシュモジュールで指示書を生成しました。
+
+[実行: cat modular/cache/api_with_cache.md]
+
+**【必須】生成された指示書を読み込み、この内容に従って実装します。**
 ```
 
 ### 対話例（カスタム構成が必要な場合）
@@ -161,6 +170,10 @@
 [実行: ./scripts/generate-instruction.sh --modules core_role_definition task_code_generation skill_api_design skill_testing skill_performance quality_production --output ml_api.md]
 
 カスタム構成で指示書を生成しました。
+
+[実行: cat modular/cache/ml_api.md]
+
+**【必須】生成された指示書を読み込みました。この指示書に従ってML APIを実装します。**
 ```
 
 ### 対話例（AI分析）
@@ -187,7 +200,11 @@
 
 [実行: ./scripts/generate-instruction.sh --modules core_role_definition task_code_generation skill_error_handling skill_testing quality_production --variable programming_language=Python --variable role_description="Webスクレイピングツール開発者" --output scraping_tool.md]
 
-指示書が生成されました。実装を開始します。
+指示書が生成されました。
+
+[実行: cat modular/cache/scraping_tool.md]
+
+**【必須】生成された指示書を読み込みました。この指示書に従ってスクレイピングツールを実装します。**
 ```
 
 ## プリセットの活用

@@ -1,0 +1,116 @@
+name: Regenerate Presets
+
+on:
+  push:
+    paths:
+      - 'modular/ja/modules/**'
+      - 'modular/en/modules/**'
+      - 'modular/presets/**'
+      - 'scripts/generate-preset.sh'
+      - 'scripts/generate-all-presets.sh'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run mode'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Set up environment
+        run: |
+          chmod +x scripts/generate-preset.sh
+          chmod +x scripts/generate-all-presets.sh
+          
+      - name: Generate presets (dry run)
+        if: ${{ github.event.inputs.dry_run == 'true' }}
+        run: |
+          ./scripts/generate-all-presets.sh --dry-run
+          
+      - name: Generate presets
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          ./scripts/generate-all-presets.sh --validate
+          
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "変更が検出されました:"
+            git status --short
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "変更はありません"
+          fi
+          
+      - name: Commit and push changes
+        if: steps.changes.outputs.changes == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add instructions/*/presets/*.md
+          git commit -m "chore: モジュール変更に伴うプリセットの自動更新"
+          git push
+          
+  validate:
+    needs: regenerate
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.dry_run != 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+        
+      - name: Validate preset files
+        run: |
+          echo "プリセットファイルの検証を開始..."
+          
+          # プリセットファイルの存在確認
+          for lang in ja en; do
+            echo "言語: $lang"
+            preset_count=$(find instructions/$lang/presets -name "*.md" -type f | wc -l)
+            echo "  プリセット数: $preset_count"
+            
+            if [ $preset_count -lt 5 ]; then
+              echo "エラー: プリセット数が少なすぎます"
+              exit 1
+            fi
+          done
+          
+          # ファイルサイズチェック（最小1KB）
+          find instructions/*/presets -name "*.md" -type f | while read file; do
+            size=$(stat -c%s "$file" 2>/dev/null || stat -f%z "$file" 2>/dev/null)
+            if [ $size -lt 1024 ]; then
+              echo "警告: $file のサイズが小さすぎます ($size bytes)"
+            fi
+          done
+          
+          echo "検証完了"
+          
+      - name: Report status
+        if: always()
+        run: |
+          echo "## プリセット自動生成結果" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- 実行日時: $(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_STEP_SUMMARY
+          echo "- トリガー: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f instructions/ja/presets/web_api_production.md ]; then
+            echo "✅ プリセット生成成功" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ プリセット生成失敗" >> $GITHUB_STEP_SUMMARY
+          fi

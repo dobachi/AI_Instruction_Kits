@@ -16,7 +16,11 @@
    - → その後、適切な指示書を選択・読み込み
 5. **【重要】まずモジュラーシステムの使用を検討してください**：
    - コード作成、Webサイト構築、API開発などの実装タスクの場合
-   - → **必ず `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md` を読み込み、カスタマイズされた指示書を生成してください**
+   - → **必ず以下の手順を実行**:
+     1. `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md` を読み込み
+     2. `generate-instruction.sh` で指示書を生成
+     3. **【必須】生成された指示書を読み込み（`cat modular/cache/生成されたファイル名.md`）**
+     4. 読み込んだ指示書の内容に従ってタスクを実行
    - 単純な質問応答や説明の場合のみ、既存の単一指示書を使用
 6. 指示書を読み込んで作業を実行してください
 
@@ -93,13 +97,17 @@
 → **即座にMODULE_COMPOSERを使用**:
 1. `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md`を読み込み
 2. メタデータを取得して最適なモジュールを選択
-3. カスタマイズされた指示書を生成して実行
+3. `generate-instruction.sh`でカスタマイズされた指示書を生成
+4. **【必須】`cat modular/cache/website_builder.md`で生成された指示書を読み込み**
+5. 読み込んだ指示書に従ってWebサイトを実装
 
 ユーザー: 「PythonでCLIツールを作って」
 → **即座にMODULE_COMPOSERを使用**:
 1. MODULE_COMPOSERで要件分析
 2. 必要なモジュールを自動選択
-3. 生成された指示書で実装
+3. `generate-instruction.sh`で指示書を生成
+4. **【必須】`cat modular/cache/cli_tool.md`で生成された指示書を読み込み**
+5. 読み込んだ指示書に従ってCLIツールを実装
 
 ### 単一指示書の例（モジュラーシステムを使わない場合）
 ユーザー: 「このコードをレビューしてください」
