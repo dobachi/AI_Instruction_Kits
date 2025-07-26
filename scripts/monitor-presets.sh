@@ -15,7 +15,11 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 PRESET_DIR="$PROJECT_ROOT/instructions"
-LOG_FILE="$PROJECT_ROOT/.preset-monitor.log"
+REPORT_DIR="$PROJECT_ROOT/reports/presets"
+LOG_FILE="$REPORT_DIR/logs/monitor.log"
+
+# レポートディレクトリの確認と作成
+mkdir -p "$REPORT_DIR/logs" "$REPORT_DIR/monitoring/daily" "$REPORT_DIR/monitoring/weekly" "$REPORT_DIR/monitoring/monthly"
 
 # カラー定義
 RED='\033[0;31m'
@@ -120,9 +124,24 @@ show_stats() {
 
 # 詳細レポートの生成
 generate_report() {
-    local report_file="$PROJECT_ROOT/docs/preset-report-$(date +%Y%m%d-%H%M%S).md"
+    # レポートタイプの判定（デフォルトは月次）
+    local report_type="${1:-monthly}"
+    local timestamp=$(date +%Y%m%d-%H%M%S)
+    local report_file
     
-    echo -e "${BLUE}詳細レポートを生成中...${NC}"
+    case "$report_type" in
+        daily)
+            report_file="$REPORT_DIR/monitoring/daily/report-$(date +%Y%m%d).md"
+            ;;
+        weekly)
+            report_file="$REPORT_DIR/monitoring/weekly/report-$(date +%Y-W%V).md"
+            ;;
+        monthly|*)
+            report_file="$REPORT_DIR/monitoring/monthly/report-$(date +%Y%m).md"
+            ;;
+    esac
+    
+    echo -e "${BLUE}詳細レポート（$report_type）を生成中...${NC}"
     
     cat > "$report_file" << EOF
 # プリセット監視レポート

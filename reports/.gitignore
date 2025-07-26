@@ -1,0 +1,15 @@
+# 自動生成される日次レポートは除外
+presets/monitoring/daily/
+
+# ログファイルは除外
+presets/logs/*.log
+presets/logs/archive/
+
+# 一時ファイル
+*.tmp
+*.bak
+.DS_Store
+
+# ただし、READMEとフィードバックは追跡
+!README.md
+!presets/feedback/current.md

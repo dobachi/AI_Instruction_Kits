@@ -263,6 +263,13 @@ Presets are automatically updated at:
 
 For detailed usage guide, see [docs/guides/PRESET_USAGE_GUIDE.md](docs/guides/PRESET_USAGE_GUIDE.md).
 
+### Feedback and Reports
+
+Please help improve presets:
+- Feedback recording: `reports/presets/feedback/current.md`
+- Monitoring reports: `reports/presets/monitoring/`
+- See [reports/README.md](reports/README.md) for details
+
 ## How to Write Instructions
 
 - Be clear and specific

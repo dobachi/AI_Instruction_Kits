@@ -302,6 +302,13 @@ claude "売上データを分析してください"
 
 詳細な使用ガイドは[docs/guides/PRESET_USAGE_GUIDE.md](docs/guides/PRESET_USAGE_GUIDE.md)を参照してください。
 
+### フィードバックとレポート
+
+プリセットの改善にご協力ください：
+- フィードバック記録: `reports/presets/feedback/current.md`
+- モニタリングレポート: `reports/presets/monitoring/`
+- 詳細は[reports/README.md](reports/README.md)を参照
+
 ## 指示書の書き方
 
 - 明確で具体的な指示を心がける
