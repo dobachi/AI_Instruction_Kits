@@ -1,191 +1,61 @@
-# Web Research Skills
+# Web Research
 
-## Overview
+## Core Methods
 
-Skills for efficiently searching, evaluating, and utilizing accurate and reliable information from the vast internet. Practices information literacy for the AI era using proven methods like SIFT, lateral reading, and fact-checking.
+### SIFT Method
+1. **Stop**: Pause before reacting/sharing
+2. **Investigate source**: Check credibility via WHOIS, Wikipedia
+3. **Find better coverage**: Seek authoritative sources
+4. **Trace claims**: Follow citations to origins
 
-## Quick Reference
+### CRAAP Test
+- **Currency**: When published/updated?
+- **Relevance**: Matches information needs?
+- **Authority**: Author expertise?
+- **Accuracy**: Verifiable facts?
+- **Purpose**: Why created?
 
-### SIFT Method - 4-Step Information Evaluation
+## Search Techniques
 
-| Step | Action | Checkpoints |
-|------|--------|-------------|
-| **Stop** | Pause and think | Suppress emotional reactions, clarify research purpose |
-| **Investigate** | Research the source | Author expertise, organization credibility, funding |
-| **Find** | Discover better sources | Multiple independent sources, expert opinions |
-| **Trace** | Track to original | Citation accuracy, contextual integrity |
+{{#if search_engines}}Engines: {{search_engines}}{{/if}}
+{{#if research_focus}}Focus: {{research_focus}}{{/if}}
 
-### Lateral Reading Practice
+### Advanced Operators
+- `"exact phrase"` - Precise matching
+- `site:domain.com` - Specific site search
+- `filetype:pdf` - Document type filter
+- `-exclude` - Remove unwanted results
 
-```yaml
-Basic Steps:
-  1. First impression in 30 seconds
-  2. Search "[site name] reputation" in new tab
-  3. Check Wikipedia, Media Bias/Fact Check
-  4. Cross-verify claims with multiple sources
-```
+### Academic Sources
+- Google Scholar for peer-reviewed content
+- JSTOR, PubMed for specialized research
+- ResearchGate for recent papers
+- ArXiv for preprints
 
-### Search Operator Quick Reference
+## Verification Methods
 
-| Operator | Function | Example |
-|----------|----------|---------|
-| `"phrase"` | Exact match | `"climate change"` |
-| `-word` | Exclude | `AI -advertising` |
-| `site:` | Site specific | `site:gov` |
-| `filetype:` | File format | `filetype:pdf` |
-| `2023..2024` | Date range | `"generative AI" 2023..2024` |
+### Lateral Reading
+- Open multiple tabs
+- Cross-reference claims
+- Check multiple perspectives
+- Verify through different sources
 
-## Source Credibility Assessment
+### Red Flags
+- No author/contact info
+- Extreme claims
+- Poor design/many ads
+- Emotional manipulation
 
-### Quick Credibility Check
+## AI-Era Considerations
 
-```yaml
-High Credibility:
-  - Government agencies (.gov)
-  - Peer-reviewed academic papers
-  - Established media outlets
-  - Official institutional announcements
+- Check for AI-generated content markers
+- Verify images with reverse search
+- Look for deepfake indicators
+- Cross-check real-time information
 
-Caution Required:
-  - Personal blogs/social media posts
-  - Sales-oriented sites
-  - Anonymous sources
-  - Sites with extreme claims
+## Documentation
 
-Red Flags:
-  - No author information
-  - No contact details
-  - Excessive advertising
-  - Emotional language
-```
-
-## AI-Generated Content Identification
-
-### Text Characteristics
-
-- ✓ Overly polished sentence structure
-- ✓ Lack of specific experiences
-- ✓ Generic statements
-- ✓ Knowledge cutoff at 2021-2023
-
-### Image/Video Verification
-
-- ✓ Hand/finger abnormalities (number/shape)
-- ✓ Distorted text
-- ✓ Inconsistent lighting/shadows
-- ✓ No matches in reverse image search
-
-## Fact-Checking Process
-
-```yaml
-1. Verify Checkability:
-   - Are there specific numbers/dates/locations?
-   
-2. Triangulation:
-   - Confirm with at least 3 independent sources
-   
-3. Original Source Check:
-   - Directly verify quoted original text
-   
-4. Expert Verification:
-   - Check expert opinions in the field
-```
-
-## Field-Specific Quick Guide
-
-### Technology Information
-- **Official**: GitHub, Official docs, RFCs
-- **Q&A**: Stack Overflow (check vote counts)
-- **Note**: Version, runtime environment
-
-### Medical/Health
-- **Trusted**: PubMed, WHO, CDC
-- **Verify**: Evidence level, peer review
-- **Avoid**: Personal anecdotes, product sites
-
-### Business
-- **Primary**: SEC filings, earnings reports
-- **Analysis**: Industry reports, trusted media
-- **Caution**: PR material bias
-
-## Practical Tools
-
-### Essential Tools
-1. **Reverse Image**: Google Lens, TinEye
-2. **Fact-Check**: Snopes, FactCheck.org
-3. **Archive**: Wayback Machine
-4. **Translation**: DeepL (accuracy focused)
-
-### Verification Searches
-```
-"core claim" fact check
-site:trusted_domain "topic"
-"person name" background biography
-"organization name" funding source
-```
-
-## Research Report Template
-
-```markdown
-## Research Summary
-- Purpose: [1-2 sentences]
-- Period: [Research timeframe]
-- Methods: [Key methods used]
-
-## Key Findings
-1. [Confirmed facts]
-2. [Verified information]
-3. [Needs further investigation]
-
-## Source Evaluation
-- High credibility: [Source list]
-- Reference: [Supporting sources]
-- Excluded: [Reasons for exclusion]
-
-## Limitations
-- [Research limitations]
-- [Potential biases]
-
-## Conclusion
-[Brief conclusion and recommendations]
-```
-
-## Checklist
-
-### Before Research
-- [ ] Is research purpose clear?
-- [ ] Have I defined needed information?
-- [ ] Have I set time limits?
-
-### During Research
-- [ ] Checked multiple independent sources?
-- [ ] Traced to original information?
-- [ ] Investigated opposing views?
-- [ ] Documented research process?
-
-### After Research
-- [ ] Cited all sources?
-- [ ] Stated limitations?
-- [ ] Indicated update needs?
-
-## Ethical Considerations
-
-- **Use only public information**
-- **Protect personal privacy**
-- **Ensure transparency**
-- **Rapid error correction**
-
-## Continuous Improvement
-
-### Daily Practice
-- Fact-check one news item (15 minutes)
-- Try new search techniques
-
-### Weekly Project
-- Deep dive on specific topic
-- Review research methods
-
-### Recommended Resources
-- Stanford History Education Group
-- First Draft
-- Bellingcat Toolkit
+- Save URLs with timestamps
+- Screenshot volatile content
+- Note search terms used
+- Track verification steps

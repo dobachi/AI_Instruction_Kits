@@ -1,263 +1,174 @@
 # Academic Writing Expertise Module
 
 ## Overview
-This module provides the latest academic writing expertise for 2024-2025. It adopts a comprehensive approach including academic tone and structure, citation management, ethical use of AI-assisted writing, discipline-specific writing conventions, and writing techniques for international audiences.
+Academic writing expertise for 2024-2025, covering formal style, AI-assisted writing ethics, discipline-specific conventions, and international audience considerations.
 
-## Academic Writing Style and Conventions
+## Academic Style and Conventions
 
-### 1. Formal Academic Tone and Voice
+### Formal Academic Tone
+- **Evidence-based statements**: Support all claims with sources
+- **Precise language**: Clear terminology, avoid ambiguity
+- **Objective perspective**: Data-driven, minimal personal opinion
+- **Logical structure**: Clear transitions between paragraphs
 
-#### Principles of Clarity and Objectivity
-- **Evidence-based statements**: Support all claims with credible sources
-- **Precise language use**: Avoid ambiguity and use terminology appropriately
-- **Objective perspective**: Minimize personal opinion and let data speak
-- **Logical structure**: Clear logical development and appropriate transitions between paragraphs
-
-#### Use of Formal Language
+### Formal Language Guidelines
 ```yaml
-Recommended formal expressions:
-  Affirmative statements:
-    - "The findings indicate"
-    - "The data suggest"
-    - "The evidence supports"
-    
-  Hedging (cautious claims):
-    - "may/might"
-    - "appears to"
-    - "could potentially"
-    
-  Expressions to avoid:
-    - Contractions (don't → do not)
-    - Colloquial expressions and slang
-    - Emotional language
-    - Hyperbole
+Recommended expressions:
+  - "The findings indicate"
+  - "The data suggest"
+  - "appears to"
+  
+Avoid:
+  - Contractions (don't → do not)
+  - Colloquial expressions
+  - Emotional language
+  - Hyperbole
 ```
 
-### 2. Active vs Passive Voice Usage
-
-#### Discipline-Specific Guidelines
-- **STEM fields**: Passive voice still common in methodology sections
+### Active vs Passive Voice
+- **STEM fields**: Passive voice common in methodology
 - **Social sciences**: Transitioning to active voice
 - **Humanities**: Primarily active voice
 
-#### Balanced Usage
+## AI-Assisted Writing Ethics
+
+### Disclosure Requirements
+**No disclosure needed**:
+- Grammar/spell checking
+- Style improvements
+- Literature search
+- Citation formatting
+
+**Disclosure required**:
+- AI-generated content
+- Substantial drafting assistance
+- Idea generation/structuring
+- Data analysis assistance
+
+### Publisher Policies (2024-2025)
 ```yaml
-When passive voice is appropriate:
-  - When the action is more important than the actor
-  - Describing experimental procedures
-  - Stating generally accepted facts
-  
-When active voice is recommended:
-  - For clarity and conciseness
-  - To clarify researcher contributions
-  - To improve readability
+Elsevier:
+  - No AI co-authorship
+  - Transparent disclosure required
+  - Author responsibility for content
+
+Springer Nature:
+  - Clear AI content labeling
+  - Methodology section description
+  - Ethical guidelines provided
+
+IEEE:
+  - AI assistance permitted
+  - Detailed usage documentation
+  - Reproducibility emphasis
 ```
 
-## AI-Assisted Writing Ethics and Guidelines
+## Discipline-Specific Writing
 
-### 1. Disclosure Requirements
+### Computer Science/Engineering
+- **Structure**: IMRAD format
+- **Technical precision**: Accurate algorithms/code
+- **Visual elements**: Figures, flowcharts, diagrams
+- **Citation**: IEEE format [1], [2], [3-5]
 
-#### Use Without Disclosure
-- Grammar and spell checking
-- Style improvement suggestions
-- Literature search assistance
-- Citation format verification
+### Social Sciences (APA 7th)
+- Author-year citations
+- "et al." from first citation (3+ authors)
+- DOI as hyperlink
+- Bias-free language
 
-#### Use Requiring Disclosure
-- AI-generated content usage
-- Substantial AI assistance in drafting
-- AI use in idea generation or structuring
-- AI assistance in data analysis
+### Natural Sciences
+- Highly structured, concise
+- Data/statistics emphasis
+- Figure/table centered results
+- Supplementary materials
 
-### 2. Major Publisher AI Policies (2024-2025)
+## Digital Tools
 
-#### Common Policies
+### Reference Management (2024-2025)
 ```yaml
-Major publisher guidelines:
-  Elsevier:
-    - Does not recognize AI as co-author
-    - Requires transparent AI use disclosure
-    - Authors bear full responsibility for content
-    
-  Springer Nature:
-    - Clear labeling of AI-generated content
-    - AI use description in methodology section
-    - Provides ethical use guidelines
-    
-  IEEE:
-    - Permits AI assistance in technical papers
-    - Requires detailed usage documentation
-    - Emphasizes reproducibility
+Zotero:
+  - Free, 9,000+ styles
+  - Google Docs integration
+  - Best for: General research
+
+Mendeley:
+  - 100GB storage (institutional)
+  - PDF viewer integrated
+  - Best for: Collaborative projects
+
+Paperpile:
+  - Seamless Google integration
+  - Real-time sync
+  - Best for: Google Workspace
 ```
 
-## Discipline-Specific Writing Variations
+### Writing Support Tools
+- **Grammar**: Grammarly, ProWritingAid, DeepL Write
+- **Plagiarism**: Turnitin, iThenticate, Copyscape
 
-### 1. Computer Science and Engineering
+## International Audience Writing
 
-#### Structural Features
-- **IMRAD structure**: Introduction, Methods, Results, Discussion
-- **Technical precision**: Accurate description of algorithms and code
-- **Visual elements**: Utilization of figures, flowcharts, architecture diagrams
-- **Reproducibility**: Detailed documentation of experimental setup and parameters
-
-#### Citation Style
+### Clarity Guidelines
 ```yaml
-IEEE citation format:
-  In-text: [1], [2], [3-5]
-  Reference list:
-    - Author names as initials + surname
-    - Paper titles in quotation marks
-    - Use of conference/journal abbreviations
-    - Include DOI or URL
+Word choice:
+  - Short, common words
+  - Define technical terms
+  - Consistent terminology
+
+Sentence structure:
+  - 15-20 words average
+  - Simple structures
+  - Clear subject-verb relationships
+
+Cultural considerations:
+  - Avoid idioms
+  - Universal examples
+  - Minimize culture-specific references
 ```
 
-### 2. Social Sciences and Humanities
-
-#### APA 7th Edition (Social Sciences)
-- Author-year citation format
-- Use "et al." from first citation for 3+ authors
-- Display DOI as hyperlink
-- Use of bias-free language
-
-#### MLA 9th Edition (Humanities)
-- Author-page citation format
-- Creation of Works Cited list
-- Detailed documentation of digital sources
-- Use of container concept
-
-### 3. Natural Sciences
-
-#### Characteristic Elements
-- Highly structured concise writing
-- Emphasis on data and statistics
-- Results presentation centered on figures and tables
-- Utilization of supplementary materials
-
-## Digital Tools and Technology
-
-### 1. Reference Management Tools (2024-2025)
-
-#### Comparison of Major Tools
-```yaml
-Recommended tools:
-  Zotero:
-    Advantages:
-      - Completely free
-      - 9,000+ citation styles
-      - Google Docs integration
-    Best for: General academic research
-    
-  Mendeley:
-    Advantages:
-      - 100GB storage (institutional version)
-      - Integrated PDF viewer
-      - Research network features
-    Best for: Collaborative research projects
-    
-  Paperpile:
-    Advantages:
-      - Seamless Google Docs integration
-      - Real-time synchronization
-      - Intuitive interface
-    Best for: Google Workspace environments
-```
-
-### 2. Writing Support Tools
-
-#### Grammar and Style Checkers
-- **Grammarly**: Comprehensive grammar checking and tone adjustment
-- **ProWritingAid**: Detailed style analysis
-- **DeepL Write**: Academic expression improvement
-
-#### Plagiarism Detection Tools
-- **Turnitin**: Educational institution standard
-- **iThenticate**: Pre-publication checking
-- **Copyscape**: Online content verification
-
-## Writing for International Audiences
-
-### 1. Ensuring Clarity
-
-#### Language Use Guidelines
-```yaml
-Recommendations:
-  Word choice:
-    - Prioritize short, common words
-    - Define technical terms on first use
-    - Use consistent terminology
-    
-  Sentence structure:
-    - Default to short sentences (15-20 words)
-    - Avoid complex structures
-    - Clear subject-verb relationships
-    
-  Cultural considerations:
-    - Avoid idioms and colloquialisms
-    - Minimize culture-specific examples
-    - Use universal examples
-```
-
-### 2. Improving Accessibility
-
-#### Visual Elements
-- Clear figure and table captions
+### Accessibility
+- Clear figure/table captions
 - Color universal design
-- Provision of alternative text
+- Alternative text provided
 
-## International Audience Considerations
-
-### 1. Adapting Academic Writing Style
-
-#### Cultural Adjustments
-- **Western academic style**: Direct, conclusion-first approach
-- **Clarity over complexity**: Prioritize understanding
-- **Evidence-based arguments**: Support all claims with data
-
-### 2. Effective International Communication
-
-#### Practical Advice
-- Timing of native speaker review
-- Bridging cultural gaps
-- Expressing unique research perspectives
-
-## Quality Improvement Checklist
+## Quality Checklist
 
 ### Pre-Writing
 - [ ] Clarify target audience
-- [ ] Confirm writing guidelines
+- [ ] Confirm guidelines
 - [ ] Determine citation style
-- [ ] Prepare necessary tools
+- [ ] Prepare tools
 
 ### During Writing
 - [ ] Maintain consistent tone
-- [ ] Insert appropriate citations
-- [ ] Use figures and tables effectively
-- [ ] Verify paragraph structure
+- [ ] Insert citations
+- [ ] Use figures effectively
+- [ ] Check paragraph structure
 
 ### Post-Writing
-- [ ] Review overall structure
-- [ ] Grammar and spell check
+- [ ] Review structure
+- [ ] Grammar/spell check
 - [ ] Plagiarism check
 - [ ] Format verification
 
 ## Implementation Roadmap
 
-### Phase 1: Foundation Building (1-2 weeks)
-1. Select writing style guide
-2. Set up reference management tools
+### Phase 1: Foundation (1-2 weeks)
+1. Select style guide
+2. Setup reference tools
 3. Prepare templates
 
-### Phase 2: Writing Practice (Ongoing)
-1. Establish regular writing habits
-2. Utilize peer review
+### Phase 2: Practice (Ongoing)
+1. Regular writing habits
+2. Peer review
 3. Incorporate feedback
 
-### Phase 3: Quality Enhancement (Continuous)
-1. Request expert review
+### Phase 3: Enhancement (Continuous)
+1. Expert review
 2. Meet international standards
 3. Continuous improvement
 
 ---
-**Module Created**: 2025-01-20
-**Category**: expertise/academic_writing
-**Version**: 1.0.0
+**Module Version**: 1.0.0
+**Last Updated**: 2025-01-25

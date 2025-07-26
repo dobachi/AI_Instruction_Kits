@@ -2,53 +2,31 @@
 
 ### Authentication Methods
 
-{{#if auth_method}}
-**Selected Method**: {{auth_method}}
-{{else}}
-Choose and implement one of the following:
-{{/if}}
+{{#if auth_method}}**Selected**: {{auth_method}}{{/if}}
 
-1. **JWT (JSON Web Token)**
-   - Stateless authentication
-   - Token expiration settings
-   - Refresh token implementation
+1. **JWT**: Stateless, token expiration, refresh tokens
+2. **OAuth 2.0**: Third-party auth, scopes, auth code flow
+3. **API Key**: Simple, key rotation, rate limiting
 
-2. **OAuth 2.0**
-   - Third-party authentication support
-   - Proper scope configuration
-   - Authorization code flow implementation
+### Security Practices
 
-3. **API Key**
-   - Simple implementation
-   - Key rotation functionality
-   - Integration with rate limiting
+**Password Policy**
+- Min length: {{password_min_length}}
+- Complexity: uppercase, lowercase, numbers, special chars
 
-### Security Best Practices
+**Session Management**
+- Timeout: {{session_timeout}}
+- Secure cookies: HttpOnly, Secure, SameSite
+- CSRF protection
 
-1. **Password Policy**
-   {{#if password_policy}}- {{password_policy}}{{/if}}
-   - Minimum length: {{password_min_length}}
-   - Complexity requirements (uppercase, lowercase, numbers, special characters)
-   - Password history checking
+**Access Control**
+- Role-based permissions
+- Least privilege
+- Audit logging
 
-2. **Session Management**
-   - Session timeout: {{session_timeout}}
-   - Secure cookie settings (HttpOnly, Secure, SameSite)
-   - CSRF token usage
+### Protection
 
-3. **Access Control**
-   - Role-based permission management
-   - Principle of least privilege
-   - Audit log recording
-
-### Error Handling
-
-- Appropriate messages for authentication failures
-- Brute force attack protection
-- Account lockout functionality
-
-### Data Protection
-
-- Password hashing (bcrypt, Argon2, etc.)
-- Sensitive information encryption
-- Secure communication (HTTPS required)
+- Password hashing (bcrypt/Argon2)
+- Data encryption
+- HTTPS required
+- Brute force protection
