@@ -971,6 +971,91 @@ else
     fi
 fi
 
+# Claude Codeカスタムコマンドの設定
+echo ""
+MSG_SETUP_CLAUDE_COMMANDS=$(get_message "setup_claude_commands" "Setting up Claude Code custom commands" "Claude Codeカスタムコマンドを設定")
+echo "⚡ $MSG_SETUP_CLAUDE_COMMANDS..."
+
+# .claude/commands ディレクトリ作成
+if [ ! -d ".claude/commands" ]; then
+    MSG_CREATE_CLAUDE_COMMANDS_DIR=$(get_message "create_claude_commands_dir" "Create .claude/commands directory for Claude Code?" "Claude Code用の.claude/commandsディレクトリを作成しますか？")
+    if confirm "$MSG_CREATE_CLAUDE_COMMANDS_DIR"; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "mkdir -p .claude/commands"
+        else
+            mkdir -p .claude/commands
+            MSG_CLAUDE_COMMANDS_DIR_CREATED=$(get_message "claude_commands_dir_created" ".claude/commands directory created" ".claude/commandsディレクトリを作成しました")
+            echo "✅ $MSG_CLAUDE_COMMANDS_DIR_CREATED"
+        fi
+    fi
+else
+    MSG_CLAUDE_COMMANDS_DIR_EXISTS=$(get_message "claude_commands_dir_exists" ".claude/commands directory already exists" ".claude/commandsディレクトリは既に存在します")
+    echo "✓ $MSG_CLAUDE_COMMANDS_DIR_EXISTS"
+fi
+
+# Claude Codeコマンドのシンボリックリンク作成
+if [ -d ".claude/commands" ] || [ "$DRY_RUN" = true ]; then
+    echo ""
+    MSG_CREATE_CLAUDE_COMMAND_LINKS=$(get_message "create_claude_command_links" "Creating symbolic links for Claude Code commands" "Claude Codeコマンドのシンボリックリンクを作成")
+    echo "🔗 $MSG_CREATE_CLAUDE_COMMAND_LINKS..."
+    
+    claude_commands=("commit-and-report.md" "checkpoint.md" "reload-instructions.md")
+    
+    for cmd_file in "${claude_commands[@]}"; do
+        if [ -e ".claude/commands/$cmd_file" ]; then
+            if [ -L ".claude/commands/$cmd_file" ]; then
+                MSG_CLAUDE_COMMAND_LINK_EXISTS=$(get_message "claude_command_link_exists" "symbolic link already exists" "シンボリックリンクは既に存在します")
+                echo "✓ $cmd_file $MSG_CLAUDE_COMMAND_LINK_EXISTS"
+            else
+                MSG_CLAUDE_COMMAND_EXISTS_NOT_LINK=$(get_message "claude_command_exists_not_link" "already exists (not a symbolic link)" "が既に存在します（シンボリックリンクではありません）")
+                MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
+                echo "⚠️  .claude/commands/$cmd_file $MSG_CLAUDE_COMMAND_EXISTS_NOT_LINK"
+                if confirm "$MSG_BACKUP_AND_REPLACE"; then
+                    backup_file ".claude/commands/$cmd_file"
+                    if [ "$DRY_RUN" = true ]; then
+                        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
+                            dry_echo "rm .claude/commands/$cmd_file && ln -sf ../instructions/ai_instruction_kits/templates/claude-commands/$cmd_file .claude/commands/$cmd_file"
+                        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
+                            dry_echo "rm .claude/commands/$cmd_file && ln -sf ../templates/claude-commands/$cmd_file .claude/commands/$cmd_file"
+                        fi
+                    else
+                        rm ".claude/commands/$cmd_file"
+                        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
+                            ln -sf "../instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ".claude/commands/$cmd_file"
+                        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
+                            ln -sf "../templates/claude-commands/$cmd_file" ".claude/commands/$cmd_file"
+                        fi
+                    fi
+                fi
+            fi
+        else
+            MSG_CREATE_CLAUDE_COMMAND_LINK=$(get_message "create_claude_command_link" "Create symbolic link" "シンボリックリンクを作成しますか？")
+            if confirm "$cmd_file $MSG_CREATE_CLAUDE_COMMAND_LINK"; then
+                if [ "$DRY_RUN" = true ]; then
+                    if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
+                        dry_echo "ln -sf ../instructions/ai_instruction_kits/templates/claude-commands/$cmd_file .claude/commands/$cmd_file"
+                    elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
+                        dry_echo "ln -sf ../templates/claude-commands/$cmd_file .claude/commands/$cmd_file"
+                    fi
+                else
+                    if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
+                        ln -sf "../instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ".claude/commands/$cmd_file"
+                        MSG_CLAUDE_COMMAND_LINK_CREATED=$(get_message "claude_command_link_created" "Claude Code command link created" "Claude Codeコマンドリンクを作成しました")
+                        echo "✅ $MSG_CLAUDE_COMMAND_LINK_CREATED: $cmd_file"
+                    elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
+                        ln -sf "../templates/claude-commands/$cmd_file" ".claude/commands/$cmd_file"
+                        MSG_CLAUDE_COMMAND_LINK_CREATED=$(get_message "claude_command_link_created" "Claude Code command link created" "Claude Codeコマンドリンクを作成しました")
+                        echo "✅ $MSG_CLAUDE_COMMAND_LINK_CREATED: $cmd_file"
+                    else
+                        MSG_CLAUDE_COMMAND_TEMPLATE_NOT_FOUND=$(get_message "claude_command_template_not_found" "Claude Code command template not found" "Claude Codeコマンドテンプレートが見つかりません")
+                        echo "⚠️  $MSG_CLAUDE_COMMAND_TEMPLATE_NOT_FOUND: $cmd_file"
+                    fi
+                fi
+            fi
+        fi
+    done
+fi
+
 # .gitignoreに追加（サブモジュールモードの場合のみ）
 if [ "$SELECTED_MODE" = "submodule" ]; then
     echo ""
@@ -1025,6 +1110,25 @@ if [ -f ".gitignore" ]; then
     fi
 fi
 
+# .claudeディレクトリを.gitignoreに追加
+if [ -f ".gitignore" ]; then
+    if ! grep -q "^\.claude/$" .gitignore 2>/dev/null; then
+        MSG_ADD_CLAUDE_TO_GITIGNORE=$(get_message "add_claude_to_gitignore" "Add '.claude/' to .gitignore?" ".gitignoreに'.claude/'を追加しますか？")
+        if confirm "$MSG_ADD_CLAUDE_TO_GITIGNORE"; then
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "echo '.claude/' >> .gitignore"
+            else
+                echo '.claude/' >> .gitignore
+                MSG_CLAUDE_GITIGNORE_ADDED=$(get_message "claude_gitignore_added" ".claude added to .gitignore" ".claudeを.gitignoreに追加しました")
+                echo "✅ $MSG_CLAUDE_GITIGNORE_ADDED"
+            fi
+        fi
+    else
+        MSG_CLAUDE_GITIGNORE_EXISTS=$(get_message "claude_gitignore_exists" ".gitignore already has .claude entry" ".gitignoreには既に.claudeエントリが存在します")
+        echo "✓ $MSG_CLAUDE_GITIGNORE_EXISTS"
+    fi
+fi
+
 if [ "$DRY_RUN" = true ]; then
     echo ""
     MSG_DRY_RUN_COMPLETE=$(get_message "dry_run_complete" "Dry run completed" "ドライラン完了")
@@ -1070,6 +1174,18 @@ else
     echo "  .openhands/"
     echo "    └── microagents/"
     echo "        └── repo.md → ../../instructions/PROJECT.md"
+    echo "  .claude/"
+    echo "    └── commands/"
+    echo "        ├── commit-and-report.md → ../../templates/claude-commands/commit-and-report.md"
+    echo "        ├── checkpoint.md → ../../templates/claude-commands/checkpoint.md"
+    echo "        └── reload-instructions.md → ../../templates/claude-commands/reload-instructions.md"
+    echo ""
+    
+    MSG_CLAUDE_COMMANDS_AVAILABLE=$(get_message "claude_commands_available" "Available Claude Code commands" "利用可能なClaude Codeコマンド")
+    echo "⚡ $MSG_CLAUDE_COMMANDS_AVAILABLE:"
+    echo "  /commit-and-report \"$(get_message "commit_message" "commit message" "コミットメッセージ")\" [Issue番号]"
+    echo "  /checkpoint [start <task-id> <task-name> <steps>]"
+    echo "  /reload-instructions"
     echo ""
     
     # モード別の次のステップ
