@@ -23,14 +23,50 @@ AI Instruction Kitsの全機能を詳しくご紹介します。
 - **柔軟な組み合わせ**：複数のモジュールを統合可能
 - **デフォルト値対応**：最小限の設定で使用開始
 
-### 利用可能なプリセット（6種類）
+### 🚀 事前生成プリセット（高速・推奨）
 
-1. **academic_researcher**：学術研究者向け（文献レビュー、論文執筆、データ分析）
-2. **business_consultant**：ビジネスコンサルタント向け
-3. **data_analyst**：データ分析とビジュアライゼーション専門
-4. **project_manager**：プロジェクト管理者向け
-5. **startup_advisor**：スタートアップアドバイザー向け
-6. **technical_writer**：技術文書作成専門家向け
+**応答時間0秒**で即座に使用できる、事前生成済みの指示書です。
+
+#### 利用可能なプリセット（8種類）
+
+1. **web_api_production**：本番環境向けWeb API開発
+   - RESTful API設計、セキュリティ実装、ドキュメント生成
+   - パス: `instructions/ja/presets/web_api_production.md`
+
+2. **cli_tool_basic**：CLIツール開発
+   - コマンドライン解析、エラーハンドリング、配布準備
+   - パス: `instructions/ja/presets/cli_tool_basic.md`
+
+3. **data_analyst**：データ分析タスク
+   - データ前処理、統計分析、可視化、レポート作成
+   - パス: `instructions/ja/presets/data_analyst.md`
+
+4. **technical_writer**：技術文書作成
+   - API文書、ユーザーガイド、技術ブログ、README作成
+   - パス: `instructions/ja/presets/technical_writer.md`
+
+5. **academic_researcher**：学術研究支援
+   - 文献調査、論文執筆、引用管理、研究計画
+   - パス: `instructions/ja/presets/academic_researcher.md`
+
+6. **business_consultant**：ビジネスコンサルティング
+   - 市場分析、戦略立案、プレゼン作成、ROI計算
+   - パス: `instructions/ja/presets/business_consultant.md`
+
+7. **project_manager**：プロジェクト管理
+   - タスク管理、リソース配分、進捗追跡、リスク管理
+   - パス: `instructions/ja/presets/project_manager.md`
+
+8. **startup_advisor**：スタートアップ支援
+   - ビジネスモデル、ピッチデッキ、資金調達、MVP開発
+   - パス: `instructions/ja/presets/startup_advisor.md`
+
+#### プリセットのメリット
+
+- **即座に使用可能**：生成待ち時間なし（0秒）
+- **最適化済み**：よく使用されるタスクに特化
+- **品質保証**：テスト済みで信頼性が高い
+- **自動更新**：モジュール変更時に自動再生成
 
 ### 専門知識モジュール（5種類）
 

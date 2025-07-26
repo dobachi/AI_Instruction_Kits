@@ -23,14 +23,50 @@ Analyzes tasks and automatically generates customized instructions by combining 
 - **Flexible combination**: Can integrate multiple modules
 - **Default value support**: Start with minimal configuration
 
-### Available Presets (6 types)
+### 🚀 Pre-generated Presets (Fast & Recommended)
 
-1. **academic_researcher**: For academic researchers (literature review, paper writing, data analysis)
-2. **business_consultant**: For business consultants
-3. **data_analyst**: Specialized in data analysis and visualization
-4. **project_manager**: For project managers
-5. **startup_advisor**: For startup advisors
-6. **technical_writer**: For technical documentation specialists
+Pre-generated instructions that can be used immediately with **0-second response time**.
+
+#### Available Presets (8 types)
+
+1. **web_api_production**: Production Web API Development
+   - RESTful API design, security implementation, documentation generation
+   - Path: `instructions/en/presets/web_api_production.md`
+
+2. **cli_tool_basic**: CLI Tool Development
+   - Command line parsing, error handling, distribution preparation
+   - Path: `instructions/en/presets/cli_tool_basic.md`
+
+3. **data_analyst**: Data Analysis Tasks
+   - Data preprocessing, statistical analysis, visualization, report creation
+   - Path: `instructions/en/presets/data_analyst.md`
+
+4. **technical_writer**: Technical Documentation
+   - API documentation, user guides, technical blogs, README creation
+   - Path: `instructions/en/presets/technical_writer.md`
+
+5. **academic_researcher**: Academic Research Support
+   - Literature review, paper writing, citation management, research planning
+   - Path: `instructions/en/presets/academic_researcher.md`
+
+6. **business_consultant**: Business Consulting
+   - Market analysis, strategy planning, presentation creation, ROI calculation
+   - Path: `instructions/en/presets/business_consultant.md`
+
+7. **project_manager**: Project Management
+   - Task management, resource allocation, progress tracking, risk management
+   - Path: `instructions/en/presets/project_manager.md`
+
+8. **startup_advisor**: Startup Support
+   - Business model, pitch deck, fundraising, MVP development
+   - Path: `instructions/en/presets/startup_advisor.md`
+
+#### Benefits of Presets
+
+- **Immediately available**: No generation wait time (0 seconds)
+- **Optimized**: Specialized for commonly used tasks
+- **Quality assured**: Tested and highly reliable
+- **Auto-updated**: Automatically regenerated when modules change
 
 ### Expertise Modules (5 types)
 

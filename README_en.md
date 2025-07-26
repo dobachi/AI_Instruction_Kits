@@ -208,6 +208,61 @@ vi templates/ja/PROJECT_TEMPLATE.md
 vi templates/en/PROJECT_TEMPLATE.md
 ```
 
+## Preset System (Fast Response)
+
+### Overview
+
+Presets are pre-generated instructions optimized for common tasks. Compared to dynamic generation, they can be used immediately, significantly reducing response time.
+
+### Available Presets
+
+| Preset Name | Use Case | Path |
+|------------|----------|------|
+| **web_api_production** | Production Web API Development | `instructions/en/presets/web_api_production.md` |
+| **cli_tool_basic** | CLI Tool Development | `instructions/en/presets/cli_tool_basic.md` |
+| **data_analyst** | Data Analysis Tasks | `instructions/en/presets/data_analyst.md` |
+| **technical_writer** | Technical Documentation | `instructions/en/presets/technical_writer.md` |
+| **academic_researcher** | Academic Research Support | `instructions/en/presets/academic_researcher.md` |
+| **business_consultant** | Business Consulting | `instructions/en/presets/business_consultant.md` |
+| **project_manager** | Project Management | `instructions/en/presets/project_manager.md` |
+| **startup_advisor** | Startup Support | `instructions/en/presets/startup_advisor.md` |
+
+### How to Use Presets
+
+```bash
+# Example: Web API Development Task
+claude "Create a REST API"
+# → AI automatically uses web_api_production preset
+
+# Example: Data Analysis Task
+claude "Analyze sales data"
+# → AI automatically uses data_analyst preset
+```
+
+### Managing Presets
+
+```bash
+# Regenerate all presets
+./scripts/generate-all-presets.sh
+
+# Regenerate specific preset only
+./scripts/generate-all-presets.sh --preset web_api_production
+
+# Check preset integrity
+./scripts/monitor-presets.sh check
+
+# Display preset usage statistics
+./scripts/monitor-presets.sh stats
+```
+
+### Automatic Updates
+
+Presets are automatically updated at:
+- When modules are updated (GitHub Actions)
+- Manual trigger (GitHub Actions workflow_dispatch)
+
+For detailed usage guide, see [docs/guides/PRESET_USAGE_GUIDE.md](docs/guides/PRESET_USAGE_GUIDE.md).
+
 ## How to Write Instructions
 
 - Be clear and specific

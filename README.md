@@ -247,6 +247,61 @@ vi templates/ja/PROJECT_TEMPLATE.md
 vi templates/en/PROJECT_TEMPLATE.md
 ```
 
+## プリセットシステム（高速応答）
+
+### 概要
+
+プリセットは、よく使用されるタスクに最適化された事前生成済みの指示書です。動的生成と比較して、即座に使用できるため応答時間が大幅に短縮されます。
+
+### 利用可能なプリセット
+
+| プリセット名 | 用途 | パス |
+|------------|------|------|
+| **web_api_production** | 本番環境向けWeb API開発 | `instructions/ja/presets/web_api_production.md` |
+| **cli_tool_basic** | CLIツール開発 | `instructions/ja/presets/cli_tool_basic.md` |
+| **data_analyst** | データ分析タスク | `instructions/ja/presets/data_analyst.md` |
+| **technical_writer** | 技術文書作成 | `instructions/ja/presets/technical_writer.md` |
+| **academic_researcher** | 学術研究支援 | `instructions/ja/presets/academic_researcher.md` |
+| **business_consultant** | ビジネスコンサルティング | `instructions/ja/presets/business_consultant.md` |
+| **project_manager** | プロジェクト管理 | `instructions/ja/presets/project_manager.md` |
+| **startup_advisor** | スタートアップ支援 | `instructions/ja/presets/startup_advisor.md` |
+
+### プリセットの使用方法
+
+```bash
+# 例: Web API開発タスク
+claude "REST APIを作成してください"
+# → AIが自動的にweb_api_productionプリセットを使用
+
+# 例: データ分析タスク
+claude "売上データを分析してください"
+# → AIが自動的にdata_analystプリセットを使用
+```
+
+### プリセットの管理
+
+```bash
+# すべてのプリセットを再生成
+./scripts/generate-all-presets.sh
+
+# 特定のプリセットのみ再生成
+./scripts/generate-all-presets.sh --preset web_api_production
+
+# プリセットの整合性チェック
+./scripts/monitor-presets.sh check
+
+# プリセット使用統計の表示
+./scripts/monitor-presets.sh stats
+```
+
+### 自動更新
+
+プリセットは以下のタイミングで自動更新されます：
+- モジュールの更新時（GitHub Actions）
+- 手動トリガー（GitHub Actions workflow_dispatch）
+
+詳細な使用ガイドは[docs/guides/PRESET_USAGE_GUIDE.md](docs/guides/PRESET_USAGE_GUIDE.md)を参照してください。
+
 ## 指示書の書き方
 
 - 明確で具体的な指示を心がける
