@@ -56,7 +56,7 @@ Ollama、Groq、Google AI Studioなどを活用し、最新の高品質オープ
 
 **ローカルCLIインストール版では環境変数は使用できません。** 必ず以下のいずれかの方法を使用してください：
 1. 初回起動時の対話的設定
-2. `~/.openhands/config.toml`ファイルの事前作成
+2. `~/.openhands/settings.json`ファイルの事前作成
 3. `/settings`コマンドでの設定変更
 
 環境変数はDockerでの実行時のみ有効です。
@@ -89,20 +89,18 @@ ollama list
 
 **方法A: 設定ファイルを事前作成（推奨・ウィザードをスキップ）**
 
-`~/.openhands/config.toml`を作成：
-```toml
-[core]
-workspace = "~/workspace"  # 作業ディレクトリ
-
-[llm]
-provider = "ollama"
-model = "llama3.1:8b"
-base_url = "http://localhost:11434"
-api_key = ""  # Ollamaには不要
-
-[ollama]
-num_ctx = 32768  # コンテキストサイズ
-num_gpu = 1      # GPU使用数
+`~/.openhands/settings.json`を作成：
+```json
+{
+  "llm_model": "ollama/llama3.1:8b",
+  "llm_api_key": "ollama",
+  "llm_base_url": "http://localhost:11434",
+  "agent": "CodeActAgent",
+  "language": "ja",
+  "enable_default_condenser": true,
+  "enable_sound_notifications": false,
+  "enable_proactive_conversation_starters": true
+}
 ```
 
 その後、OpenHandsを起動：
@@ -147,15 +145,14 @@ docker run -it --rm \
 
 **方法A: 設定ファイルを事前作成（推奨）**
 
-`~/.openhands/config.toml`：
-```toml
-[core]
-workspace = "~/workspace"
-
-[llm]
-provider = "groq"
-model = "llama-3.1-70b-versatile"
-api_key = "gsk_あなたのAPIキー"
+`~/.openhands/settings.json`：
+```json
+{
+  "llm_model": "groq/llama-3.1-70b-versatile",
+  "llm_api_key": "gsk_あなたのAPIキー",
+  "llm_base_url": null,
+  "agent": "CodeActAgent"
+}
 ```
 
 **方法B: Docker実行**
@@ -176,15 +173,14 @@ docker run -it --rm \
 - DeepSeek-V2.5
 - Mixtral-8x22B
 
-#### 設定ファイル（`~/.openhands/config.toml`）
-```toml
-[core]
-workspace = "~/workspace"
-
-[llm]
-provider = "together"
-model = "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"
-api_key = "your-together-api-key"
+#### 設定ファイル（`~/.openhands/settings.json`）
+```json
+{
+  "llm_model": "together/meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+  "llm_api_key": "your-together-api-key",
+  "llm_base_url": null,
+  "agent": "CodeActAgent"
+}
 ```
 
 ### 設定の変更方法
