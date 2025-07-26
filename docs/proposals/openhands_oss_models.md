@@ -52,6 +52,15 @@ Ollama、Groq、Google AI Studioなどを活用し、最新の高品質オープ
 
 ## セットアップ方法
 
+### 重要な注意事項
+
+**ローカルCLIインストール版では環境変数は使用できません。** 必ず以下のいずれかの方法を使用してください：
+1. 初回起動時の対話的設定
+2. `~/.openhands/config.toml`ファイルの事前作成
+3. `/settings`コマンドでの設定変更
+
+環境変数はDockerでの実行時のみ有効です。
+
 ### 方法1: Ollama（完全ローカル・推奨）
 
 #### インストール（2025年7月最新版）
@@ -78,35 +87,47 @@ ollama list
 
 #### OpenHandsでの設定
 
-**環境変数による設定：**
-```bash
-export LLM_PROVIDER="ollama"
-export LLM_MODEL="llama3.1:8b"  # 2025年7月推奨
-export LLM_BASE_URL="http://localhost:11434"
+**方法A: 設定ファイルを事前作成（推奨・ウィザードをスキップ）**
 
+`~/.openhands/config.toml`を作成：
+```toml
+[core]
+workspace = "~/workspace"  # 作業ディレクトリ
+
+[llm]
+provider = "ollama"
+model = "llama3.1:8b"
+base_url = "http://localhost:11434"
+api_key = ""  # Ollamaには不要
+
+[ollama]
+num_ctx = 32768  # コンテキストサイズ
+num_gpu = 1      # GPU使用数
+```
+
+その後、OpenHandsを起動：
+```bash
 openhands
 ```
 
-**対話的設定：**
+**方法B: 対話的設定（初回のみ）**
 ```
 openhands
 # → "Select another provider" を選択
 # → Provider: ollama
 # → Model: llama3.1:8b
 # → Base URL: http://localhost:11434
-# → API Key: （空欄）
+# → API Key: （空欄でEnter）
 ```
 
-**設定ファイル（`~/.openhands/config.toml`）：**
-```toml
-[llm]
-provider = "ollama"
-model = "llama3.1:8b"
-base_url = "http://localhost:11434"
-
-[ollama]
-num_ctx = 32768  # Llama 3.1は128K対応だが、メモリに応じて調整
-num_gpu = 1      # GPU使用数
+**方法C: Docker実行（環境変数使用可）**
+```bash
+docker run -it --rm \
+  -e LLM_PROVIDER="ollama" \
+  -e LLM_MODEL="llama3.1:8b" \
+  -e LLM_BASE_URL="http://host.docker.internal:11434" \
+  -v $(pwd):/workspace \
+  ghcr.io/all-hands-ai/openhands:latest
 ```
 
 ### 方法2: Groq Cloud（無料枠・超高速）
@@ -123,12 +144,28 @@ num_gpu = 1      # GPU使用数
 - 14,400リクエスト/日
 
 #### OpenHandsでの設定
-```bash
-export LLM_PROVIDER="groq"
-export LLM_MODEL="llama-3.1-70b-versatile"
-export LLM_API_KEY="gsk_..."
 
-openhands
+**方法A: 設定ファイルを事前作成（推奨）**
+
+`~/.openhands/config.toml`：
+```toml
+[core]
+workspace = "~/workspace"
+
+[llm]
+provider = "groq"
+model = "llama-3.1-70b-versatile"
+api_key = "gsk_あなたのAPIキー"
+```
+
+**方法B: Docker実行**
+```bash
+docker run -it --rm \
+  -e LLM_PROVIDER="groq" \
+  -e LLM_MODEL="llama-3.1-70b-versatile" \
+  -e LLM_API_KEY="gsk_..." \
+  -v $(pwd):/workspace \
+  ghcr.io/all-hands-ai/openhands:latest
 ```
 
 ### 方法3: Together AI（新規追加・$25無料クレジット）
@@ -139,13 +176,23 @@ openhands
 - DeepSeek-V2.5
 - Mixtral-8x22B
 
-#### 設定方法
-```bash
-export LLM_PROVIDER="together"
-export LLM_MODEL="meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"
-export LLM_API_KEY="your-together-api-key"
+#### 設定ファイル（`~/.openhands/config.toml`）
+```toml
+[core]
+workspace = "~/workspace"
 
-openhands
+[llm]
+provider = "together"
+model = "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"
+api_key = "your-together-api-key"
+```
+
+### 設定の変更方法
+
+OpenHands実行中に設定を変更する場合：
+```
+/settings
+# 対話的に設定を変更
 ```
 
 ## 2025年7月版 モデル選択ガイド
@@ -175,9 +222,18 @@ openhands
 ## 実践的な使用例（2025年7月版）
 
 ### 例1: Next.js 14 App Router開発
+
+**設定ファイル準備（`~/.openhands/config.toml`）：**
+```toml
+[llm]
+provider = "ollama"
+model = "llama3.1:8b"
+base_url = "http://localhost:11434"
+```
+
+**使用例：**
 ```bash
-# Llama 3.1 8Bを使用
-export LLM_MODEL="llama3.1:8b"
+# OpenHands起動
 openhands
 
 # タスク例
@@ -185,9 +241,17 @@ openhands
 ```
 
 ### 例2: AI/MLパイプライン構築
+
+**Qwen2.5を使用（Python/MLに強い）：**
+```toml
+[llm]
+provider = "ollama"
+model = "qwen2.5:7b"
+base_url = "http://localhost:11434"
+```
+
+**使用例：**
 ```bash
-# Qwen2.5を使用（Python/MLに強い）
-export LLM_MODEL="qwen2.5:7b"
 openhands
 
 # タスク例
@@ -195,13 +259,43 @@ openhands
 ```
 
 ### 例3: マイクロサービスAPI開発
+
+**DeepSeek-Coder使用時：**
 ```bash
-# DeepSeek-Coderを使用
-export LLM_MODEL="deepseek-coder-v2"
-openhands
+# 実行中に設定変更
+/settings
+# → プロバイダー: ollama
+# → モデル: deepseek-coder-v2
 
 # タスク例
 > Create a FastAPI microservice with async endpoints and Pydantic validation
+```
+
+### 例4: 複数プロジェクトでの使い分け
+
+**プロジェクトごとの設定ファイル：**
+```bash
+# プロジェクト1用（Web開発）
+mkdir -p ~/project1/.openhands
+cat > ~/project1/.openhands/config.toml << EOF
+[llm]
+provider = "groq"
+model = "llama-3.1-70b-versatile"
+api_key = "gsk_..."
+EOF
+
+# プロジェクト2用（データ分析）
+mkdir -p ~/project2/.openhands
+cat > ~/project2/.openhands/config.toml << EOF
+[llm]
+provider = "ollama"
+model = "qwen2.5:32b"
+base_url = "http://localhost:11434"
+EOF
+
+# 各プロジェクトディレクトリで実行
+cd ~/project1 && openhands  # Groqを使用
+cd ~/project2 && openhands  # Ollamaを使用
 ```
 
 ## パフォーマンス最適化（2025年版）
