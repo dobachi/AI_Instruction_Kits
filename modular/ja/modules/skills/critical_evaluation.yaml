@@ -1,0 +1,218 @@
+# 批判的評価スキルモジュール
+# AIのYesバイアスを軽減し、建設的な批判的視点を提供する能力
+
+id: "skill_critical_evaluation"
+name: "批判的評価"
+description: "AIのYesバイアス（yes-man問題）を軽減し、建設的な批判的視点を提供するスキル。Devil's Advocate（悪魔の代弁者）、Red Team思考、建設的批判、エビデンスベース検証を通じて、より質の高い意思決定を支援"
+version: "1.0.0"
+category: "skills"
+author: "AI Instruction Kits"
+
+# 必要な変数定義
+variables:
+  - name: "evaluation_mode"
+    description: "批判的評価のアプローチ方法"
+    type: "enum"
+    required: false
+    values: ["constructive", "adversarial", "balanced", "socratic"]
+    default: "constructive"
+    example: "constructive: 改善提案を含む建設的批判、adversarial: 徹底的な反論"
+  
+  - name: "intensity_level"
+    description: "批判の強度レベル"
+    type: "enum"
+    required: false
+    values: ["gentle", "moderate", "aggressive", "adaptive"]
+    default: "moderate"
+    example: "gentle: 穏やかな指摘、aggressive: 徹底的な批判"
+  
+  - name: "focus_areas"
+    description: "重点的に評価する領域"
+    type: "enum"
+    required: false
+    values: ["logic", "evidence", "assumptions", "risks", "alternatives", "comprehensive"]
+    default: "comprehensive"
+    example: "logic: 論理的整合性、risks: リスクと影響"
+  
+  - name: "cultural_sensitivity"
+    description: "文化的配慮のレベル"
+    type: "enum"
+    required: false
+    values: ["direct", "indirect", "japanese_style", "western_style"]
+    default: "indirect"
+    example: "japanese_style: 日本的な婉曲表現、direct: 直接的な指摘"
+
+# 他のモジュールとの依存関係（オブジェクト形式推奨）
+dependencies:
+  required:
+    - "core_role_definition"
+  optional:
+    - "skill_critical_thinking"
+    - "skill_systems_thinking"
+    - "skill_web_research"
+    - "quality_production"
+
+# 互換性のあるタスク・モジュール
+compatible_tasks:
+  - "task_project_planning"
+  - "task_strategy_development"
+  - "task_report_writing"
+  - "task_code_generation"
+  - "task_documentation"
+compatible_skills:
+  - "skill_critical_thinking"
+  - "skill_systems_thinking"
+  - "skill_problem_solving"
+  - "skill_swot_analysis"
+  - "skill_communication"
+
+# スキルが提供する機能・能力
+capabilities:
+  primary_functions:
+    - "Devil's Advocate（悪魔の代弁者）：自動的な反対意見生成と前提条件への疑問提起"
+    - "Red Team分析：脆弱性の体系的発見とエッジケース検討"
+    - "建設的批判：改善提案付きフィードバックと代替案提示"
+    - "エビデンスベース検証：主張の根拠要求とデータ妥当性検証"
+  
+  supporting_functions:
+    - "論理的誤謬の検出と指摘"
+    - "リスク評価とインパクト分析"
+    - "SWOT分析の自動実行"
+    - "バイアスチェックと認知的盲点の発見"
+
+# 技術的アプローチ・手法
+methodology:
+  approach: "構造化批判的思考と建設的フィードバック"
+  frameworks:
+    - "ソクラテス式質問法"
+    - "SWOTフレームワーク"
+    - "Pre-mortem分析"
+    - "Six Thinking Hats"
+  
+  key_principles:
+    - "建設的であること：批判は改善のためのものである"
+    - "エビデンスベース：事実とデータに基づく評価"
+    - "多角的視点：複数の観点からの検討"
+    - "解決志向：問題指摘と同時に解決策も提示"
+
+# 出力設定
+output_format:
+  style: "構造化フィードバック"
+  components:
+    - "強みの認識と肯定"
+    - "懸念点と潜在的リスク"
+    - "改善提案と代替案"
+    - "実装推奨事項"
+  detail_level: "adaptive"  # 状況に応じて調整
+
+# タグ（検索・分類用）
+tags:
+  - "critical-thinking"
+  - "decision-making"
+  - "risk-assessment"
+  - "problem-solving"
+  - "analysis"
+  - "feedback"
+  - "quality-assurance"
+  - "cognitive-bias"
+  - "intermediate"
+
+# 使用例（複数パターン推奨）
+examples:
+  - title: "新機能提案のレビュー"
+    description: "新しい機能の提案に対して建設的な批判的評価を行う"
+    context: "プロダクト開発会議での機能提案レビュー"
+    variables:
+      evaluation_mode: "constructive"
+      intensity_level: "moderate"
+      focus_areas: "risks"
+    expected_outcome: "潜在的リスクの特定と改善提案により、より堅牢な機能設計を実現"
+  
+  - title: "システムアーキテクチャのRed Team分析"
+    description: "提案されたシステム設計の脆弱性を徹底的に分析"
+    context: "セキュリティレビューやアーキテクチャ設計レビュー"
+    variables:
+      evaluation_mode: "adversarial"
+      intensity_level: "aggressive"
+      focus_areas: "comprehensive"
+    expected_outcome: "セキュリティホールやスケーラビリティ問題の早期発見と対策立案"
+  
+  - title: "ビジネス戦略の批判的検討"
+    description: "新規事業戦略に対するソクラテス式質問による検証"
+    context: "経営戦略会議での新規事業提案"
+    variables:
+      evaluation_mode: "socratic"
+      intensity_level: "adaptive"
+      focus_areas: "assumptions"
+      cultural_sensitivity: "japanese_style"
+    expected_outcome: "前提条件の明確化と戦略の精緻化"
+
+# メタデータ
+metadata:
+  complexity: "intermediate"  # basic, intermediate, advanced, expert
+  learning_curve: "中期間"
+  prerequisites:
+    - "基本的な論理的思考能力"
+    - "コミュニケーションスキル"
+  domain_knowledge:
+    - "批判的思考の基礎概念"
+    - "リスク管理の基本"
+    - "フィードバック手法"
+
+# 実装パターン・ベストプラクティス
+implementation_patterns:
+  common_patterns:
+    - pattern: "サンドイッチ法"
+      description: "ポジティブ→批判→ポジティブの順序でフィードバック"
+      use_case: "建設的な批判を受け入れやすくする場面"
+    
+    - pattern: "5 Whys分析"
+      description: "なぜを5回繰り返して根本原因を探る"
+      use_case: "問題の本質的な原因を特定する場面"
+    
+    - pattern: "Pre-mortem分析"
+      description: "失敗を仮定して事前に原因を分析"
+      use_case: "プロジェクト開始前のリスク評価"
+
+# ベストプラクティス
+best_practices:
+  - "批判する前に相手の意図を十分に理解する"
+  - "人格ではなくアイデアや行動を批判対象とする"
+  - "具体的な改善案を必ず提示する"
+  - "文化的背景と相手の立場を考慮する"
+  - "感情的にならず客観的な視点を保つ"
+
+# よくある間違い・注意点
+common_pitfalls:
+  - "批判のための批判に陥る（建設的でない）"
+  - "文化的配慮を欠いた直接的すぎる批判"
+  - "代替案なしの問題指摘のみ"
+  - "感情的な反応を引き起こす表現の使用"
+  - "相手の成長を考慮しない一方的な批判"
+
+# 品質指標
+quality_indicators:
+  - "フィードバックの建設性（改善につながるか）"
+  - "批判の的確性（本質的な問題を指摘できているか）"
+  - "代替案の実現可能性"
+  - "受け手の受容度と行動変容"
+  - "リスク発見率と対策の有効性"
+
+# ツール・リソース
+tools_and_resources:
+  recommended_tools:
+    - "SWOTマトリクス（強み・弱み・機会・脅威分析）"
+    - "リスクレジスタ（リスク管理表）"
+    - "Pre-mortemテンプレート"
+    - "ファシリテーションガイド"
+  
+  reference_materials:
+    - "「Thinking, Fast and Slow」 Daniel Kahneman"
+    - "Red Team手法ガイドライン"
+    - "認知バイアス一覧とチェックリスト"
+    - "建設的フィードバック手法集"
+
+# 作成日時とバージョン管理
+created: "2025-01-26"
+updated: "2025-01-26"
+license: "Apache-2.0"

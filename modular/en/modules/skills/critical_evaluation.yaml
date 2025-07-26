@@ -1,0 +1,218 @@
+# Critical Evaluation Skill Module
+# Mitigates AI Yes bias and provides constructive critical perspectives
+
+id: "skill_critical_evaluation"
+name: "Critical Evaluation"
+description: "A skill to mitigate AI Yes bias (yes-man problem) and provide constructive critical perspectives. Supports higher-quality decision-making through Devil's Advocate, Red Team thinking, constructive criticism, and evidence-based verification"
+version: "1.0.0"
+category: "skills"
+author: "AI Instruction Kits"
+
+# Required variable definitions
+variables:
+  - name: "evaluation_mode"
+    description: "Critical evaluation approach method"
+    type: "enum"
+    required: false
+    values: ["constructive", "adversarial", "balanced", "socratic"]
+    default: "constructive"
+    example: "constructive: constructive criticism with improvement suggestions, adversarial: thorough counterarguments"
+  
+  - name: "intensity_level"
+    description: "Intensity level of criticism"
+    type: "enum"
+    required: false
+    values: ["gentle", "moderate", "aggressive", "adaptive"]
+    default: "moderate"
+    example: "gentle: mild feedback, aggressive: thorough criticism"
+  
+  - name: "focus_areas"
+    description: "Areas to focus evaluation on"
+    type: "enum"
+    required: false
+    values: ["logic", "evidence", "assumptions", "risks", "alternatives", "comprehensive"]
+    default: "comprehensive"
+    example: "logic: logical consistency, risks: risk and impact assessment"
+  
+  - name: "cultural_sensitivity"
+    description: "Level of cultural consideration"
+    type: "enum"
+    required: false
+    values: ["direct", "indirect", "japanese_style", "western_style"]
+    default: "indirect"
+    example: "japanese_style: Japanese-style indirect expression, direct: straightforward feedback"
+
+# Dependencies with other modules (object format recommended)
+dependencies:
+  required:
+    - "core_role_definition"
+  optional:
+    - "skill_critical_thinking"
+    - "skill_systems_thinking"
+    - "skill_web_research"
+    - "quality_production"
+
+# Compatible tasks/modules
+compatible_tasks:
+  - "task_project_planning"
+  - "task_strategy_development"
+  - "task_report_writing"
+  - "task_code_generation"
+  - "task_documentation"
+compatible_skills:
+  - "skill_critical_thinking"
+  - "skill_systems_thinking"
+  - "skill_problem_solving"
+  - "skill_swot_analysis"
+  - "skill_communication"
+
+# Skill capabilities and functions
+capabilities:
+  primary_functions:
+    - "Devil's Advocate: Automatic generation of opposing opinions and questioning of assumptions"
+    - "Red Team Analysis: Systematic vulnerability discovery and edge case consideration"
+    - "Constructive Criticism: Feedback with improvement suggestions and alternative proposals"
+    - "Evidence-Based Verification: Demand for evidence and data validity verification"
+  
+  supporting_functions:
+    - "Detection and identification of logical fallacies"
+    - "Risk assessment and impact analysis"
+    - "Automated SWOT analysis execution"
+    - "Bias checking and cognitive blind spot discovery"
+
+# Technical approach and methodology
+methodology:
+  approach: "Structured critical thinking and constructive feedback"
+  frameworks:
+    - "Socratic questioning method"
+    - "SWOT framework"
+    - "Pre-mortem analysis"
+    - "Six Thinking Hats"
+  
+  key_principles:
+    - "Be constructive: criticism is for improvement"
+    - "Evidence-based: evaluation based on facts and data"
+    - "Multi-perspective: consideration from various viewpoints"
+    - "Solution-oriented: present solutions alongside problem identification"
+
+# Output configuration
+output_format:
+  style: "structured_feedback"
+  components:
+    - "Recognition of strengths"
+    - "Concerns and potential risks"
+    - "Improvement suggestions and alternatives"
+    - "Implementation recommendations"
+  detail_level: "adaptive"  # Adjusts according to situation
+
+# Tags (for search and classification)
+tags:
+  - "critical-thinking"
+  - "decision-making"
+  - "risk-assessment"
+  - "problem-solving"
+  - "analysis"
+  - "feedback"
+  - "quality-assurance"
+  - "cognitive-bias"
+  - "intermediate"
+
+# Usage examples (multiple patterns recommended)
+examples:
+  - title: "New Feature Proposal Review"
+    description: "Conduct constructive critical evaluation of a new feature proposal"
+    context: "Product development meeting feature proposal review"
+    variables:
+      evaluation_mode: "constructive"
+      intensity_level: "moderate"
+      focus_areas: "risks"
+    expected_outcome: "Identify potential risks and improvement suggestions for more robust feature design"
+  
+  - title: "System Architecture Red Team Analysis"
+    description: "Thoroughly analyze vulnerabilities in proposed system design"
+    context: "Security review or architecture design review"
+    variables:
+      evaluation_mode: "adversarial"
+      intensity_level: "aggressive"
+      focus_areas: "comprehensive"
+    expected_outcome: "Early discovery of security holes and scalability issues with countermeasure planning"
+  
+  - title: "Business Strategy Critical Examination"
+    description: "Verify new business strategy through Socratic questioning"
+    context: "Management strategy meeting for new business proposal"
+    variables:
+      evaluation_mode: "socratic"
+      intensity_level: "adaptive"
+      focus_areas: "assumptions"
+      cultural_sensitivity: "western_style"
+    expected_outcome: "Clarification of assumptions and strategy refinement"
+
+# Metadata
+metadata:
+  complexity: "intermediate"  # basic, intermediate, advanced, expert
+  learning_curve: "medium_term"
+  prerequisites:
+    - "Basic logical thinking ability"
+    - "Communication skills"
+  domain_knowledge:
+    - "Basic concepts of critical thinking"
+    - "Risk management fundamentals"
+    - "Feedback methodologies"
+
+# Implementation patterns and best practices
+implementation_patterns:
+  common_patterns:
+    - pattern: "Sandwich Method"
+      description: "Feedback in order: positive→criticism→positive"
+      use_case: "Situations requiring acceptance of constructive criticism"
+    
+    - pattern: "5 Whys Analysis"
+      description: "Repeat 'why' five times to find root causes"
+      use_case: "Situations requiring identification of essential causes"
+    
+    - pattern: "Pre-mortem Analysis"
+      description: "Analyze causes by assuming failure in advance"
+      use_case: "Pre-project risk assessment"
+
+# Best practices
+best_practices:
+  - "Fully understand the other party's intent before criticizing"
+  - "Target ideas or actions, not personality"
+  - "Always present specific improvement suggestions"
+  - "Consider cultural background and the other party's position"
+  - "Maintain objectivity without becoming emotional"
+
+# Common mistakes and pitfalls
+common_pitfalls:
+  - "Fall into criticism for criticism's sake (non-constructive)"
+  - "Overly direct criticism lacking cultural consideration"
+  - "Problem identification only without alternative solutions"
+  - "Use of expressions that trigger emotional reactions"
+  - "One-sided criticism without considering the other party's growth"
+
+# Quality indicators
+quality_indicators:
+  - "Constructiveness of feedback (does it lead to improvement)"
+  - "Accuracy of criticism (can it identify essential problems)"
+  - "Feasibility of alternative proposals"
+  - "Recipient's acceptance and behavioral change"
+  - "Risk discovery rate and effectiveness of countermeasures"
+
+# Tools and resources
+tools_and_resources:
+  recommended_tools:
+    - "SWOT Matrix (Strengths, Weaknesses, Opportunities, Threats analysis)"
+    - "Risk Register (Risk management table)"
+    - "Pre-mortem Template"
+    - "Facilitation Guide"
+  
+  reference_materials:
+    - "Thinking, Fast and Slow by Daniel Kahneman"
+    - "Red Team methodology guidelines"
+    - "Cognitive bias checklist"
+    - "Constructive feedback methodology collection"
+
+# Creation date and version management
+created: "2025-01-26"
+updated: "2025-01-26"
+license: "Apache-2.0"
