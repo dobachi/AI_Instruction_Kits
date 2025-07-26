@@ -25,6 +25,12 @@ VALID_FILES=0
 ERROR_FILES=0
 WARNING_FILES=0
 
+# サイズチェックフラグ
+CHECK_SIZE=false
+if [[ "$1" == "--check-size" ]] || [[ "$2" == "--check-size" ]]; then
+    CHECK_SIZE=true
+fi
+
 # モジュールディレクトリ
 MODULE_DIR="$PROJECT_ROOT/modular"
 
@@ -35,8 +41,18 @@ if [ ! -f "$PYTHON_VALIDATOR" ]; then
     exit 1
 fi
 
+# サイズチェックスクリプトの存在確認
+SIZE_CHECKER="$SCRIPT_DIR/check_module_sizes.py"
+if [ "$CHECK_SIZE" = true ] && [ ! -f "$SIZE_CHECKER" ]; then
+    echo -e "${RED}$(get_message "error_size_check_script_not_found" "Error: Size check script $SIZE_CHECKER not found" "エラー: サイズチェックスクリプト $SIZE_CHECKER が見つかりません")${NC}"
+    exit 1
+fi
+
 echo "🔍 $(get_message "start_validation" "Starting module metadata validation..." "モジュールメタデータ検証を開始します...")"
 echo "$(get_message "validation_target" "Target:" "検証対象:") $MODULE_DIR"
+if [ "$CHECK_SIZE" = true ]; then
+    echo "📏 $(get_message "size_check_enabled" "Size check: Enabled" "サイズチェック: 有効")"
+fi
 echo ""
 
 # 結果を保存する配列
@@ -113,6 +129,58 @@ except:
             else
                 echo -e "    ${GREEN}✓${NC} $filename"
                 VALID_FILES=$((VALID_FILES + 1))
+            fi
+            
+            # サイズチェック（--check-sizeオプション指定時）
+            if [ "$CHECK_SIZE" = true ]; then
+                # 対応するMarkdownファイルを検索
+                base_name="${filename%.yaml}"
+                md_file="$category_dir/${base_name}.md"
+                detailed_md_file="$category_dir/${base_name}_detailed.md"
+                
+                files_to_check=""
+                if [ -f "$md_file" ]; then
+                    files_to_check="$md_file"
+                fi
+                if [ -f "$detailed_md_file" ]; then
+                    files_to_check="$files_to_check $detailed_md_file"
+                fi
+                
+                if [ -n "$files_to_check" ]; then
+                    size_result=$(python3 "$SIZE_CHECKER" $files_to_check 2>&1) || true
+                    
+                    # サイズチェック結果の解析と表示
+                    echo "$size_result" | python3 -c "
+import json, sys
+try:
+    data = json.load(sys.stdin)
+    for module in data:
+        if 'results' in module:
+            # 簡潔版のチェック
+            if module['results'].get('concise'):
+                concise = module['results']['concise']
+                if concise['status'] != 'OK':
+                    print(f'      [{concise[\"status\"]}] {module[\"module_name\"]}.md: {concise[\"non_empty_lines\"]} lines, ~{concise[\"estimated_tokens\"]} tokens')
+                    for msg in concise.get('messages', []):
+                        print(f'        - {msg}')
+            
+            # 詳細版のチェック
+            if module['results'].get('detailed'):
+                detailed = module['results']['detailed']
+                if detailed['status'] != 'OK':
+                    print(f'      [{detailed[\"status\"]}] {module[\"module_name\"]}_detailed.md: {detailed[\"non_empty_lines\"]} lines, ~{detailed[\"estimated_tokens\"]} tokens')
+                    for msg in detailed.get('messages', []):
+                        print(f'        - {msg}')
+            
+            # 比率チェック
+            if module['results']['ratio_status'] != 'OK':
+                print(f'      [RATIO {module[\"results\"][\"ratio_status\"]}] {module[\"module_name\"]} pair')
+                for msg in module['results'].get('ratio_messages', []):
+                    print(f'        - {msg}')
+except:
+    pass
+" 2>&1 || true
+                fi
             fi
         done
     done
