@@ -41,7 +41,7 @@ jobs:
       - name: Generate presets
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: |
-          ./scripts/generate-all-presets.sh --validate
+          ./scripts/generate-all-presets.sh --validate --force
           
       - name: Check for changes
         id: changes
