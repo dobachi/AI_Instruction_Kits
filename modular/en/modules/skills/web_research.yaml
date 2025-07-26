@@ -1,0 +1,231 @@
+# Web Research Skill Module
+# Ability to efficiently search, evaluate, and utilize accurate and reliable information from the web
+
+id: "skill_web_research"
+name: "Web Research"
+description: "Skills to efficiently search, evaluate, and utilize accurate and reliable information from the web. Provides information literacy and fact-checking methods adapted to the AI era of 2024-2025"
+version: "1.0.0"
+category: "skills"
+author: "AI Instruction Kits"
+
+# Variable definitions
+variables:
+  - name: "research_depth"
+    description: "Depth level of investigation"
+    type: "enum"
+    required: false
+    values: ["quick", "standard", "thorough", "exhaustive"]
+    default: "standard"
+    example: "quick: Basic 5-10 minute search, thorough: Comprehensive verification with multiple sources"
+  
+  - name: "verification_level"
+    description: "Strictness of information verification"
+    type: "enum"
+    required: false
+    values: ["basic", "enhanced", "strict", "academic"]
+    default: "enhanced"
+    example: "basic: Simple confirmation, strict: Cross-verification with multiple independent sources"
+  
+  - name: "source_diversity"
+    description: "Requirement for source diversity"
+    type: "enum"
+    required: false
+    values: ["single_source", "multiple_sources", "diverse_perspectives", "global_coverage"]
+    default: "multiple_sources"
+    example: "diverse_perspectives: Gathering information from different viewpoints and positions"
+  
+  - name: "language_scope"
+    description: "Language scope for investigation"
+    type: "enum"
+    required: false
+    values: ["english_only", "bilingual", "multilingual", "global"]
+    default: "bilingual"
+    example: "multilingual: Investigation including languages beyond English"
+  
+  - name: "ai_content_handling"
+    description: "Approach to AI-generated content"
+    type: "enum"
+    required: false
+    values: ["exclude", "identify_only", "careful_inclusion", "full_inclusion"]
+    default: "identify_only"
+    example: "identify_only: Identify AI-generated content and clearly note it"
+
+# Dependencies with other modules
+dependencies:
+  required:
+    - "core_role_definition"
+  optional:
+    - "skill_critical_thinking"
+    - "skill_citation_management"
+    - "skill_data_analysis"
+    - "quality_production"
+
+# Compatible tasks/modules
+compatible_tasks:
+  - "task_research"
+  - "task_market_research"
+  - "task_competitive_analysis"
+  - "task_report_writing"
+  - "task_documentation"
+compatible_skills:
+  - "skill_critical_thinking"
+  - "skill_systems_thinking"
+  - "skill_data_visualization"
+  - "skill_communication"
+
+# Capabilities provided
+capabilities:
+  primary_functions:
+    - "Developing and executing effective search strategies"
+    - "Evaluating source credibility and authority"
+    - "Fact-checking and verification"
+    - "Identifying AI-generated content"
+    - "Lateral reading techniques"
+  
+  supporting_functions:
+    - "Multilingual information gathering and evaluation"
+    - "Image and video authenticity verification"
+    - "Social media information assessment"
+    - "Academic source utilization"
+    - "Real-time information monitoring"
+
+# Technical approach and methodology
+methodology:
+  approach: "Evidence-based critical verification"
+  frameworks:
+    - "SIFT Method (Stop, Investigate, Find, Trace)"
+    - "CRAAP Test (Currency, Relevance, Authority, Accuracy, Purpose)"
+    - "Lateral Reading"
+    - "Reverse Image Search"
+    - "Domain Investigation"
+  
+  key_principles:
+    - "Verification with multiple independent sources"
+    - "Tracing back to original information"
+    - "Maintaining contextual integrity"
+    - "Recognizing and addressing bias"
+    - "Continuous information updates"
+
+# Output configuration
+output_format:
+  style: "Structured report"
+  components:
+    - "Source evaluation matrix"
+    - "Fact-check results"
+    - "Credibility assessment"
+    - "Limitations and caveats"
+    - "List of citable sources"
+  detail_level: "comprehensive"
+
+# Tags for search and classification
+tags:
+  - "information-literacy"
+  - "fact-checking"
+  - "research"
+  - "verification"
+  - "critical-thinking"
+  - "ai-awareness"
+  - "digital-literacy"
+  - "2024-2025"
+
+# Usage examples
+examples:
+  - title: "Technology Trend Research"
+    description: "Gathering accurate information on latest technology trends"
+    context: "When considering new technology adoption"
+    variables:
+      research_depth: "thorough"
+      verification_level: "enhanced"
+      source_diversity: "diverse_perspectives"
+    expected_outcome: "Balanced technology evaluation report"
+  
+  - title: "News Fact-Checking"
+    description: "Verifying the truth of trending news"
+    context: "Confirming prerequisite information for important decisions"
+    variables:
+      research_depth: "standard"
+      verification_level: "strict"
+      ai_content_handling: "identify_only"
+    expected_outcome: "Verified facts and assessment"
+  
+  - title: "Competitive Intelligence"
+    description: "Researching publicly available competitor information"
+    context: "Market analysis and strategy planning"
+    variables:
+      research_depth: "exhaustive"
+      language_scope: "multilingual"
+      source_diversity: "global_coverage"
+    expected_outcome: "Comprehensive competitive analysis data"
+
+# Metadata
+metadata:
+  complexity: "intermediate"
+  learning_curve: "Medium term (practical experience essential)"
+  prerequisites:
+    - "Basic internet usage skills"
+    - "Fundamentals of critical thinking"
+    - "Basic information literacy concepts"
+  domain_knowledge:
+    - "How search engines work"
+    - "Types and characteristics of information sources"
+    - "Basic understanding of AI technology"
+
+# Implementation patterns and best practices
+implementation_patterns:
+  common_patterns:
+    - pattern: "Triangulation Method"
+      description: "Confirming facts with three or more independent sources"
+      use_case: "Important fact verification, numerical data validation"
+    
+    - pattern: "Timeline Tracking"
+      description: "Tracing information evolution from origin to present"
+      use_case: "Identifying sources of rumors and misinformation"
+    
+    - pattern: "Expert Verification"
+      description: "Information verification by domain experts"
+      use_case: "Confirming technical and specialized content"
+
+# Best practices
+best_practices:
+  - "Clarify research purpose and scope before searching"
+  - "Execute search queries with multiple variations"
+  - "Always consider stakeholder interests of sources"
+  - "Confirm both latest information and historical context"
+  - "Record information not found as important data"
+  - "Document research process for reproducibility"
+
+# Common pitfalls and cautions
+common_pitfalls:
+  - "Confirmation bias - collecting only convenient information"
+  - "Overconfidence in authoritative-looking fake sites"
+  - "Overlooking AI-generated content"
+  - "Information distortion through translation"
+  - "Mistaking old information as current"
+  - "Research within echo chambers"
+
+# Quality indicators
+quality_indicators:
+  - "Diversity and independence of sources"
+  - "Rate of reaching original information"
+  - "Transparency of verification process"
+  - "Clear statement of limitations"
+  - "Accurate recording of update times"
+
+# Tools and resources
+tools_and_resources:
+  recommended_tools:
+    - "Google Scholar (academic information)"
+    - "Wayback Machine (past web pages)"
+    - "TinEye / Google Lens (reverse image search)"
+    - "Fact-checking sites (Snopes, FactCheck.org, etc.)"
+    - "CrowdTangle (social media analysis)"
+  
+  reference_materials:
+    - "Stanford History Education Group - Civic Online Reasoning"
+    - "First Draft - Essential Guide to Understanding Information Disorder"
+    - "IFLA - How to Spot Fake News"
+
+# Creation date and version management
+created: "2025-01-26"
+updated: "2025-01-26"
+license: "Apache-2.0"

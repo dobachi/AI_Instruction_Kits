@@ -1,0 +1,231 @@
+# ウェブリサーチスキルモジュール
+# 正確で信頼できる情報をウェブから効果的に収集・評価・活用する能力
+
+id: "skill_web_research"
+name: "ウェブリサーチ"
+description: "ウェブから正確で信頼できる情報を効率的に検索・評価・活用するスキル。2024-2025年のAI時代に対応した情報リテラシーとファクトチェック手法を提供"
+version: "1.0.0"
+category: "skills"
+author: "AI Instruction Kits"
+
+# 必要な変数定義
+variables:
+  - name: "research_depth"
+    description: "調査の深さレベル"
+    type: "enum"
+    required: false
+    values: ["quick", "standard", "thorough", "exhaustive"]
+    default: "standard"
+    example: "quick: 5-10分程度の基本調査、thorough: 複数情報源での徹底検証"
+  
+  - name: "verification_level"
+    description: "情報検証の厳密さ"
+    type: "enum"
+    required: false
+    values: ["basic", "enhanced", "strict", "academic"]
+    default: "enhanced"
+    example: "basic: 基本的な確認、strict: 複数独立情報源での相互検証"
+  
+  - name: "source_diversity"
+    description: "情報源の多様性要求"
+    type: "enum"
+    required: false
+    values: ["single_source", "multiple_sources", "diverse_perspectives", "global_coverage"]
+    default: "multiple_sources"
+    example: "diverse_perspectives: 異なる視点・立場からの情報収集"
+  
+  - name: "language_scope"
+    description: "調査対象言語の範囲"
+    type: "enum"
+    required: false
+    values: ["japanese_only", "bilingual_ja_en", "multilingual", "global"]
+    default: "bilingual_ja_en"
+    example: "multilingual: 日英以外の言語も含めた調査"
+  
+  - name: "ai_content_handling"
+    description: "AI生成コンテンツの扱い方"
+    type: "enum"
+    required: false
+    values: ["exclude", "identify_only", "careful_inclusion", "full_inclusion"]
+    default: "identify_only"
+    example: "identify_only: AI生成を識別し、その旨を明記"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - "core_role_definition"
+  optional:
+    - "skill_critical_thinking"
+    - "skill_citation_management"
+    - "skill_data_analysis"
+    - "quality_production"
+
+# 互換性のあるタスク・モジュール
+compatible_tasks:
+  - "task_research"
+  - "task_market_research"
+  - "task_competitive_analysis"
+  - "task_report_writing"
+  - "task_documentation"
+compatible_skills:
+  - "skill_critical_thinking"
+  - "skill_systems_thinking"
+  - "skill_data_visualization"
+  - "skill_communication"
+
+# スキルが提供する機能・能力
+capabilities:
+  primary_functions:
+    - "効果的な検索戦略の立案と実行"
+    - "情報源の信頼性・権威性評価"
+    - "ファクトチェックと検証"
+    - "AI生成コンテンツの識別"
+    - "横断的読解（Lateral Reading）"
+  
+  supporting_functions:
+    - "多言語情報の収集と評価"
+    - "画像・動画の真正性検証"
+    - "ソーシャルメディア情報の評価"
+    - "学術情報源の活用"
+    - "最新情報のモニタリング"
+
+# 技術的アプローチ・手法
+methodology:
+  approach: "エビデンスベース・批判的検証"
+  frameworks:
+    - "SIFT法（Stop, Investigate, Find, Trace）"
+    - "CRAAP Test（Currency, Relevance, Authority, Accuracy, Purpose）"
+    - "横断的読解（Lateral Reading）"
+    - "逆画像検索"
+    - "ドメイン調査法"
+  
+  key_principles:
+    - "複数独立情報源での検証"
+    - "原情報への遡及確認"
+    - "文脈の完全性維持"
+    - "バイアスの認識と対処"
+    - "継続的な情報更新"
+
+# 出力設定
+output_format:
+  style: "構造化レポート"
+  components:
+    - "情報源評価マトリクス"
+    - "ファクトチェック結果"
+    - "信頼度評価"
+    - "制限事項と注意点"
+    - "引用可能な情報源リスト"
+  detail_level: "comprehensive"
+
+# タグ（検索・分類用）
+tags:
+  - "information-literacy"
+  - "fact-checking"
+  - "research"
+  - "verification"
+  - "critical-thinking"
+  - "ai-awareness"
+  - "digital-literacy"
+  - "2024-2025"
+
+# 使用例
+examples:
+  - title: "技術トレンド調査"
+    description: "最新技術動向の正確な情報収集"
+    context: "新技術の導入検討時"
+    variables:
+      research_depth: "thorough"
+      verification_level: "enhanced"
+      source_diversity: "diverse_perspectives"
+    expected_outcome: "バランスの取れた技術評価レポート"
+  
+  - title: "ニュースファクトチェック"
+    description: "話題のニュースの真偽確認"
+    context: "重要な意思決定の前提情報確認"
+    variables:
+      research_depth: "standard"
+      verification_level: "strict"
+      ai_content_handling: "identify_only"
+    expected_outcome: "検証済み事実と評価"
+  
+  - title: "競合情報収集"
+    description: "競合他社の公開情報調査"
+    context: "市場分析・戦略立案"
+    variables:
+      research_depth: "exhaustive"
+      language_scope: "multilingual"
+      source_diversity: "global_coverage"
+    expected_outcome: "包括的な競合分析データ"
+
+# メタデータ
+metadata:
+  complexity: "intermediate"
+  learning_curve: "中期間（実践による習熟が重要）"
+  prerequisites:
+    - "基本的なインターネット利用スキル"
+    - "批判的思考の基礎"
+    - "情報リテラシーの基本概念"
+  domain_knowledge:
+    - "検索エンジンの仕組み"
+    - "情報源の種類と特性"
+    - "AI技術の基礎理解"
+
+# 実装パターン・ベストプラクティス
+implementation_patterns:
+  common_patterns:
+    - pattern: "三角測量法"
+      description: "3つ以上の独立した情報源で事実を確認"
+      use_case: "重要な事実確認、数値データの検証"
+    
+    - pattern: "時系列追跡"
+      description: "情報の初出から現在までの変遷を追跡"
+      use_case: "噂や誤情報の発生源特定"
+    
+    - pattern: "専門家確認"
+      description: "該当分野の専門家による情報の検証"
+      use_case: "技術的・専門的内容の確認"
+
+# ベストプラクティス
+best_practices:
+  - "検索前に調査目的と範囲を明確化"
+  - "検索クエリは複数バリエーションで実行"
+  - "情報源の利害関係を常に考慮"
+  - "最新情報と歴史的文脈の両方を確認"
+  - "見つからない情報も重要な情報として記録"
+  - "調査プロセスを文書化し再現可能に"
+
+# よくある間違い・注意点
+common_pitfalls:
+  - "確証バイアスによる都合の良い情報のみ収集"
+  - "権威に見える偽サイトへの過信"
+  - "AI生成コンテンツの見落とし"
+  - "翻訳による情報の歪み"
+  - "古い情報を最新と誤認"
+  - "エコーチェンバー内での調査"
+
+# 品質指標
+quality_indicators:
+  - "情報源の多様性と独立性"
+  - "原情報への到達率"
+  - "検証プロセスの透明性"
+  - "制限事項の明確な記載"
+  - "更新日時の正確な記録"
+
+# ツール・リソース
+tools_and_resources:
+  recommended_tools:
+    - "Google Scholar（学術情報）"
+    - "Wayback Machine（過去のウェブページ）"
+    - "TinEye / Google Lens（逆画像検索）"
+    - "Fact-checking sites（Snopes, FactCheck.org等）"
+    - "CrowdTangle（ソーシャルメディア分析）"
+  
+  reference_materials:
+    - "Stanford History Education Group - Civic Online Reasoning"
+    - "First Draft - Essential Guide to Understanding Information Disorder"
+    - "IFLA - How to Spot Fake News"
+
+# 作成日時とバージョン管理
+created: "2025-01-26"
+updated: "2025-01-26"
+license: "Apache-2.0"
