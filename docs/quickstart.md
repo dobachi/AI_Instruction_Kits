@@ -137,13 +137,39 @@ bash setup-project.sh --submodule --force
 チェックポイント機能が自動的に作業を記録：
 
 ```bash
+# タスク開始
+scripts/checkpoint.sh start "ユーザー認証API実装" 5
+
+# 進捗更新
+scripts/checkpoint.sh progress TASK-abc123 3 5 "実装完了" "テスト作成"
+
 # 進捗ログを確認
 cat checkpoint.log
 
 # 出力例：
-[2024-01-05 10:00:00][TASK-abc123][START] ユーザー認証API実装 (推定5ステップ)
-[2024-01-05 10:30:00][TASK-abc123][COMPLETE] 成果: API 3エンドポイント、テスト15個作成
+[2025-07-28 10:00:00] [TASK-abc123] [START] ユーザー認証API実装 (推定5ステップ)
+[2025-07-28 10:30:00] [TASK-abc123] [COMPLETE] 成果: API 3エンドポイント、テスト15個作成
 ```
+
+## 🆕 Claude Code カスタムコマンド
+
+Claude Codeユーザーは専用コマンドが利用可能：
+
+```bash
+# チェックポイント管理
+/checkpoint start "新機能実装" 5
+
+# コミット＆Issue報告
+/commit-and-report "バグ修正完了"
+
+# クリーンコミット（AI署名なし）
+/commit-safe "ドキュメント更新"
+
+# 指示書の再読み込み
+/reload-instructions
+```
+
+これらのコマンドは `setup-project.sh` 実行時に自動的に設定されます。
 
 ## ❓ よくある質問
 

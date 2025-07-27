@@ -42,13 +42,25 @@
 │   │   ├── presets/   # 事前定義された組み合わせ
 │   │   └── templates/ # 生成用テンプレート
 │   └── en/        # 英語モジュール
+├── .claude/       # Claude Code カスタムコマンド（新機能）
+│   └── commands/  # カスタムコマンド定義
+│       ├── checkpoint.md       # チェックポイント管理コマンド
+│       ├── commit-and-report.md # コミット＆Issue報告
+│       ├── commit-safe.md      # クリーンコミット
+│       └── reload-instructions.md # 指示書再読み込み
+├── reports/       # フィードバック・レポート
+│   └── presets/   # プリセット関連レポート
 └── scripts/       # ツール・ユーティリティ
     ├── setup-project.sh        # プロジェクト統合用セットアップスクリプト
-    ├── checkpoint.sh           # チェックポイント管理スクリプト
-    ├── generate-instruction.sh # モジュラー指示書生成スクリプト（新機能）
+    ├── checkpoint.sh           # チェックポイント管理スクリプト（拡張版）
+    ├── generate-instruction.sh # モジュラー指示書生成スクリプト
+    ├── generate-all-presets.sh # 全プリセット一括生成
+    ├── monitor-presets.sh      # プリセット管理・統計
     ├── generate-metadata.sh    # メタデータ生成スクリプト
     ├── search-instructions.sh  # 指示書検索スクリプト
-    └── select-instruction.py   # Pythonベースの指示書選択ツール
+    ├── select-instruction.py   # Pythonベースの指示書選択ツール
+    └── lib/
+        └── i18n.sh            # 国際化対応ライブラリ
 ```
 
 ## 主要ファイル
@@ -56,6 +68,8 @@
 ### AIへの指示書
 - **[instructions/ja/system/ROOT_INSTRUCTION.md](instructions/ja/system/ROOT_INSTRUCTION.md)** - AIが指示書マネージャーとして動作
 - **[instructions/ja/system/INSTRUCTION_SELECTOR.md](instructions/ja/system/INSTRUCTION_SELECTOR.md)** - キーワードベースの自動選択
+- **[instructions/ja/system/CHECKPOINT_MANAGER.md](instructions/ja/system/CHECKPOINT_MANAGER.md)** - チェックポイント管理システム
+- **[instructions/ja/system/MODULE_COMPOSER.md](instructions/ja/system/MODULE_COMPOSER.md)** - モジュラー指示書生成
 
 ### メタデータシステム（新機能）
 各指示書ファイルには対応する`.yaml`メタデータファイルが付随し、高速検索やカテゴリ絞り込みが可能です。
@@ -115,6 +129,30 @@ AI指示書キットは、OpenHands環境を自動的に検出し、専用の指
 - **リソース最適化**: ファイル操作のバッチ処理、キャッシュ活用
 
 OpenHandsを使用する場合、`setup-project.sh`が自動的に`.openhands/microagents/repo.md`を適切な指示書にリンクします。
+
+## Claude Code カスタムコマンド（新機能）
+
+### 概要
+
+Claude Codeユーザー向けの専用カスタムコマンドを提供。プロジェクトのワークフローを効率化します。
+
+### 利用可能なコマンド
+
+| コマンド | 説明 | 使用例 |
+|---------|------|--------|
+| `/checkpoint` | チェックポイント管理 | `/checkpoint start "新機能実装" 5` |
+| `/commit-and-report` | コミット＆Issue報告 | `/commit-and-report "バグ修正完了"` |
+| `/commit-safe` | クリーンコミット（AI署名なし） | `/commit-safe "ドキュメント更新"` |
+| `/reload-instructions` | 指示書の再読み込み | `/reload-instructions` |
+
+### 自動設定
+
+`setup-project.sh`実行時に自動的に`.claude/commands/`ディレクトリが設定されます。
+
+```bash
+# カスタムコマンドも含めて自動設定
+bash scripts/setup-project.sh
+```
 
 ## 使い方
 
@@ -331,6 +369,10 @@ claude "売上データを分析してください"
 ./scripts/generate-instruction.sh \
   --modules core_role_definition task_code_generation skill_error_handling \
   --output custom.md
+
+# AI分析によるモジュール推奨（--metadataオプション）
+./scripts/generate-instruction.sh --metadata \
+  --prompt "RESTful APIとデータベース統合を含むWebサービス開発"
 ```
 
 ### 利用可能なプリセット
@@ -373,6 +415,36 @@ claude "売上データを分析してください"
    ```
 
 詳細は[instructions/ja/system/MODULE_COMPOSER.md](instructions/ja/system/MODULE_COMPOSER.md)を参照してください。
+
+## チェックポイント管理システム（拡張版）
+
+### 概要
+
+タスクの進捗を追跡し、指示書の使用履歴を記録する高度な管理システム。
+
+### 拡張機能
+
+```bash
+# 指示書使用の追跡
+scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api_production.md" "API開発" TASK-123
+scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api_production.md" "3エンドポイント実装" TASK-123
+
+# AI向け簡潔出力モード
+scripts/checkpoint.sh ai pending
+scripts/checkpoint.sh ai progress TASK-123 2 5 "実装中" "テスト作成"
+
+# 使用統計の表示
+scripts/checkpoint.sh stats
+
+# 指示書使用履歴
+scripts/checkpoint.sh history
+```
+
+### ワークフロー制約
+
+- 進捗報告（progress）は指示書使用中のみ可能
+- タスク完了時はすべての指示書が完了している必要がある
+- タスクIDは自動生成され、一貫性を保証
 
 ### フィードバックとレポート
 

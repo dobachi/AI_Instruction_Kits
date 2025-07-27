@@ -111,8 +111,8 @@ claude "分散システムの設計をして"
 AIの動作を制御する基本的な指示書
 
 - **ROOT_INSTRUCTION.md** - 指示書マネージャーとして動作
-- **INSTRUCTION_SELECTOR.md** - キーワードベースの自動選択
-- **CHECKPOINT_MANAGER.md** - 進捗管理システム
+- **CHECKPOINT_MANAGER.md** - 進捗管理システム（拡張版）
+- **MODULE_COMPOSER.md** - モジュラー指示書生成システム
 
 ### 2. 一般タスク (general)
 日常的なタスクに使える汎用指示書
@@ -162,22 +162,38 @@ AIの動作を制御する基本的な指示書
 
 ## 🔧 コア機能
 
-### チェックポイント管理
+### チェックポイント管理（拡張版）
 
-作業の進捗を自動的に記録・追跡
+作業の進捗と指示書の使用履歴を詳細に追跡
 
 ```bash
 # タスク開始
-[1/5] 開始 | 次: 分析
-📌 記録→checkpoint.log: [時刻][タスクID][START] タスク名
+scripts/checkpoint.sh start "新機能実装" 5
+📌 タスクID: TASK-123456-abc123
 
-# 進捗更新
-[3/5] 実装完了 | 次: テスト
-📌 記録→checkpoint.log: 開始時/エラー時/完了時のみ記録
+# 指示書使用の追跡（新機能）
+scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api_production.md" "API開発" TASK-123456-abc123
+scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api_production.md" "3エンドポイント実装" TASK-123456-abc123
 
-# タスク完了
-[✓] 全完了 | 成果: 詳細な成果
+# AI向け簡潔出力モード（新機能）
+scripts/checkpoint.sh ai pending
+scripts/checkpoint.sh ai progress TASK-123456-abc123 2 5 "実装中" "テスト作成"
+
+# 統計表示（新機能）
+scripts/checkpoint.sh stats
+scripts/checkpoint.sh history
 ```
+
+### Claude Code カスタムコマンド（新機能）
+
+Claude Codeユーザー向けの効率化機能：
+
+| コマンド | 説明 | 使用例 |
+|----------|------|--------|
+| `/checkpoint` | チェックポイント管理 | `/checkpoint start "新機能実装" 5` |
+| `/commit-and-report` | コミット＆Issue報告 | `/commit-and-report "バグ修正完了"` |
+| `/commit-safe` | クリーンコミット（AI署名なし） | `/commit-safe "ドキュメント更新"` |
+| `/reload-instructions` | 指示書の再読み込み | `/reload-instructions` |
 
 ### 統合モード
 

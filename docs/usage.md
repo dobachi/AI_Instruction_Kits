@@ -127,6 +127,19 @@ cp templates/ja/instruction_template.md instructions/ja/[category]/my_instructio
 ./scripts/search-instructions.sh -f detail marp
 ```
 
+### 🆕 AI分析によるモジュール推奨
+
+```bash
+# タスクを自然言語で指定してAIが最適なモジュールを推奨
+./scripts/generate-instruction.sh --metadata \
+  --prompt "RESTful APIとデータベース統合を含むWebサービス開発"
+
+# プリセットをカスタマイズ
+./scripts/generate-instruction.sh --preset web_api_production \
+  --modules skill_testing skill_deployment \
+  --variable framework=FastAPI
+```
+
 ### 複合検索
 
 ```bash
@@ -170,32 +183,58 @@ ls -la instructions/**/*.yaml
 - 機密情報は含めない
 ```
 
-## 📊 チェックポイント機能の活用
+## 📊 チェックポイント機能の活用（拡張版）
 
 ### 作業の記録
 
-チェックポイント機能により、以下が自動記録されます：
+チェックポイント機能により、タスクと指示書使用が詳細に記録されます：
 
 ```bash
-# 記録される内容
-[時刻][タスクID][状態] タスク名 (推定ステップ数)
-[時刻][タスクID][COMPLETE] 成果: 具体的な成果
+# タスク管理
+scripts/checkpoint.sh start "新機能実装" 5
+scripts/checkpoint.sh progress TASK-123 3 5 "実装完了" "テスト作成"
+scripts/checkpoint.sh complete TASK-123 "5機能実装、テスト20個作成"
 
-# 確認方法
-cat checkpoint.log
+# 指示書使用の追跡（新機能）
+scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api_production.md" "API開発" TASK-123
+scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api_production.md" "3エンドポイント実装" TASK-123
+
+# AI向け簡潔モード（新機能）
+scripts/checkpoint.sh ai pending
+scripts/checkpoint.sh ai progress TASK-123 3 5 "実装中" "テスト作成"
 ```
 
 ### 進捗の可視化
 
 ```bash
-# 完了タスク数
-grep "COMPLETE" checkpoint.log | wc -l
+# 統計表示（新機能）
+scripts/checkpoint.sh stats
+
+# 指示書使用履歴（新機能）
+scripts/checkpoint.sh history
 
 # 本日の作業
 grep "$(date +%Y-%m-%d)" checkpoint.log
 
-# エラーの確認
-grep "ERROR" checkpoint.log
+# タスクの詳細
+scripts/checkpoint.sh summary TASK-123
+```
+
+## 🆕 Claude Code カスタムコマンド
+
+Claude Codeユーザーは以下のコマンドが利用可能：
+
+```bash
+# チェックポイント管理
+/checkpoint start "新機能実装" 5
+/checkpoint progress 3 5 "実装完了" "テスト作成"
+
+# コミット関連
+/commit-and-report "バグ修正完了"  # コミット＆Issue報告
+/commit-safe "ドキュメント更新"    # クリーンコミット（AI署名なし）
+
+# 指示書管理
+/reload-instructions  # 指示書の再読み込み
 ```
 
 ## 🔍 トラブルシューティング
