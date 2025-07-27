@@ -9,38 +9,58 @@ lang: ja
 
 このセクションには、AI指示書キットの新機能や改善に関する提案ドキュメントが含まれています。
 
-## 📋 提案一覧
+## 🔥 アクティブな提案（current/）
 
-### [学術モジュール実装計画](academic_modules_implementation_plan.html)
-学術論文執筆支援のための5つの新モジュール（academic_writing、citation_management、literature_review、research_methodology、thesis_writing）の実装計画です。これらのモジュールは、研究者や学生がAIを活用して高品質な学術論文を執筆するための包括的な支援を提供します。
+### 最優先・最新
+- [システム設計総合まとめ](current/comprehensive_system_design_summary.md) - **最新の統合設計** 
+  - ペルソナ・タスク分離による汎用化
+  - AI自律実行の実現
+  - 段階的な実装計画
+  - **関連Issue**: [#66](https://github.com/dobachi/AI_Instruction_Kits/issues/66)
 
-**関連Issue**: [#25](https://github.com/dobachi/AI_Instruction_Kits/issues/25)
+- [AI自律実行システム](current/ai_autonomous_instruction_generation.md) - AIによる自動的な指示書生成・実行
+  - セミオート型（提案→承認→実行）を推奨
+  - 透明性と制御性のバランス
 
-### [AI駆動型モジュラーシステム](ai_driven_modular_system.html)
-AIを活用したモジュール自動生成・最適化システムの提案です。機械学習を用いてユーザーの使用パターンを分析し、最適なモジュール構成を自動的に提案・生成する機能を実現します。
+- [3システム分離設計](current/three_systems_separation_design.md) - チェックポイント・モジュラー・並列処理の分離
+  - 各システムの独立性確保
+  - 段階的な実装アプローチ
 
-### [分散型メタデータシステム](distributed_metadata_system.html)
-各指示書モジュールのメタデータを分散管理し、効率的な検索・フィルタリング・依存関係管理を実現するシステムの提案です。YAMLベースの軽量なメタデータ管理により、大規模なモジュールライブラリの運用を可能にします。
+### 実装計画
+- [学術研究モジュール実装計画](current/academic_modules_implementation_plan.md) - 学術研究支援のためのモジュール
+  - **関連Issue**: [#25](https://github.com/dobachi/AI_Instruction_Kits/issues/25)
 
-### [モジュラー高度機能](modular_advanced_features.html)
-モジュラーシステムの高度な拡張機能の提案です。動的モジュール合成、条件付きモジュール読み込み、モジュール間通信、バージョン管理など、エンタープライズレベルの要求に対応する機能を含みます。
+- [指示書システム再構築提案](current/instructions_system_restructure.md) - システム全体の再構築案
 
-**関連Issue**: [#13](https://github.com/dobachi/AI_Instruction_Kits/issues/13)
+- [モジュラーシステム高度機能](current/modular_advanced_features.md) - 高度な機能の追加計画
+  - **関連Issue**: [#13](https://github.com/dobachi/AI_Instruction_Kits/issues/13)
 
-### [モジュラーシステムのトークン数削減](modular_token_reduction.html)
-モジュラーシステムで生成される指示書のトークン数が過大になる問題に対する解決策の提案と実装計画です。簡潔版モジュールの導入により、AIモデルの制限内で効率的に動作する最適化されたシステムを実現します。
+- [v1からv2への移行戦略](current/v1_to_v2_migration_strategy.md) - メジャーバージョンアップ計画
 
-**関連Issue**: [#35](https://github.com/dobachi/AI_Instruction_Kits/issues/35)
+### その他
+- [ファイル整理計画](file_organization_plan.md) - このディレクトリの整理計画
+  - **関連Issue**: [#67](https://github.com/dobachi/AI_Instruction_Kits/issues/67)
 
-### [モジュラーファイル命名規則の改訂](modular_file_naming_revision.html)
-簡潔版をデフォルトとする設計思想に基づき、モジュールファイルの命名規則を改訂する提案です。標準ファイル名で簡潔版、`_detailed`サフィックスで詳細版とすることで、より直感的で効率的なシステムを実現します。
+## 📚 アーカイブ
 
-**関連Issue**: [#35](https://github.com/dobachi/AI_Instruction_Kits/issues/35)
+### ✅ 実装完了（completed/）
+過去に提案され、すでに実装が完了したもの：
+- [Claude Codeカスタムコマンド](../proposals_archive/completed/)
+- [モジュールファイル命名規則改訂](../proposals_archive/completed/)
+- [モジュールドキュメント統合計画](../proposals_archive/completed/)
 
-### [OpenHandsでオープンソースモデルを使用するガイド](openhands_oss_models.html)
-OpenHandsで無料のオープンソースLLMモデル（Llama 3.1、Gemma 2、Qwen2.5など）を使用する方法の包括的なガイドです。Ollama、Groq、Google AI Studioなどを活用し、商用APIに依存せずにAI支援開発を実現する実践的な設定方法を提供します。
+### 🔄 統合済み（superseded/）
+新しい提案に統合されたもの：
+- チェックポイントシステム詳細設計 → 総合まとめに統合
+- モジュラーシステム詳細設計 → 総合まとめに統合
+- 並列処理アプローチ検討 → 総合まとめに統合
+- タスクテンプレート設計 → AI自律実行システムに統合
 
-**関連Issue**: [#38](https://github.com/dobachi/AI_Instruction_Kits/issues/38)
+### 🧪 実験的・参考（experimental/）
+研究や参考のために保存：
+- 初期アイデア、分析レポート
+- 外部ツール連携の検討
+- 各種課題の詳細分析
 
 ## 🚀 新しい提案の作成
 
@@ -49,7 +69,19 @@ OpenHandsで無料のオープンソースLLMモデル（Llama 3.1、Gemma 2、Q
 1. [GitHubでIssueを作成](https://github.com/dobachi/AI_Instruction_Kits/issues/new)
 2. 提案の詳細をMarkdown形式でドキュメント化
 3. `docs/proposals/`ディレクトリに配置
-4. このindex.mdファイルに追加
+4. レビュー後、適切なディレクトリへ移動
+
+## 📋 提案書ステータス管理
+
+各提案書の先頭にYAMLフロントマターでステータスを記載：
+```yaml
+---
+status: draft|review|active|completed|superseded
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+superseded_by: [ファイル名]  # 置き換えられた場合
+---
+```
 
 ## 📚 関連リンク
 
