@@ -288,11 +288,13 @@ vi templates/ja/PROJECT_TEMPLATE.md
 vi templates/en/PROJECT_TEMPLATE.md
 ```
 
-## Preset System (Fast Response)
+## Preset System (Fast Response, Top Priority)
 
 ### Overview
 
 Presets are pre-generated instructions optimized for common tasks. Compared to dynamic generation, they can be used immediately, significantly reducing response time.
+
+**Important**: AI uses presets with top priority for standard tasks. The modular system is used only when customization is needed.
 
 ### Available Presets
 

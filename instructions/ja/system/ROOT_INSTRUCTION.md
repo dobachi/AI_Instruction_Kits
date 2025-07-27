@@ -20,14 +20,10 @@
    - → 必ず `scripts/checkpoint.sh start <task-name> <steps>` でタスクを開始
    - → 自動生成されたタスクIDを以降のコマンドで使用
    - → その後、適切な指示書を選択・読み込み
-5. **【重要】まずモジュラーシステムの使用を検討してください**：
-   - コード作成、Webサイト構築、API開発などの実装タスクの場合
-   - → **必ず以下の手順を実行**:
-     1. `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md` を読み込み
-     2. `generate-instruction.sh` で指示書を生成
-     3. **【必須】生成された指示書を読み込み（`cat modular/cache/生成されたファイル名.md`）**
-     4. 読み込んだ指示書の内容に従ってタスクを実行
-   - 単純な質問応答や説明の場合のみ、既存の単一指示書を使用
+5. **【重要】まずプリセットの使用を検討してください**：
+   - 標準的なタスク（Web API、CLI、データ分析等）の場合
+   - → **プリセットを即座に使用（生成不要・0秒で開始）**
+   - カスタマイズが必要な場合のみモジュラーシステムを使用
 6. **【必須】指示書使用時の記録と読み込み**：
    - 指示書使用開始を記録：
      ```bash
@@ -60,14 +56,8 @@
 
 ## 利用可能な指示書
 
-### 🔥 最優先システム
-- `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md` - **モジュラー指示書生成（実装タスクではこれを使用）**
-  - Webサイト作成、API開発、CLI作成、データ処理など
-  - 複数の要件を組み合わせたカスタマイズが可能
-  - デフォルト値により最小限の設定で使用可能
-
-### 🎯 事前生成プリセット（高速・推奨）
-**標準的なタスクには以下のプリセットを優先使用してください：**
+### 🎯 事前生成プリセット（高速・最優先）
+**標準的なタスクには以下のプリセットを最優先で使用してください（0秒で開始）：**
 - `instructions/ai_instruction_kits/instructions/ja/presets/web_api_production.md` - Web API開発
 - `instructions/ai_instruction_kits/instructions/ja/presets/cli_tool_basic.md` - CLIツール開発
 - `instructions/ai_instruction_kits/instructions/ja/presets/data_analyst.md` - データ分析
@@ -76,6 +66,13 @@
 - `instructions/ai_instruction_kits/instructions/ja/presets/business_consultant.md` - ビジネスコンサル
 - `instructions/ai_instruction_kits/instructions/ja/presets/project_manager.md` - プロジェクト管理
 - `instructions/ai_instruction_kits/instructions/ja/presets/startup_advisor.md` - スタートアップ支援
+
+### 🔥 モジュラーシステム（カスタマイズが必要な場合）
+- `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md` - **モジュラー指示書生成**
+  - プリセットで対応できない特殊要件
+  - 複数の要件を組み合わせたカスタマイズが必要
+  - 特殊なスキルセットが必要な場合
+
 
 ### システム管理
 - `instructions/ai_instruction_kits/instructions/ja/system/CHECKPOINT_MANAGER.md` - 進捗報告管理（必須）
@@ -126,27 +123,30 @@
 
 ## 例
 
-### 🔥 モジュラーシステムの例（最優先）
-ユーザー: 「Webサイトを作成してください」
-→ **即座にMODULE_COMPOSERを使用**:
+### 🎯 プリセット優先の例（最速）
+ユーザー: 「REST APIを作成してください」
+→ **プリセットを即座に使用**:
+1. `instructions/ai_instruction_kits/instructions/ja/presets/web_api_production.md`を読み込み
+2. 指示書に従ってAPI実装（生成不要・即座に開始）
+
+ユーザー: 「PythonでCLIツールを作って」
+→ **プリセットを即座に使用**:
+1. `instructions/ai_instruction_kits/instructions/ja/presets/cli_tool_basic.md`を読み込み
+2. 指示書に従ってCLIツール実装（生成不要・即座に開始）
+
+### 🔥 モジュラーシステムの例（カスタマイズが必要な場合）
+ユーザー: 「機械学習APIでA/Bテスト機能付き」
+→ **特殊要件のためMODULE_COMPOSERを使用**:
 1. `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md`を読み込み
 2. メタデータを取得して最適なモジュールを選択
 3. `generate-instruction.sh`でカスタマイズされた指示書を生成
-4. **【必須】`cat modular/cache/website_builder.md`で生成された指示書を読み込み**
-5. 読み込んだ指示書に従ってWebサイトを実装
-
-ユーザー: 「PythonでCLIツールを作って」
-→ **即座にMODULE_COMPOSERを使用**:
-1. MODULE_COMPOSERで要件分析
-2. 必要なモジュールを自動選択
-3. `generate-instruction.sh`で指示書を生成
-4. **【必須】`cat modular/cache/cli_tool.md`で生成された指示書を読み込み**
-5. 読み込んだ指示書に従ってCLIツールを実装
+4. **【必須】生成された指示書を読み込み**
+5. 読み込んだ指示書に従って実装
 
 ### 単一指示書の例（モジュラーシステムを使わない場合）
 ユーザー: 「このコードをレビューしてください」
 → 必要な指示書:
-1. `instructions/ai_instruction_kits/instructions/ja/agent/code_reviewer.md`
+1. `instructions/ai_instruction_kits/instructions/ja/legacy/agent/code_reviewer.md`
 
 ユーザー: 「この質問に答えてください」
 → 必要な指示書:
