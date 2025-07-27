@@ -147,47 +147,38 @@ claude_code_task() {
 4. 改善提案を含める
 
 出力形式：
-```yaml
-quality_report:
-  total_files: <number>
-  issues:
-    high:
-      - file: <path>
-        issue: <description>
-        suggestion: <improvement>
-    medium:
-      - ...
-  summary:
-    pass_rate: <percentage>
-    common_issues: [list]
-```
+YAML形式で以下の構造：
+- quality_report:
+  - total_files: ファイル総数
+  - issues:
+    - high: 重大な問題のリスト
+    - medium: 中程度の問題のリスト
+  - summary:
+    - pass_rate: 合格率（パーセンテージ）
+    - common_issues: よくある問題のリスト
 EOF
 }
 ```
 
 ### 5.2 カスタムスラッシュコマンドの実装案
 
-```markdown
-# /analyze-instructions コマンド
+**コマンド名**: `/analyze-instructions`
 
-## 概要
-指示書の包括的な分析を実行するカスタムコマンド
+**概要**: 指示書の包括的な分析を実行するカスタムコマンド
 
-## 使用方法
-```
+**使用方法**:
+```bash
 /analyze-instructions [options]
 ```
 
-## オプション
+**オプション**:
 - `--duplicates`: 重複検出モード
 - `--quality`: 品質チェックモード
 - `--suggest`: 改善提案モード
 - `--all`: すべての分析を実行
 
-## 実装
-Taskツールを使用してサブエージェントを起動し、
-指定されたモードに応じた分析を実行
-```
+**実装方針**:
+Taskツールを使用してサブエージェントを起動し、指定されたモードに応じた分析を実行
 
 ### 5.3 CI/CD統合例
 
