@@ -15,9 +15,14 @@ Execute commit, push, and issue report operations in a single command. This cust
 ## Execution Details
 
 1. **Git operations**
-   - Add all changes: `git add -A`
+   - Check current status: `git status`
+   - Add changes in current directory: `git add .`
    - Commit with the provided message
    - Push to remote repository
+   
+   ⚠️ **Warning**: `git add .` only targets files in the current directory and below.
+   To target the entire repository, run from the project root or
+   explicitly specify files to add.
 
 2. **Issue reporting** (if issue number provided)
    - Add a comment to the specified GitHub issue
