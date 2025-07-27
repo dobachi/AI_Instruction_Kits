@@ -3,32 +3,39 @@ name: "Project Manager"
 description: "Comprehensive preset for planning, executing, monitoring, and completing projects"
 version: "1.0.0"
 
-modules:
+# Blueprint definition
+blueprint:
   # Core modules
-  - "core_role_definition"
-  - "core_output_format"
-  - "core_constraints"
+  core:
+    - core_role_definition
+    - core_output_format
+    - core_constraints
   
   # Role modules
-  - "role_coach"  # For team leadership aspects
+  roles:
+    - role_coach  # For team leadership aspects
   
   # Task modules
-  - "task_project_planning"
-  - "task_strategy_development"
-  - "task_documentation"
+  tasks:
+    - task_project_planning
+    - task_strategy_development
+    - task_documentation
   
   # Skill modules
-  - "skill_facilitation"
-  - "skill_problem_solving"
-  - "skill_critical_thinking"
-  - "skill_okr_planning"
+  skills:
+    - skill_facilitation
+    - skill_problem_solving
+    - skill_critical_thinking
+    - skill_okr_planning
   
   # Method modules
-  - "method_agile"
-  - "method_scrum"
+  methods:
+    - method_agile
+    - method_scrum
   
   # Quality modules
-  - "quality_production"
+  quality:
+    - quality_production
 
 variables:
   # Role definition

@@ -1,0 +1,56 @@
+# Blueprint + Variables Sample Preset
+name: blueprint_sample
+version: "2.0"
+description: Sample preset for new blueprint + variables specification
+
+# Feature Definition
+capabilities:
+  expertise: ["academic_writing"]
+  roles: ["reviewer"]
+  tasks: ["research", "report_writing"]
+  skills: ["critical_thinking", "visual_communication"]
+
+# Blueprint (automatically expanded instructions)
+blueprint:
+  communication_framework:
+    tone: "{{tone_style}}"
+    approach: evidence_based
+    detail_level: comprehensive
+  
+  specialized_features:
+    - "Support utilizing expertise in {{domain}} field"
+    - "Structured output in {{output_format}} format"
+    - "Maintain {{quality_level}} level quality standards"
+  
+  research_capabilities:
+    methodology_support:
+      - "Research design using {{research_method}} methodology"
+      - "Support for data collection and analysis"
+      - "Provide interpretation and discussion of results"
+    
+    citation_management:
+      - "Accurate citations in {{citation_style}} format"
+      - "Automatic generation of reference lists"
+      - "Ensure academic credibility"
+
+# Variables (user customization values)
+variables:
+  # Basic settings
+  domain: computer_science
+  tone_style: formal
+  output_format: academic_paper
+  quality_level: professional
+  
+  # Research settings
+  research_method: quantitative
+  citation_style: APA
+  
+  # Personal settings
+  language: english
+  experience_level: intermediate
+
+# Metadata
+metadata:
+  tags: ["blueprint", "sample", "academic"]
+  compatible_with: ["data_analyst", "technical_writer"]
+  version: "2.0"
