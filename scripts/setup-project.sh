@@ -1127,7 +1127,7 @@ if [ -d ".claude/commands" ] || [ "$DRY_RUN" = true ]; then
     MSG_COPY_CLAUDE_COMMANDS=$(get_message "copy_claude_commands" "Copying Claude Code command files" "Claude Codeコマンドファイルをコピー")
     echo "🔗 $MSG_COPY_CLAUDE_COMMANDS..."
     
-    claude_commands=("commit-and-report.md" "checkpoint.md" "reload-instructions.md")
+    claude_commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md")
     
     for cmd_file in "${claude_commands[@]}"; do
         local src=""
@@ -1310,6 +1310,7 @@ else
     echo "  .claude/"
     echo "    └── commands/"
     echo "        ├── commit-and-report.md → ../../templates/claude-commands/commit-and-report.md"
+    echo "        ├── commit-safe.md → ../../templates/claude-commands/commit-safe.md"
     echo "        ├── checkpoint.md → ../../templates/claude-commands/checkpoint.md"
     echo "        └── reload-instructions.md → ../../templates/claude-commands/reload-instructions.md"
     echo ""
