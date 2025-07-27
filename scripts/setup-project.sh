@@ -387,9 +387,14 @@ sync_claude_commands() {
     for cmd_file in "${claude_commands[@]}"; do
         local src=""
         local dst=".claude/commands/$cmd_file"
+        local lang=$(get_current_language)
         
-        # ソースファイルの検索
-        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
+        # 言語別ファイルを優先的に検索
+        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file" ]; then
+            src="instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file"
+        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$lang/$cmd_file" ]; then
+            src="${SCRIPT_DIR}/../templates/claude-commands/$lang/$cmd_file"
+        elif [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
             src="instructions/ai_instruction_kits/templates/claude-commands/$cmd_file"
         elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
             src="${SCRIPT_DIR}/../templates/claude-commands/$cmd_file"
