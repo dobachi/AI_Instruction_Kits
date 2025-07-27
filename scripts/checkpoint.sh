@@ -24,6 +24,62 @@ ACTION=$1
 # 現在時刻取得
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
+# AI実行検出関数
+detect_ai_execution() {
+    # 1. 環境変数チェック
+    if [ "$CHECKPOINT_AI_MODE" = "true" ]; then
+        return 0  # AI実行
+    fi
+    
+    # 2. 実行パターン検出（1分以内の連続実行）
+    local last_run_file=".checkpoint_last_run"
+    local current_time=$(date +%s)
+    
+    if [ -f "$last_run_file" ]; then
+        local last_time=$(cat "$last_run_file")
+        local diff=$((current_time - last_time))
+        
+        if [ $diff -lt 60 ]; then
+            # 1分以内の再実行はAI実行と判定
+            echo $current_time > "$last_run_file"
+            return 0  # AI実行
+        fi
+    fi
+    
+    echo $current_time > "$last_run_file"
+    return 1  # 人間実行
+}
+
+# Claude Codeコマンドの更新チェック関数
+check_claude_command_updates() {
+    local updates_available=false
+    local update_files=()
+    
+    # .claude/commands ディレクトリが存在する場合のみチェック
+    if [ ! -d ".claude/commands" ]; then
+        return
+    fi
+    
+    for cmd in checkpoint.md commit-and-report.md reload-instructions.md; do
+        src="$SCRIPT_DIR/../templates/claude-commands/$cmd"
+        dst=".claude/commands/$cmd"
+        
+        if [ -f "$src" ] && [ -f "$dst" ]; then
+            if ! diff -q "$src" "$dst" > /dev/null 2>&1; then
+                updates_available=true
+                update_files+=("$cmd")
+            fi
+        fi
+    done
+    
+    if [ "$updates_available" = true ]; then
+        MSG_CLAUDE_UPDATE=$(get_message "claude_update" "Claude Code commands have updates" "Claude Codeコマンドに更新があります")
+        MSG_RUN_SYNC=$(get_message "run_sync" "Run" "実行")
+        echo "📢 $MSG_CLAUDE_UPDATE: ${update_files[*]}"
+        echo "   $MSG_RUN_SYNC: ./scripts/setup-project.sh --sync-claude-commands"
+    fi
+}
+
 case "$ACTION" in
     "start")
         TASK_ID=$2
@@ -95,22 +151,29 @@ case "$ACTION" in
         
     "instruction-start")
         INSTRUCTION_PATH=$2
-        TASK_ID=$3
+        PURPOSE=$3
+        TASK_ID=$4
         
         # 現在のタスクIDを取得（未指定の場合は最新のタスクから）
         if [ -z "$TASK_ID" ] && [ -f "$CHECKPOINT_LOG" ]; then
-            TASK_ID=$(grep "\[START\]" "$CHECKPOINT_LOG" | tail -1 | sed 's/.*\[\([^]]*\)\]\[START\].*/\1/')
+            # 最新のSTARTエントリからタスクIDを抽出
+            LATEST_START=$(grep "] \[START\]" "$CHECKPOINT_LOG" | tail -1)
+            TASK_ID=$(echo "$LATEST_START" | sed 's/.*\] \[\([^]]*\)\] \[START\].*/\1/')
         fi
         
         # 標準出力
         MSG_INSTRUCTION_START=$(get_message "instruction_start" "Starting instruction" "指示書使用開始")
         MSG_RECORDED=$(get_message "recorded" "Recorded to" "記録→")
+        MSG_PURPOSE=$(get_message "purpose" "Purpose" "目的")
         
         echo "\`📚 $MSG_INSTRUCTION_START: $(basename "$INSTRUCTION_PATH")\`"
-        echo "\`📌 $MSG_RECORDED$CHECKPOINT_LOG: [$TIMESTAMP][$TASK_ID][INSTRUCTION_START] $INSTRUCTION_PATH\`"
+        if [ -n "$PURPOSE" ]; then
+            echo "\`   $MSG_PURPOSE: $PURPOSE\`"
+        fi
+        echo "\`📌 $MSG_RECORDED$CHECKPOINT_LOG: [$TIMESTAMP][$TASK_ID][INSTRUCTION_START] $INSTRUCTION_PATH${PURPOSE:+ - $PURPOSE}\`"
         
         # ログファイルに記録
-        echo "[$TIMESTAMP] [$TASK_ID] [INSTRUCTION_START] $INSTRUCTION_PATH" >> "$CHECKPOINT_LOG"
+        echo "[$TIMESTAMP] [$TASK_ID] [INSTRUCTION_START] $INSTRUCTION_PATH${PURPOSE:+ - $PURPOSE}" >> "$CHECKPOINT_LOG"
         ;;
         
     "instruction-complete")
@@ -120,7 +183,9 @@ case "$ACTION" in
         
         # 現在のタスクIDを取得（未指定の場合は最新のタスクから）
         if [ -z "$TASK_ID" ] && [ -f "$CHECKPOINT_LOG" ]; then
-            TASK_ID=$(grep "\[START\]" "$CHECKPOINT_LOG" | tail -1 | sed 's/.*\[\([^]]*\)\]\[START\].*/\1/')
+            # 最新のSTARTエントリからタスクIDを抽出
+            LATEST_START=$(grep "] \[START\]" "$CHECKPOINT_LOG" | tail -1)
+            TASK_ID=$(echo "$LATEST_START" | sed 's/.*\] \[\([^]]*\)\] \[START\].*/\1/')
         fi
         
         # 標準出力
@@ -136,6 +201,9 @@ case "$ACTION" in
         
     "status"|"")
         # 引数なしまたはstatusの場合、現在の状態を表示
+        # Claude Codeコマンドの更新チェック（status時のみ）
+        check_claude_command_updates
+        
         if [ -f "$CHECKPOINT_LOG" ]; then
             # 最新のタスク情報を取得
             LATEST_TASK=$(grep -E "\[START\]|\[COMPLETE\]|\[ERROR\]" "$CHECKPOINT_LOG" | tail -1)
@@ -206,7 +274,7 @@ case "$ACTION" in
         echo "  $0 progress <current-step> <total-steps> <status> <next-action>"
         echo "  $0 error <task-id> <error-message>"
         echo "  $0 complete <task-id> <result>"
-        echo "  $0 instruction-start <instruction-path> [task-id]  # $MSG_INSTRUCTION_USAGE"
+        echo "  $0 instruction-start <instruction-path> [purpose] [task-id]  # $MSG_INSTRUCTION_USAGE"
         echo "  $0 instruction-complete <instruction-path> <result> [task-id]"
         echo ""
         echo "$MSG_EXAMPLE:"
@@ -214,7 +282,7 @@ case "$ACTION" in
         echo "  $0 progress 2 5 '$MSG_IMPL_COMPLETE' '$MSG_CREATE_TESTS'"
         echo "  $0 error TASK-abc123 '$MSG_DEP_ERROR'"
         echo "  $0 complete TASK-abc123 '$MSG_APIS_TESTS'"
-        echo "  $0 instruction-start 'instructions/ja/presets/web_api_production.md'"
+        echo "  $0 instruction-start 'instructions/ja/presets/web_api_production.md' 'REST API開発'"
         echo "  $0 instruction-complete 'instructions/ja/presets/web_api_production.md' 'API実装完了'"
         exit 1
         ;;

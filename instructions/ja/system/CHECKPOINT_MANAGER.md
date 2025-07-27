@@ -18,6 +18,11 @@
 
 3. **タスク開始/エラー/完了時は自動的にログファイルに記録される**
 
+4. **指示書使用時の記録（必須）**
+   - 指示書を読み込む前に `instruction-start` で記録
+   - 指示書に基づく作業完了後に `instruction-complete` で記録
+   - これにより、どの指示書を使用して作業したかが追跡可能
+
 ## スクリプトの使用方法
 
 ### タスク開始時
@@ -44,6 +49,18 @@ scripts/checkpoint.sh complete <task-id> <result>
 # 例: scripts/checkpoint.sh complete TASK-abc123 "API 3つ、テスト10個作成"
 ```
 
+### 指示書使用開始時
+```bash
+scripts/checkpoint.sh instruction-start <instruction-path> <purpose> [task-id]
+# 例: scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api_production.md" "REST API開発"
+```
+
+### 指示書使用完了時
+```bash
+scripts/checkpoint.sh instruction-complete <instruction-path> <result> [task-id]
+# 例: scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api_production.md" "3エンドポイント実装"
+```
+
 ## 実装例
 
 ```
@@ -61,6 +78,17 @@ $ scripts/checkpoint.sh progress 2 4 "実装完了" "テスト作成"
 $ scripts/checkpoint.sh complete TASK-7f9a2b "関数1つ、テスト3つ"
 `[✓] 全完了 | 成果: 関数1つ、テスト3つ`
 `📌 記録→checkpoint.log: [2025-07-03 19:05:00][TASK-7f9a2b][COMPLETE] 成果: 関数1つ、テスト3つ`
+
+# 指示書使用開始
+$ scripts/checkpoint.sh instruction-start "instructions/ja/presets/cli_tool_basic.md" "CLIツール開発"
+`📚 指示書使用開始: cli_tool_basic.md`
+`   目的: CLIツール開発`
+`📌 記録→checkpoint.log: [2025-07-03 19:01:00][TASK-7f9a2b][INSTRUCTION_START] instructions/ja/presets/cli_tool_basic.md - CLIツール開発`
+
+# 指示書使用完了
+$ scripts/checkpoint.sh instruction-complete "instructions/ja/presets/cli_tool_basic.md" "基本機能実装完了"
+`✅ 指示書使用完了: cli_tool_basic.md`
+`📌 記録→checkpoint.log: [2025-07-03 19:04:00][TASK-7f9a2b][INSTRUCTION_COMPLETE] instructions/ja/presets/cli_tool_basic.md - 基本機能実装完了`
 ```
 
 ## 重要な注意事項

@@ -16,6 +16,7 @@ DRY_RUN=false
 BACKUP_MODE=true
 INTEGRATION_MODE=""
 SELECTED_MODE=""
+SYNC_CLAUDE_COMMANDS_ONLY=false
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -44,6 +45,9 @@ while [[ "$#" -gt 0 ]]; do
             ;;
         --no-backup)
             BACKUP_MODE=false
+            ;;
+        --sync-claude-commands|--sync-claude)
+            SYNC_CLAUDE_COMMANDS_ONLY=true
             ;;
         --help|-h)
             MSG_USAGE=$(get_message "usage" "Usage" "使用方法")
@@ -94,6 +98,8 @@ $MSG_OPTIONS:
   -f, --force      $MSG_NO_CONFIRM
   -n, --dry-run    $MSG_DRY_RUN
   --no-backup      $MSG_NO_BACKUP
+  --sync-claude-commands, --sync-claude
+                   $(get_message "sync_claude_commands" "Sync Claude Code custom commands only" "Claude Codeカスタムコマンドの同期のみ実行")
   -h, --help       $MSG_SHOW_HELP
 
 $MSG_MODE_DETAILS:
@@ -353,6 +359,123 @@ setup_submodule_mode() {
         echo "✅ $MSG_SUBMODULE_ADDED"
     fi
 }
+
+# Claude Codeコマンドの同期
+sync_claude_commands() {
+    MSG_SYNC_CLAUDE=$(get_message "sync_claude_commands_msg" "Syncing Claude Code custom commands" "Claude Codeカスタムコマンドを同期中")
+    echo "🔄 $MSG_SYNC_CLAUDE..."
+    
+    # .claudeディレクトリの存在確認
+    if [ ! -d ".claude/commands" ]; then
+        MSG_NO_CLAUDE_DIR=$(get_message "no_claude_dir" ".claude/commands directory not found" ".claude/commandsディレクトリが見つかりません")
+        echo "⚠️  $MSG_NO_CLAUDE_DIR"
+        
+        MSG_CREATE_CLAUDE_DIR=$(get_message "create_claude_dir" "Create .claude/commands directory?" ".claude/commandsディレクトリを作成しますか？")
+        if confirm "$MSG_CREATE_CLAUDE_DIR"; then
+            mkdir -p .claude/commands
+            MSG_CLAUDE_DIR_CREATED=$(get_message "claude_dir_created" ".claude/commands directory created" ".claude/commandsディレクトリを作成しました")
+            echo "✅ $MSG_CLAUDE_DIR_CREATED"
+        else
+            return
+        fi
+    fi
+    
+    local claude_commands=("commit-and-report.md" "checkpoint.md" "reload-instructions.md")
+    local updated_count=0
+    local skipped_count=0
+    
+    for cmd_file in "${claude_commands[@]}"; do
+        local src=""
+        local dst=".claude/commands/$cmd_file"
+        
+        # ソースファイルの検索
+        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
+            src="instructions/ai_instruction_kits/templates/claude-commands/$cmd_file"
+        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
+            src="${SCRIPT_DIR}/../templates/claude-commands/$cmd_file"
+        else
+            MSG_SRC_NOT_FOUND=$(get_message "src_not_found" "Source file not found" "ソースファイルが見つかりません")
+            echo "⚠️  $MSG_SRC_NOT_FOUND: $cmd_file"
+            continue
+        fi
+        
+        # 差分チェック（シンボリックリンクチェック含む）
+        if [ -e "$dst" ] || [ -L "$dst" ]; then
+            if [ -L "$dst" ]; then
+                MSG_MIGRATE_SYMLINK=$(get_message "migrate_symlink" "Migrate symbolic link to file?" "シンボリックリンクをファイルに移行しますか？")
+                echo "🔄 $cmd_file はシンボリックリンクです"
+                if confirm "$MSG_MIGRATE_SYMLINK"; then
+                    if [ "$DRY_RUN" = true ]; then
+                        dry_echo "rm $dst && cp $src $dst"
+                    else
+                        rm "$dst"
+                        cp "$src" "$dst"
+                    fi
+                    MSG_MIGRATED=$(get_message "migrated" "migrated to file" "をファイルに移行しました")
+                    echo "✅ $cmd_file $MSG_MIGRATED"
+                    updated_count=$((updated_count + 1))
+                else
+                    skipped_count=$((skipped_count + 1))
+                fi
+                continue
+            fi
+            
+            if diff -q "$src" "$dst" > /dev/null 2>&1; then
+                MSG_UP_TO_DATE=$(get_message "up_to_date" "is up to date" "は最新です")
+                echo "✓ $cmd_file $MSG_UP_TO_DATE"
+                skipped_count=$((skipped_count + 1))
+                continue
+            fi
+            
+            # 更新確認
+            echo ""
+            MSG_UPDATE_AVAILABLE=$(get_message "update_available" "has updates" "に更新があります")
+            echo "📝 $cmd_file $MSG_UPDATE_AVAILABLE"
+            MSG_UPDATE_FILE=$(get_message "update_file" "Update?" "更新しますか？")
+            if confirm "$MSG_UPDATE_FILE"; then
+                backup_file "$dst"
+                if [ "$DRY_RUN" = true ]; then
+                    dry_echo "cp $src $dst"
+                else
+                    cp "$src" "$dst"
+                fi
+                MSG_UPDATED=$(get_message "updated" "updated" "を更新しました")
+                echo "✅ $cmd_file $MSG_UPDATED"
+                updated_count=$((updated_count + 1))
+            else
+                MSG_UPDATE_SKIPPED=$(get_message "update_skipped" "update skipped" "の更新をスキップしました")
+                echo "⏭️  $cmd_file $MSG_UPDATE_SKIPPED"
+                skipped_count=$((skipped_count + 1))
+            fi
+        else
+            MSG_NOT_EXISTS=$(get_message "not_exists" "does not exist" "が存在しません")
+            echo "📝 $cmd_file $MSG_NOT_EXISTS"
+            MSG_CREATE_FILE=$(get_message "create_file" "Create?" "作成しますか？")
+            if confirm "$MSG_CREATE_FILE"; then
+                if [ "$DRY_RUN" = true ]; then
+                    dry_echo "cp $src $dst"
+                else
+                    cp "$src" "$dst"
+                fi
+                MSG_CREATED=$(get_message "created" "created" "を作成しました")
+                echo "✅ $cmd_file $MSG_CREATED"
+                updated_count=$((updated_count + 1))
+            fi
+        fi
+    done
+    
+    echo ""
+    MSG_SYNC_COMPLETE=$(get_message "sync_complete" "Sync complete" "同期完了")
+    MSG_UPDATED_COUNT=$(get_message "updated_count" "updated" "更新")
+    MSG_SKIPPED_COUNT=$(get_message "skipped_count" "skipped" "スキップ")
+    echo "📊 $MSG_SYNC_COMPLETE: $MSG_UPDATED_COUNT $updated_count 件、$MSG_SKIPPED_COUNT $skipped_count 件"
+}
+
+# --sync-claude-commands が指定された場合
+if [ "$SYNC_CLAUDE_COMMANDS_ONLY" = true ]; then
+    sync_claude_commands
+    exit 0
+fi
 
 MSG_SETUP_START=$(get_message "setup_start" "Setting up AI instructions with flexible configuration" "AI指示書を柔軟な構成でセットアップします")
 echo "🚀 $MSG_SETUP_START..."
@@ -993,65 +1116,70 @@ else
     echo "✓ $MSG_CLAUDE_COMMANDS_DIR_EXISTS"
 fi
 
-# Claude Codeコマンドのシンボリックリンク作成
+# Claude Codeコマンドのファイルコピー
 if [ -d ".claude/commands" ] || [ "$DRY_RUN" = true ]; then
     echo ""
-    MSG_CREATE_CLAUDE_COMMAND_LINKS=$(get_message "create_claude_command_links" "Creating symbolic links for Claude Code commands" "Claude Codeコマンドのシンボリックリンクを作成")
-    echo "🔗 $MSG_CREATE_CLAUDE_COMMAND_LINKS..."
+    MSG_COPY_CLAUDE_COMMANDS=$(get_message "copy_claude_commands" "Copying Claude Code command files" "Claude Codeコマンドファイルをコピー")
+    echo "🔗 $MSG_COPY_CLAUDE_COMMANDS..."
     
     claude_commands=("commit-and-report.md" "checkpoint.md" "reload-instructions.md")
     
     for cmd_file in "${claude_commands[@]}"; do
-        if [ -e ".claude/commands/$cmd_file" ]; then
-            if [ -L ".claude/commands/$cmd_file" ]; then
-                MSG_CLAUDE_COMMAND_LINK_EXISTS=$(get_message "claude_command_link_exists" "symbolic link already exists" "シンボリックリンクは既に存在します")
-                echo "✓ $cmd_file $MSG_CLAUDE_COMMAND_LINK_EXISTS"
-            else
-                MSG_CLAUDE_COMMAND_EXISTS_NOT_LINK=$(get_message "claude_command_exists_not_link" "already exists (not a symbolic link)" "が既に存在します（シンボリックリンクではありません）")
-                MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
-                echo "⚠️  .claude/commands/$cmd_file $MSG_CLAUDE_COMMAND_EXISTS_NOT_LINK"
-                if confirm "$MSG_BACKUP_AND_REPLACE"; then
-                    backup_file ".claude/commands/$cmd_file"
-                    if [ "$DRY_RUN" = true ]; then
-                        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
-                            dry_echo "rm .claude/commands/$cmd_file && ln -sf ../instructions/ai_instruction_kits/templates/claude-commands/$cmd_file .claude/commands/$cmd_file"
-                        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
-                            dry_echo "rm .claude/commands/$cmd_file && ln -sf ../templates/claude-commands/$cmd_file .claude/commands/$cmd_file"
-                        fi
-                    else
-                        rm ".claude/commands/$cmd_file"
-                        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
-                            ln -sf "../instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ".claude/commands/$cmd_file"
-                        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
-                            ln -sf "../templates/claude-commands/$cmd_file" ".claude/commands/$cmd_file"
+        local src=""
+        local dst=".claude/commands/$cmd_file"
+        
+        # 既存ファイルチェック（シンボリックリンクの移行処理含む）
+        if [ -e "$dst" ]; then
+            if [ -L "$dst" ]; then
+                MSG_MIGRATE_SYMLINK=$(get_message "migrate_symlink" "Migrate symbolic link to file?" "シンボリックリンクをファイルに移行しますか？")
+                echo "🔄 $cmd_file はシンボリックリンクです"
+                if confirm "$MSG_MIGRATE_SYMLINK"; then
+                    # ソースファイルの検索
+                    if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
+                        src="instructions/ai_instruction_kits/templates/claude-commands/$cmd_file"
+                    elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
+                        src="${SCRIPT_DIR}/../templates/claude-commands/$cmd_file"
+                    fi
+                    
+                    if [ -n "$src" ] && [ -f "$src" ]; then
+                        if [ "$DRY_RUN" = true ]; then
+                            dry_echo "rm $dst && cp $src $dst"
+                        else
+                            rm "$dst"
+                            cp "$src" "$dst"
+                            MSG_MIGRATED=$(get_message "migrated" "migrated to file" "をファイルに移行しました")
+                            echo "✅ $cmd_file $MSG_MIGRATED"
                         fi
                     fi
+                fi
+            else
+                MSG_CLAUDE_COMMAND_EXISTS=$(get_message "claude_command_exists" "already exists" "は既に存在します")
+                echo "✓ $cmd_file $MSG_CLAUDE_COMMAND_EXISTS"
+            fi
+            continue
+        fi
+        
+        # ソースファイルの検索とコピー
+        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
+            src="instructions/ai_instruction_kits/templates/claude-commands/$cmd_file"
+        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
+            src="${SCRIPT_DIR}/../templates/claude-commands/$cmd_file"
+        fi
+        
+        if [ -n "$src" ] && [ -f "$src" ]; then
+            MSG_CREATE_CLAUDE_COMMAND=$(get_message "create_claude_command" "Create Claude Code command" "Claude Codeコマンドを作成しますか？")
+            if confirm "$cmd_file $MSG_CREATE_CLAUDE_COMMAND"; then
+                if [ "$DRY_RUN" = true ]; then
+                    dry_echo "cp $src $dst"
+                else
+                    cp "$src" "$dst"
+                    MSG_CLAUDE_COMMAND_CREATED=$(get_message "claude_command_created" "Claude Code command created" "Claude Codeコマンドを作成しました")
+                    echo "✅ $MSG_CLAUDE_COMMAND_CREATED: $cmd_file"
                 fi
             fi
         else
-            MSG_CREATE_CLAUDE_COMMAND_LINK=$(get_message "create_claude_command_link" "Create symbolic link" "シンボリックリンクを作成しますか？")
-            if confirm "$cmd_file $MSG_CREATE_CLAUDE_COMMAND_LINK"; then
-                if [ "$DRY_RUN" = true ]; then
-                    if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
-                        dry_echo "ln -sf ../instructions/ai_instruction_kits/templates/claude-commands/$cmd_file .claude/commands/$cmd_file"
-                    elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
-                        dry_echo "ln -sf ../templates/claude-commands/$cmd_file .claude/commands/$cmd_file"
-                    fi
-                else
-                    if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
-                        ln -sf "../instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ".claude/commands/$cmd_file"
-                        MSG_CLAUDE_COMMAND_LINK_CREATED=$(get_message "claude_command_link_created" "Claude Code command link created" "Claude Codeコマンドリンクを作成しました")
-                        echo "✅ $MSG_CLAUDE_COMMAND_LINK_CREATED: $cmd_file"
-                    elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
-                        ln -sf "../templates/claude-commands/$cmd_file" ".claude/commands/$cmd_file"
-                        MSG_CLAUDE_COMMAND_LINK_CREATED=$(get_message "claude_command_link_created" "Claude Code command link created" "Claude Codeコマンドリンクを作成しました")
-                        echo "✅ $MSG_CLAUDE_COMMAND_LINK_CREATED: $cmd_file"
-                    else
-                        MSG_CLAUDE_COMMAND_TEMPLATE_NOT_FOUND=$(get_message "claude_command_template_not_found" "Claude Code command template not found" "Claude Codeコマンドテンプレートが見つかりません")
-                        echo "⚠️  $MSG_CLAUDE_COMMAND_TEMPLATE_NOT_FOUND: $cmd_file"
-                    fi
-                fi
-            fi
+            MSG_CLAUDE_COMMAND_TEMPLATE_NOT_FOUND=$(get_message "claude_command_template_not_found" "Claude Code command template not found" "Claude Codeコマンドテンプレートが見つかりません")
+            echo "⚠️  $MSG_CLAUDE_COMMAND_TEMPLATE_NOT_FOUND: $cmd_file"
         fi
     done
 fi

@@ -22,7 +22,22 @@
      3. **【必須】生成された指示書を読み込み（`cat modular/cache/生成されたファイル名.md`）**
      4. 読み込んだ指示書の内容に従ってタスクを実行
    - 単純な質問応答や説明の場合のみ、既存の単一指示書を使用
-6. 指示書を読み込んで作業を実行してください
+6. **【必須】指示書使用時の記録**：
+   - 指示書を読み込む前に必ず実行：
+     ```bash
+     scripts/checkpoint.sh instruction-start <指示書パス> "作業目的"
+     ```
+   - 指示書に基づく作業完了後に必ず実行：
+     ```bash
+     scripts/checkpoint.sh instruction-complete <指示書パス> "作業成果の要約"
+     ```
+   - 例：
+     ```bash
+     scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api_production.md" "REST API開発"
+     # 作業実施...
+     scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api_production.md" "3エンドポイント実装完了"
+     ```
+7. 指示書を読み込んで作業を実行してください
 
 ## 利用可能な指示書
 
