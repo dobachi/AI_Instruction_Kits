@@ -67,7 +67,6 @@
 
 ### AIへの指示書
 - **[instructions/ja/system/ROOT_INSTRUCTION.md](instructions/ja/system/ROOT_INSTRUCTION.md)** - AIが指示書マネージャーとして動作
-- **[instructions/ja/system/INSTRUCTION_SELECTOR.md](instructions/ja/system/INSTRUCTION_SELECTOR.md)** - キーワードベースの自動選択
 - **[instructions/ja/system/CHECKPOINT_MANAGER.md](instructions/ja/system/CHECKPOINT_MANAGER.md)** - チェックポイント管理システム
 - **[instructions/ja/system/MODULE_COMPOSER.md](instructions/ja/system/MODULE_COMPOSER.md)** - モジュラー指示書生成
 
@@ -247,9 +246,6 @@ claude "CLAUDE.mdを参照して、ユーザー認証機能を実装して"
    ```bash
    # AIに指示書マネージャーとして動作させる
    claude "instructions/ja/system/ROOT_INSTRUCTION.md を参照して、売上データを分析してレポートを作成"
-   
-   # キーワードベースの自動選択
-   claude "instructions/ja/system/INSTRUCTION_SELECTOR.md を参照して、Web APIを実装"
    ```
 
 3. **検索機能を使う場合（新機能）**

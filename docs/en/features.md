@@ -107,12 +107,12 @@ claude "Design a distributed system"
 
 ## 📚 Instruction Categories
 
-### 1. System Management
+### 1. System Management (system)
 Basic instructions to control AI behavior
 
 - **ROOT_INSTRUCTION.md** - Operates as instruction manager
-- **INSTRUCTION_SELECTOR.md** - Keyword-based automatic selection
-- **CHECKPOINT_MANAGER.md** - Progress management system
+- **CHECKPOINT_MANAGER.md** - Progress management system (extended version)
+- **MODULE_COMPOSER.md** - Modular instruction generation system
 
 ### 2. General Tasks
 General-purpose instructions for daily tasks
