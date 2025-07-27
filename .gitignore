@@ -48,6 +48,9 @@ work/
 
 # Checkpoint files
 checkpoints/
+checkpoint.log.lock
+.checkpoint/
+.checkpoint_last_run
 
 # Python virtual environments
 .venv/
