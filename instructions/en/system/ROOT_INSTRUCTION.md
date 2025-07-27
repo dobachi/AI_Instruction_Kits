@@ -56,15 +56,28 @@ As an instruction selector, you will select appropriate task instructions based 
 
 ## Available Instructions
 
-### 🎯 Pre-generated Presets (Fast, Top Priority)
-**Use these presets with top priority for standard tasks (0-second start):**
-- `instructions/ai_instruction_kits/instructions/en/presets/web_api_production.md` - Web API development
-- `instructions/ai_instruction_kits/instructions/en/presets/cli_tool_basic.md` - CLI tool development
-- `instructions/ai_instruction_kits/instructions/en/presets/data_analyst.md` - Data analysis
-- `instructions/ai_instruction_kits/instructions/en/presets/technical_writer.md` - Technical documentation
-- `instructions/ai_instruction_kits/instructions/en/presets/academic_researcher.md` - Academic research
-- `instructions/ai_instruction_kits/instructions/en/presets/business_consultant.md` - Business consulting
-- `instructions/ai_instruction_kits/instructions/en/presets/startup_advisor.md` - Startup support
+### 🎯 Presets (Fast, Top Priority)
+**Use these presets for standard tasks:**
+
+```bash
+# Preset usage command (automatically selects optimal method)
+scripts/generate-instruction.sh --preset <preset_name> --output <output_file>
+```
+
+**Available presets:**
+- `web_api_production` - Web API development
+- `cli_tool_basic` - CLI tool development
+- `data_analyst` - Data analysis
+- `technical_writer` - Technical documentation
+- `academic_researcher` - Academic research
+- `business_consultant` - Business consulting
+- `project_manager` - Project management
+- `startup_advisor` - Startup support
+
+**Behavior:**
+- If pre-generated version is up-to-date: Instant use (0-second start)
+- If modules have been updated: Automatic regeneration
+- Additional modules can be specified: `--modules <module_name>`
 
 ### 🔥 Modular System (When customization is needed)
 - `instructions/ai_instruction_kits/instructions/en/system/MODULE_COMPOSER.md` - **Modular instruction generation**

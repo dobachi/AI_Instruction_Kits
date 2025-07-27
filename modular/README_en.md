@@ -80,8 +80,13 @@ python modular/composer.py -l en list modules
 # Generate with specified modules
 ./scripts/generate-instruction.sh --modules task_web_api skill_tdd
 
-# Use a preset
-./scripts/generate-instruction.sh --preset web_api_production
+# Use preset (automatically selects optimal method)
+./scripts/generate-instruction.sh --preset web_api_production --output api_instruction.md
+# → If pre-generated version is up-to-date: instant use (0 seconds)
+# → If modules have been updated: automatic regeneration
+
+# Specify additional modules with preset
+./scripts/generate-instruction.sh --preset web_api_production --modules skill_caching
 
 # Update cache
 ./scripts/generate-instruction.sh --refresh-cache

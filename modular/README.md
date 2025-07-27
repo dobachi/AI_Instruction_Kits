@@ -80,8 +80,13 @@ python modular/composer.py -l en list modules
 # モジュールを指定して生成
 ./scripts/generate-instruction.sh --modules task_web_api skill_tdd
 
-# プリセットを使用
-./scripts/generate-instruction.sh --preset web_api_production
+# プリセットを使用（自動的に最適な方法を選択）
+./scripts/generate-instruction.sh --preset web_api_production --output api_instruction.md
+# → 事前生成版が最新なら即座に使用（0秒）
+# → モジュールが更新されていれば自動再生成
+
+# プリセットに追加モジュールを指定
+./scripts/generate-instruction.sh --preset web_api_production --modules skill_caching
 
 # キャッシュを更新
 ./scripts/generate-instruction.sh --refresh-cache

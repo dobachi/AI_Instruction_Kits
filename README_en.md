@@ -406,8 +406,10 @@ Customization based on presets is also possible.
 ### Basic Usage
 
 ```bash
-# Use a preset
+# Use a preset (automatically selects optimal method)
 ./scripts/generate-instruction.sh --preset web_api_production --output api.md
+# → If pre-generated version is up-to-date: instant use (0 seconds)
+# → If modules have been updated: automatic regeneration
 
 # Customize a preset (new feature)
 ./scripts/generate-instruction.sh --preset web_api_production \

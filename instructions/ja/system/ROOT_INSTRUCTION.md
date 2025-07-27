@@ -56,16 +56,28 @@
 
 ## 利用可能な指示書
 
-### 🎯 事前生成プリセット（高速・最優先）
-**標準的なタスクには以下のプリセットを最優先で使用してください（0秒で開始）：**
-- `instructions/ai_instruction_kits/instructions/ja/presets/web_api_production.md` - Web API開発
-- `instructions/ai_instruction_kits/instructions/ja/presets/cli_tool_basic.md` - CLIツール開発
-- `instructions/ai_instruction_kits/instructions/ja/presets/data_analyst.md` - データ分析
-- `instructions/ai_instruction_kits/instructions/ja/presets/technical_writer.md` - 技術文書作成
-- `instructions/ai_instruction_kits/instructions/ja/presets/academic_researcher.md` - 学術研究
-- `instructions/ai_instruction_kits/instructions/ja/presets/business_consultant.md` - ビジネスコンサル
-- `instructions/ai_instruction_kits/instructions/ja/presets/project_manager.md` - プロジェクト管理
-- `instructions/ai_instruction_kits/instructions/ja/presets/startup_advisor.md` - スタートアップ支援
+### 🎯 プリセット（高速・最優先）
+**標準的なタスクには以下のプリセットを使用してください：**
+
+```bash
+# プリセット使用コマンド（自動的に最適な方法を選択）
+scripts/generate-instruction.sh --preset <プリセット名> --output <出力ファイル>
+```
+
+**利用可能なプリセット**：
+- `web_api_production` - Web API開発
+- `cli_tool_basic` - CLIツール開発
+- `data_analyst` - データ分析
+- `technical_writer` - 技術文書作成
+- `academic_researcher` - 学術研究
+- `business_consultant` - ビジネスコンサル
+- `project_manager` - プロジェクト管理
+- `startup_advisor` - スタートアップ支援
+
+**動作**：
+- 事前生成版が最新の場合：即座に使用（0秒で開始）
+- モジュールが更新されている場合：自動的に再生成
+- 追加モジュールの指定も可能：`--modules <モジュール名>`
 
 ### 🔥 モジュラーシステム（カスタマイズが必要な場合）
 - `instructions/ai_instruction_kits/instructions/ja/system/MODULE_COMPOSER.md` - **モジュラー指示書生成**

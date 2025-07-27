@@ -355,8 +355,10 @@ claude "売上データを分析してください"
 ### 基本的な使い方
 
 ```bash
-# プリセットを使用
+# プリセットを使用（自動的に最適な方法を選択）
 ./scripts/generate-instruction.sh --preset web_api_production --output api.md
+# → 事前生成版が最新なら即座に使用（0秒）
+# → モジュールが更新されていれば自動再生成
 
 # プリセットをカスタマイズ（新機能）
 ./scripts/generate-instruction.sh --preset web_api_production \

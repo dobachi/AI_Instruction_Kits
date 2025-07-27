@@ -168,6 +168,50 @@ fi
 
 # Pythonコンポーザーを呼び出す
 if [[ -n "$PRESET" ]]; then
+    # 事前生成プリセットの確認
+    PRESET_FILE="instructions/$LANG/presets/${PRESET}.md"
+    
+    # 事前生成プリセットが存在する場合
+    if [[ -f "$PRESET_FILE" ]] && [[ ${#MODULES[@]} -eq 0 ]]; then
+        # タイムスタンプをチェック（モジュールが更新されていないか確認）
+        PRESET_TIME=$(stat -c %Y "$PRESET_FILE" 2>/dev/null || stat -f %m "$PRESET_FILE" 2>/dev/null || echo "0")
+        NEEDS_REGEN=false
+        
+        # 関連モジュールの更新チェック
+        # プリセット定義ファイルをチェック
+        PRESET_DEF="modular/presets/${PRESET}.yaml"
+        if [[ -f "$PRESET_DEF" ]]; then
+            # プリセット定義より新しいモジュールがあるかチェック
+            for module_file in modular/modules/*/*.md; do
+                if [[ -f "$module_file" ]]; then
+                    MODULE_TIME=$(stat -c %Y "$module_file" 2>/dev/null || stat -f %m "$module_file" 2>/dev/null || echo "0")
+                    if [[ "$MODULE_TIME" -gt "$PRESET_TIME" ]]; then
+                        NEEDS_REGEN=true
+                        MSG_MODULE_UPDATED=$(get_message "module_updated" "Module updated, regenerating preset" "モジュールが更新されているため、プリセットを再生成します")
+                        echo "⚠️  $MSG_MODULE_UPDATED"
+                        break
+                    fi
+                fi
+            done
+        fi
+        
+        if [[ "$NEEDS_REGEN" = false ]]; then
+            # 事前生成版を使用
+            if [[ -n "$OUTPUT_FILE" ]]; then
+                cp "$PRESET_FILE" "$OUTPUT_FILE"
+                MSG_USING_CACHED=$(get_message "using_cached" "Using pre-generated preset" "事前生成プリセットを使用")
+                echo "✅ $MSG_USING_CACHED: $PRESET_FILE → $OUTPUT_FILE"
+            else
+                OUTPUT_FILE="modular/cache/${PRESET}_$(date +%Y%m%d_%H%M%S).md"
+                mkdir -p "modular/cache"
+                cp "$PRESET_FILE" "$OUTPUT_FILE"
+                MSG_USING_CACHED=$(get_message "using_cached" "Using pre-generated preset" "事前生成プリセットを使用")
+                echo "✅ $MSG_USING_CACHED: $PRESET_FILE → $OUTPUT_FILE"
+            fi
+            exit 0
+        fi
+    fi
+    
     # プリセットを使用（オプションで追加モジュール）
     ARGS=("--lang" "$LANG")
     [[ -n "$VERBOSE_FLAG" ]] && ARGS+=($VERBOSE_FLAG)
