@@ -6,15 +6,15 @@
 ## 基本ルール
 **【最重要】すべての応答で必ず以下を実行：**
 
-1. **応答の一番最初に必ず `scripts/checkpoint.sh` を実行してその出力を表示**
+1. **応答の一番最初に必ず `scripts/checkpoint.sh pending` を実行してその出力を表示**
    - 例外なくすべての応答で実行すること
    - 質問への回答、コード生成、分析など、すべてのタスクで必須
    - スクリプト実行を忘れた場合は、AIの応答品質が低下したとみなされる
 
 2. **チェックポイント確認後の必須アクション**
-   - 🎯「新規タスク準備完了」が表示された場合：新しいタスクが与えられたら必ず `start` コマンドで開始
-   - 🔄「タスク進行中」が表示された場合：現在のタスクを継続し、適切なタイミングで `progress` を報告
-   - ⚠️「エラー発生」が表示された場合：問題を解決してから次のステップに進む
+   - 未完了タスクがない場合：新しいタスクが与えられたら必ず `start` コマンドで開始
+   - 未完了タスクがある場合：該当タスクを継続するか、`complete` で完了してから新規タスクを開始
+   - 進捗報告には指示書使用が必須（ワークフロー制約）
 
 3. **タスク開始/エラー/完了時は自動的にログファイルに記録される**
 
@@ -27,73 +27,88 @@
 
 ### タスク開始時
 ```bash
-scripts/checkpoint.sh start <task-id> <task-name> <total-steps>
-# 例: scripts/checkpoint.sh start TASK-abc123 "Webアプリ開発" 5
+scripts/checkpoint.sh start <task-name> <total-steps>
+# 例: scripts/checkpoint.sh start "Webアプリ開発" 5
+# → タスクID: TASK-123456-abc123 が自動生成される
 ```
 
 ### 進捗報告時
 ```bash
-scripts/checkpoint.sh progress <current-step> <total-steps> <status> <next-action>
-# 例: scripts/checkpoint.sh progress 2 5 "実装完了" "テスト作成"
+scripts/checkpoint.sh progress <task-id> <current-step> <total-steps> <status> <next-action>
+# 例: scripts/checkpoint.sh progress TASK-123456-abc123 2 5 "実装完了" "テスト作成"
 ```
+**注意**: 進捗報告は指示書使用中のみ可能（ワークフロー制約）
 
 ### エラー発生時
 ```bash
 scripts/checkpoint.sh error <task-id> <error-message>
-# 例: scripts/checkpoint.sh error TASK-abc123 "依存関係エラー"
+# 例: scripts/checkpoint.sh error TASK-123456-abc123 "依存関係エラー"
 ```
 
 ### タスク完了時
 ```bash
 scripts/checkpoint.sh complete <task-id> <result>
-# 例: scripts/checkpoint.sh complete TASK-abc123 "API 3つ、テスト10個作成"
+# 例: scripts/checkpoint.sh complete TASK-123456-abc123 "API 3つ、テスト10個作成"
 ```
+**注意**: すべての指示書が完了している必要がある（ワークフロー制約）
 
-### 指示書使用開始時
+### 指示書使用開始時（必須）
 ```bash
 scripts/checkpoint.sh instruction-start <instruction-path> <purpose> [task-id]
-# 例: scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api_production.md" "REST API開発"
+# 例: scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api_production.md" "REST API開発" TASK-123456-abc123
 ```
 
 ### 指示書使用完了時
 ```bash
 scripts/checkpoint.sh instruction-complete <instruction-path> <result> [task-id]
-# 例: scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api_production.md" "3エンドポイント実装"
+# 例: scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api_production.md" "3エンドポイント実装" TASK-123456-abc123
 ```
+**注意**: タスクIDを省略すると警告が表示される
 
 ## 実装例
 
 ```
+# 未完了タスクの確認
+$ scripts/checkpoint.sh pending
+📋 未完了タスク一覧
+（タスクがない場合は新規タスク開始を促される）
+
 # タスク開始
-$ scripts/checkpoint.sh start TASK-7f9a2b "Python関数実装" 4
-`[1/4] 開始 | 次: 分析`
-`📌 記録→checkpoint.log: [2025-07-03 19:00:00][TASK-7f9a2b][START] Python関数実装 (推定4ステップ)`
+$ scripts/checkpoint.sh start "Python関数実装" 4
+`🚀 タスク開始: Python関数実装`
+`📝 タスクID: TASK-123456-7f9a2b`
+`📊 推定ステップ: 4`
 
-# 進捗報告
-$ scripts/checkpoint.sh progress 2 4 "実装完了" "テスト作成"
-`[2/4] 実装完了 | 次: テスト作成`
-`📌 記録→checkpoint.log: 開始時/エラー時/完了時のみ記録`
-
-# タスク完了
-$ scripts/checkpoint.sh complete TASK-7f9a2b "関数1つ、テスト3つ"
-`[✓] 全完了 | 成果: 関数1つ、テスト3つ`
-`📌 記録→checkpoint.log: [2025-07-03 19:05:00][TASK-7f9a2b][COMPLETE] 成果: 関数1つ、テスト3つ`
-
-# 指示書使用開始
-$ scripts/checkpoint.sh instruction-start "instructions/ja/presets/cli_tool_basic.md" "CLIツール開発"
+# 指示書使用開始（必須）
+$ scripts/checkpoint.sh instruction-start "instructions/ja/presets/cli_tool_basic.md" "CLIツール開発" TASK-123456-7f9a2b
 `📚 指示書使用開始: cli_tool_basic.md`
 `   目的: CLIツール開発`
-`📌 記録→checkpoint.log: [2025-07-03 19:01:00][TASK-7f9a2b][INSTRUCTION_START] instructions/ja/presets/cli_tool_basic.md - CLIツール開発`
+`📌 タスクID: TASK-123456-7f9a2b`
+
+# 進捗報告（指示書使用中のみ可能）
+$ scripts/checkpoint.sh progress TASK-123456-7f9a2b 2 4 "実装完了" "テスト作成"
+`[2/4] 実装完了 | 次: テスト作成`
+`📌 タスクID: TASK-123456-7f9a2b`
 
 # 指示書使用完了
-$ scripts/checkpoint.sh instruction-complete "instructions/ja/presets/cli_tool_basic.md" "基本機能実装完了"
+$ scripts/checkpoint.sh instruction-complete "instructions/ja/presets/cli_tool_basic.md" "基本機能実装完了" TASK-123456-7f9a2b
 `✅ 指示書使用完了: cli_tool_basic.md`
-`📌 記録→checkpoint.log: [2025-07-03 19:04:00][TASK-7f9a2b][INSTRUCTION_COMPLETE] instructions/ja/presets/cli_tool_basic.md - 基本機能実装完了`
+`📊 成果: 基本機能実装完了`
+`📌 タスクID: TASK-123456-7f9a2b`
+
+# タスク完了（すべての指示書が完了している必要がある）
+$ scripts/checkpoint.sh complete TASK-123456-7f9a2b "関数1つ、テスト3つ"
+`✅ タスク完了: TASK-123456-7f9a2b`
+`📊 成果: 関数1つ、テスト3つ`
+
+# タスクの詳細確認
+$ scripts/checkpoint.sh summary TASK-123456-7f9a2b
+（タスクの詳細履歴が表示される）
 ```
 
 ## 重要な注意事項
 
-1. **タスクIDの生成**: 6文字のランダムな英数字（例: 7f9a2b）
+1. **タスクIDの生成**: タイムスタンプ+ランダム値で自動生成（例: TASK-123456-abc123）
 2. **簡潔性を保つ**: ステータスとアクションは短く明確に
 3. **一貫性を保つ**: 同じタスクでは同じタスクIDとステップ数を使用
 4. **パスに注意**: `scripts/checkpoint.sh`はプロジェクトルートからの相対パス
@@ -109,4 +124,4 @@ $ scripts/checkpoint.sh instruction-complete "instructions/ja/presets/cli_tool_b
 - **参照元**: 
 - **原著者**: dobachi
 - **作成日**: 2025-06-30
-- **更新日**: 2025-07-03
+- **更新日**: 2025-07-27

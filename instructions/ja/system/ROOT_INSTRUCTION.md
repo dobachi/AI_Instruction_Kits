@@ -5,14 +5,15 @@
 ## 指示
 
 1. **必ず `instructions/ai_instruction_kits/instructions/ja/system/CHECKPOINT_MANAGER.md` を読み込んでください**
-2. **【最重要】各応答の一番最初に必ず `scripts/checkpoint.sh` を実行し、その出力を表示してください**
+2. **【最重要】各応答の一番最初に必ず `scripts/checkpoint.sh pending` を実行し、その出力を表示してください**
    - これは例外なくすべての応答で必須です
    - 実行を忘れた場合、タスク管理が機能しません
-   - チェックポイント出力に基づいて適切なアクションを実行してください
+   - 未完了タスクの有無に基づいて適切なアクションを実行してください
 3. ユーザーのタスクを分析してください
 4. **新しいタスクが与えられた場合の必須手順**：
-   - チェックポイントで🎯「新規タスク準備完了」が表示されている場合
-   - → 必ず `scripts/checkpoint.sh start <task-id> <task-name> <steps>` でタスクを開始
+   - 未完了タスクがない場合、または新規タスクを開始する場合
+   - → 必ず `scripts/checkpoint.sh start <task-name> <steps>` でタスクを開始
+   - → 自動生成されたタスクIDを以降のコマンドで使用
    - → その後、適切な指示書を選択・読み込み
 5. **【重要】まずモジュラーシステムの使用を検討してください**：
    - コード作成、Webサイト構築、API開発などの実装タスクの場合
@@ -25,18 +26,19 @@
 6. **【必須】指示書使用時の記録**：
    - 指示書を読み込む前に必ず実行：
      ```bash
-     scripts/checkpoint.sh instruction-start <指示書パス> "作業目的"
+     scripts/checkpoint.sh instruction-start <指示書パス> "作業目的" <task-id>
      ```
    - 指示書に基づく作業完了後に必ず実行：
      ```bash
-     scripts/checkpoint.sh instruction-complete <指示書パス> "作業成果の要約"
+     scripts/checkpoint.sh instruction-complete <指示書パス> "作業成果の要約" <task-id>
      ```
    - 例：
      ```bash
-     scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api_production.md" "REST API開発"
+     scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api_production.md" "REST API開発" TASK-123456-abc123
      # 作業実施...
-     scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api_production.md" "3エンドポイント実装完了"
+     scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api_production.md" "3エンドポイント実装完了" TASK-123456-abc123
      ```
+   - **注意**: タスクIDを省略すると警告が表示される
 7. 指示書を読み込んで作業を実行してください
 
 ## 利用可能な指示書
@@ -139,3 +141,4 @@
 - **参照元**: 
 - **原著者**: dobachi
 - **作成日**: 2025-06-30
+- **更新日**: 2025-07-27
