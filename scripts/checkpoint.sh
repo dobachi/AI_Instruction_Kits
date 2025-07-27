@@ -93,6 +93,47 @@ case "$ACTION" in
         echo "[$TIMESTAMP] [$TASK_ID] [COMPLETE] 成果: $RESULT" >> "$CHECKPOINT_LOG"
         ;;
         
+    "instruction-start")
+        INSTRUCTION_PATH=$2
+        TASK_ID=$3
+        
+        # 現在のタスクIDを取得（未指定の場合は最新のタスクから）
+        if [ -z "$TASK_ID" ] && [ -f "$CHECKPOINT_LOG" ]; then
+            TASK_ID=$(grep "\[START\]" "$CHECKPOINT_LOG" | tail -1 | sed 's/.*\[\([^]]*\)\]\[START\].*/\1/')
+        fi
+        
+        # 標準出力
+        MSG_INSTRUCTION_START=$(get_message "instruction_start" "Starting instruction" "指示書使用開始")
+        MSG_RECORDED=$(get_message "recorded" "Recorded to" "記録→")
+        
+        echo "\`📚 $MSG_INSTRUCTION_START: $(basename "$INSTRUCTION_PATH")\`"
+        echo "\`📌 $MSG_RECORDED$CHECKPOINT_LOG: [$TIMESTAMP][$TASK_ID][INSTRUCTION_START] $INSTRUCTION_PATH\`"
+        
+        # ログファイルに記録
+        echo "[$TIMESTAMP] [$TASK_ID] [INSTRUCTION_START] $INSTRUCTION_PATH" >> "$CHECKPOINT_LOG"
+        ;;
+        
+    "instruction-complete")
+        INSTRUCTION_PATH=$2
+        RESULT=$3
+        TASK_ID=$4
+        
+        # 現在のタスクIDを取得（未指定の場合は最新のタスクから）
+        if [ -z "$TASK_ID" ] && [ -f "$CHECKPOINT_LOG" ]; then
+            TASK_ID=$(grep "\[START\]" "$CHECKPOINT_LOG" | tail -1 | sed 's/.*\[\([^]]*\)\]\[START\].*/\1/')
+        fi
+        
+        # 標準出力
+        MSG_INSTRUCTION_COMPLETE=$(get_message "instruction_complete" "Instruction completed" "指示書使用完了")
+        MSG_RECORDED=$(get_message "recorded" "Recorded to" "記録→")
+        
+        echo "\`✅ $MSG_INSTRUCTION_COMPLETE: $(basename "$INSTRUCTION_PATH")\`"
+        echo "\`📌 $MSG_RECORDED$CHECKPOINT_LOG: [$TIMESTAMP][$TASK_ID][INSTRUCTION_COMPLETE] $INSTRUCTION_PATH - $RESULT\`"
+        
+        # ログファイルに記録
+        echo "[$TIMESTAMP] [$TASK_ID] [INSTRUCTION_COMPLETE] $INSTRUCTION_PATH - $RESULT" >> "$CHECKPOINT_LOG"
+        ;;
+        
     "status"|"")
         # 引数なしまたはstatusの場合、現在の状態を表示
         if [ -f "$CHECKPOINT_LOG" ]; then
@@ -156,6 +197,7 @@ case "$ACTION" in
         MSG_CREATE_TESTS=$(get_message "create_tests" "Create tests" "テスト作成")
         MSG_DEP_ERROR=$(get_message "dep_error" "Dependency error" "依存関係エラー")
         MSG_APIS_TESTS=$(get_message "apis_tests" "3 APIs, 10 tests created" "API 3つ、テスト10個作成")
+        MSG_INSTRUCTION_USAGE=$(get_message "instruction_usage" "Instruction usage tracking" "指示書使用記録")
         
         echo "$MSG_USAGE:"
         echo "  $0              # $MSG_SHOW_STATUS ($MSG_DEFAULT)"
@@ -164,12 +206,16 @@ case "$ACTION" in
         echo "  $0 progress <current-step> <total-steps> <status> <next-action>"
         echo "  $0 error <task-id> <error-message>"
         echo "  $0 complete <task-id> <result>"
+        echo "  $0 instruction-start <instruction-path> [task-id]  # $MSG_INSTRUCTION_USAGE"
+        echo "  $0 instruction-complete <instruction-path> <result> [task-id]"
         echo ""
         echo "$MSG_EXAMPLE:"
         echo "  $0 start TASK-abc123 '$MSG_WEB_APP_DEV' 5"
         echo "  $0 progress 2 5 '$MSG_IMPL_COMPLETE' '$MSG_CREATE_TESTS'"
         echo "  $0 error TASK-abc123 '$MSG_DEP_ERROR'"
         echo "  $0 complete TASK-abc123 '$MSG_APIS_TESTS'"
+        echo "  $0 instruction-start 'instructions/ja/presets/web_api_production.md'"
+        echo "  $0 instruction-complete 'instructions/ja/presets/web_api_production.md' 'API実装完了'"
         exit 1
         ;;
 esac

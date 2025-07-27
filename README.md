@@ -36,9 +36,16 @@
 │   └── en/        # 英語テンプレート
 │       ├── instruction_template.md  # 指示書作成用テンプレート
 │       └── PROJECT_TEMPLATE.md      # PROJECT.en.md用テンプレート
+├── modular/       # モジュラー指示書システム（新機能）
+│   ├── ja/        # 日本語モジュール
+│   │   ├── modules/   # 再利用可能なモジュール
+│   │   ├── presets/   # 事前定義された組み合わせ
+│   │   └── templates/ # 生成用テンプレート
+│   └── en/        # 英語モジュール
 └── scripts/       # ツール・ユーティリティ
     ├── setup-project.sh        # プロジェクト統合用セットアップスクリプト
     ├── checkpoint.sh           # チェックポイント管理スクリプト
+    ├── generate-instruction.sh # モジュラー指示書生成スクリプト（新機能）
     ├── generate-metadata.sh    # メタデータ生成スクリプト
     ├── search-instructions.sh  # 指示書検索スクリプト
     └── select-instruction.py   # Pythonベースの指示書選択ツール
@@ -301,6 +308,71 @@ claude "売上データを分析してください"
 - 手動トリガー（GitHub Actions workflow_dispatch）
 
 詳細な使用ガイドは[docs/guides/PRESET_USAGE_GUIDE.md](docs/guides/PRESET_USAGE_GUIDE.md)を参照してください。
+
+## モジュラー指示書システム（新機能）
+
+### 概要
+
+モジュラー指示書システムは、再利用可能なモジュールを組み合わせてカスタム指示書を生成する機能です。
+プリセットをベースにカスタマイズすることも可能になりました。
+
+### 基本的な使い方
+
+```bash
+# プリセットを使用
+./scripts/generate-instruction.sh --preset web_api_production --output api.md
+
+# プリセットをカスタマイズ（新機能）
+./scripts/generate-instruction.sh --preset web_api_production \
+  --modules skill_testing skill_deployment \
+  --variable framework=FastAPI
+
+# モジュールを直接指定
+./scripts/generate-instruction.sh \
+  --modules core_role_definition task_code_generation skill_error_handling \
+  --output custom.md
+```
+
+### 利用可能なプリセット
+
+```bash
+# プリセット一覧を表示
+./scripts/generate-instruction.sh --list presets
+```
+
+### 利用可能なモジュール
+
+```bash
+# モジュール一覧を表示
+./scripts/generate-instruction.sh --list modules
+```
+
+### プリセットカスタマイズの例
+
+1. **Web API + 追加機能**
+   ```bash
+   ./scripts/generate-instruction.sh \
+     --preset web_api_production \
+     --modules skill_caching skill_monitoring
+   ```
+
+2. **テクニカルライター + コード文書化**
+   ```bash
+   ./scripts/generate-instruction.sh \
+     --preset technical_writer \
+     --modules skill_code_documentation \
+     --variable code_language=Python
+   ```
+
+3. **データ分析 + 可視化**
+   ```bash
+   ./scripts/generate-instruction.sh \
+     --preset data_analyst \
+     --modules skill_data_visualization \
+     --variable visualization_tool=matplotlib
+   ```
+
+詳細は[instructions/ja/system/MODULE_COMPOSER.md](instructions/ja/system/MODULE_COMPOSER.md)を参照してください。
 
 ### フィードバックとレポート
 

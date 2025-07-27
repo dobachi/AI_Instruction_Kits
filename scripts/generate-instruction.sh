@@ -159,19 +159,28 @@ if [[ ${#MODULES[@]} -eq 0 ]] && [[ -z "$PRESET" ]]; then
     exit 1
 fi
 
-# 両方指定された場合はエラー
-if [[ ${#MODULES[@]} -gt 0 ]] && [[ -n "$PRESET" ]]; then
-    MSG_ERROR_BOTH_SPECIFIED=$(get_message "error_both_specified" "Error: Cannot specify both --modules and --preset" "エラー: --modules と --preset は同時に指定できません")
-    echo "$MSG_ERROR_BOTH_SPECIFIED"
-    exit 1
-fi
+# 両方指定された場合は許可（プリセット拡張機能）
+# if [[ ${#MODULES[@]} -gt 0 ]] && [[ -n "$PRESET" ]]; then
+#     MSG_ERROR_BOTH_SPECIFIED=$(get_message "error_both_specified" "Error: Cannot specify both --modules and --preset" "エラー: --modules と --preset は同時に指定できません")
+#     echo "$MSG_ERROR_BOTH_SPECIFIED"
+#     exit 1
+# fi
 
 # Pythonコンポーザーを呼び出す
 if [[ -n "$PRESET" ]]; then
-    # プリセットを使用
+    # プリセットを使用（オプションで追加モジュール）
     ARGS=("--lang" "$LANG")
     [[ -n "$VERBOSE_FLAG" ]] && ARGS+=($VERBOSE_FLAG)
     ARGS+=("preset" "$PRESET")
+    
+    # 追加モジュールがある場合
+    if [[ ${#MODULES[@]} -gt 0 ]]; then
+        ARGS+=("--modules")
+        for module in "${MODULES[@]}"; do
+            ARGS+=("$module")
+        done
+    fi
+    
     [[ -n "$OUTPUT_FILE" ]] && ARGS+=("-o" "$OUTPUT_FILE")
     for var in "${VARIABLES[@]}"; do
         ARGS+=("-v" "$var")
