@@ -319,9 +319,16 @@ case "$ACTION" in
             echo "  scripts/checkpoint.sh instruction-start <$(get_message "instruction_path" "instruction path" "指示書パス")> <$(get_message "purpose" "purpose" "目的")> $TASK_ID"
             echo ""
             echo "$MSG_RECOMMENDED_INST"
-            echo "  - instructions/ja/system/ROOT_INSTRUCTION.md"
             echo "  - instructions/ja/presets/web_api_production.md"
             echo "  - instructions/ja/presets/cli_tool_basic.md"
+            echo "  - instructions/ja/presets/data_analyst.md"
+            echo "  - instructions/ja/presets/technical_writer.md"
+            echo "  - instructions/ja/system/MODULE_COMPOSER.md (カスタム指示書生成)"
+            echo ""
+            MSG_MUST_READ_INST=$(get_message "must_read_inst" "⚠️  After specifying an instruction, you MUST read it:" "⚠️  指示書を指定した後、必ずその指示書を読み込んでください：")
+            MSG_READ_EXAMPLE=$(get_message "read_example" "Read \"<instruction path>\"" "Read \"<指示書パス>\"")
+            echo "$MSG_MUST_READ_INST"
+            echo "   $MSG_READ_EXAMPLE"
             exit 1
         fi
         
