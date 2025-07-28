@@ -1130,8 +1130,8 @@ if [ -d ".claude/commands" ] || [ "$DRY_RUN" = true ]; then
     claude_commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md")
     
     for cmd_file in "${claude_commands[@]}"; do
-        local src=""
-        local dst=".claude/commands/$cmd_file"
+        src=""
+        dst=".claude/commands/$cmd_file"
         
         # 既存ファイルチェック（シンボリックリンクの移行処理含む）
         if [ -e "$dst" ]; then
