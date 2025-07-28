@@ -1165,7 +1165,14 @@ if [ -d ".claude/commands" ] || [ "$DRY_RUN" = true ]; then
         fi
         
         # ソースファイルの検索とコピー
-        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
+        lang=$(get_current_language)
+        
+        # 言語別ファイルを優先的に検索
+        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file" ]; then
+            src="instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file"
+        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$lang/$cmd_file" ]; then
+            src="${SCRIPT_DIR}/../templates/claude-commands/$lang/$cmd_file"
+        elif [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
             src="instructions/ai_instruction_kits/templates/claude-commands/$cmd_file"
         elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
             src="${SCRIPT_DIR}/../templates/claude-commands/$cmd_file"
