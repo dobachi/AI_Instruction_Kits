@@ -194,6 +194,8 @@ Claude Codeユーザー向けの効率化機能：
 | `/commit-and-report` | コミット＆Issue報告 | `/commit-and-report "バグ修正完了"` |
 | `/commit-safe` | クリーンコミット（AI署名なし） | `/commit-safe "ドキュメント更新"` |
 | `/reload-instructions` | 指示書の再読み込み | `/reload-instructions` |
+| `/github-issues` 🆕 | GitHub Issueを確認してタスク整理 | `/github-issues` |
+| `/reload-and-reset` 🆕 | AIシステムをリセットして指示書再読み込み | `/reload-and-reset` |
 
 ### 統合モード
 

@@ -380,7 +380,7 @@ sync_claude_commands() {
         fi
     fi
     
-    local claude_commands=("commit-and-report.md" "checkpoint.md" "reload-instructions.md")
+    local claude_commands=("commit-and-report.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md")
     local updated_count=0
     local skipped_count=0
     
@@ -1127,7 +1127,7 @@ if [ -d ".claude/commands" ] || [ "$DRY_RUN" = true ]; then
     MSG_COPY_CLAUDE_COMMANDS=$(get_message "copy_claude_commands" "Copying Claude Code command files" "Claude Codeコマンドファイルをコピー")
     echo "🔗 $MSG_COPY_CLAUDE_COMMANDS..."
     
-    claude_commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md")
+    claude_commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md")
     
     for cmd_file in "${claude_commands[@]}"; do
         src=""

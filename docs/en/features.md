@@ -162,22 +162,40 @@ Instructions to behave as specific experts
 
 ## 🔧 Core Features
 
-### Checkpoint Management
+### Checkpoint Management (Extended Version)
 
-Automatically record and track work progress
+Detailed tracking of work progress and instruction usage history
 
 ```bash
 # Task start
-[1/5] Started | Next: Analysis
-📌 Record→checkpoint.log: [timestamp][task ID][START] Task name
+scripts/checkpoint.sh start "New feature implementation" 5
+📌 Task ID: TASK-123456-abc123
 
-# Progress update
-[3/5] Implementation complete | Next: Testing
-📌 Record→checkpoint.log: Records only at start/error/completion
+# Track instruction usage (new feature)
+scripts/checkpoint.sh instruction-start "instructions/en/presets/web_api_production.md" "API development" TASK-123456-abc123
+scripts/checkpoint.sh instruction-complete "instructions/en/presets/web_api_production.md" "3 endpoints implemented" TASK-123456-abc123
 
-# Task completion
-[✓] All complete | Result: Detailed results
+# AI-friendly concise output mode (new feature)
+scripts/checkpoint.sh ai pending
+scripts/checkpoint.sh ai progress TASK-123456-abc123 2 5 "Implementing" "Creating tests"
+
+# Statistics display (new feature)
+scripts/checkpoint.sh stats
+scripts/checkpoint.sh history
 ```
+
+### Claude Code Custom Commands (New Feature)
+
+Efficiency features for Claude Code users:
+
+| Command | Description | Example |
+|---------|-------------|------|
+| `/checkpoint` | Checkpoint management | `/checkpoint start "New feature implementation" 5` |
+| `/commit-and-report` | Commit & Issue report | `/commit-and-report "Bug fix complete"` |
+| `/commit-safe` | Clean commit (no AI signature) | `/commit-safe "Documentation update"` |
+| `/reload-instructions` | Reload instructions | `/reload-instructions` |
+| `/github-issues` 🆕 | Check GitHub issues and organize tasks | `/github-issues` |
+| `/reload-and-reset` 🆕 | Reset AI system and reload instructions | `/reload-and-reset` |
 
 ### Integration Modes
 
