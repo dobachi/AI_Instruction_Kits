@@ -62,7 +62,7 @@ scripts/checkpoint.sh
 ### Testing and Verification
 1. Verify setup-project.sh works correctly
 2. Verify each instruction functions independently
-3. Verify ROOT_INSTRUCTION and INSTRUCTION_SELECTOR coordination
+3. Verify ROOT_INSTRUCTION and MODULE_COMPOSER coordination
 4. Verify path consistency (operation in submodule environment)
 
 ## Project-Specific Instructions

@@ -61,3 +61,7 @@ ENV/
 
 # OpenHands configuration
 .openhands/
+
+# Git worktree directories
+.gitworktrees/
+gitworktrees/

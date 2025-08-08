@@ -380,7 +380,7 @@ sync_claude_commands() {
         fi
     fi
     
-    local claude_commands=("commit-and-report.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md")
+    local claude_commands=("commit-and-report.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md" "build.md")
     local updated_count=0
     local skipped_count=0
     
@@ -1127,7 +1127,7 @@ if [ -d ".claude/commands" ] || [ "$DRY_RUN" = true ]; then
     MSG_COPY_CLAUDE_COMMANDS=$(get_message "copy_claude_commands" "Copying Claude Code command files" "Claude Codeコマンドファイルをコピー")
     echo "🔗 $MSG_COPY_CLAUDE_COMMANDS..."
     
-    claude_commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md")
+    claude_commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md" "build.md")
     
     for cmd_file in "${claude_commands[@]}"; do
         src=""
@@ -1269,6 +1269,48 @@ if [ -f ".gitignore" ]; then
     fi
 fi
 
+# Git worktree環境のセットアップ
+echo ""
+MSG_SETUP_WORKTREE=$(get_message "setup_worktree" "Setting up Git worktree environment" "Git worktree環境を設定")
+echo "🌲 $MSG_SETUP_WORKTREE..."
+
+# worktree-manager.shへのシンボリックリンク作成
+if [ -e "scripts/worktree-manager.sh" ]; then
+    if [ -L "scripts/worktree-manager.sh" ]; then
+        MSG_WORKTREE_SYMLINK_EXISTS=$(get_message "worktree_symlink_exists" "worktree-manager.sh symbolic link already exists" "worktree-manager.shシンボリックリンクは既に存在します")
+        echo "✓ $MSG_WORKTREE_SYMLINK_EXISTS"
+    else
+        MSG_WORKTREE_FILE_EXISTS=$(get_message "worktree_file_exists" "scripts/worktree-manager.sh already exists (not a symbolic link)" "scripts/worktree-manager.shが既に存在します（シンボリックリンクではありません）")
+        echo "⚠️  $MSG_WORKTREE_FILE_EXISTS"
+    fi
+else
+    MSG_CREATE_WORKTREE_LINK=$(get_message "create_worktree_link" "Create symbolic link to worktree-manager.sh?" "worktree-manager.shへのシンボリックリンクを作成しますか？")
+    if confirm "$MSG_CREATE_WORKTREE_LINK"; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/worktree-manager.sh scripts/worktree-manager.sh"
+        else
+            ln -sf ../instructions/ai_instruction_kits/scripts/worktree-manager.sh scripts/worktree-manager.sh
+        fi
+    fi
+fi
+
+# .gitworktrees/をgitignoreに追加
+if ! grep -q "^\.gitworktrees/\|^gitworktrees/" .gitignore 2>/dev/null; then
+    MSG_ADD_WORKTREE_GITIGNORE=$(get_message "add_worktree_gitignore" "Add .gitworktrees/ to .gitignore?" ".gitworktrees/を.gitignoreに追加しますか？")
+    if confirm "$MSG_ADD_WORKTREE_GITIGNORE"; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "echo -e '\n# Git worktree directories\n.gitworktrees/\ngitworktrees/' >> .gitignore"
+        else
+            echo -e '\n# Git worktree directories\n.gitworktrees/\ngitworktrees/' >> .gitignore
+            MSG_WORKTREE_GITIGNORE_ADDED=$(get_message "worktree_gitignore_added" "Worktree directories added to .gitignore" "worktreeディレクトリを.gitignoreに追加しました")
+            echo "✅ $MSG_WORKTREE_GITIGNORE_ADDED"
+        fi
+    fi
+else
+    MSG_WORKTREE_GITIGNORE_EXISTS=$(get_message "worktree_gitignore_exists" ".gitignore already has worktree entries" ".gitignoreには既にworktreeエントリが存在します")
+    echo "✓ $MSG_WORKTREE_GITIGNORE_EXISTS"
+fi
+
 if [ "$DRY_RUN" = true ]; then
     echo ""
     MSG_DRY_RUN_COMPLETE=$(get_message "dry_run_complete" "Dry run completed" "ドライラン完了")
@@ -1319,7 +1361,8 @@ else
     echo "        ├── commit-and-report.md → ../../templates/claude-commands/commit-and-report.md"
     echo "        ├── commit-safe.md → ../../templates/claude-commands/commit-safe.md"
     echo "        ├── checkpoint.md → ../../templates/claude-commands/checkpoint.md"
-    echo "        └── reload-instructions.md → ../../templates/claude-commands/reload-instructions.md"
+    echo "        ├── reload-instructions.md → ../../templates/claude-commands/reload-instructions.md"
+    echo "        └── build.md → ../../templates/claude-commands/build.md"
     echo ""
     
     MSG_CLAUDE_COMMANDS_AVAILABLE=$(get_message "claude_commands_available" "Available Claude Code commands" "利用可能なClaude Codeコマンド")
@@ -1327,6 +1370,7 @@ else
     echo "  /commit-and-report \"$(get_message "commit_message" "commit message" "コミットメッセージ")\" [Issue番号]"
     echo "  /checkpoint [start <task-id> <task-name> <steps>]"
     echo "  /reload-instructions"
+    echo "  /build [--clean|--prod|--test]"
     echo ""
     
     # モード別の次のステップ

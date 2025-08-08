@@ -6,7 +6,9 @@ As an instruction selector, you will select appropriate task instructions based 
 
 ## Instructions
 
-1. **Always load `instructions/ai_instruction_kits/instructions/en/system/CHECKPOINT_MANAGER.md`**
+1. **Always load the following management systems**:
+   - `instructions/ai_instruction_kits/instructions/en/system/CHECKPOINT_MANAGER.md` - Progress management
+   - `instructions/ai_instruction_kits/instructions/en/system/WORKTREE_MANAGER.md` - Worktree management (recommended)
 2. **Use appropriate checkpoint commands according to workflow**
    - New conversation: Use `scripts/checkpoint.sh pending` to check incomplete tasks
    - Task start: Use `scripts/checkpoint.sh start <task-name> <steps>` to register new task
@@ -19,6 +21,7 @@ As an instruction selector, you will select appropriate task instructions based 
    - When no incomplete tasks exist or starting a new task
    - → Always use `scripts/checkpoint.sh start <task-name> <steps>` to start task
    - → Use the auto-generated task ID in subsequent commands
+   - → Create worktree (recommended): `scripts/worktree-manager.sh create <task-id> <description>`
    - → Then select and load appropriate instructions
 5. **[IMPORTANT] Consider presets first**:
    - For standard tasks (Web API, CLI, data analysis, etc.)

@@ -95,6 +95,32 @@ AI指示書システムをリロードし、AIの振る舞いをリセットし�
 - 長時間の作業セッション後
 - 新しいタスクセッションを開始する前
 
+### 7. `/build` - プロジェクトビルド 🆕
+プロジェクトに適したビルドコマンドを自動的に検出・実行します。
+
+**使用例:**
+```
+/build
+/build --clean
+/build --prod
+/build --test
+```
+
+**機能:**
+- プロジェクトタイプの自動検出（Node.js、Rust、Python、Go等）
+- パッケージマネージャーの自動判別（npm、yarn、pnpm）
+- 依存関係の自動インストール
+- ビルドエラーの分析と解決策の提案
+- プロジェクト固有の設定対応（CLAUDE.md記載のカスタムコマンド）
+
+**対応プロジェクト:**
+- Node.js/JavaScript/TypeScript (package.json)
+- Rust (Cargo.toml)
+- Python (pyproject.toml)
+- Go (go.mod)
+- Java (pom.xml, build.gradle)
+- その他 (Makefile)
+
 ## セットアップ方法
 
 ### 新規プロジェクトでの導入

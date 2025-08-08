@@ -1,41 +1,31 @@
 ---
-description: "Update and reload AI instruction system to the latest version"
+description: "AI指示書システムを最新版に更新・リロード"
 ---
 
-# Reload Instructions
+# 指示書システムリロード
 
-Update the AI instruction system to the latest version and reload all instructions.
+AI指示書システムを最新版に更新し、ROOT_INSTRUCTIONを再読み込みします。
 
-## Usage
+## 実行内容
 
-```
-/reload-instructions
-```
+1. **サブモジュール更新**
+   ```bash
+   !git submodule update --remote instructions/ai_instruction_kits
+   ```
 
-## Execution Details
+2. **更新確認**
+   ```bash
+   !echo "✅ AI指示書システムを更新しました"
+   !git submodule status instructions/ai_instruction_kits
+   ```
 
-1. **Git update**
-   - Pull latest changes from remote repository
-   - Merge with local changes if necessary
+3. **ROOT_INSTRUCTION読み込み**
+   @instructions/ai_instruction_kits/instructions/ja/system/ROOT_INSTRUCTION.md
 
-2. **Instruction reload**
-   - Clear instruction cache
-   - Re-read ROOT_INSTRUCTION.md
-   - Re-read CHECKPOINT_MANAGER.md
-
-3. **Validation**
-   - Check for conflicts
-   - Verify instruction integrity
-   - Display update summary
-
-## Examples
+## 使用方法
 
 ```
 /reload-instructions
 ```
 
-## Notes
-
-- Preserves local uncommitted changes
-- Automatically resolves simple conflicts
-- Reports any manual intervention needed
+引数は不要です。最新のAI指示書システムを取得し、ROOT_INSTRUCTIONの内容を表示します。

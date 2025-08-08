@@ -1,59 +1,59 @@
 ---
-description: "Check GitHub Issues and organize tasks"
+description: "GitHub Issueを確認してやるべきことを整理"
 ---
 
-# GitHub Issue Check & Organization
+# GitHub Issue確認・整理
 
-Check GitHub Issues for this repository and organize tasks to be done.
+このリポジトリのGitHub Issueを確認し、やるべきタスクを整理します。
 
-## Execution Content
+## 実行内容
 
-1. **GitHub CLI Authentication Check**
+1. **GitHub CLI認証確認**
    ```bash
-   !gh auth status 2>/dev/null || echo "⚠️ GitHub CLI authentication required: gh auth login"
+   !gh auth status 2>/dev/null || echo "⚠️ GitHub CLIの認証が必要です: gh auth login"
    ```
 
-2. **Get Open Issues List**
+2. **オープンなIssue一覧取得**
    ```bash
-   !echo "📋 Open Issues:"
-   !gh issue list --state open --limit 30 --json number,title,labels,assignees,createdAt --template '{{range .}}#{{.number}}: {{.title}}{{if .labels}} [{{range $i, $e := .labels}}{{if $i}}, {{end}}{{.name}}{{end}}]{{end}}{{if .assignees}} (Assigned: {{range $i, $e := .assignees}}{{if $i}}, {{end}}{{.login}}{{end}}){{end}}{{"\n"}}{{end}}'
+   !echo "📋 オープンなIssue一覧:"
+   !gh issue list --state open --limit 30 --json number,title,labels,assignees,createdAt --template '{{range .}}#{{.number}}: {{.title}}{{if .labels}} [{{range $i, $e := .labels}}{{if $i}}, {{end}}{{.name}}{{end}}]{{end}}{{if .assignees}} (担当: {{range $i, $e := .assignees}}{{if $i}}, {{end}}{{.login}}{{end}}){{end}}{{"\n"}}{{end}}'
    ```
 
-3. **Issue Count by Label**
+3. **ラベル別Issue集計**
    ```bash
-   !echo -e "\n📊 Count by Label:"
-   !gh issue list --state open --json labels --jq '[.[] | .labels[].name] | group_by(.) | map({label: .[0], count: length}) | sort_by(.count) | reverse | .[] | "\(.label): \(.count) issues"' | head -10
+   !echo -e "\n📊 ラベル別集計:"
+   !gh issue list --state open --json labels --jq '[.[] | .labels[].name] | group_by(.) | map({label: .[0], count: length}) | sort_by(.count) | reverse | .[] | "\(.label): \(.count)件"' | head -10
    ```
 
-4. **Recent Issues (Last 7 days)**
+4. **最近のIssue（7日以内）**
    ```bash
-   !echo -e "\n🆕 Recently Created Issues (Last 7 days):"
+   !echo -e "\n🆕 最近作成されたIssue（7日以内）:"
    !gh issue list --state open --search "created:>$(date -d '7 days ago' +%Y-%m-%d 2>/dev/null || date -v-7d +%Y-%m-%d)" --limit 10 --json number,title,createdAt --template '{{range .}}#{{.number}}: {{.title}} ({{.createdAt | time "2006-01-02"}}){{"\n"}}{{end}}'
    ```
 
-5. **High Priority Issues**
+5. **高優先度Issue確認**
    ```bash
-   !echo -e "\n🔥 High Priority Issues:"
+   !echo -e "\n🔥 高優先度Issue:"
    !gh issue list --state open --label "priority:high,bug,critical" --limit 10 --json number,title,labels --template '{{range .}}#{{.number}}: {{.title}} [{{range $i, $e := .labels}}{{if $i}}, {{end}}{{.name}}{{end}}]{{"\n"}}{{end}}'
    ```
 
-6. **Task Organization Suggestions**
-   Organize and suggest tasks based on:
-   - Priority (judged from labels and creation date)
-   - Relevance (grouping similar issues)
-   - Implementation order (considering dependencies)
-   - Effort estimation
+6. **タスク整理提案**
+   以下の観点でタスクを整理・提案します：
+   - 優先度（ラベル、作成日時から判断）
+   - 関連性（類似Issueのグループ化）
+   - 実装順序（依存関係を考慮）
+   - 作業量の見積もり
 
-## Usage
+## 使用方法
 
 ```
 /github-issues
 ```
 
-No arguments required. GitHub CLI must be configured.
+引数は不要です。GitHub CLIが設定されている必要があります。
 
-## Notes
+## 注意事項
 
-- GitHub CLI authentication required (`gh auth login`)
-- Appropriate permissions required for private repositories
-- Display is limited when there are many issues (max 10-30 per category)
+- GitHub CLIの認証が必要です（`gh auth login`）
+- プライベートリポジトリの場合は適切な権限が必要です
+- Issue数が多い場合は表示を制限しています（各カテゴリ最大10-30件）

@@ -1,46 +1,45 @@
 ---
-description: "Execute commit, push, and issue report in batch"
+description: "コミット、プッシュ、Issue報告を一括実行"
 ---
 
-# Batch Commit and Report
+# コミット・プッシュ・Issue報告
 
-Execute commit, push, and issue report operations in a single command. This custom command automates the Git workflow for the AI instruction kit repository.
+変更をコミット・プッシュし、指定されたIssueに進捗を報告します。作業完了時はIssueをクローズできます。
 
-## Usage
+## 使用方法
 
 ```
-/commit-and-report <commit-message> [issue-number]
+/commit-and-report "コミットメッセージ" [Issue番号]
 ```
 
-## Execution Details
+## 実行内容
 
-1. **Git operations**
-   - Check current status: `git status`
-   - Add changes in current directory: `git add .`
-   - Commit with the provided message
-   - Push to remote repository
+1. **変更内容を確認してステージング・コミット**
+   ```bash
+   !git status
+   !git add .
+   !git commit -m "$ARGUMENTS"
+   ```
    
-   ⚠️ **Warning**: `git add .` only targets files in the current directory and below.
-   To target the entire repository, run from the project root or
-   explicitly specify files to add.
+   ⚠️ **注意**: `git add .`は現在のディレクトリ配下のみを対象とします。
+   全体を対象にする場合は、プロジェクトルートで実行するか、
+   明示的にファイルを指定してください。
 
-2. **Issue reporting** (if issue number provided)
-   - Add a comment to the specified GitHub issue
-   - Include commit hash and summary
+2. **リモートにプッシュ**
+   ```bash
+   !git push
+   ```
 
-3. **Error handling**
-   - Rollback on failure
-   - Display detailed error messages
+3. **Issue報告** (Issue番号が指定された場合)
+   ```bash
+   !if echo "$ARGUMENTS" | grep -q " "; then ISSUE_NUM=$(echo "$ARGUMENTS" | awk '{print $NF}'); COMMIT_MSG=$(echo "$ARGUMENTS" | sed 's/ [0-9]*$//'); gh issue comment "$ISSUE_NUM" --body "✅ $COMMIT_MSG"; fi
+   ```
 
-## Examples
+## 使用例
 
 ```
-/commit-and-report "feat: Add new instruction module"
-/commit-and-report "fix: Correct typo in README" 42
+/commit-and-report "feat: カスタムコマンド実装"
+/commit-and-report "fix: バグ修正" 123
 ```
 
-## Notes
-
-- Requires Git configuration and GitHub authentication
-- Automatically detects the current branch
-- Uses the project's commit message conventions
+Issue番号を指定すると、そのIssueに進捗が自動報告されます。

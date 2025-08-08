@@ -1,87 +1,87 @@
 ---
-description: "Reload AI instruction system and reset AI behavior"
+description: "AI指示書システムをリロードし、AIの振る舞いをリセット"
 ---
 
-# AI Instruction Reload & Reset
+# AI指示書リロード＆リセット
 
-Update the AI instruction system to the latest version and reset AI behavior to follow instructions properly.
+AI指示書システムを最新版に更新し、AIが指示に従った適切な振る舞いになるよう是正します。
 
-## Execution Content
+## 実行内容
 
-1. **Save Current Task State**
+1. **現在のタスク状態を保存**
    ```bash
-   !echo "📋 Saving current task state..."
-   !scripts/checkpoint.sh pending > /tmp/ai_tasks_backup.txt 2>&1 || echo "No task information"
+   !echo "📋 現在のタスク状態を保存中..."
+   !scripts/checkpoint.sh pending > /tmp/ai_tasks_backup.txt 2>&1 || echo "タスク情報なし"
    ```
 
-2. **Update Submodule (Skip if this is the project itself)**
+2. **サブモジュール更新（このプロジェクト自体の場合はスキップ）**
    ```bash
    !if [ -d "instructions/ai_instruction_kits/.git" ]; then
-   !  echo "🔄 Updating AI instruction system..."
+   !  echo "🔄 AI指示書システムを更新中..."
    !  git submodule update --remote instructions/ai_instruction_kits
    !else
-   !  echo "📌 Running in AI Instruction Kits development environment (skipping submodule update)"
+   !  echo "📌 AI指示書キット開発環境で実行中（サブモジュール更新をスキップ）"
    !fi
    ```
 
-3. **Check Update Status**
+3. **更新状態確認**
    ```bash
-   !echo -e "\n✅ Current instruction system status:"
+   !echo -e "\n✅ 現在の指示書システム状態:"
    !if [ -d "instructions/ai_instruction_kits/.git" ]; then
    !  git submodule status instructions/ai_instruction_kits
    !else
-   !  echo "Development environment: $(git rev-parse --short HEAD)"
+   !  echo "開発環境: $(git rev-parse --short HEAD)"
    !fi
    ```
 
-4. **System Reset Declaration**
-   Resetting AI system with the following steps:
+4. **システムリセット宣言**
+   以下の手順でAIシステムをリセットします：
 
-   ### 🔄 Reset Complete
+   ### 🔄 リセット完了
    
-   I have been reset to the following state:
-   - ✅ Recognizing the latest AI instruction system
-   - ✅ Operating mode following ROOT_INSTRUCTION
-   - ✅ Task management system ready
-   - ✅ Preset-first instruction selection
+   私は今、以下の状態にリセットされました：
+   - ✅ AI指示書システムの最新版を認識
+   - ✅ ROOT_INSTRUCTIONに従った動作モード
+   - ✅ タスク管理システムの利用準備完了
+   - ✅ プリセット優先の指示書選択
    
-   ### 📋 Applied Basic Rules
-   1. **Task Management**: Progress management using checkpoint.sh
-   2. **Instruction Selection**: Priority order: Preset → Modular → Legacy
-   3. **Work Process**: Start task → Select instruction → Execute → Report completion
-   4. **Path Recognition**: Automatic identification of development and submodule environments
+   ### 📋 適用される基本ルール
+   1. **タスク管理**: checkpoint.shを使用した進捗管理
+   2. **指示書選択**: プリセット → モジュラー → レガシーの優先順
+   3. **作業手順**: タスク開始 → 指示書選択 → 実行 → 完了報告
+   4. **パス認識**: 開発環境とサブモジュール環境の自動判別
 
-5. **Reload ROOT_INSTRUCTION**
-   Auto-detect path and load:
-   @instructions/en/system/ROOT_INSTRUCTION.md or
-   @instructions/ai_instruction_kits/instructions/en/system/ROOT_INSTRUCTION.md
+5. **ROOT_INSTRUCTION再読み込み**
+   パスを自動判別して読み込みます：
+   @instructions/ja/system/ROOT_INSTRUCTION.md または
+   @instructions/ai_instruction_kits/instructions/ja/system/ROOT_INSTRUCTION.md
 
-6. **Check Saved Task State**
+6. **保存していたタスク状態の確認**
    ```bash
    !if [ -f "/tmp/ai_tasks_backup.txt" ]; then
-   !  echo -e "\n📋 Saved tasks:"
+   !  echo -e "\n📋 保存されていたタスク:"
    !  cat /tmp/ai_tasks_backup.txt
    !  rm /tmp/ai_tasks_backup.txt
    !fi
    ```
 
-## Usage
+## 使用方法
 
 ```
 /reload-and-reset
 ```
 
-No arguments required. AI system will be completely reset and operate according to the latest instructions.
+引数は不要です。AIシステムが完全にリセットされ、最新の指示書に従って動作するようになります。
 
-## Effects
+## 効果
 
-- 🧠 AI behavior reset to follow instructions
-- 📚 Load latest instruction system
-- ✅ Re-initialize task management system
+- 🧠 AIの振る舞いが指示書に従った状態にリセット
+- 📚 最新の指示書システムを読み込み
+- ✅ タスク管理システムの再初期化
 
-## Recommended Usage Timing
+## 推奨使用タイミング
 
-- When AI behaves not following instructions
-- After long work sessions
-- When instruction system is updated
-- Before starting new task sessions
+- AIが指示書に従わない振る舞いをした時
+- 長時間の作業セッション後
+- 指示書システムが更新された時
+- 新しいタスクセッションを開始する前

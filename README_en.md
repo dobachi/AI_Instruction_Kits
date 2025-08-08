@@ -143,6 +143,9 @@ Dedicated custom commands for Claude Code users to streamline project workflows.
 | `/commit-and-report` | Commit & Issue report | `/commit-and-report "Bug fix complete"` |
 | `/commit-safe` | Clean commit (no AI signature) | `/commit-safe "Documentation update"` |
 | `/reload-instructions` | Reload instructions | `/reload-instructions` |
+| `/github-issues` 🆕 | Check GitHub Issues and organize tasks | `/github-issues` |
+| `/reload-and-reset` 🆕 | Reset AI system and reload instructions | `/reload-and-reset` |
+| `/build` 🆕 | Execute project-appropriate build commands | `/build --prod` |
 
 ### Automatic Setup
 

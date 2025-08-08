@@ -1,59 +1,59 @@
 ---
-description: "Execute AI instruction system checkpoint"
+description: "AI指示書システムのチェックポイントを実行"
 ---
 
-# Checkpoint Execution
+# チェックポイント実行
 
-Execute the AI instruction system checkpoint script to manage task progress.
+AI指示書システムのチェックポイントスクリプトを実行し、タスクの進捗を管理します。
 
-## Usage
+## 使用方法
 
 ```
 /checkpoint <command> [arguments]
 ```
 
-## Available Commands
+## 利用可能なコマンド
 
-### Task Management
-- `start <name> <steps>` - Start a new task (Task ID is auto-generated)
-- `progress <task-id> <current> <total> <status> <next>` - Report progress (Requires: instruction in use)
-- `complete <task-id> <result>` - Complete task (Requires: all instructions completed)
-- `error <task-id> <message>` - Report error
+### タスク管理
+- `start <name> <steps>` - 新しいタスクを開始（タスクIDは自動生成）
+- `progress <task-id> <current> <total> <status> <next>` - 進捗を報告（要：指示書使用中）
+- `complete <task-id> <result>` - タスクを完了（要：指示書すべて完了）
+- `error <task-id> <message>` - エラーを報告
 
-### Instruction Management
-- `instruction-start <path> <purpose> [task-id]` - Start using instruction
-- `instruction-complete <path> <result> [task-id]` - Complete instruction usage
+### 指示書管理
+- `instruction-start <path> <purpose> [task-id]` - 指示書の使用を開始
+- `instruction-complete <path> <result> [task-id]` - 指示書の使用を完了
 
-### Status Check
-- `pending` - List pending tasks
-- `summary <task-id>` - Show task details
-- `help` - Show help message
+### 状態確認
+- `pending` - 未完了タスクの一覧を表示
+- `summary <task-id>` - タスクの詳細履歴を表示
+- `help` - ヘルプメッセージを表示
 
-## Execution Details
+## 実行内容
 
-1. **Checkpoint command execution**
+1. **チェックポイントコマンド実行**
    ```bash
    !bash scripts/checkpoint.sh $ARGUMENTS
    ```
 
-2. **Result display**
-   - Command execution results
-   - Error messages (if applicable)
-   - Next action suggestions
+2. **結果表示**
+   - コマンドに応じた実行結果
+   - エラーメッセージ（該当する場合）
+   - 次のアクション提案
 
-## Examples
+## 使用例
 
 ```
 /checkpoint pending
-/checkpoint start "new feature implementation" 5
-/checkpoint progress TASK-123456-abc123 2 5 "design complete" "start implementation"
-/checkpoint instruction-start "instructions/en/presets/web_api_production.md" "REST API development" TASK-123456-abc123
-/checkpoint complete TASK-123456-abc123 "3 API endpoints implemented"
+/checkpoint start "新機能実装" 5
+/checkpoint progress TASK-123456-abc123 2 5 "設計完了" "実装開始"
+/checkpoint instruction-start "instructions/ja/presets/web_api_production.md" "REST API開発" TASK-123456-abc123
+/checkpoint complete TASK-123456-abc123 "API 3エンドポイント実装完了"
 ```
 
-## Notes
+## 注意事項
 
-- Execution without arguments defaults to the `pending` command
-- Task IDs are auto-generated when using the `start` command
-- The `progress` command can only be executed while using an instruction
-- Due to workflow constraints, system instructions are not recommended
+- 引数なしでの実行は、デフォルトで `pending` コマンドを実行します
+- タスクIDは `start` コマンド実行時に自動生成されます
+- `progress` コマンドは指示書使用中のみ実行可能です
+- ワークフロー制約により、システム指示書は推奨されません

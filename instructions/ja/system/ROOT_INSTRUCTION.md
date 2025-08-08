@@ -6,7 +6,9 @@
 
 ## 指示
 
-1. **必ず `instructions/ai_instruction_kits/instructions/ja/system/CHECKPOINT_MANAGER.md` を読み込んでください**
+1. **必ず以下の管理システムを読み込んでください**：
+   - `instructions/ai_instruction_kits/instructions/ja/system/CHECKPOINT_MANAGER.md` - 進捗管理
+   - `instructions/ai_instruction_kits/instructions/ja/system/WORKTREE_MANAGER.md` - worktree管理
 2. **ワークフローに応じた適切なチェックポイントコマンドの使用**
    - 新規会話開始時：`scripts/checkpoint.sh pending` で未完了タスクを確認
    - タスク開始時：`scripts/checkpoint.sh start <task-name> <steps>` で新規タスク登録
@@ -19,6 +21,7 @@
    - 未完了タスクがない場合、または新規タスクを開始する場合
    - → 必ず `scripts/checkpoint.sh start <task-name> <steps>` でタスクを開始
    - → 自動生成されたタスクIDを以降のコマンドで使用
+   - → worktree作成（推奨）: `scripts/worktree-manager.sh create <task-id> <description>`
    - → その後、適切な指示書を選択・読み込み
 5. **【重要】まずプリセットの使用を検討してください**：
    - 標準的なタスク（Web API、CLI、データ分析等）の場合
@@ -88,6 +91,7 @@ scripts/generate-instruction.sh --preset <プリセット名> --output <出力�
 
 ### システム管理
 - `instructions/ai_instruction_kits/instructions/ja/system/CHECKPOINT_MANAGER.md` - 進捗報告管理（必須）
+- `instructions/ai_instruction_kits/instructions/ja/system/WORKTREE_MANAGER.md` - Git worktree管理（推奨）
 
 ### 基本機能
 - `instructions/ai_instruction_kits/instructions/ja/general/basic_qa.md` - 質問応答、情報提供

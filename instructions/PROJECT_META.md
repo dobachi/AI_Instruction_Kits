@@ -64,7 +64,7 @@ scripts/checkpoint.sh
 ### テスト・検証
 1. setup-project.shが正しく動作するか確認
 2. 各指示書が独立して機能するか確認
-3. ROOT_INSTRUCTIONとINSTRUCTION_SELECTORの連携確認
+3. ROOT_INSTRUCTIONとMODULE_COMPOSERの連携確認
 4. パスの整合性確認（サブモジュール環境での動作）
 
 ## プロジェクト固有の指示
@@ -110,6 +110,25 @@ bash scripts/commit.sh "コミットメッセージ"
 
 # ファイル整合性チェック（将来実装予定）
 # bash scripts/validate-instructions.sh
+```
+
+## Git worktree運用（推奨）
+複雑なタスクや複数ファイルの変更時は、専用のworktreeで作業してください：
+
+```bash
+# タスク開始時
+scripts/checkpoint.sh start "機能開発" 3
+# → タスクID: TASK-123456-abc
+
+# worktree作成
+scripts/worktree-manager.sh create TASK-123456-abc "feature-dev"
+cd .gitworktrees/ai-TASK-123456-abc-feature-dev/
+
+# 作業実施...
+
+# 完了時
+scripts/checkpoint.sh complete TASK-123456-abc "完了"
+scripts/worktree-manager.sh complete TASK-123456-abc
 ```
 
 ## コミットルール
