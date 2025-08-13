@@ -129,6 +129,18 @@ The AI Instruction Kits automatically detects OpenHands environments and loads a
 
 When using OpenHands, `setup-project.sh` automatically links `.openhands/microagents/repo.md` to the appropriate instruction file.
 
+## Claude Code Agent Feature
+
+Supports automation of large-scale analysis and investigation tasks using Claude Code's Task tool (agent feature).
+
+### Use Cases
+- Project-wide code quality analysis
+- Comprehensive dependency investigation
+- Thorough test coverage verification
+- Documentation and code consistency validation
+
+See [Claude Code Agent Usage Guide](instructions/en/system/CLAUDE_CODE_AGENT.md) for details.
+
 ## Claude Code Custom Commands (New Feature)
 
 ### Overview

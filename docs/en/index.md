@@ -53,6 +53,9 @@ Automatically track work progress, enabling smooth task handover and continuity:
 [2024-01-05 10:30:00][TASK-abc123][COMPLETE] Result: Created 3 API endpoints, 15 tests
 ```
 
+### 4. Claude Code Agent Support
+Automate large-scale analysis tasks using Task tool (agent feature)
+
 ## 💡 Use Cases
 
 ### Typical Usage Scenarios

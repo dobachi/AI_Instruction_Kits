@@ -184,6 +184,17 @@ scripts/checkpoint.sh stats
 scripts/checkpoint.sh history
 ```
 
+### Claude Codeエージェント機能
+
+Task tool（エージェント機能）を活用した大規模分析タスクの自動化：
+
+- **コード品質分析**: プロジェクト全体の品質チェック
+- **依存関係調査**: 包括的な依存関係マッピング
+- **テストカバレッジ**: 網羅的なカバレッジ分析
+- **ドキュメント検証**: 実装との整合性確認
+
+詳細は[Claude Codeエージェント活用ガイド](../instructions/ja/system/CLAUDE_CODE_AGENT.md)を参照。
+
 ### Claude Code カスタムコマンド（新機能）
 
 Claude Codeユーザー向けの効率化機能：

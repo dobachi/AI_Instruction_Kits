@@ -131,6 +131,18 @@ AI指示書キットは、OpenHands環境を自動的に検出し、専用の指
 
 OpenHandsを使用する場合、`setup-project.sh`が自動的に`.openhands/microagents/repo.md`を適切な指示書にリンクします。
 
+## Claude Codeエージェント機能
+
+Claude CodeのTask tool（エージェント機能）を活用した大規模分析・調査タスクの自動化をサポート。
+
+### 活用例
+- プロジェクト全体のコード品質分析
+- 依存関係の包括的調査
+- テストカバレッジの網羅的確認
+- ドキュメントとコードの整合性検証
+
+詳細は[Claude Codeエージェント活用ガイド](instructions/ja/system/CLAUDE_CODE_AGENT.md)を参照してください。
+
 ## Claude Code カスタムコマンド（新機能）
 
 ### 概要

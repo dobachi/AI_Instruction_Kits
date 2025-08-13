@@ -49,6 +49,9 @@ bash path/to/AI_Instruction_Kits/scripts/setup-project.sh
 ### 📊 進捗管理機能
 チェックポイント機能で、AIとの作業進捗を自動追跡
 
+### 🤖 Claude Codeエージェント対応
+Task tool（エージェント機能）を活用した大規模分析タスクの自動化
+
 ## 🎬 デモ
 
 ### 従来の方法

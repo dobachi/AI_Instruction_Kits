@@ -162,6 +162,17 @@ Instructions to behave as specific experts
 
 ## 🔧 Core Features
 
+### Claude Code Agent Feature
+
+Automate large-scale analysis tasks using Task tool (agent feature):
+
+- **Code Quality Analysis**: Project-wide quality checks
+- **Dependency Investigation**: Comprehensive dependency mapping
+- **Test Coverage**: Thorough coverage analysis
+- **Documentation Verification**: Implementation consistency checks
+
+See [Claude Code Agent Usage Guide](../instructions/en/system/CLAUDE_CODE_AGENT.md) for details.
+
 ### Checkpoint Management (Extended Version)
 
 Detailed tracking of work progress and instruction usage history
