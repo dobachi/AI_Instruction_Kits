@@ -1,0 +1,247 @@
+# ファクトチェックスキルモジュール
+# AIが提供した情報の正確性を体系的に検証し、誤情報を防ぐ能力
+
+id: "skill_fact_checking"
+name: "ファクトチェック"
+description: "AIが提供した情報や調査結果の正確性を体系的に検証し、誤情報・偽情報を防ぐためのスキル。多重検証、情報源評価、クロスリファレンス、証拠階層評価を通じて、情報の信頼性を確保"
+version: "1.0.0"
+category: "skills"
+author: "AI Instruction Kits"
+
+# 必要な変数定義
+variables:
+  - name: "verification_depth"
+    description: "検証の深度レベル"
+    type: "enum"
+    required: false
+    values: ["basic", "standard", "thorough", "forensic"]
+    default: "standard"
+    example: "basic: 基本的な事実確認、forensic: 法科学的レベルの詳細検証"
+  
+  - name: "source_requirements"
+    description: "情報源の要求レベル"
+    type: "enum"
+    required: false
+    values: ["minimum", "multiple", "authoritative", "primary_only"]
+    default: "multiple"
+    example: "minimum: 最低限の確認、primary_only: 一次情報源のみ使用"
+  
+  - name: "confidence_threshold"
+    description: "信頼度の閾値設定"
+    type: "enum"
+    required: false
+    values: ["low", "medium", "high", "absolute"]
+    default: "medium"
+    example: "low: 60%以上、high: 90%以上の確信度"
+  
+  - name: "reporting_style"
+    description: "検証結果の報告スタイル"
+    type: "enum"
+    required: false
+    values: ["binary", "graded", "detailed", "summary"]
+    default: "graded"
+    example: "binary: 真偽二択、detailed: 詳細な検証過程を含む"
+  
+  - name: "cultural_context"
+    description: "文化的文脈の考慮"
+    type: "enum"
+    required: false
+    values: ["japanese", "international", "regional", "universal"]
+    default: "international"
+    example: "japanese: 日本の情報源重視、universal: 普遍的基準"
+
+# 他のモジュールとの依存関係
+dependencies:
+  required:
+    - "core_role_definition"
+  optional:
+    - "skill_critical_evaluation"
+    - "skill_critical_thinking"
+    - "skill_web_research"
+    - "skill_citation_management"
+    - "quality_production"
+
+# 互換性のあるタスク・モジュール
+compatible_tasks:
+  - "task_research"
+  - "task_report_writing"
+  - "task_documentation"
+  - "task_data_analysis"
+  - "task_competitive_analysis"
+  - "task_market_research"
+compatible_skills:
+  - "skill_critical_evaluation"
+  - "skill_critical_thinking"
+  - "skill_web_research"
+  - "skill_citation_management"
+  - "skill_systems_thinking"
+
+# スキルが提供する機能・能力
+capabilities:
+  primary_functions:
+    - "多重検証システム：独立した複数情報源による事実確認"
+    - "情報源評価マトリクス：権威性・独立性・透明性の体系的評価"
+    - "クロスリファレンス分析：複数情報源間の一致・相違比較"
+    - "証拠階層評価：エビデンスレベルに基づく信頼度判定"
+    - "ファクトチェックプロトコル：標準化された検証手順の実行"
+  
+  supporting_functions:
+    - "ハルシネーション検出：AIの誤情報生成を特定"
+    - "循環参照検出：相互引用による偽確証の発見"
+    - "時系列整合性確認：情報の時間的矛盾の検出"
+    - "文脈適切性評価：引用の歪曲や誤用の特定"
+    - "レッドフラグ検出：信頼性の低い情報の警告サイン識別"
+
+# 技術的アプローチ・手法
+methodology:
+  approach: "多層的検証と証拠ベース評価"
+  frameworks:
+    - "CRAAP テスト（Currency, Relevance, Authority, Accuracy, Purpose）"
+    - "三角測量法（Triangulation）"
+    - "SIFT法（Stop, Investigate, Find, Trace）"
+    - "証拠ピラミッド（Evidence Hierarchy）"
+    - "横断的検証（Lateral Reading）"
+  
+  key_principles:
+    - "独立検証：複数の独立した情報源での確認"
+    - "原典主義：可能な限り一次情報源まで遡る"
+    - "透明性：検証過程と限界の明確な開示"
+    - "段階的評価：二元論ではなく信頼度スペクトラムで評価"
+    - "継続的更新：情報の鮮度と更新の確認"
+
+# 出力設定
+output_format:
+  style: "構造化検証レポート"
+  components:
+    - "検証サマリー（信頼度スコア付き）"
+    - "情報源リストと評価"
+    - "検証詳細（一致点・相違点）"
+    - "未確認項目と限界"
+    - "推奨アクション"
+  detail_level: "adaptive"  # 状況に応じて調整
+
+# タグ（検索・分類用）
+tags:
+  - "fact-checking"
+  - "verification"
+  - "misinformation"
+  - "information-literacy"
+  - "critical-analysis"
+  - "evidence-based"
+  - "research-validation"
+  - "ai-hallucination"
+  - "intermediate"
+
+# 使用例
+examples:
+  - title: "AI生成レポートの事実確認"
+    description: "AIが作成した市場分析レポートの数値と主張を検証"
+    context: "クライアント提出前の最終チェック"
+    variables:
+      verification_depth: "thorough"
+      source_requirements: "authoritative"
+      confidence_threshold: "high"
+      reporting_style: "detailed"
+    expected_outcome: "統計データの正確性確認、誤情報の修正、信頼度レポート作成"
+  
+  - title: "科学的主張の検証"
+    description: "健康関連の科学的主張の妥当性を評価"
+    context: "医療・健康情報の記事作成"
+    variables:
+      verification_depth: "forensic"
+      source_requirements: "primary_only"
+      confidence_threshold: "high"
+      cultural_context: "universal"
+    expected_outcome: "査読済み研究の確認、エビデンスレベルの評価、注意事項の明記"
+  
+  - title: "リアルタイムニュースの検証"
+    description: "速報ニュースの事実関係を迅速に確認"
+    context: "ソーシャルメディアでの情報拡散前"
+    variables:
+      verification_depth: "basic"
+      source_requirements: "multiple"
+      confidence_threshold: "medium"
+      reporting_style: "summary"
+    expected_outcome: "基本的事実の確認、信頼度の迅速評価、追加検証の必要性判断"
+
+# メタデータ
+metadata:
+  complexity: "intermediate"  # basic, intermediate, advanced, expert
+  learning_curve: "中期間"
+  prerequisites:
+    - "基本的な情報リテラシー"
+    - "批判的思考能力"
+    - "リサーチスキル"
+  domain_knowledge:
+    - "情報検証の基本原則"
+    - "情報源の種類と特性"
+    - "統計的思考の基礎"
+    - "メディアリテラシー"
+
+# 実装パターン・ベストプラクティス
+implementation_patterns:
+  common_patterns:
+    - pattern: "CRAAP テスト"
+      description: "情報の最新性・関連性・権威性・正確性・目的を評価"
+      use_case: "学術的・専門的情報の評価"
+    
+    - pattern: "逆画像検索"
+      description: "画像の出所と使用履歴を確認"
+      use_case: "視覚的情報の真正性確認"
+    
+    - pattern: "5W1H分解"
+      description: "主張を基本要素に分解して個別検証"
+      use_case: "複雑な主張の体系的検証"
+    
+    - pattern: "タイムライン検証"
+      description: "出来事の時系列的整合性を確認"
+      use_case: "歴史的事実や事件の検証"
+
+# ベストプラクティス
+best_practices:
+  - "感情的な反応を引き起こす情報ほど慎重に検証"
+  - "『全員が知っている』『常識』という主張も検証対象"
+  - "統計は出所、サンプルサイズ、方法論を確認"
+  - "専門家の意見も他の専門家の見解と照合"
+  - "検証できない部分は明確に『未確認』と表示"
+  - "文化的・地域的文脈を考慮した評価"
+
+# よくある間違い・注意点
+common_pitfalls:
+  - "検証サイト自体の偏向を考慮しない"
+  - "古い検証結果を現在も有効と誤認"
+  - "部分的真実を全体的真実と混同"
+  - "相関関係を因果関係と誤認"
+  - "検証不能を虚偽と断定"
+  - "文脈を無視した事実のみの判断"
+
+# 品質指標
+quality_indicators:
+  - "検証カバー率（主張の何%を検証できたか）"
+  - "情報源の多様性指数"
+  - "検証時間の効率性"
+  - "誤判定率（False Positive/Negative）"
+  - "ユーザー満足度と信頼度"
+  - "検証の再現可能性"
+
+# ツール・リソース
+tools_and_resources:
+  recommended_tools:
+    - "Google Scholar（学術文献検索）"
+    - "PubMed（医学文献データベース）"
+    - "Wayback Machine（過去のウェブページ）"
+    - "TinEye（逆画像検索）"
+    - "Snopes/FactCheck.org（ファクトチェックデータベース）"
+    - "政府統計ポータル（e-Stat等）"
+  
+  reference_materials:
+    - "「Verification Handbook」 European Journalism Centre"
+    - "「Web Literacy for Fact-Checkers」 Mike Caulfield"
+    - "国際ファクトチェックネットワーク（IFCN）行動規範"
+    - "「Information Disorder」 Council of Europe report"
+    - "日本ファクトチェックセンター ガイドライン"
+
+# 作成日時とバージョン管理
+created: "2025-01-13"
+updated: "2025-01-13"
+license: "Apache-2.0"

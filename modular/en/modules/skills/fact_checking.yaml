@@ -1,0 +1,247 @@
+# Fact-Checking Skills Module
+# Capability to systematically verify the accuracy of AI-provided information and prevent misinformation
+
+id: "skill_fact_checking"
+name: "Fact-Checking"
+description: "Skill for systematically verifying the accuracy of AI-provided information and research results, preventing misinformation and disinformation. Ensures information reliability through multi-source verification, source evaluation, cross-referencing, and evidence hierarchy assessment"
+version: "1.0.0"
+category: "skills"
+author: "AI Instruction Kits"
+
+# Required Variable Definitions
+variables:
+  - name: "verification_depth"
+    description: "Depth level of verification"
+    type: "enum"
+    required: false
+    values: ["basic", "standard", "thorough", "forensic"]
+    default: "standard"
+    example: "basic: basic fact-checking, forensic: forensic-level detailed verification"
+  
+  - name: "source_requirements"
+    description: "Information source requirement level"
+    type: "enum"
+    required: false
+    values: ["minimum", "multiple", "authoritative", "primary_only"]
+    default: "multiple"
+    example: "minimum: minimal confirmation, primary_only: use primary sources only"
+  
+  - name: "confidence_threshold"
+    description: "Confidence threshold setting"
+    type: "enum"
+    required: false
+    values: ["low", "medium", "high", "absolute"]
+    default: "medium"
+    example: "low: 60%+ confidence, high: 90%+ confidence"
+  
+  - name: "reporting_style"
+    description: "Verification result reporting style"
+    type: "enum"
+    required: false
+    values: ["binary", "graded", "detailed", "summary"]
+    default: "graded"
+    example: "binary: true/false binary, detailed: includes detailed verification process"
+  
+  - name: "cultural_context"
+    description: "Cultural context consideration"
+    type: "enum"
+    required: false
+    values: ["japanese", "international", "regional", "universal"]
+    default: "international"
+    example: "japanese: emphasize Japanese sources, universal: universal standards"
+
+# Dependencies with Other Modules
+dependencies:
+  required:
+    - "core_role_definition"
+  optional:
+    - "skill_critical_evaluation"
+    - "skill_critical_thinking"
+    - "skill_web_research"
+    - "skill_citation_management"
+    - "quality_production"
+
+# Compatible Tasks and Modules
+compatible_tasks:
+  - "task_research"
+  - "task_report_writing"
+  - "task_documentation"
+  - "task_data_analysis"
+  - "task_competitive_analysis"
+  - "task_market_research"
+compatible_skills:
+  - "skill_critical_evaluation"
+  - "skill_critical_thinking"
+  - "skill_web_research"
+  - "skill_citation_management"
+  - "skill_systems_thinking"
+
+# Functions and Capabilities Provided by the Skill
+capabilities:
+  primary_functions:
+    - "Multi-source verification system: Fact confirmation through multiple independent sources"
+    - "Source evaluation matrix: Systematic evaluation of authority, independence, and transparency"
+    - "Cross-reference analysis: Comparison of agreements and discrepancies between multiple sources"
+    - "Evidence hierarchy evaluation: Reliability assessment based on evidence levels"
+    - "Fact-checking protocol: Execution of standardized verification procedures"
+  
+  supporting_functions:
+    - "Hallucination detection: Identifying AI-generated misinformation"
+    - "Circular reference detection: Discovering false confirmation through mutual citation"
+    - "Timeline consistency check: Detecting temporal contradictions in information"
+    - "Context appropriateness evaluation: Identifying quote distortion or misuse"
+    - "Red flag detection: Identifying warning signs of unreliable information"
+
+# Technical Approach and Methods
+methodology:
+  approach: "Multi-layered verification and evidence-based evaluation"
+  frameworks:
+    - "CRAAP Test (Currency, Relevance, Authority, Accuracy, Purpose)"
+    - "Triangulation Method"
+    - "SIFT Method (Stop, Investigate, Find, Trace)"
+    - "Evidence Hierarchy/Pyramid"
+    - "Lateral Reading"
+  
+  key_principles:
+    - "Independent verification: Confirmation through multiple independent sources"
+    - "Primary source principle: Trace back to primary sources whenever possible"
+    - "Transparency: Clear disclosure of verification process and limitations"
+    - "Graduated evaluation: Assess on confidence spectrum rather than binary"
+    - "Continuous updating: Check information freshness and updates"
+
+# Output Settings
+output_format:
+  style: "Structured verification report"
+  components:
+    - "Verification summary (with confidence score)"
+    - "Source list and evaluation"
+    - "Verification details (points of agreement/disagreement)"
+    - "Unconfirmed items and limitations"
+    - "Recommended actions"
+  detail_level: "adaptive"  # Adjust based on situation
+
+# Tags (for search and classification)
+tags:
+  - "fact-checking"
+  - "verification"
+  - "misinformation"
+  - "information-literacy"
+  - "critical-analysis"
+  - "evidence-based"
+  - "research-validation"
+  - "ai-hallucination"
+  - "intermediate"
+
+# Usage Examples
+examples:
+  - title: "Fact-checking AI-generated reports"
+    description: "Verify numbers and claims in AI-created market analysis reports"
+    context: "Final check before client submission"
+    variables:
+      verification_depth: "thorough"
+      source_requirements: "authoritative"
+      confidence_threshold: "high"
+      reporting_style: "detailed"
+    expected_outcome: "Confirm statistical accuracy, correct misinformation, create reliability report"
+  
+  - title: "Scientific claim verification"
+    description: "Evaluate validity of health-related scientific claims"
+    context: "Medical/health information article creation"
+    variables:
+      verification_depth: "forensic"
+      source_requirements: "primary_only"
+      confidence_threshold: "high"
+      cultural_context: "universal"
+    expected_outcome: "Confirm peer-reviewed research, evaluate evidence levels, specify precautions"
+  
+  - title: "Real-time news verification"
+    description: "Quickly confirm facts in breaking news"
+    context: "Before social media information spread"
+    variables:
+      verification_depth: "basic"
+      source_requirements: "multiple"
+      confidence_threshold: "medium"
+      reporting_style: "summary"
+    expected_outcome: "Confirm basic facts, quick reliability assessment, determine need for additional verification"
+
+# Metadata
+metadata:
+  complexity: "intermediate"  # basic, intermediate, advanced, expert
+  learning_curve: "medium-term"
+  prerequisites:
+    - "Basic information literacy"
+    - "Critical thinking ability"
+    - "Research skills"
+  domain_knowledge:
+    - "Basic principles of information verification"
+    - "Types and characteristics of information sources"
+    - "Fundamentals of statistical thinking"
+    - "Media literacy"
+
+# Implementation Patterns and Best Practices
+implementation_patterns:
+  common_patterns:
+    - pattern: "CRAAP Test"
+      description: "Evaluate information currency, relevance, authority, accuracy, and purpose"
+      use_case: "Academic and professional information evaluation"
+    
+    - pattern: "Reverse Image Search"
+      description: "Confirm image origin and usage history"
+      use_case: "Visual information authenticity confirmation"
+    
+    - pattern: "5W1H Decomposition"
+      description: "Break down claims into basic elements for individual verification"
+      use_case: "Systematic verification of complex claims"
+    
+    - pattern: "Timeline Verification"
+      description: "Confirm chronological consistency of events"
+      use_case: "Historical fact and incident verification"
+
+# Best Practices
+best_practices:
+  - "Verify information that triggers emotional responses more carefully"
+  - "Verify claims of 'everyone knows' or 'common sense'"
+  - "Confirm source, sample size, and methodology for statistics"
+  - "Cross-reference expert opinions with other expert views"
+  - "Clearly mark unverifiable parts as 'unconfirmed'"
+  - "Consider cultural and regional context in evaluation"
+
+# Common Pitfalls and Precautions
+common_pitfalls:
+  - "Not considering bias of fact-checking sites themselves"
+  - "Mistaking old verification results as currently valid"
+  - "Confusing partial truth with complete truth"
+  - "Mistaking correlation for causation"
+  - "Declaring unverifiable as false"
+  - "Judging facts only without context"
+
+# Quality Indicators
+quality_indicators:
+  - "Verification coverage (% of claims verified)"
+  - "Source diversity index"
+  - "Verification time efficiency"
+  - "False detection rate (False Positive/Negative)"
+  - "User satisfaction and trust level"
+  - "Verification reproducibility"
+
+# Tools and Resources
+tools_and_resources:
+  recommended_tools:
+    - "Google Scholar (academic literature search)"
+    - "PubMed (medical literature database)"
+    - "Wayback Machine (past web pages)"
+    - "TinEye (reverse image search)"
+    - "Snopes/FactCheck.org (fact-check databases)"
+    - "Government statistics portals"
+  
+  reference_materials:
+    - "Verification Handbook - European Journalism Centre"
+    - "Web Literacy for Fact-Checkers - Mike Caulfield"
+    - "International Fact-Checking Network (IFCN) Code of Principles"
+    - "Information Disorder - Council of Europe report"
+    - "Fact-checking organization guidelines"
+
+# Creation Date and Version Control
+created: "2025-01-13"
+updated: "2025-01-13"
+license: "Apache-2.0"
