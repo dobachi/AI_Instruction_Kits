@@ -90,6 +90,7 @@ scripts/generate-instruction.sh --preset <preset_name> --output <output_file>
 
 ### System Management
 - `instructions/ai_instruction_kits/instructions/en/system/CHECKPOINT_MANAGER.md` - Progress management (required)
+- `instructions/ai_instruction_kits/instructions/en/system/CLAUDE_CODE_AGENT.md` - Claude Code agent utilization (for advanced analysis tasks)
 
 ### Basic Functions
 - `instructions/ai_instruction_kits/instructions/en/general/basic_qa.md` - Q&A, information provision
@@ -105,6 +106,10 @@ scripts/generate-instruction.sh --preset <preset_name> --output <output_file>
 1. **Task Type Determination**
    - Analyze user requirements
    - Determine if standard task or special requirements
+   - **Consider Claude Code agent feature utilization** (in the following cases):
+     - Large-scale analysis tasks (quality check, duplicate detection, optimization suggestions)
+     - Cross-file investigation/verification work
+     - Maintenance work on the instruction system itself
 
 2. **🎯 Preset Priority Check (Fastest)**
    For standard tasks, **use pre-generated presets immediately**:
@@ -165,6 +170,13 @@ User: "Review this code"
 User: "Answer this question"
 → Required instruction:
 1. `instructions/ai_instruction_kits/instructions/en/general/basic_qa.md`
+
+### 🤖 Claude Code Agent Feature Examples (Advanced analysis tasks)
+User: "Execute quality check and duplicate detection for instructions"
+→ **Use CLAUDE_CODE_AGENT**:
+1. Load `instructions/ai_instruction_kits/instructions/en/system/CLAUDE_CODE_AGENT.md`
+2. Execute large-scale analysis using agent tool (Task tool)
+3. Generate improvement suggestions based on analysis results
 
 ---
 ## License Information

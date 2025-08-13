@@ -92,6 +92,7 @@ scripts/generate-instruction.sh --preset <プリセット名> --output <出力�
 ### システム管理
 - `instructions/ai_instruction_kits/instructions/ja/system/CHECKPOINT_MANAGER.md` - 進捗報告管理（必須）
 - `instructions/ai_instruction_kits/instructions/ja/system/WORKTREE_MANAGER.md` - Git worktree管理（推奨）
+- `instructions/ai_instruction_kits/instructions/ja/system/CLAUDE_CODE_AGENT.md` - Claude Codeエージェント活用（高度な分析タスク用）
 
 ### 基本機能
 - `instructions/ai_instruction_kits/instructions/ja/general/basic_qa.md` - 質問応答、情報提供
@@ -107,6 +108,10 @@ scripts/generate-instruction.sh --preset <プリセット名> --output <出力�
 1. **タスクタイプの判定**
    - ユーザーの要求を分析
    - 標準的なタスクか、特殊要件かを判定
+   - **Claude Codeエージェント機能の活用を検討**（以下の場合）：
+     - 大規模な分析タスク（品質チェック、重複検出、最適化提案）
+     - 複数ファイルを横断する調査・検証作業
+     - 指示書システム自体のメンテナンス作業
 
 2. **🎯 プリセット優先判定（最速）**
    以下の標準的なタスクは、**事前生成プリセットを即座に使用**：
@@ -167,6 +172,13 @@ scripts/generate-instruction.sh --preset <プリセット名> --output <出力�
 ユーザー: 「この質問に答えてください」
 → 必要な指示書:
 1. `instructions/ai_instruction_kits/instructions/ja/general/basic_qa.md`
+
+### 🤖 Claude Codeエージェント機能の例（高度な分析タスク）
+ユーザー: 「指示書の品質チェックと重複検出を実行」
+→ **CLAUDE_CODE_AGENTを使用**:
+1. `instructions/ai_instruction_kits/instructions/ja/system/CLAUDE_CODE_AGENT.md`を読み込み
+2. エージェントツール（Task tool）を活用して大規模分析を実行
+3. 分析結果に基づいて改善提案を生成
 
 ---
 ## ライセンス情報
