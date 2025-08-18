@@ -11,7 +11,7 @@ capabilities:
   expertise: ["machine_learning"]
   roles: ["role_advisor"]
   tasks: ["data_analysis", "research", "report_writing"]
-  skills: ["critical_thinking", "visual_communication", "systems_thinking", "problem_solving"]
+  skills: ["critical_thinking", "visual_communication", "systems_thinking", "problem_solving", "fact_checking"]
   methods: ["method_lean"]
 
 # === 設計図（データ分析特化の指示内容） ===

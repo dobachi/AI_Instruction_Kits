@@ -11,7 +11,7 @@ capabilities:
   expertise: ["academic_writing"]
   roles: ["reviewer"]
   tasks: ["research", "thesis_writing", "report_writing", "documentation", "data_analysis"]
-  skills: ["citation_management", "literature_review", "critical_thinking", "systems_thinking", "visual_communication", "design_thinking"]
+  skills: ["citation_management", "literature_review", "critical_thinking", "systems_thinking", "visual_communication", "design_thinking", "fact_checking"]
   methods: ["research_methodology"]
 
 # === 設計図（学術研究特化の指示内容） ===
