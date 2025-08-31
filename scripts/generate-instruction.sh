@@ -125,13 +125,20 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
 cd "$PROJECT_ROOT"
 
-# Pythonスクリプトのパスを設定
-COMPOSER_PY="${MODULAR_DIR}/composer.py"
-
-# composer.pyの存在確認
-if [[ ! -f "$COMPOSER_PY" ]]; then
+# Pythonスクリプトのパスを設定（サブモジュール環境対応）
+COMPOSER_PY=""
+if [[ -f "${MODULAR_DIR}/composer.py" ]]; then
+    # 直接実行（AI指示書キット自体の開発時）
+    COMPOSER_PY="${MODULAR_DIR}/composer.py"
+elif [[ -f "instructions/ai_instruction_kits/${MODULAR_DIR}/composer.py" ]]; then
+    # サブモジュール経由での実行（別プロジェクトでの使用時）
+    COMPOSER_PY="instructions/ai_instruction_kits/${MODULAR_DIR}/composer.py"
+else
     MSG_ERROR_NOT_FOUND=$(get_message "error_not_found" "Error: not found" "エラー: 見つかりません")
-    echo "$MSG_ERROR_NOT_FOUND: $COMPOSER_PY"
+    echo "$MSG_ERROR_NOT_FOUND: ${MODULAR_DIR}/composer.py"
+    echo "探索パス:"
+    echo "  - ${MODULAR_DIR}/composer.py"
+    echo "  - instructions/ai_instruction_kits/${MODULAR_DIR}/composer.py"
     exit 1
 fi
 
