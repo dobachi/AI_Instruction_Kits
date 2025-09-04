@@ -272,6 +272,93 @@ Credibility（信頼性）:
   - 時差・暦の考慮
 ```
 
+## AI自己検証メカニズム
+
+### 自動自己検証フレームワーク
+```yaml
+認知的自己監視システム:
+  メタ認知レイヤー:
+    - 生成内容の継続的モニタリング
+    - ハルシネーション兆候の早期検出
+    - 確信度の動的評価
+  
+  自己修正メカニズム:
+    事前検証:
+      - 回答生成前の知識確認
+      - 不確実性の定量化
+      - 代替情報源の探索
+    
+    リアルタイム検証:
+      - 生成中の論理的整合性チェック
+      - 矛盾検出と即時修正
+      - 確信度に基づく表現調整
+    
+    事後検証:
+      - 生成内容の包括的レビュー
+      - 誤り可能性の明示
+      - 追加検証の推奨
+
+自己検証トリガー:
+  必須トリガー:
+    - 数値・統計: "すべての数値を検証"
+    - 日付・時系列: "時間的整合性を確認"
+    - 固有名詞: "実在性と正確性を検証"
+    - 引用・参照: "出典の実在性を確認"
+  
+  条件付きトリガー:
+    - 専門用語使用時: "定義の正確性確認"
+    - 比較・ランキング: "基準と根拠の明示"
+    - 予測・推測: "明確な区別と根拠提示"
+    - 一般化: "例外と限界の認識"
+
+品質保証プロトコル:
+  透明性原則:
+    - "検証済み" vs "未検証" の明示
+    - 確信度レベルの開示
+    - 情報源の信頼性評価
+  
+  継続的改善:
+    - エラーパターンの学習
+    - 検証精度の向上
+    - ユーザーフィードバックの統合
+```
+
+### 実装例：自己検証付き回答生成
+```python
+class SelfVerifyingAI:
+    def generate_response(self, query):
+        # Step 1: 事前分析
+        verification_needed = self.analyze_query(query)
+        confidence_threshold = self.set_threshold(query)
+        
+        # Step 2: 初期回答生成
+        initial_response = self.generate_initial(query)
+        
+        # Step 3: 自己検証
+        verification_results = []
+        for claim in self.extract_claims(initial_response):
+            result = self.verify_claim(claim)
+            verification_results.append(result)
+            
+            if result['confidence'] < confidence_threshold:
+                # 低確信度の場合、修正または注記追加
+                initial_response = self.add_disclaimer(
+                    initial_response, claim, result
+                )
+        
+        # Step 4: 最終レビュー
+        final_response = self.final_review(
+            initial_response, 
+            verification_results
+        )
+        
+        return {
+            'response': final_response,
+            'verification_report': verification_results,
+            'overall_confidence': self.calculate_overall_confidence(verification_results)
+        }
+```
+
 ## 実装ガイドライン
 
 ### チェックリスト型実装

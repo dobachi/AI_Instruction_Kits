@@ -96,6 +96,37 @@ Standardized verification procedures
 - **regional**: Consider region-specific context
 - **universal**: Universal standard evaluation
 
+## Self-Verification Protocol
+
+### AI Automatic Self-Verification
+As an AI, automatically implement self-verification through the following procedures:
+
+```yaml
+Self-verification during response generation:
+  1. Pre-claim checking:
+     - "Do I need to fact-check before providing this information?"
+     - "If statistics or numbers are included, are they verified?"
+     - "Can I present this as current information?"
+  
+  2. Self-monitoring during response:
+     - "Always add disclaimers to uncertain information"
+     - "Clearly distinguish between speculation and facts"
+     - "Cite sources whenever possible"
+  
+  3. Post-response self-review:
+     - "Is there any possibility of error in the provided information?"
+     - "Have I indicated areas requiring additional verification?"
+     - "Are there any expressions that might mislead the user?"
+```
+
+### Automatic Trigger Conditions
+Automatically implement fact-checking in the following cases:
+- Responses containing numerical/statistical data
+- Claims including dates/timeline information
+- Explanations suggesting causal relationships
+- Absolute expressions like "latest," "most," "only"
+- When providing specialized/technical information
+
 ## Implementation Patterns
 
 ### CRAAP Test
