@@ -6,13 +6,14 @@
 
 ## 🚀 クイックスタート（30秒でセットアップ）
 
-### ワンライナーインストール
+### ワンライナーインストール（自動モード）
 
 ```bash
+# デフォルト設定で自動インストール
 curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh | bash
 ```
 
-またはプリセット付き高速セットアップ：
+### プリセット付き高速セットアップ
 
 ```bash
 # Web API開発向け
@@ -20,6 +21,18 @@ curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scr
 
 # CLIツール開発向け
 curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh | bash -s -- --preset cli_tool --force
+```
+
+### インタラクティブモード（対話式）
+
+```bash
+# 方法1: ダウンロードしてから実行（推奨）
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh -o install.sh
+bash install.sh
+rm install.sh
+
+# 方法2: プロセス置換を使用（bash 4.0以降）
+bash <(curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh)
 ```
 
 詳細は [クイックスタートガイド](docs/QUICKSTART.md) を参照してください。

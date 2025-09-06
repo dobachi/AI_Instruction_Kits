@@ -6,13 +6,14 @@ This repository manages instruction sheets for AI systems.
 
 ## 🚀 Quick Start (30-second setup)
 
-### One-liner Installation
+### One-liner Installation (Automatic Mode)
 
 ```bash
+# Auto-install with default settings
 curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh | bash
 ```
 
-Or quick setup with presets:
+### Quick Setup with Presets
 
 ```bash
 # For Web API development
@@ -20,6 +21,18 @@ curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scr
 
 # For CLI tool development
 curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh | bash -s -- --preset cli_tool --force
+```
+
+### Interactive Mode
+
+```bash
+# Method 1: Download then run (recommended)
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh -o install.sh
+bash install.sh
+rm install.sh
+
+# Method 2: Process substitution (bash 4.0+)
+bash <(curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh)
 ```
 
 See the [Quick Start Guide](docs/QUICKSTART.md) for more details.

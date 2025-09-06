@@ -4,8 +4,9 @@
 
 プロジェクトのルートディレクトリで以下のコマンドを実行するだけ！
 
-### 基本インストール（インタラクティブ）
+### 基本インストール（自動モード）
 ```bash
+# デフォルト設定で自動インストール（非インタラクティブ）
 curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh | bash
 ```
 
@@ -14,7 +15,31 @@ curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scr
 wget -qO- https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh | bash
 ```
 
-**注意:** copyモードを選択すると、リポジトリ全体（約10MB）がダウンロードされます。
+**注意:** パイプ経由の実行では非インタラクティブモードになります。対話式で選択したい場合は下記の「インタラクティブモード」を参照してください。
+
+### インタラクティブモード（対話式選択）
+
+#### 方法1: ダウンロードしてから実行（推奨）
+```bash
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh -o install.sh
+bash install.sh
+rm install.sh
+```
+
+#### 方法2: ワンライナーでダウンロード＆実行
+```bash
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh -o /tmp/install.sh && bash /tmp/install.sh && rm /tmp/install.sh
+```
+
+#### 方法3: プロセス置換（bash 4.0以降）
+```bash
+bash <(curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh)
+```
+
+**インタラクティブモードでは以下を選択できます:**
+- インストールモード（submodule/clone/copy）
+- プロジェクトタイプ（Web API/CLI/データ分析など）
+- 言語（日本語/英語）
 
 ### プリセット付き高速インストール
 
