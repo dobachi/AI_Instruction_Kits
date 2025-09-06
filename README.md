@@ -4,6 +4,26 @@
 
 このリポジトリは、AIに渡す指示書を管理するためのものです。
 
+## 🚀 クイックスタート（30秒でセットアップ）
+
+### ワンライナーインストール
+
+```bash
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh | bash
+```
+
+またはプリセット付き高速セットアップ：
+
+```bash
+# Web API開発向け
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh | bash -s -- --preset web_api --force
+
+# CLIツール開発向け
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh | bash -s -- --preset cli_tool --force
+```
+
+詳細は [クイックスタートガイド](docs/QUICKSTART.md) を参照してください。
+
 ## ディレクトリ構造
 
 ```
