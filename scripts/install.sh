@@ -294,6 +294,12 @@ confirm_settings() {
 run_setup() {
     echo -e "\n${BLUE}🚀 Starting installation...${NC}"
     
+    # 既存のインストールをチェック
+    if [ -d "ai_instruction_kits" ] || [ -d "instructions/ai_instruction_kits" ]; then
+        echo -e "${YELLOW}⚠️  Existing AI Instruction Kits installation detected.${NC}"
+        echo -e "${YELLOW}   Consider removing it first or use --force to override.${NC}"
+    fi
+    
     # リポジトリURL決定
     REPO_URL="${CUSTOM_REPO:-$DEFAULT_REPO}"
     
@@ -349,14 +355,24 @@ run_setup() {
     # setup-project.shのオプション構築
     SETUP_OPTS="--mode $MODE"
     [ -n "$CUSTOM_REPO" ] && SETUP_OPTS="$SETUP_OPTS --url $CUSTOM_REPO"
-    [ "$FORCE_MODE" = true ] && SETUP_OPTS="$SETUP_OPTS --force"
+    
+    # 非インタラクティブモード時は自動的に--forceを追加
+    if [ "$FORCE_MODE" = true ] || [ ! -t 0 ]; then
+        SETUP_OPTS="$SETUP_OPTS --force"
+    fi
     
     # 環境変数で言語設定
     export AI_INSTRUCTION_LANG="$LANG"
     
     # setup-project.sh実行
-    echo -e "${BLUE}🔧 Running setup...${NC}"
+    echo -e "${BLUE}🔧 Running setup with options: $SETUP_OPTS${NC}"
     bash "$SETUP_SCRIPT" $SETUP_OPTS
+    
+    # セットアップの結果を確認
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}❌ Setup failed. Please check the error messages above.${NC}"
+        exit 1
+    fi
     
     # プリセット適用
     if [ -n "$PRESET" ]; then
