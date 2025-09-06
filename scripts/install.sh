@@ -151,12 +151,20 @@ select_mode_interactive() {
         return
     fi
     
+    # TTYが利用可能かチェック
+    if [ ! -t 0 ] && [ ! -e /dev/tty ]; then
+        echo -e "${YELLOW}⚠️  Non-interactive mode detected. Using defaults.${NC}"
+        echo -e "${YELLOW}   To customize, use: curl ... | bash -s -- --mode <mode> --preset <preset>${NC}"
+        MODE="${MODE:-$DEFAULT_MODE}"
+        return
+    fi
+    
     echo -e "\n${BLUE}📦 Select installation mode:${NC}"
     echo "1) Submodule (Recommended) - Easy updates with git"
     echo "2) Clone - Independent copy you can modify"
     echo "3) Copy - Simple file copy without git"
     echo -n "Choice [1-3] (default: 1): "
-    read -r choice
+    read -r choice </dev/tty 2>/dev/null || choice="1"
     
     case "$choice" in
         1|"")
@@ -181,6 +189,12 @@ select_preset_interactive() {
         return
     fi
     
+    # TTYが利用可能かチェック
+    if [ ! -t 0 ] && [ ! -e /dev/tty ]; then
+        PRESET=""
+        return
+    fi
+    
     echo -e "\n${BLUE}🎯 Select project type (or skip for custom):${NC}"
     echo "1) Web API Development"
     echo "2) CLI Tool Development"
@@ -188,7 +202,7 @@ select_preset_interactive() {
     echo "4) Technical Writing"
     echo "5) Skip (Custom configuration)"
     echo -n "Choice [1-5] (default: 5): "
-    read -r choice
+    read -r choice </dev/tty 2>/dev/null || choice="5"
     
     case "$choice" in
         1)
@@ -220,11 +234,17 @@ select_language_interactive() {
         return
     fi
     
+    # TTYが利用可能かチェック
+    if [ ! -t 0 ] && [ ! -e /dev/tty ]; then
+        LANG="${LANG:-$DEFAULT_LANG}"
+        return
+    fi
+    
     echo -e "\n${BLUE}🌐 Select language:${NC}"
     echo "1) Japanese (日本語)"
     echo "2) English"
     echo -n "Choice [1-2] (default: 1): "
-    read -r choice
+    read -r choice </dev/tty 2>/dev/null || choice="1"
     
     case "$choice" in
         1|"")
@@ -246,6 +266,17 @@ confirm_settings() {
         return 0
     fi
     
+    # TTYが利用可能かチェック
+    if [ ! -t 0 ] && [ ! -e /dev/tty ]; then
+        echo -e "\n${BLUE}📋 Installation settings:${NC}"
+        echo "  Mode: $MODE"
+        echo "  Language: $LANG"
+        [ -n "$PRESET" ] && echo "  Preset: $PRESET"
+        [ -n "$CUSTOM_REPO" ] && echo "  Repository: $CUSTOM_REPO"
+        echo -e "\n${YELLOW}⚠️  Non-interactive mode. Proceeding with defaults...${NC}"
+        return 0
+    fi
+    
     echo -e "\n${BLUE}📋 Installation settings:${NC}"
     echo "  Mode: $MODE"
     echo "  Language: $LANG"
@@ -253,7 +284,7 @@ confirm_settings() {
     [ -n "$CUSTOM_REPO" ] && echo "  Repository: $CUSTOM_REPO"
     
     echo -n -e "\n${YELLOW}Proceed with installation? [Y/n]: ${NC}"
-    read -r confirm
+    read -r confirm </dev/tty 2>/dev/null || confirm="y"
     
     case "$confirm" in
         [nN][oO]|[nN])
