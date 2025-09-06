@@ -27,6 +27,13 @@ PRESET=""
 CUSTOM_REPO=""
 SKIP_INTERACTIVE=false
 
+# TTYモードを最初に判定
+IS_PIPED=false
+if [ ! -t 0 ]; then
+    IS_PIPED=true
+    SKIP_INTERACTIVE=true
+fi
+
 # ロゴ表示
 show_logo() {
     echo -e "${BLUE}"
@@ -151,8 +158,8 @@ select_mode_interactive() {
         return
     fi
     
-    # TTYが利用可能かチェック（パイプ経由実行を検出）
-    if [ ! -t 0 ]; then
+    # パイプ経由実行を検出
+    if [ "$IS_PIPED" = true ]; then
         echo -e "${YELLOW}⚠️  Non-interactive mode detected (piped input). Using defaults.${NC}"
         echo -e "${YELLOW}   To customize, use: curl ... | bash -s -- --mode <mode> --preset <preset>${NC}"
         MODE="${MODE:-$DEFAULT_MODE}"
@@ -188,8 +195,8 @@ select_preset_interactive() {
         return
     fi
     
-    # TTYが利用可能かチェック（パイプ経由実行を検出）
-    if [ ! -t 0 ]; then
+    # パイプ経由実行を検出
+    if [ "$IS_PIPED" = true ]; then
         PRESET=""
         return
     fi
@@ -232,8 +239,8 @@ select_language_interactive() {
         return
     fi
     
-    # TTYが利用可能かチェック（パイプ経由実行を検出）
-    if [ ! -t 0 ]; then
+    # パイプ経由実行を検出
+    if [ "$IS_PIPED" = true ]; then
         LANG="${LANG:-$DEFAULT_LANG}"
         return
     fi
@@ -263,8 +270,8 @@ confirm_settings() {
         return 0
     fi
     
-    # TTYが利用可能かチェック（パイプ経由実行を検出）
-    if [ ! -t 0 ]; then
+    # パイプ経由実行を検出
+    if [ "$IS_PIPED" = true ]; then
         echo -e "\n${BLUE}📋 Installation settings:${NC}"
         echo "  Mode: $MODE"
         echo "  Language: $LANG"
@@ -356,8 +363,8 @@ run_setup() {
     SETUP_OPTS="--mode $MODE"
     [ -n "$CUSTOM_REPO" ] && SETUP_OPTS="$SETUP_OPTS --url $CUSTOM_REPO"
     
-    # 非インタラクティブモード時は自動的に--forceを追加
-    if [ "$FORCE_MODE" = true ] || [ ! -t 0 ]; then
+    # パイプ経由実行時またはforce指定時は--forceを追加
+    if [ "$FORCE_MODE" = true ] || [ "$IS_PIPED" = true ]; then
         SETUP_OPTS="$SETUP_OPTS --force"
     fi
     
