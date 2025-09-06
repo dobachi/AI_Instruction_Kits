@@ -151,9 +151,9 @@ select_mode_interactive() {
         return
     fi
     
-    # TTYが利用可能かチェック
-    if [ ! -t 0 ] && [ ! -e /dev/tty ]; then
-        echo -e "${YELLOW}⚠️  Non-interactive mode detected. Using defaults.${NC}"
+    # TTYが利用可能かチェック（パイプ経由実行を検出）
+    if [ ! -t 0 ]; then
+        echo -e "${YELLOW}⚠️  Non-interactive mode detected (piped input). Using defaults.${NC}"
         echo -e "${YELLOW}   To customize, use: curl ... | bash -s -- --mode <mode> --preset <preset>${NC}"
         MODE="${MODE:-$DEFAULT_MODE}"
         return
@@ -164,8 +164,7 @@ select_mode_interactive() {
     echo "2) Clone - Independent copy you can modify"
     echo "3) Copy - Simple file copy without git"
     echo -n "Choice [1-3] (default: 1): "
-    read -r choice </dev/tty 2>/dev/null || choice="1"
-    
+    read -r choice    
     case "$choice" in
         1|"")
             MODE="submodule"
@@ -189,8 +188,8 @@ select_preset_interactive() {
         return
     fi
     
-    # TTYが利用可能かチェック
-    if [ ! -t 0 ] && [ ! -e /dev/tty ]; then
+    # TTYが利用可能かチェック（パイプ経由実行を検出）
+    if [ ! -t 0 ]; then
         PRESET=""
         return
     fi
@@ -202,8 +201,7 @@ select_preset_interactive() {
     echo "4) Technical Writing"
     echo "5) Skip (Custom configuration)"
     echo -n "Choice [1-5] (default: 5): "
-    read -r choice </dev/tty 2>/dev/null || choice="5"
-    
+    read -r choice    
     case "$choice" in
         1)
             PRESET="web_api"
@@ -234,8 +232,8 @@ select_language_interactive() {
         return
     fi
     
-    # TTYが利用可能かチェック
-    if [ ! -t 0 ] && [ ! -e /dev/tty ]; then
+    # TTYが利用可能かチェック（パイプ経由実行を検出）
+    if [ ! -t 0 ]; then
         LANG="${LANG:-$DEFAULT_LANG}"
         return
     fi
@@ -244,8 +242,7 @@ select_language_interactive() {
     echo "1) Japanese (日本語)"
     echo "2) English"
     echo -n "Choice [1-2] (default: 1): "
-    read -r choice </dev/tty 2>/dev/null || choice="1"
-    
+    read -r choice    
     case "$choice" in
         1|"")
             LANG="ja"
@@ -266,8 +263,8 @@ confirm_settings() {
         return 0
     fi
     
-    # TTYが利用可能かチェック
-    if [ ! -t 0 ] && [ ! -e /dev/tty ]; then
+    # TTYが利用可能かチェック（パイプ経由実行を検出）
+    if [ ! -t 0 ]; then
         echo -e "\n${BLUE}📋 Installation settings:${NC}"
         echo "  Mode: $MODE"
         echo "  Language: $LANG"
@@ -284,8 +281,7 @@ confirm_settings() {
     [ -n "$CUSTOM_REPO" ] && echo "  Repository: $CUSTOM_REPO"
     
     echo -n -e "\n${YELLOW}Proceed with installation? [Y/n]: ${NC}"
-    read -r confirm </dev/tty 2>/dev/null || confirm="y"
-    
+    read -r confirm    
     case "$confirm" in
         [nN][oO]|[nN])
             echo "Installation cancelled"
