@@ -767,7 +767,11 @@ def main():
     lang = getattr(args, 'lang', 'ja')
     # verboseフラグがある場合は詳細版を使用（デフォルトは簡潔版）
     use_concise = not getattr(args, 'verbose', False)
-    composer = ModuleComposer(lang=lang, use_concise=use_concise)
+    # スクリプトの場所に関係なく絶対パスでmodularディレクトリを特定
+    script_dir = Path(__file__).parent
+    # composer.pyがmodular/内にある場合は、modular/がbase_dir
+    modular_dir = script_dir if script_dir.name == "modular" else script_dir / "modular"
+    composer = ModuleComposer(base_dir=str(modular_dir), lang=lang, use_concise=use_concise)
     
     if args.command == 'preset':
         # 変数のパース
