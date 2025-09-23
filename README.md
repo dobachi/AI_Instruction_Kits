@@ -23,6 +23,23 @@ curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scr
 curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install.sh | bash -s -- --preset cli_tool --force
 ```
 
+### 🆕 メタプロジェクト化（AI開発支援環境構築）
+
+既存プロジェクトをAI開発支援環境（メタプロジェクト）に変換：
+
+```bash
+# 基本的な使用（プロジェクト名指定）
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install-metaproject.sh | bash -s -- --project-name myapp
+
+# GitHubからプロジェクトをクローンして設定
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install-metaproject.sh | bash -s -- --project-name myapp --project-url https://github.com/user/myapp.git
+
+# ローカルプロジェクトを移動して設定
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/install-metaproject.sh | bash -s -- --project-name myapp --project-path ../myapp
+```
+
+メタプロジェクトは、開発対象コードを`sources/`に配置し、外側からAI支援を提供する構造です。
+
 ### インタラクティブモード（対話式）
 
 ```bash
@@ -87,6 +104,8 @@ bash <(curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/m
 │   └── presets/   # プリセット関連レポート
 └── scripts/       # ツール・ユーティリティ
     ├── setup-project.sh        # プロジェクト統合用セットアップスクリプト
+    ├── setup-metaproject.sh    # メタプロジェクト化セットアップスクリプト（新）
+    ├── install-metaproject.sh  # メタプロジェクト化ワンライナー（新）
     ├── checkpoint.sh           # チェックポイント管理スクリプト（拡張版）
     ├── generate-instruction.sh # モジュラー指示書生成スクリプト
     ├── generate-all-presets.sh # 全プリセット一括生成
