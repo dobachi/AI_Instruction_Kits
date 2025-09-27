@@ -380,7 +380,7 @@ sync_claude_commands() {
         fi
     fi
     
-    local claude_commands=("commit-and-report.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md" "build.md")
+    local claude_commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md" "build.md")
     local updated_count=0
     local skipped_count=0
     
