@@ -95,31 +95,40 @@ AI指示書システムをリロードし、AIの振る舞いをリセットし�
 - 長時間の作業セッション後
 - 新しいタスクセッションを開始する前
 
-### 7. `/build` - プロジェクトビルド 🆕
-プロジェクトに適したビルドコマンドを自動的に検出・実行します。
+### 7. `/build` - スマートビルドシステム 🔨✨
+プロジェクトの構成を自動検出し、最適なビルドコマンドを実行します。
 
 **使用例:**
 ```
-/build
-/build --clean
-/build --prod
-/build --test
+/build                    # 基本ビルド
+/build --clean           # クリーンビルド
+/build --prod            # プロダクションビルド
+/build --test            # テスト含むビルド
+/build --deps            # 依存関係のみインストール
+/build --check           # ビルド可能性チェック
+/build --verbose         # 詳細ログ出力
+/build --clean --prod    # 複数オプション組み合わせ
 ```
 
-**機能:**
-- プロジェクトタイプの自動検出（Node.js、Rust、Python、Go等）
-- パッケージマネージャーの自動判別（npm、yarn、pnpm）
-- 依存関係の自動インストール
-- ビルドエラーの分析と解決策の提案
-- プロジェクト固有の設定対応（CLAUDE.md記載のカスタムコマンド）
+**🎯 対応プロジェクトタイプ:**
+- **フロントエンド**: Node.js、Vite、Next.js、React、Vue、Angular、Webpack
+- **バックエンド**: Rust、Go、Python、Java (Maven/Gradle)、C/C++、CMake
+- **モバイル**: Flutter、React Native
+- **その他**: Docker、Deno、WebAssembly
 
-**対応プロジェクト:**
-- Node.js/JavaScript/TypeScript (package.json)
-- Rust (Cargo.toml)
-- Python (pyproject.toml)
-- Go (go.mod)
-- Java (pom.xml, build.gradle)
-- その他 (Makefile)
+**🚀 主要機能:**
+- **自動検出**: プロジェクトタイプ・パッケージマネージャー・フレームワーク
+- **依存関係管理**: 不足している依存関係の自動インストール
+- **スマートエラー処理**: ビルドエラーの分析と解決策提案
+- **パフォーマンス最適化**: 並列ビルド・インクリメンタルビルド対応
+- **CI/CD統合**: CI環境検出・ビルド時間測定
+- **カスタム設定**: CLAUDE.md/PROJECT.mdでのプロジェクト固有設定
+
+**🔧 智能機能:**
+- メモリ不足時のヒープサイズ調整提案
+- TypeScriptエラーの型チェック・修正提案
+- ポートエラー時の代替ポート提案
+- フォールバック戦略（build → compile → start）
 
 ## セットアップ方法
 
