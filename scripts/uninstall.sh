@@ -173,10 +173,49 @@ remove_symlink() {
 
 # 確認プロンプト
 confirm_removal() {
+    # パイプ経由実行の場合は--forceが必須
+    if [ "$IS_PIPED" = true ] && [ "$FORCE_MODE" != true ]; then
+        echo -e "\n${YELLOW}⚠️  この操作により以下のアイテムが削除されます:${NC}"
+        echo ""
+        echo "【削除されるもの】"
+        echo "  - instructions/ai_instruction_kits/ (AI指示書システム本体)"
+        echo "  - scripts/配下のシンボリックリンク"
+        echo "  - CLAUDE.md, GEMINI.md, CURSOR.md (シンボリックリンク)"
+        echo "  - .claude/commands/ (カスタムコマンド)"
+        echo "  - .openhands/microagents/repo.md"
+        echo "  - .git/hooks/prepare-commit-msg"
+        if [ "$KEEP_BACKUP" = false ]; then
+            echo "  - *.backup ファイル"
+        fi
+        echo ""
+        echo "【保持されるもの】"
+        echo "  - instructions/PROJECT.md (プロジェクト固有設定)"
+        echo "  - instructions/PROJECT.en.md"
+        echo "  - checkpoint.log (チェックポイントログ)"
+        echo "  - instructions/CURRENT_INSTRUCTION.md (生成された指示書)"
+        echo ""
+        echo -e "${RED}❌ パイプ経由での対話的実行は安全のためサポートされていません${NC}"
+        echo -e "${YELLOW}   以下のいずれかの方法で実行してください:${NC}"
+        echo ""
+        echo -e "${YELLOW}   1. 確認なしで実行:${NC}"
+        echo -e "${YELLOW}      curl ... | bash -s -- --force${NC}"
+        echo ""
+        echo -e "${YELLOW}   2. ダウンロードしてから実行:${NC}"
+        echo -e "${YELLOW}      curl -sSL <URL> -o uninstall.sh${NC}"
+        echo -e "${YELLOW}      bash uninstall.sh${NC}"
+        echo -e "${YELLOW}      rm uninstall.sh${NC}"
+        echo ""
+        echo -e "${YELLOW}   3. プロセス置換を使用 (bash 4.0以降):${NC}"
+        echo -e "${YELLOW}      bash <(curl -sSL <URL>)${NC}"
+        exit 1
+    fi
+
+    # --forceモードの場合は確認をスキップ
     if [ "$FORCE_MODE" = true ]; then
         return 0
     fi
 
+    # 通常の確認プロンプト
     echo -e "\n${YELLOW}⚠️  この操作により以下のアイテムが削除されます:${NC}"
     echo ""
     echo "【削除されるもの】"
@@ -199,25 +238,6 @@ confirm_removal() {
     echo "  - instructions/CURRENT_INSTRUCTION.md (生成された指示書)"
     echo ""
 
-    # パイプ経由実行の場合は警告を表示して終了
-    if [ "$IS_PIPED" = true ]; then
-        echo -e "${RED}❌ パイプ経由での対話的実行は安全のためサポートされていません${NC}"
-        echo -e "${YELLOW}   以下のいずれかの方法で実行してください:${NC}"
-        echo ""
-        echo -e "${YELLOW}   1. 確認なしで実行:${NC}"
-        echo -e "${YELLOW}      curl ... | bash -s -- --force${NC}"
-        echo ""
-        echo -e "${YELLOW}   2. ダウンロードしてから実行:${NC}"
-        echo -e "${YELLOW}      curl -sSL <URL> -o uninstall.sh${NC}"
-        echo -e "${YELLOW}      bash uninstall.sh${NC}"
-        echo -e "${YELLOW}      rm uninstall.sh${NC}"
-        echo ""
-        echo -e "${YELLOW}   3. プロセス置換を使用 (bash 4.0以降):${NC}"
-        echo -e "${YELLOW}      bash <(curl -sSL <URL>)${NC}"
-        exit 1
-    fi
-
-    # 通常の確認プロンプト
     echo -n -e "${YELLOW}本当にアンインストールしますか? [y/N]: ${NC}"
     read -r confirm
 
