@@ -188,8 +188,22 @@ confirm_removal() {
     echo "  - instructions/CURRENT_INSTRUCTION.md (生成された指示書)"
     echo ""
 
-    echo -n -e "${YELLOW}本当にアンインストールしますか? [y/N]: ${NC}"
-    read -r confirm
+    # パイプ経由実行時でも確認プロンプトを動作させるため/dev/ttyから読み取る
+    if [ -t 0 ]; then
+        # 標準入力がターミナルの場合
+        echo -n -e "${YELLOW}本当にアンインストールしますか? [y/N]: ${NC}"
+        read -r confirm
+    elif [ -e /dev/tty ]; then
+        # パイプ経由の場合は/dev/ttyから直接読み取る
+        echo -n -e "${YELLOW}本当にアンインストールしますか? [y/N]: ${NC}"
+        read -r confirm < /dev/tty
+    else
+        # /dev/ttyが利用できない環境では安全のためキャンセル
+        echo -e "${RED}❌ 対話的な確認ができない環境です${NC}"
+        echo -e "${YELLOW}   --force オプションを使用してください:${NC}"
+        echo -e "${YELLOW}   curl ... | bash -s -- --force${NC}"
+        exit 1
+    fi
 
     case "$confirm" in
         [yY][eE][sS]|[yY])
