@@ -27,6 +27,12 @@ FORCE_MODE=false
 KEEP_BACKUP=false
 DRY_RUN=false
 
+# パイプ経由実行を検出
+IS_PIPED=false
+if [ ! -t 0 ]; then
+    IS_PIPED=true
+fi
+
 # ロゴ表示
 show_logo() {
     echo -e "${BLUE}"
@@ -85,8 +91,13 @@ Examples:
     # 実行内容を確認 (実際には削除しない)
     bash scripts/uninstall.sh --dry-run
 
-    # リモートから直接実行
-    curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/uninstall.sh | bash
+    # リモートから直接実行 (--force必須)
+    curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/uninstall.sh | bash -s -- --force
+
+    # ダウンロードしてから実行 (推奨)
+    curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/uninstall.sh -o uninstall.sh
+    bash uninstall.sh
+    rm uninstall.sh
 
 HELP
 }
@@ -188,22 +199,27 @@ confirm_removal() {
     echo "  - instructions/CURRENT_INSTRUCTION.md (生成された指示書)"
     echo ""
 
-    # パイプ経由実行時でも確認プロンプトを動作させるため/dev/ttyから読み取る
-    if [ -t 0 ]; then
-        # 標準入力がターミナルの場合
-        printf "${YELLOW}本当にアンインストールしますか? [y/N]: ${NC}"
-        read -r confirm
-    elif [ -e /dev/tty ]; then
-        # パイプ経由の場合は/dev/ttyから直接読み取る・書き込む
-        printf "${YELLOW}本当にアンインストールしますか? [y/N]: ${NC}" > /dev/tty
-        read -r confirm < /dev/tty
-    else
-        # /dev/ttyが利用できない環境では安全のためキャンセル
-        echo -e "${RED}❌ 対話的な確認ができない環境です${NC}"
-        echo -e "${YELLOW}   --force オプションを使用してください:${NC}"
-        echo -e "${YELLOW}   curl ... | bash -s -- --force${NC}"
+    # パイプ経由実行の場合は警告を表示して終了
+    if [ "$IS_PIPED" = true ]; then
+        echo -e "${RED}❌ パイプ経由での対話的実行は安全のためサポートされていません${NC}"
+        echo -e "${YELLOW}   以下のいずれかの方法で実行してください:${NC}"
+        echo ""
+        echo -e "${YELLOW}   1. 確認なしで実行:${NC}"
+        echo -e "${YELLOW}      curl ... | bash -s -- --force${NC}"
+        echo ""
+        echo -e "${YELLOW}   2. ダウンロードしてから実行:${NC}"
+        echo -e "${YELLOW}      curl -sSL <URL> -o uninstall.sh${NC}"
+        echo -e "${YELLOW}      bash uninstall.sh${NC}"
+        echo -e "${YELLOW}      rm uninstall.sh${NC}"
+        echo ""
+        echo -e "${YELLOW}   3. プロセス置換を使用 (bash 4.0以降):${NC}"
+        echo -e "${YELLOW}      bash <(curl -sSL <URL>)${NC}"
         exit 1
     fi
+
+    # 通常の確認プロンプト
+    echo -n -e "${YELLOW}本当にアンインストールしますか? [y/N]: ${NC}"
+    read -r confirm
 
     case "$confirm" in
         [yY][eE][sS]|[yY])

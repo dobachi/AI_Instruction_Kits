@@ -215,8 +215,13 @@ bash scripts/uninstall.sh --force
 # Check what would be removed (dry-run mode)
 bash scripts/uninstall.sh --dry-run
 
-# Execute directly from remote
-curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/uninstall.sh | bash
+# Execute directly from remote (--force required)
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/uninstall.sh | bash -s -- --force
+
+# Download first, then execute (recommended)
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/uninstall.sh -o uninstall.sh
+bash uninstall.sh
+rm uninstall.sh
 ```
 
 ### Items Removed

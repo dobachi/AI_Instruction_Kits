@@ -247,8 +247,13 @@ bash scripts/uninstall.sh --force
 # 実行内容の確認（実際には削除しない）
 bash scripts/uninstall.sh --dry-run
 
-# リモートから直接実行
-curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/uninstall.sh | bash
+# リモートから直接実行（--force必須）
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/uninstall.sh | bash -s -- --force
+
+# ダウンロードしてから実行（推奨）
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/uninstall.sh -o uninstall.sh
+bash uninstall.sh
+rm uninstall.sh
 ```
 
 ### アンインストールされるもの
