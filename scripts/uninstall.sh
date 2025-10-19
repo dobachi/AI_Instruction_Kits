@@ -191,11 +191,11 @@ confirm_removal() {
     # パイプ経由実行時でも確認プロンプトを動作させるため/dev/ttyから読み取る
     if [ -t 0 ]; then
         # 標準入力がターミナルの場合
-        echo -n -e "${YELLOW}本当にアンインストールしますか? [y/N]: ${NC}"
+        printf "${YELLOW}本当にアンインストールしますか? [y/N]: ${NC}"
         read -r confirm
     elif [ -e /dev/tty ]; then
-        # パイプ経由の場合は/dev/ttyから直接読み取る
-        echo -n -e "${YELLOW}本当にアンインストールしますか? [y/N]: ${NC}"
+        # パイプ経由の場合は/dev/ttyから直接読み取る・書き込む
+        printf "${YELLOW}本当にアンインストールしますか? [y/N]: ${NC}" > /dev/tty
         read -r confirm < /dev/tty
     else
         # /dev/ttyが利用できない環境では安全のためキャンセル
