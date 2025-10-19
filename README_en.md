@@ -201,6 +201,40 @@ The `.claude/commands/` directory is automatically configured when running `setu
 bash scripts/setup-project.sh
 ```
 
+## Uninstallation
+
+To remove AI Instruction Kits from your project:
+
+```bash
+# Normal uninstallation (with confirmation prompt)
+bash scripts/uninstall.sh
+
+# Run without confirmation
+bash scripts/uninstall.sh --force
+
+# Check what would be removed (dry-run mode)
+bash scripts/uninstall.sh --dry-run
+
+# Execute directly from remote
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/uninstall.sh | bash
+```
+
+### Items Removed
+- `instructions/ai_instruction_kits/` (submodule/clone/copy)
+- Symbolic links in `scripts/` directory
+- Configuration files like `CLAUDE.md`, `GEMINI.md`, `CURSOR.md`
+- `.claude/commands/` (custom commands)
+- `.openhands/microagents/repo.md`
+- `.git/hooks/prepare-commit-msg`
+- Backup files (optional)
+
+### Items Kept
+- `instructions/PROJECT.md` (project-specific configuration)
+- `checkpoint.log` (checkpoint log)
+- Generated instruction files
+
+For details, run `bash scripts/uninstall.sh --help`.
+
 ## Usage
 
 ### Project Integration (Recommended)

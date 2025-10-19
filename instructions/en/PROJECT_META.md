@@ -110,6 +110,20 @@ bash scripts/commit.sh "commit message"
 # bash scripts/validate-instructions.sh
 ```
 
+## Codex CLI Custom Commands
+
+Codex-specific prompt files live in `.codex/prompts/`. The file name becomes the `/command` (for example `build.md` → `/build`). Copy the files to your local `~/.codex/prompts/` and restart the CLI to make them available.
+
+- `build` — assists with detecting the project type and running the appropriate build
+- `checkpoint` — wraps `scripts/checkpoint.sh` subcommands
+- `commit-and-report` — guides commit, push, and optional issue updates
+- `commit-safe` — walks through safe, file-scoped commits
+- `github-issues` — gathers and summarizes open GitHub issues
+- `reload-instructions` — updates the instruction submodule and reloads ROOT_INSTRUCTION
+- `reload-and-reset` — refreshes instructions and reiterates the operating rules
+
+These prompts avoid Claude-specific directives (`!`, `@`). Extend them by editing the Markdown body if additional steps are needed.
+
 ## Current Issues and Future Improvements
 
 1. Mechanism to reduce duplication between instructions

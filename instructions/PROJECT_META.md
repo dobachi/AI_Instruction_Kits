@@ -81,6 +81,20 @@ scripts/checkpoint.sh
 詳細は `instructions/ja/system/CLAUDE_CODE_AGENT.md` を参照してください。
 エージェント機能により、複雑な分析タスクを自律的に実行できます。
 
+## Codex CLIカスタムコマンド
+
+Codex CLI向けのカスタムプロンプトを`.codex/prompts/`に追加しました。ファイル名がそのまま`/コマンド名`として呼び出せます（例: `build.md` → `/build`）。必要に応じて自分の環境の`~/.codex/prompts/`へコピーし、CLIを再起動してください。
+
+- `build` — プロジェクトの種類を判断してビルドを支援
+- `checkpoint` — `scripts/checkpoint.sh` の各サブコマンドを案内
+- `commit-and-report` — コミット・プッシュ・Issue報告の手順
+- `commit-safe` — ファイル指定型の安全なコミット手順
+- `github-issues` — GitHub Issueの取得と整理
+- `reload-instructions` — 指示書サブモジュールの更新と再読込
+- `reload-and-reset` — 指示書更新とルール再確認
+
+いずれもClaude専用ディレクティブ（`!`や`@`）を含まないCodex対応版です。独自に拡張する場合は、Markdown本文に実行手順を追記してください。
+
 ## プロジェクト固有の指示
 
 ### コーディング規約

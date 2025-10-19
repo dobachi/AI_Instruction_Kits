@@ -233,6 +233,40 @@ bash scripts/setup-project.sh --sync-claude-commands
 
 詳細は[Claude Codeカスタムコマンドドキュメント](docs/claude-custom-commands.md)を参照してください。
 
+## アンインストール
+
+AI指示書キットをプロジェクトから削除する場合：
+
+```bash
+# 通常のアンインストール（確認プロンプトあり）
+bash scripts/uninstall.sh
+
+# 確認なしで実行
+bash scripts/uninstall.sh --force
+
+# 実行内容の確認（実際には削除しない）
+bash scripts/uninstall.sh --dry-run
+
+# リモートから直接実行
+curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scripts/uninstall.sh | bash
+```
+
+### アンインストールされるもの
+- `instructions/ai_instruction_kits/` (サブモジュール/クローン/コピー)
+- `scripts/`配下のシンボリックリンク
+- `CLAUDE.md`, `GEMINI.md`, `CURSOR.md`などの設定ファイル
+- `.claude/commands/` (カスタムコマンド)
+- `.openhands/microagents/repo.md`
+- `.git/hooks/prepare-commit-msg`
+- バックアップファイル（オプション）
+
+### 保持されるファイル
+- `instructions/PROJECT.md` (プロジェクト固有設定)
+- `checkpoint.log` (チェックポイントログ)
+- 生成された指示書ファイル
+
+詳細は `bash scripts/uninstall.sh --help` を参照してください。
+
 ## 使い方
 
 ### プロジェクトへの統合（推奨）
