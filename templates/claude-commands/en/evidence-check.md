@@ -65,7 +65,7 @@ Detect the following patterns:
 **Parallel Processing Using Task Tool:**
 
 ```
-When there are 5+ references, launch multiple investigation agents
+When there are 2+ references, launch multiple investigation agents
 in parallel using the Task tool for efficient checking.
 ```
 
@@ -146,11 +146,11 @@ Output check results in the following format:
 ### Parallel Processing Criteria
 
 ```
-When reference count is 5+:
+When reference count is 2+:
   → Parallel check with Task tool (max 5 concurrent agents)
 
-When reference count is < 5:
-  → Sequential check
+When reference count is 1:
+  → Single check
 ```
 
 ### Check Priority
