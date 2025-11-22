@@ -274,7 +274,7 @@ setup_openhands() {
     if ! confirm_group "openhands" "${openhands_items[@]}"; then
         MSG_SKIP_OPENHANDS=$(get_message "skip_openhands" "Skipping OpenHands configuration" "OpenHands設定をスキップ")
         echo "⏭️  $MSG_SKIP_OPENHANDS"
-        return
+        return 1
     fi
 
     # .openhands/microagents/ディレクトリ作成
@@ -331,7 +331,7 @@ setup_claude_code() {
     if ! confirm_group "claude" "${claude_items[@]}"; then
         MSG_SKIP_CLAUDE=$(get_message "skip_claude" "Skipping Claude Code configuration" "Claude Code設定をスキップ")
         echo "⏭️  $MSG_SKIP_CLAUDE"
-        return
+        return 1
     fi
 
     # .claude/commandsディレクトリ作成
@@ -400,7 +400,7 @@ setup_git_config() {
     if ! confirm_group "git" "${git_items[@]}"; then
         MSG_SKIP_GIT=$(get_message "skip_git" "Skipping Git configuration" "Git設定をスキップ")
         echo "⏭️  $MSG_SKIP_GIT"
-        return
+        return 1
     fi
 
     # Gitフックの設定
@@ -470,7 +470,7 @@ setup_script_tools() {
     if ! confirm_group "scripts" "${script_items[@]}"; then
         MSG_SKIP_SCRIPTS=$(get_message "skip_scripts" "Skipping script tools" "スクリプトツールをスキップ")
         echo "⏭️  $MSG_SKIP_SCRIPTS"
-        return
+        return 1
     fi
 
     # scripts/lib/
@@ -893,6 +893,7 @@ echo ""
 MSG_SETUP_SCRIPTS=$(get_message "setup_scripts" "Setting up script tools" "スクリプトツールを設定")
 echo "🔧 $MSG_SETUP_SCRIPTS..."
 setup_script_tools
+SCRIPTS_INSTALLED=$?
 
 # テンプレートのパスを決定
 PROJECT_TEMPLATE_JA=""
@@ -1075,18 +1076,21 @@ echo ""
 MSG_SETUP_OPENHANDS=$(get_message "setup_openhands" "Setting up OpenHands configuration" "OpenHands設定を設定")
 echo "🌐 $MSG_SETUP_OPENHANDS..."
 setup_openhands
+OPENHANDS_INSTALLED=$?
 
 # Claude Code設定のセットアップ（グループ化）
 echo ""
 MSG_SETUP_CLAUDE=$(get_message "setup_claude" "Setting up Claude Code configuration" "Claude Code設定を設定")
 echo "⚡ $MSG_SETUP_CLAUDE..."
 setup_claude_code
+CLAUDE_INSTALLED=$?
 
 # Git設定のセットアップ（グループ化）
 echo ""
 MSG_SETUP_GIT=$(get_message "setup_git" "Setting up Git configuration" "Git設定を設定")
 echo "📝 $MSG_SETUP_GIT..."
 setup_git_config
+GIT_INSTALLED=$?
 
 # worktree-manager.shへのシンボリックリンク（scriptsグループに含まれている）
 # 既にsetup_script_toolsで処理済み
@@ -1134,32 +1138,40 @@ else
     echo "  CLAUDE.md → instructions/PROJECT.md"
     echo "  GEMINI.md → instructions/PROJECT.md"
     echo "  CURSOR.md → instructions/PROJECT.md"
-    echo "  .openhands/"
-    echo "    └── microagents/"
-    echo "        └── repo.md → ../../instructions/PROJECT.md"
-    echo "  .claude/"
-    echo "    └── commands/"
-    echo "        ├── commit-and-report.md"
-    echo "        ├── commit-safe.md"
-    echo "        ├── checkpoint.md"
-    echo "        ├── reload-instructions.md"
-    echo "        ├── github-issues.md"
-    echo "        ├── reload-and-reset.md"
-    echo "        ├── build.md"
-    echo "        └── evidence-check.md"
-    echo ""
-    
-    MSG_CLAUDE_COMMANDS_AVAILABLE=$(get_message "claude_commands_available" "Available Claude Code commands" "利用可能なClaude Codeコマンド")
-    echo "⚡ $MSG_CLAUDE_COMMANDS_AVAILABLE:"
-    echo "  /commit-and-report \"$(get_message "commit_message" "commit message" "コミットメッセージ")\" [Issue番号]"
-    echo "  /commit-safe \"$(get_message "commit_message" "commit message" "コミットメッセージ")\""
-    echo "  /checkpoint [start <task-id> <task-name> <steps>]"
-    echo "  /reload-instructions"
-    echo "  /github-issues"
-    echo "  /reload-and-reset"
-    echo "  /build [--clean|--prod|--test]"
-    echo "  /evidence-check [file-path]"
-    echo ""
+
+    # OpenHandsが実際にインストールされた場合のみ表示
+    if [ "${OPENHANDS_INSTALLED:-1}" -eq 0 ]; then
+        echo "  .openhands/"
+        echo "    └── microagents/"
+        echo "        └── repo.md → ../../instructions/PROJECT.md"
+    fi
+
+    # Claude Codeが実際にインストールされた場合のみ表示
+    if [ "${CLAUDE_INSTALLED:-1}" -eq 0 ]; then
+        echo "  .claude/"
+        echo "    └── commands/"
+        echo "        ├── commit-and-report.md"
+        echo "        ├── commit-safe.md"
+        echo "        ├── checkpoint.md"
+        echo "        ├── reload-instructions.md"
+        echo "        ├── github-issues.md"
+        echo "        ├── reload-and-reset.md"
+        echo "        ├── build.md"
+        echo "        └── evidence-check.md"
+        echo ""
+
+        MSG_CLAUDE_COMMANDS_AVAILABLE=$(get_message "claude_commands_available" "Available Claude Code commands" "利用可能なClaude Codeコマンド")
+        echo "⚡ $MSG_CLAUDE_COMMANDS_AVAILABLE:"
+        echo "  /commit-and-report \"$(get_message "commit_message" "commit message" "コミットメッセージ")\" [Issue番号]"
+        echo "  /commit-safe \"$(get_message "commit_message" "commit message" "コミットメッセージ")\""
+        echo "  /checkpoint [start <task-id> <task-name> <steps>]"
+        echo "  /reload-instructions"
+        echo "  /github-issues"
+        echo "  /reload-and-reset"
+        echo "  /build [--clean|--prod|--test]"
+        echo "  /evidence-check [file-path]"
+        echo ""
+    fi
     
     # モード別の次のステップ
     MSG_NEXT_STEPS=$(get_message "next_steps" "Next steps" "次のステップ")
