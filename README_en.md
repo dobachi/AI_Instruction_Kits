@@ -271,6 +271,33 @@ bash scripts/setup-project.sh --submodule # Submodule mode (recommended)
 | **clone** | Independent Git repository | • Freely modifiable<br>• Preserves history<br>• Custom changes | `git pull` |
 | **submodule** | Git submodule (recommended) | • Version pinning<br>• Parent repo integration<br>• Standard management | `git submodule update --remote` |
 
+#### Setup Options 🆕
+
+**Reduced Confirmation Prompts (Grouped):**
+
+```bash
+# Normal mode: 7 group confirmations
+bash scripts/setup-project.sh --submodule
+
+# Auto mode: Only confirm PROJECT.md, auto-install everything else
+bash scripts/setup-project.sh --auto --submodule
+
+# Skip instructions: Confirm everything except PROJECT.md
+bash scripts/setup-project.sh --skip-instructions --submodule
+
+# Full auto: No confirmations, skip instructions (for updates)
+bash scripts/setup-project.sh --auto --skip-instructions --submodule
+```
+
+**Confirmation Groups (Normal Mode):**
+1. Basic directories (`scripts/`, `instructions/`)
+2. Project instructions (`PROJECT.md`, `PROJECT.en.md`) ※Individual confirmation
+3. AI product symbolic links (`CLAUDE.md`, `GEMINI.md`, etc.)
+4. Script tools (8 items: `checkpoint.sh`, `commit.sh`, etc.)
+5. OpenHands configuration (`.openhands/microagents/`)
+6. Claude Code configuration (7 files under `.claude/commands/`)
+7. Git configuration (hooks, `.gitignore`)
+
 #### Using Custom Repositories
 
 ```bash

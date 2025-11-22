@@ -295,6 +295,33 @@ bash scripts/setup-project.sh --clone     # クローンモード
 bash scripts/setup-project.sh --submodule # サブモジュールモード（推奨）
 ```
 
+#### セットアップオプション 🆕
+
+**確認プロンプトの削減（グループ化）：**
+
+```bash
+# 通常モード：7つのグループ確認
+bash scripts/setup-project.sh --submodule
+
+# 自動モード：PROJECT.mdのみ確認、他は自動配置
+bash scripts/setup-project.sh --auto --submodule
+
+# 指示書スキップ：PROJECT.md以外を確認
+bash scripts/setup-project.sh --skip-instructions --submodule
+
+# 完全自動：確認なし、指示書もスキップ（更新時）
+bash scripts/setup-project.sh --auto --skip-instructions --submodule
+```
+
+**確認されるグループ（通常モード）：**
+1. 基本ディレクトリ (`scripts/`, `instructions/`)
+2. プロジェクト指示書 (`PROJECT.md`, `PROJECT.en.md`) ※個別確認
+3. AI製品別シンボリックリンク (`CLAUDE.md`, `GEMINI.md`等)
+4. スクリプトツール (8個: `checkpoint.sh`, `commit.sh`等)
+5. OpenHands設定 (`.openhands/microagents/`)
+6. Claude Code設定 (`.claude/commands/`配下7ファイル)
+7. Git設定 (hooks, `.gitignore`)
+
 **各モードの特徴：**
 
 | モード | 説明 | 利点 | 更新方法 |

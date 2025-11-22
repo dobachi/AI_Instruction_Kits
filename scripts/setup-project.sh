@@ -17,6 +17,8 @@ BACKUP_MODE=true
 INTEGRATION_MODE=""
 SELECTED_MODE=""
 SYNC_CLAUDE_COMMANDS_ONLY=false
+AUTO_SETUP=false
+SKIP_INSTRUCTIONS=false
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -48,6 +50,12 @@ while [[ "$#" -gt 0 ]]; do
             ;;
         --sync-claude-commands|--sync-claude)
             SYNC_CLAUDE_COMMANDS_ONLY=true
+            ;;
+        --auto|--auto-setup)
+            AUTO_SETUP=true
+            ;;
+        --skip-instructions)
+            SKIP_INSTRUCTIONS=true
             ;;
         --help|-h)
             MSG_USAGE=$(get_message "usage" "Usage" "使用方法")
@@ -98,6 +106,9 @@ $MSG_OPTIONS:
   -f, --force      $MSG_NO_CONFIRM
   -n, --dry-run    $MSG_DRY_RUN
   --no-backup      $MSG_NO_BACKUP
+  --auto           $(get_message "auto_setup" "Auto-setup mode: only confirm PROJECT.md, auto-install everything else" "自動セットアップモード: PROJECT.mdのみ確認、他は自動配置")
+  --skip-instructions
+                   $(get_message "skip_instructions" "Skip PROJECT.md installation (can combine with --auto)" "PROJECT.mdをスキップ（--autoと組み合わせ可能）")
   --sync-claude-commands, --sync-claude
                    $(get_message "sync_claude_commands" "Sync Claude Code custom commands only" "Claude Codeカスタムコマンドの同期のみ実行")
   -h, --help       $MSG_SHOW_HELP
@@ -121,12 +132,21 @@ $MSG_MODE_DETAILS:
 $MSG_DEFAULT_PROMPT。
 
 $MSG_EXAMPLES:
-  # $MSG_USE_DEFAULT_REPO
+  # $(get_message "ex_normal" "Normal mode: confirm all groups" "通常モード: 全グループを確認")
   setup-project.sh --submodule
-  
+
+  # $(get_message "ex_auto" "Auto mode: only confirm PROJECT.md" "自動モード: PROJECT.mdのみ確認")
+  setup-project.sh --auto --submodule
+
+  # $(get_message "ex_skip" "Skip instructions: confirm other groups" "指示書スキップ: 他のグループを確認")
+  setup-project.sh --skip-instructions --submodule
+
+  # $(get_message "ex_full_auto" "Full auto: skip instructions, no prompts" "完全自動: 指示書スキップ、確認なし")
+  setup-project.sh --auto --skip-instructions --submodule
+
   # $MSG_USE_FORK
   setup-project.sh --url https://github.com/myname/AI_Instruction_Kits.git --clone
-  
+
   # $MSG_USE_PRIVATE
   setup-project.sh --url git@github.com:mycompany/private-instructions.git --submodule
 HELP
@@ -155,10 +175,10 @@ confirm() {
     if [ "$FORCE_MODE" = true ]; then
         return 0
     fi
-    
+
     local prompt="$1 [y/N]: "
     local response
-    
+
     read -r -p "$prompt" response
     case "$response" in
         [yY][eE][sS]|[yY])
@@ -168,6 +188,321 @@ confirm() {
             return 1
             ;;
     esac
+}
+
+# グループ化確認プロンプト関数
+confirm_group() {
+    local group_name="$1"
+    shift
+    local items=("$@")
+
+    # SKIP_INSTRUCTIONSモードで指示書グループはスキップ
+    if [ "$SKIP_INSTRUCTIONS" = true ] && [ "$group_name" = "instructions" ]; then
+        return 1
+    fi
+
+    # AUTO_SETUPモードで指示書以外のグループは自動承認
+    if [ "$AUTO_SETUP" = true ] && [ "$group_name" != "instructions" ]; then
+        return 0
+    fi
+
+    # FORCE_MODEは全て自動承認
+    if [ "$FORCE_MODE" = true ]; then
+        return 0
+    fi
+
+    # 通常モード：グループ内容を表示して確認
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    case "$group_name" in
+        instructions)
+            MSG_GROUP_TITLE=$(get_message "group_instructions" "Project Instructions" "プロジェクト指示書")
+            ;;
+        directories)
+            MSG_GROUP_TITLE=$(get_message "group_directories" "Basic Directories" "基本ディレクトリ")
+            ;;
+        ai_symlinks)
+            MSG_GROUP_TITLE=$(get_message "group_ai_symlinks" "AI Product Symbolic Links" "AI製品別シンボリックリンク")
+            ;;
+        scripts)
+            MSG_GROUP_TITLE=$(get_message "group_scripts" "Script Tools" "スクリプトツール")
+            ;;
+        openhands)
+            MSG_GROUP_TITLE=$(get_message "group_openhands" "OpenHands Configuration" "OpenHands設定")
+            ;;
+        claude)
+            MSG_GROUP_TITLE=$(get_message "group_claude" "Claude Code Configuration" "Claude Code設定")
+            ;;
+        git)
+            MSG_GROUP_TITLE=$(get_message "group_git" "Git Configuration" "Git設定")
+            ;;
+        *)
+            MSG_GROUP_TITLE="$group_name"
+            ;;
+    esac
+
+    echo "📦 $MSG_GROUP_TITLE"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+    for item in "${items[@]}"; do
+        echo "  • $item"
+    done
+
+    echo ""
+    MSG_INSTALL_GROUP=$(get_message "install_group" "Install this group?" "このグループをインストールしますか？")
+
+    local response
+    read -r -p "$MSG_INSTALL_GROUP [Y/n]: " response
+    case "$response" in
+        [nN][oO]|[nN])
+            return 1
+            ;;
+        *)
+            return 0
+            ;;
+    esac
+}
+
+# OpenHands設定のセットアップ（グループ化）
+setup_openhands() {
+    local openhands_items=(
+        ".openhands/microagents/"
+        ".openhands/microagents/repo.md"
+    )
+
+    # グループ確認
+    if ! confirm_group "openhands" "${openhands_items[@]}"; then
+        MSG_SKIP_OPENHANDS=$(get_message "skip_openhands" "Skipping OpenHands configuration" "OpenHands設定をスキップ")
+        echo "⏭️  $MSG_SKIP_OPENHANDS"
+        return
+    fi
+
+    # .openhands/microagents/ディレクトリ作成
+    if [ ! -d ".openhands/microagents" ]; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "mkdir -p .openhands/microagents"
+        else
+            mkdir -p .openhands/microagents
+        fi
+    fi
+
+    # repo.mdシンボリックリンク作成
+    if [ -e ".openhands/microagents/repo.md" ] && [ ! -L ".openhands/microagents/repo.md" ]; then
+        backup_file ".openhands/microagents/repo.md"
+        [ "$DRY_RUN" = false ] && rm ".openhands/microagents/repo.md"
+    fi
+
+    if [ ! -e ".openhands/microagents/repo.md" ]; then
+        local target=""
+        if [ -f "instructions/ja/system/OPENHANDS_ROOT.md" ]; then
+            target="../../instructions/ja/system/OPENHANDS_ROOT.md"
+        elif [ -f "instructions/ai_instruction_kits/instructions/ja/system/OPENHANDS_ROOT.md" ]; then
+            target="../../instructions/ai_instruction_kits/instructions/ja/system/OPENHANDS_ROOT.md"
+        else
+            target="../../instructions/PROJECT.md"
+        fi
+
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "ln -sf $target .openhands/microagents/repo.md"
+        else
+            ln -sf "$target" .openhands/microagents/repo.md
+        fi
+    fi
+
+    MSG_OPENHANDS_CREATED=$(get_message "openhands_created" "OpenHands configuration installed" "OpenHands設定をインストールしました")
+    echo "✅ $MSG_OPENHANDS_CREATED"
+}
+
+# Claude Code設定のセットアップ（グループ化）
+setup_claude_code() {
+    local claude_items=(
+        ".claude/commands/"
+        ".claude/commands/commit-and-report.md"
+        ".claude/commands/commit-safe.md"
+        ".claude/commands/checkpoint.md"
+        ".claude/commands/reload-instructions.md"
+        ".claude/commands/github-issues.md"
+        ".claude/commands/reload-and-reset.md"
+        ".claude/commands/build.md"
+    )
+
+    # グループ確認
+    if ! confirm_group "claude" "${claude_items[@]}"; then
+        MSG_SKIP_CLAUDE=$(get_message "skip_claude" "Skipping Claude Code configuration" "Claude Code設定をスキップ")
+        echo "⏭️  $MSG_SKIP_CLAUDE"
+        return
+    fi
+
+    # .claude/commandsディレクトリ作成
+    if [ ! -d ".claude/commands" ]; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "mkdir -p .claude/commands"
+        else
+            mkdir -p .claude/commands
+        fi
+    fi
+
+    # コマンドファイルをコピー
+    local commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md" "build.md")
+    local lang=$(get_current_language)
+
+    for cmd_file in "${commands[@]}"; do
+        local src=""
+        local dst=".claude/commands/$cmd_file"
+
+        # ソースファイルの検索（言語別ファイルを優先）
+        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file" ]; then
+            src="instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file"
+        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$lang/$cmd_file" ]; then
+            src="${SCRIPT_DIR}/../templates/claude-commands/$lang/$cmd_file"
+        elif [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
+            src="instructions/ai_instruction_kits/templates/claude-commands/$cmd_file"
+        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
+            src="${SCRIPT_DIR}/../templates/claude-commands/$cmd_file"
+        fi
+
+        if [ -n "$src" ] && [ -f "$src" ]; then
+            # 既存ファイルのバックアップ
+            if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+                backup_file "$dst"
+                [ "$DRY_RUN" = false ] && rm "$dst"
+            fi
+
+            # シンボリックリンクの場合は削除してファイルコピー
+            if [ -L "$dst" ]; then
+                [ "$DRY_RUN" = false ] && rm "$dst"
+            fi
+
+            # コピー
+            if [ ! -e "$dst" ]; then
+                if [ "$DRY_RUN" = true ]; then
+                    dry_echo "cp $src $dst"
+                else
+                    cp "$src" "$dst"
+                fi
+            fi
+        fi
+    done
+
+    MSG_CLAUDE_CREATED=$(get_message "claude_created" "Claude Code configuration installed" "Claude Code設定をインストールしました")
+    echo "✅ $MSG_CLAUDE_CREATED"
+}
+
+# Git設定のセットアップ（グループ化）
+setup_git_config() {
+    local git_items=(
+        ".git/hooks/prepare-commit-msg"
+        ".gitignore (AI instructions entries)"
+    )
+
+    # グループ確認
+    if ! confirm_group "git" "${git_items[@]}"; then
+        MSG_SKIP_GIT=$(get_message "skip_git" "Skipping Git configuration" "Git設定をスキップ")
+        echo "⏭️  $MSG_SKIP_GIT"
+        return
+    fi
+
+    # Gitフックの設定
+    if [ -d ".git/hooks" ]; then
+        local hook_source=""
+        if [ -f "${SCRIPT_DIR}/../templates/git-hooks/prepare-commit-msg" ]; then
+            hook_source="${SCRIPT_DIR}/../templates/git-hooks/prepare-commit-msg"
+        elif [ -f "instructions/ai_instruction_kits/templates/git-hooks/prepare-commit-msg" ]; then
+            hook_source="instructions/ai_instruction_kits/templates/git-hooks/prepare-commit-msg"
+        fi
+
+        if [ -n "$hook_source" ]; then
+            if [ -e ".git/hooks/prepare-commit-msg" ] && [ ! -L ".git/hooks/prepare-commit-msg" ]; then
+                backup_file ".git/hooks/prepare-commit-msg"
+            fi
+
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "cp $hook_source .git/hooks/prepare-commit-msg && chmod +x .git/hooks/prepare-commit-msg"
+            else
+                cp "$hook_source" .git/hooks/prepare-commit-msg
+                chmod +x .git/hooks/prepare-commit-msg
+            fi
+        fi
+    fi
+
+    # .gitignore更新
+    local gitignore_entries=()
+    [ "$SELECTED_MODE" = "submodule" ] && gitignore_entries+=("instructions/ai_instruction_kits/")
+    gitignore_entries+=(".openhands/" ".claude/" ".gitworktrees/" "gitworktrees/")
+
+    for entry in "${gitignore_entries[@]}"; do
+        if [ -f ".gitignore" ]; then
+            if ! grep -q "^${entry}$" .gitignore 2>/dev/null; then
+                if [ "$DRY_RUN" = true ]; then
+                    dry_echo "echo '$entry' >> .gitignore"
+                else
+                    echo "$entry" >> .gitignore
+                fi
+            fi
+        else
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "echo '$entry' > .gitignore"
+            else
+                echo "$entry" > .gitignore
+            fi
+        fi
+    done
+
+    MSG_GIT_CREATED=$(get_message "git_created" "Git configuration installed" "Git設定をインストールしました")
+    echo "✅ $MSG_GIT_CREATED"
+}
+
+# スクリプトツールのシンボリックリンク作成（グループ化）
+setup_script_tools() {
+    local script_items=(
+        "scripts/lib/"
+        "scripts/checkpoint.sh"
+        "scripts/commit.sh"
+        "scripts/generate-instruction.sh"
+        "scripts/validate-modules.sh"
+        "scripts/search-instructions.sh"
+        "scripts/generate-metadata.sh"
+        "scripts/worktree-manager.sh"
+    )
+
+    # グループ確認
+    if ! confirm_group "scripts" "${script_items[@]}"; then
+        MSG_SKIP_SCRIPTS=$(get_message "skip_scripts" "Skipping script tools" "スクリプトツールをスキップ")
+        echo "⏭️  $MSG_SKIP_SCRIPTS"
+        return
+    fi
+
+    # scripts/lib/
+    if [ -e "scripts/lib" ] && [ ! -L "scripts/lib" ]; then
+        backup_file "scripts/lib"
+        [ "$DRY_RUN" = false ] && rm -rf scripts/lib
+    fi
+    if [ ! -e "scripts/lib" ]; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/lib scripts/lib"
+        else
+            ln -sf ../instructions/ai_instruction_kits/scripts/lib scripts/lib
+        fi
+    fi
+
+    # スクリプトファイルのシンボリックリンク作成
+    local scripts=("checkpoint.sh" "commit.sh" "generate-instruction.sh" "validate-modules.sh" "search-instructions.sh" "generate-metadata.sh" "worktree-manager.sh")
+    for script in "${scripts[@]}"; do
+        if [ -e "scripts/$script" ] && [ ! -L "scripts/$script" ]; then
+            backup_file "scripts/$script"
+            [ "$DRY_RUN" = false ] && rm "scripts/$script"
+        fi
+        if [ ! -e "scripts/$script" ]; then
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/$script scripts/$script"
+            else
+                ln -sf ../instructions/ai_instruction_kits/scripts/$script scripts/$script
+            fi
+        fi
+    done
+
+    MSG_SCRIPTS_CREATED=$(get_message "scripts_created" "Script tools installed" "スクリプトツールをインストールしました")
+    echo "✅ $MSG_SCRIPTS_CREATED"
 }
 
 # バックアップ関数
@@ -512,42 +847,30 @@ echo ""
 MSG_SELECTED_MODE=$(get_message "selected_mode" "Selected mode" "選択されたモード")
 echo "📌 $MSG_SELECTED_MODE: $SELECTED_MODE"
 
-# ディレクトリ作成
+# ディレクトリ作成（グループ化）
 echo ""
 MSG_CREATE_DIRS=$(get_message "create_dirs" "Creating required directories" "必要なディレクトリを作成")
-echo "📁 $MSG_CREATE_DIRS..."
-if [ ! -d "scripts" ]; then
-    MSG_CREATE_SCRIPTS_DIR=$(get_message "create_scripts_dir" "Create scripts directory?" "scriptsディレクトリを作成しますか？")
-    if confirm "$MSG_CREATE_SCRIPTS_DIR"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "mkdir -p scripts"
-        else
-            mkdir -p scripts
-        fi
-    else
-        MSG_SKIP_SCRIPTS=$(get_message "skip_scripts" "Skipping scripts directory creation" "scriptsディレクトリの作成をスキップ")
-        echo "⏭️  $MSG_SKIP_SCRIPTS"
-    fi
-else
-    MSG_SCRIPTS_EXISTS=$(get_message "scripts_exists" "scripts directory already exists" "scriptsディレクトリは既に存在します")
-    echo "✓ $MSG_SCRIPTS_EXISTS"
-fi
 
-if [ ! -d "instructions" ]; then
-    MSG_CREATE_INSTRUCTIONS_DIR=$(get_message "create_instructions_dir" "Create instructions directory?" "instructionsディレクトリを作成しますか？")
-    if confirm "$MSG_CREATE_INSTRUCTIONS_DIR"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "mkdir -p instructions"
-        else
-            mkdir -p instructions
-        fi
-    else
-        MSG_SKIP_INSTRUCTIONS=$(get_message "skip_instructions" "Skipping instructions directory creation" "instructionsディレクトリの作成をスキップ")
-        echo "⏭️  $MSG_SKIP_INSTRUCTIONS"
-    fi
+# グループ確認用の配列を準備
+dir_group_items=()
+[ ! -d "scripts" ] && dir_group_items+=("scripts/")
+[ ! -d "instructions" ] && dir_group_items+=("instructions/")
+
+# ディレクトリが存在する場合のメッセージ
+if [ ${#dir_group_items[@]} -eq 0 ]; then
+    MSG_DIRS_EXIST=$(get_message "dirs_exist" "Required directories already exist" "必要なディレクトリは既に存在します")
+    echo "✓ $MSG_DIRS_EXIST"
 else
-    MSG_INSTRUCTIONS_EXISTS=$(get_message "instructions_exists" "instructions directory already exists" "instructionsディレクトリは既に存在します")
-    echo "✓ $MSG_INSTRUCTIONS_EXISTS"
+    # グループ確認
+    if confirm_group "directories" "${dir_group_items[@]}"; then
+        [ ! -d "scripts" ] && mkdir -p scripts
+        [ ! -d "instructions" ] && mkdir -p instructions
+        MSG_DIRS_CREATED=$(get_message "dirs_created" "Directories created" "ディレクトリを作成しました")
+        echo "✅ $MSG_DIRS_CREATED"
+    else
+        MSG_SKIP_DIRS=$(get_message "skip_dirs" "Skipping directory creation" "ディレクトリの作成をスキップ")
+        echo "⏭️  $MSG_SKIP_DIRS"
+    fi
 fi
 
 # 選択されたモードに応じてセットアップ
@@ -564,38 +887,11 @@ case "$SELECTED_MODE" in
         ;;
 esac
 
-# checkpoint.shへのシンボリックリンク
+# スクリプトツールのセットアップ（グループ化）
 echo ""
-MSG_CREATE_SYMLINK=$(get_message "create_symlink" "Creating symbolic link to" "へのシンボリックリンクを作成")
-echo "🔗 $MSG_CREATE_SYMLINK checkpoint.sh..."
-if [ -e "scripts/checkpoint.sh" ]; then
-    if [ -L "scripts/checkpoint.sh" ]; then
-        MSG_SYMLINK_EXISTS=$(get_message "symlink_exists" "Symbolic link already exists" "シンボリックリンクは既に存在します")
-        echo "✓ $MSG_SYMLINK_EXISTS"
-    else
-        MSG_FILE_EXISTS_NOT_LINK=$(get_message "file_exists_not_link" "already exists (not a symbolic link)" "が既に存在します（シンボリックリンクではありません）")
-        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
-        echo "⚠️  scripts/checkpoint.sh$MSG_FILE_EXISTS_NOT_LINK"
-        if confirm "$MSG_BACKUP_AND_REPLACE"; then
-            backup_file "scripts/checkpoint.sh"
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "rm scripts/checkpoint.sh && ln -sf ../instructions/ai_instruction_kits/scripts/checkpoint.sh scripts/checkpoint.sh"
-            else
-                rm scripts/checkpoint.sh
-                ln -sf ../instructions/ai_instruction_kits/scripts/checkpoint.sh scripts/checkpoint.sh
-            fi
-        fi
-    fi
-else
-    MSG_CREATE_CHECKPOINT_LINK=$(get_message "create_checkpoint_link" "Create symbolic link to checkpoint.sh?" "checkpoint.shへのシンボリックリンクを作成しますか？")
-    if confirm "$MSG_CREATE_CHECKPOINT_LINK"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/checkpoint.sh scripts/checkpoint.sh"
-        else
-            ln -sf ../instructions/ai_instruction_kits/scripts/checkpoint.sh scripts/checkpoint.sh
-        fi
-    fi
-fi
+MSG_SETUP_SCRIPTS=$(get_message "setup_scripts" "Setting up script tools" "スクリプトツールを設定")
+echo "🔧 $MSG_SETUP_SCRIPTS..."
+setup_script_tools
 
 # テンプレートのパスを決定
 PROJECT_TEMPLATE_JA=""
@@ -605,7 +901,12 @@ elif [ -f "instructions/ai_instruction_kits/templates/ja/PROJECT_TEMPLATE.md" ];
     PROJECT_TEMPLATE_JA="instructions/ai_instruction_kits/templates/ja/PROJECT_TEMPLATE.md"
 fi
 
-# PROJECT.md（日本語版）の作成
+# SKIP_INSTRUCTIONSモードの場合は指示書セットアップをスキップ
+if [ "$SKIP_INSTRUCTIONS" = true ]; then
+    MSG_SKIP_INSTRUCTIONS_MODE=$(get_message "skip_instructions_mode" "Skipping PROJECT.md installation (--skip-instructions mode)" "PROJECT.mdのインストールをスキップ (--skip-instructionsモード)")
+    echo "⏭️  $MSG_SKIP_INSTRUCTIONS_MODE"
+else
+    # PROJECT.md（日本語版）の作成
 echo ""
 MSG_CREATE_PROJECT_JA=$(get_message "create_project_ja" "Creating instructions/PROJECT.md (Japanese version)" "instructions/PROJECT.md（日本語版）を作成")
 echo "📝 $MSG_CREATE_PROJECT_JA..."
@@ -706,611 +1007,90 @@ else
         fi
     fi
 fi
+fi  # SKIP_INSTRUCTIONSのif文を閉じる
 
-# AI製品別のシンボリックリンク作成
+# AI製品別のシンボリックリンク作成（グループ化）
 echo ""
 MSG_CREATE_AI_SYMLINKS=$(get_message "create_ai_symlinks" "Creating symbolic links for AI products" "AI製品別のシンボリックリンクを作成")
-echo "🔗 $MSG_CREATE_AI_SYMLINKS..."
+
 ai_files=("CLAUDE.md" "GEMINI.md" "CURSOR.md")
 ai_files_en=("CLAUDE.en.md" "GEMINI.en.md" "CURSOR.en.md")
 
-for file in "${ai_files[@]}"; do
-    if [ -e "$file" ]; then
-        if [ -L "$file" ]; then
-            MSG_SYMLINK_EXISTS=$(get_message "symlink_exists" "symbolic link already exists" "シンボリックリンクは既に存在します")
-            echo "✓ $file $MSG_SYMLINK_EXISTS"
-        else
-            MSG_FILE_EXISTS_NOT_LINK=$(get_message "file_exists_not_link" "already exists (not a symbolic link)" "が既に存在します（シンボリックリンクではありません）")
-            MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
-            echo "⚠️  $file $MSG_FILE_EXISTS_NOT_LINK"
-            if confirm "$MSG_BACKUP_AND_REPLACE"; then
+# グループ確認用の配列を準備
+ai_symlink_items=()
+for file in "${ai_files[@]}" "${ai_files_en[@]}"; do
+    if [ ! -e "$file" ] || [ ! -L "$file" ]; then
+        ai_symlink_items+=("$file")
+    fi
+done
+
+# すべて存在する場合
+if [ ${#ai_symlink_items[@]} -eq 0 ]; then
+    MSG_AI_SYMLINKS_EXIST=$(get_message "ai_symlinks_exist" "AI product symbolic links already exist" "AI製品別シンボリックリンクは既に存在します")
+    echo "✓ $MSG_AI_SYMLINKS_EXIST"
+else
+    # グループ確認
+    if confirm_group "ai_symlinks" "${ai_symlink_items[@]}"; then
+        # 日本語版シンボリックリンク作成
+        for file in "${ai_files[@]}"; do
+            if [ -e "$file" ] && [ ! -L "$file" ]; then
                 backup_file "$file"
+                [ "$DRY_RUN" = false ] && rm "$file"
+            fi
+            if [ ! -e "$file" ]; then
                 if [ "$DRY_RUN" = true ]; then
-                    dry_echo "rm $file && ln -sf instructions/PROJECT.md $file"
+                    dry_echo "ln -sf instructions/PROJECT.md $file"
                 else
-                    rm "$file"
                     ln -sf instructions/PROJECT.md "$file"
                 fi
             fi
-        fi
-    else
-        MSG_CREATE_SYMLINK_FOR=$(get_message "create_symlink_for" "Create symbolic link" "シンボリックリンクを作成しますか？")
-        if confirm "$file $MSG_CREATE_SYMLINK_FOR"; then
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "ln -sf instructions/PROJECT.md $file"
-            else
-                ln -sf instructions/PROJECT.md "$file"
-            fi
-        fi
-    fi
-done
+        done
 
-for file in "${ai_files_en[@]}"; do
-    if [ -e "$file" ]; then
-        if [ -L "$file" ]; then
-            MSG_SYMLINK_EXISTS=$(get_message "symlink_exists" "symbolic link already exists" "シンボリックリンクは既に存在します")
-            echo "✓ $file $MSG_SYMLINK_EXISTS"
-        else
-            MSG_FILE_EXISTS_NOT_LINK=$(get_message "file_exists_not_link" "already exists (not a symbolic link)" "が既に存在します（シンボリックリンクではありません）")
-            MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
-            echo "⚠️  $file $MSG_FILE_EXISTS_NOT_LINK"
-            if confirm "$MSG_BACKUP_AND_REPLACE"; then
+        # 英語版シンボリックリンク作成
+        for file in "${ai_files_en[@]}"; do
+            if [ -e "$file" ] && [ ! -L "$file" ]; then
                 backup_file "$file"
+                [ "$DRY_RUN" = false ] && rm "$file"
+            fi
+            if [ ! -e "$file" ]; then
                 if [ "$DRY_RUN" = true ]; then
-                    dry_echo "rm $file && ln -sf instructions/PROJECT.en.md $file"
+                    dry_echo "ln -sf instructions/PROJECT.en.md $file"
                 else
-                    rm "$file"
                     ln -sf instructions/PROJECT.en.md "$file"
                 fi
             fi
-        fi
-    else
-        MSG_CREATE_SYMLINK_FOR=$(get_message "create_symlink_for" "Create symbolic link" "シンボリックリンクを作成しますか？")
-        if confirm "$file $MSG_CREATE_SYMLINK_FOR"; then
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "ln -sf instructions/PROJECT.en.md $file"
-            else
-                ln -sf instructions/PROJECT.en.md "$file"
-            fi
-        fi
-    fi
-done
+        done
 
-# OpenHands用の設定
+        MSG_AI_SYMLINKS_CREATED=$(get_message "ai_symlinks_created" "AI product symbolic links created" "AI製品別シンボリックリンクを作成しました")
+        echo "✅ $MSG_AI_SYMLINKS_CREATED"
+    else
+        MSG_SKIP_AI_SYMLINKS=$(get_message "skip_ai_symlinks" "Skipping AI symbolic links" "AIシンボリックリンクをスキップ")
+        echo "⏭️  $MSG_SKIP_AI_SYMLINKS"
+    fi
+fi
+
+# OpenHands設定のセットアップ（グループ化）
 echo ""
-MSG_CREATE_OPENHANDS_DIR=$(get_message "create_openhands_dir" "Creating OpenHands configuration directory" "OpenHands設定ディレクトリを作成")
-echo "📁 $MSG_CREATE_OPENHANDS_DIR..."
-OPENHANDS_DIR_CREATED=false
-if [ ! -d ".openhands/microagents" ]; then
-    MSG_CREATE_OPENHANDS_MICROAGENTS=$(get_message "create_openhands_microagents" "Create .openhands/microagents directory for OpenHands?" "OpenHands用の.openhands/microagentsディレクトリを作成しますか？")
-    if confirm "$MSG_CREATE_OPENHANDS_MICROAGENTS"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "mkdir -p .openhands/microagents"
-            OPENHANDS_DIR_CREATED=true
-        else
-            mkdir -p .openhands/microagents
-            MSG_OPENHANDS_DIR_CREATED=$(get_message "openhands_dir_created" "OpenHands directory created" "OpenHandsディレクトリを作成しました")
-            echo "✅ $MSG_OPENHANDS_DIR_CREATED"
-            OPENHANDS_DIR_CREATED=true
-        fi
-    fi
-else
-    MSG_OPENHANDS_DIR_EXISTS=$(get_message "openhands_dir_exists" ".openhands/microagents directory already exists" ".openhands/microagentsディレクトリは既に存在します")
-    echo "✓ $MSG_OPENHANDS_DIR_EXISTS"
-    OPENHANDS_DIR_CREATED=true
-fi
+MSG_SETUP_OPENHANDS=$(get_message "setup_openhands" "Setting up OpenHands configuration" "OpenHands設定を設定")
+echo "🌐 $MSG_SETUP_OPENHANDS..."
+setup_openhands
 
-# repo.mdへのシンボリックリンク作成
-if [ "$OPENHANDS_DIR_CREATED" = true ] || [ -d ".openhands/microagents" ]; then
-    echo ""
-    MSG_CREATE_REPO_MD_LINK=$(get_message "create_repo_md_link" "Creating symbolic link for OpenHands repo.md" "OpenHands repo.mdへのシンボリックリンクを作成")
-    echo "🔗 $MSG_CREATE_REPO_MD_LINK..."
-    if [ -e ".openhands/microagents/repo.md" ]; then
-        if [ -L ".openhands/microagents/repo.md" ]; then
-            MSG_REPO_MD_LINK_EXISTS=$(get_message "repo_md_link_exists" "repo.md symbolic link already exists" "repo.mdシンボリックリンクは既に存在します")
-            echo "✓ $MSG_REPO_MD_LINK_EXISTS"
-        else
-            MSG_REPO_MD_EXISTS_NOT_LINK=$(get_message "repo_md_exists_not_link" ".openhands/microagents/repo.md already exists (not a symbolic link)" ".openhands/microagents/repo.mdが既に存在します（シンボリックリンクではありません）")
-            MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
-            echo "⚠️  $MSG_REPO_MD_EXISTS_NOT_LINK"
-            if confirm "$MSG_BACKUP_AND_REPLACE"; then
-                backup_file ".openhands/microagents/repo.md"
-                if [ "$DRY_RUN" = true ]; then
-                    dry_echo "rm .openhands/microagents/repo.md && ln -sf ../../instructions/PROJECT.md .openhands/microagents/repo.md"
-                else
-                    rm .openhands/microagents/repo.md
-                    ln -sf ../../instructions/PROJECT.md .openhands/microagents/repo.md
-                fi
-            fi
-        fi
-    else
-        MSG_CREATE_OPENHANDS_REPO_LINK=$(get_message "create_openhands_repo_link" "Create symbolic link to PROJECT.md for OpenHands?" "OpenHands用にPROJECT.mdへのシンボリックリンクを作成しますか？")
-        if confirm "$MSG_CREATE_OPENHANDS_REPO_LINK"; then
-            # OPENHANDS_ROOT.mdが存在する場合はそれを優先、なければPROJECT.mdへリンク
-            if [ "$DRY_RUN" = true ]; then
-                if [ -f "instructions/ja/system/OPENHANDS_ROOT.md" ]; then
-                    dry_echo "ln -sf ../../instructions/ja/system/OPENHANDS_ROOT.md .openhands/microagents/repo.md"
-                elif [ -f "instructions/ai_instruction_kits/instructions/ja/system/OPENHANDS_ROOT.md" ]; then
-                    dry_echo "ln -sf ../../instructions/ai_instruction_kits/instructions/ja/system/OPENHANDS_ROOT.md .openhands/microagents/repo.md"
-                else
-                    dry_echo "ln -sf ../../instructions/PROJECT.md .openhands/microagents/repo.md"
-                fi
-            else
-                if [ -f "instructions/ja/system/OPENHANDS_ROOT.md" ]; then
-                    # AI指示書キット自体の開発時
-                    ln -sf ../../instructions/ja/system/OPENHANDS_ROOT.md .openhands/microagents/repo.md
-                    MSG_OPENHANDS_ROOT_LINKED=$(get_message "openhands_root_linked" "OpenHands repo.md linked to OPENHANDS_ROOT.md" "OpenHands repo.mdをOPENHANDS_ROOT.mdにリンクしました")
-                    echo "✅ $MSG_OPENHANDS_ROOT_LINKED"
-                elif [ -f "instructions/ai_instruction_kits/instructions/ja/system/OPENHANDS_ROOT.md" ]; then
-                    # 通常のプロジェクト（サブモジュール使用時）
-                    ln -sf ../../instructions/ai_instruction_kits/instructions/ja/system/OPENHANDS_ROOT.md .openhands/microagents/repo.md
-                    MSG_OPENHANDS_ROOT_LINKED=$(get_message "openhands_root_linked" "OpenHands repo.md linked to OPENHANDS_ROOT.md" "OpenHands repo.mdをOPENHANDS_ROOT.mdにリンクしました")
-                    echo "✅ $MSG_OPENHANDS_ROOT_LINKED"
-                else
-                    # OPENHANDS_ROOT.mdが存在しない場合は従来のPROJECT.mdへリンク
-                    ln -sf ../../instructions/PROJECT.md .openhands/microagents/repo.md
-                    MSG_OPENHANDS_LINK_CREATED=$(get_message "openhands_link_created" "OpenHands repo.md link created" "OpenHands repo.mdリンクを作成しました")
-                    echo "✅ $MSG_OPENHANDS_LINK_CREATED"
-                fi
-            fi
-        fi
-    fi
-fi
-
-# Gitフックの設定
+# Claude Code設定のセットアップ（グループ化）
 echo ""
-MSG_SETUP_GIT_HOOKS=$(get_message "setup_git_hooks" "Setting up Git hooks" "Gitフックを設定")
-echo "🔧 $MSG_SETUP_GIT_HOOKS..."
-if [ -d ".git/hooks" ]; then
-    HOOK_SOURCE=""
-    if [ -f "${SCRIPT_DIR}/../templates/git-hooks/prepare-commit-msg" ]; then
-        HOOK_SOURCE="${SCRIPT_DIR}/../templates/git-hooks/prepare-commit-msg"
-    elif [ -f "instructions/ai_instruction_kits/templates/git-hooks/prepare-commit-msg" ]; then
-        HOOK_SOURCE="instructions/ai_instruction_kits/templates/git-hooks/prepare-commit-msg"
-    fi
-    
-    if [ -n "$HOOK_SOURCE" ]; then
-        if [ -e ".git/hooks/prepare-commit-msg" ]; then
-            MSG_HOOK_EXISTS=$(get_message "hook_exists" ".git/hooks/prepare-commit-msg already exists" ".git/hooks/prepare-commit-msgが既に存在します")
-            MSG_INSTALL_AI_HOOK=$(get_message "install_ai_hook" "Backup existing hook and install AI detection hook?" "既存のフックをバックアップして、AI検出フックをインストールしますか？")
-            echo "⚠️  $MSG_HOOK_EXISTS"
-            if confirm "$MSG_INSTALL_AI_HOOK"; then
-                backup_file ".git/hooks/prepare-commit-msg"
-                if [ "$DRY_RUN" = true ]; then
-                    dry_echo "cp $HOOK_SOURCE .git/hooks/prepare-commit-msg && chmod +x .git/hooks/prepare-commit-msg"
-                else
-                    cp "$HOOK_SOURCE" .git/hooks/prepare-commit-msg
-                    chmod +x .git/hooks/prepare-commit-msg
-                    MSG_AI_HOOK_INSTALLED=$(get_message "ai_hook_installed" "AI detection hook installed" "AI検出フックをインストールしました")
-                    echo "✅ $MSG_AI_HOOK_INSTALLED"
-                fi
-            fi
-        else
-            MSG_INSTALL_AI_PREVENT_HOOK=$(get_message "install_ai_prevent_hook" "Install Git hook to prevent AI commits?" "AIコミットを防止するGitフックをインストールしますか？")
-            if confirm "$MSG_INSTALL_AI_PREVENT_HOOK"; then
-                if [ "$DRY_RUN" = true ]; then
-                    dry_echo "cp $HOOK_SOURCE .git/hooks/prepare-commit-msg && chmod +x .git/hooks/prepare-commit-msg"
-                else
-                    cp "$HOOK_SOURCE" .git/hooks/prepare-commit-msg
-                    chmod +x .git/hooks/prepare-commit-msg
-                    MSG_AI_HOOK_INSTALLED=$(get_message "ai_hook_installed" "AI detection hook installed" "AI検出フックをインストールしました")
-                    echo "✅ $MSG_AI_HOOK_INSTALLED"
-                fi
-            fi
-        fi
-    else
-        MSG_HOOK_TEMPLATE_NOT_FOUND=$(get_message "hook_template_not_found" "Git hook template not found" "Gitフックテンプレートが見つかりません")
-        echo "⚠️  $MSG_HOOK_TEMPLATE_NOT_FOUND"
-    fi
-else
-    MSG_HOOKS_DIR_NOT_FOUND=$(get_message "hooks_dir_not_found" ".git/hooks directory not found (may not be a Git repository)" ".git/hooksディレクトリが見つかりません（Gitリポジトリではない可能性があります）")
-    echo "⚠️  $MSG_HOOKS_DIR_NOT_FOUND"
-fi
+MSG_SETUP_CLAUDE=$(get_message "setup_claude" "Setting up Claude Code configuration" "Claude Code設定を設定")
+echo "⚡ $MSG_SETUP_CLAUDE..."
+setup_claude_code
 
-# scripts/libディレクトリのリンク作成（commit.shが依存するi18n.shのため）
+# Git設定のセットアップ（グループ化）
 echo ""
-echo "🔗 $MSG_CREATE_SYMLINK scripts/lib..."
-if [ -e "scripts/lib" ]; then
-    if [ -L "scripts/lib" ]; then
-        MSG_LIB_SYMLINK_EXISTS=$(get_message "lib_symlink_exists" "scripts/lib symbolic link already exists" "scripts/libシンボリックリンクは既に存在します")
-        echo "✓ $MSG_LIB_SYMLINK_EXISTS"
-    else
-        MSG_LIB_EXISTS_NOT_LINK=$(get_message "lib_exists_not_link" "scripts/lib already exists (not a symbolic link)" "scripts/libが既に存在します（シンボリックリンクではありません）")
-        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing directory and replace with symbolic link?" "既存のディレクトリをバックアップして、シンボリックリンクに置き換えますか？")
-        echo "⚠️  $MSG_LIB_EXISTS_NOT_LINK"
-        if confirm "$MSG_BACKUP_AND_REPLACE"; then
-            backup_file "scripts/lib"
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "rm -rf scripts/lib && ln -sf ../instructions/ai_instruction_kits/scripts/lib scripts/lib"
-            else
-                rm -rf scripts/lib
-                ln -sf ../instructions/ai_instruction_kits/scripts/lib scripts/lib
-            fi
-        fi
-    fi
-else
-    MSG_CREATE_LIB_LINK=$(get_message "create_lib_link" "Create symbolic link to scripts/lib?" "scripts/libへのシンボリックリンクを作成しますか？")
-    if confirm "$MSG_CREATE_LIB_LINK"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/lib scripts/lib"
-        else
-            ln -sf ../instructions/ai_instruction_kits/scripts/lib scripts/lib
-        fi
-    fi
-fi
+MSG_SETUP_GIT=$(get_message "setup_git" "Setting up Git configuration" "Git設定を設定")
+echo "📝 $MSG_SETUP_GIT..."
+setup_git_config
 
-# commit.shのリンク作成
-echo ""
-echo "🔗 $MSG_CREATE_SYMLINK commit.sh..."
-if [ -e "scripts/commit.sh" ]; then
-    if [ -L "scripts/commit.sh" ]; then
-        MSG_COMMIT_SYMLINK_EXISTS=$(get_message "commit_symlink_exists" "commit.sh symbolic link already exists" "commit.shシンボリックリンクは既に存在します")
-        echo "✓ $MSG_COMMIT_SYMLINK_EXISTS"
-    else
-        MSG_COMMIT_EXISTS_NOT_LINK=$(get_message "commit_exists_not_link" "scripts/commit.sh already exists (not a symbolic link)" "scripts/commit.shが既に存在します（シンボリックリンクではありません）")
-        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
-        echo "⚠️  $MSG_COMMIT_EXISTS_NOT_LINK"
-        if confirm "$MSG_BACKUP_AND_REPLACE"; then
-            backup_file "scripts/commit.sh"
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "rm scripts/commit.sh && ln -sf ../instructions/ai_instruction_kits/scripts/commit.sh scripts/commit.sh"
-            else
-                rm scripts/commit.sh
-                ln -sf ../instructions/ai_instruction_kits/scripts/commit.sh scripts/commit.sh
-            fi
-        fi
-    fi
-else
-    MSG_CREATE_COMMIT_LINK=$(get_message "create_commit_link" "Create symbolic link to commit.sh?" "commit.shへのシンボリックリンクを作成しますか？")
-    if confirm "$MSG_CREATE_COMMIT_LINK"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/commit.sh scripts/commit.sh"
-        else
-            ln -sf ../instructions/ai_instruction_kits/scripts/commit.sh scripts/commit.sh
-        fi
-    fi
-fi
+# worktree-manager.shへのシンボリックリンク（scriptsグループに含まれている）
+# 既にsetup_script_toolsで処理済み
 
-# generate-instruction.shのリンク作成
-echo ""
-echo "🔗 $MSG_CREATE_SYMLINK generate-instruction.sh..."
-if [ -e "scripts/generate-instruction.sh" ]; then
-    if [ -L "scripts/generate-instruction.sh" ]; then
-        MSG_GENERATE_SYMLINK_EXISTS=$(get_message "generate_symlink_exists" "generate-instruction.sh symbolic link already exists" "generate-instruction.shシンボリックリンクは既に存在します")
-        echo "✓ $MSG_GENERATE_SYMLINK_EXISTS"
-    else
-        MSG_GENERATE_EXISTS_NOT_LINK=$(get_message "generate_exists_not_link" "scripts/generate-instruction.sh already exists (not a symbolic link)" "scripts/generate-instruction.shが既に存在します（シンボリックリンクではありません）")
-        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
-        echo "⚠️  $MSG_GENERATE_EXISTS_NOT_LINK"
-        if confirm "$MSG_BACKUP_AND_REPLACE"; then
-            backup_file "scripts/generate-instruction.sh"
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "rm scripts/generate-instruction.sh && ln -sf ../instructions/ai_instruction_kits/scripts/generate-instruction.sh scripts/generate-instruction.sh"
-            else
-                rm scripts/generate-instruction.sh
-                ln -sf ../instructions/ai_instruction_kits/scripts/generate-instruction.sh scripts/generate-instruction.sh
-            fi
-        fi
-    fi
-else
-    MSG_CREATE_GENERATE_LINK=$(get_message "create_generate_link" "Create symbolic link to generate-instruction.sh?" "generate-instruction.shへのシンボリックリンクを作成しますか？")
-    if confirm "$MSG_CREATE_GENERATE_LINK"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/generate-instruction.sh scripts/generate-instruction.sh"
-        else
-            ln -sf ../instructions/ai_instruction_kits/scripts/generate-instruction.sh scripts/generate-instruction.sh
-        fi
-    fi
-fi
-
-# validate-modules.shのリンク作成
-echo ""
-echo "🔗 $MSG_CREATE_SYMLINK validate-modules.sh..."
-if [ -e "scripts/validate-modules.sh" ]; then
-    if [ -L "scripts/validate-modules.sh" ]; then
-        MSG_VALIDATE_SYMLINK_EXISTS=$(get_message "validate_symlink_exists" "validate-modules.sh symbolic link already exists" "validate-modules.shシンボリックリンクは既に存在します")
-        echo "✓ $MSG_VALIDATE_SYMLINK_EXISTS"
-    else
-        MSG_VALIDATE_EXISTS_NOT_LINK=$(get_message "validate_exists_not_link" "scripts/validate-modules.sh already exists (not a symbolic link)" "scripts/validate-modules.shが既に存在します（シンボリックリンクではありません）")
-        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
-        echo "⚠️  $MSG_VALIDATE_EXISTS_NOT_LINK"
-        if confirm "$MSG_BACKUP_AND_REPLACE"; then
-            backup_file "scripts/validate-modules.sh"
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "rm scripts/validate-modules.sh && ln -sf ../instructions/ai_instruction_kits/scripts/validate-modules.sh scripts/validate-modules.sh"
-            else
-                rm scripts/validate-modules.sh
-                ln -sf ../instructions/ai_instruction_kits/scripts/validate-modules.sh scripts/validate-modules.sh
-            fi
-        fi
-    fi
-else
-    MSG_CREATE_VALIDATE_LINK=$(get_message "create_validate_link" "Create symbolic link to validate-modules.sh?" "validate-modules.shへのシンボリックリンクを作成しますか？")
-    if confirm "$MSG_CREATE_VALIDATE_LINK"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/validate-modules.sh scripts/validate-modules.sh"
-        else
-            ln -sf ../instructions/ai_instruction_kits/scripts/validate-modules.sh scripts/validate-modules.sh
-        fi
-    fi
-fi
-
-# search-instructions.shのリンク作成
-echo ""
-echo "🔗 $MSG_CREATE_SYMLINK search-instructions.sh..."
-if [ -e "scripts/search-instructions.sh" ]; then
-    if [ -L "scripts/search-instructions.sh" ]; then
-        MSG_SEARCH_SYMLINK_EXISTS=$(get_message "search_symlink_exists" "search-instructions.sh symbolic link already exists" "search-instructions.shシンボリックリンクは既に存在します")
-        echo "✓ $MSG_SEARCH_SYMLINK_EXISTS"
-    else
-        MSG_SEARCH_EXISTS_NOT_LINK=$(get_message "search_exists_not_link" "scripts/search-instructions.sh already exists (not a symbolic link)" "scripts/search-instructions.shが既に存在します（シンボリックリンクではありません）")
-        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
-        echo "⚠️  $MSG_SEARCH_EXISTS_NOT_LINK"
-        if confirm "$MSG_BACKUP_AND_REPLACE"; then
-            backup_file "scripts/search-instructions.sh"
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "rm scripts/search-instructions.sh && ln -sf ../instructions/ai_instruction_kits/scripts/search-instructions.sh scripts/search-instructions.sh"
-            else
-                rm scripts/search-instructions.sh
-                ln -sf ../instructions/ai_instruction_kits/scripts/search-instructions.sh scripts/search-instructions.sh
-            fi
-        fi
-    fi
-else
-    MSG_CREATE_SEARCH_LINK=$(get_message "create_search_link" "Create symbolic link to search-instructions.sh?" "search-instructions.shへのシンボリックリンクを作成しますか？")
-    if confirm "$MSG_CREATE_SEARCH_LINK"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/search-instructions.sh scripts/search-instructions.sh"
-        else
-            ln -sf ../instructions/ai_instruction_kits/scripts/search-instructions.sh scripts/search-instructions.sh
-        fi
-    fi
-fi
-
-# generate-metadata.shのリンク作成
-echo ""
-echo "🔗 $MSG_CREATE_SYMLINK generate-metadata.sh..."
-if [ -e "scripts/generate-metadata.sh" ]; then
-    if [ -L "scripts/generate-metadata.sh" ]; then
-        MSG_METADATA_SYMLINK_EXISTS=$(get_message "metadata_symlink_exists" "generate-metadata.sh symbolic link already exists" "generate-metadata.shシンボリックリンクは既に存在します")
-        echo "✓ $MSG_METADATA_SYMLINK_EXISTS"
-    else
-        MSG_METADATA_EXISTS_NOT_LINK=$(get_message "metadata_exists_not_link" "scripts/generate-metadata.sh already exists (not a symbolic link)" "scripts/generate-metadata.shが既に存在します（シンボリックリンクではありません）")
-        MSG_BACKUP_AND_REPLACE=$(get_message "backup_and_replace" "Backup existing file and replace with symbolic link?" "既存のファイルをバックアップして、シンボリックリンクに置き換えますか？")
-        echo "⚠️  $MSG_METADATA_EXISTS_NOT_LINK"
-        if confirm "$MSG_BACKUP_AND_REPLACE"; then
-            backup_file "scripts/generate-metadata.sh"
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "rm scripts/generate-metadata.sh && ln -sf ../instructions/ai_instruction_kits/scripts/generate-metadata.sh scripts/generate-metadata.sh"
-            else
-                rm scripts/generate-metadata.sh
-                ln -sf ../instructions/ai_instruction_kits/scripts/generate-metadata.sh scripts/generate-metadata.sh
-            fi
-        fi
-    fi
-else
-    MSG_CREATE_METADATA_LINK=$(get_message "create_metadata_link" "Create symbolic link to generate-metadata.sh?" "generate-metadata.shへのシンボリックリンクを作成しますか？")
-    if confirm "$MSG_CREATE_METADATA_LINK"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/generate-metadata.sh scripts/generate-metadata.sh"
-        else
-            ln -sf ../instructions/ai_instruction_kits/scripts/generate-metadata.sh scripts/generate-metadata.sh
-        fi
-    fi
-fi
-
-# Claude Codeカスタムコマンドの設定
-echo ""
-MSG_SETUP_CLAUDE_COMMANDS=$(get_message "setup_claude_commands" "Setting up Claude Code custom commands" "Claude Codeカスタムコマンドを設定")
-echo "⚡ $MSG_SETUP_CLAUDE_COMMANDS..."
-
-# .claude/commands ディレクトリ作成
-if [ ! -d ".claude/commands" ]; then
-    MSG_CREATE_CLAUDE_COMMANDS_DIR=$(get_message "create_claude_commands_dir" "Create .claude/commands directory for Claude Code?" "Claude Code用の.claude/commandsディレクトリを作成しますか？")
-    if confirm "$MSG_CREATE_CLAUDE_COMMANDS_DIR"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "mkdir -p .claude/commands"
-        else
-            mkdir -p .claude/commands
-            MSG_CLAUDE_COMMANDS_DIR_CREATED=$(get_message "claude_commands_dir_created" ".claude/commands directory created" ".claude/commandsディレクトリを作成しました")
-            echo "✅ $MSG_CLAUDE_COMMANDS_DIR_CREATED"
-        fi
-    fi
-else
-    MSG_CLAUDE_COMMANDS_DIR_EXISTS=$(get_message "claude_commands_dir_exists" ".claude/commands directory already exists" ".claude/commandsディレクトリは既に存在します")
-    echo "✓ $MSG_CLAUDE_COMMANDS_DIR_EXISTS"
-fi
-
-# Claude Codeコマンドのファイルコピー
-if [ -d ".claude/commands" ] || [ "$DRY_RUN" = true ]; then
-    echo ""
-    MSG_COPY_CLAUDE_COMMANDS=$(get_message "copy_claude_commands" "Copying Claude Code command files" "Claude Codeコマンドファイルをコピー")
-    echo "🔗 $MSG_COPY_CLAUDE_COMMANDS..."
-    
-    claude_commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md" "build.md")
-    
-    for cmd_file in "${claude_commands[@]}"; do
-        src=""
-        dst=".claude/commands/$cmd_file"
-        
-        # 既存ファイルチェック（シンボリックリンクの移行処理含む）
-        if [ -e "$dst" ]; then
-            if [ -L "$dst" ]; then
-                MSG_MIGRATE_SYMLINK=$(get_message "migrate_symlink" "Migrate symbolic link to file?" "シンボリックリンクをファイルに移行しますか？")
-                echo "🔄 $cmd_file はシンボリックリンクです"
-                if confirm "$MSG_MIGRATE_SYMLINK"; then
-                    # ソースファイルの検索
-                    if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
-                        src="instructions/ai_instruction_kits/templates/claude-commands/$cmd_file"
-                    elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
-                        src="${SCRIPT_DIR}/../templates/claude-commands/$cmd_file"
-                    fi
-                    
-                    if [ -n "$src" ] && [ -f "$src" ]; then
-                        if [ "$DRY_RUN" = true ]; then
-                            dry_echo "rm $dst && cp $src $dst"
-                        else
-                            rm "$dst"
-                            cp "$src" "$dst"
-                            MSG_MIGRATED=$(get_message "migrated" "migrated to file" "をファイルに移行しました")
-                            echo "✅ $cmd_file $MSG_MIGRATED"
-                        fi
-                    fi
-                fi
-            else
-                MSG_CLAUDE_COMMAND_EXISTS=$(get_message "claude_command_exists" "already exists" "は既に存在します")
-                echo "✓ $cmd_file $MSG_CLAUDE_COMMAND_EXISTS"
-            fi
-            continue
-        fi
-        
-        # ソースファイルの検索とコピー
-        lang=$(get_current_language)
-        
-        # 言語別ファイルを優先的に検索
-        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file" ]; then
-            src="instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file"
-        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$lang/$cmd_file" ]; then
-            src="${SCRIPT_DIR}/../templates/claude-commands/$lang/$cmd_file"
-        elif [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
-            src="instructions/ai_instruction_kits/templates/claude-commands/$cmd_file"
-        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
-            src="${SCRIPT_DIR}/../templates/claude-commands/$cmd_file"
-        fi
-        
-        if [ -n "$src" ] && [ -f "$src" ]; then
-            MSG_CREATE_CLAUDE_COMMAND=$(get_message "create_claude_command" "Create Claude Code command" "Claude Codeコマンドを作成しますか？")
-            if confirm "$cmd_file $MSG_CREATE_CLAUDE_COMMAND"; then
-                if [ "$DRY_RUN" = true ]; then
-                    dry_echo "cp $src $dst"
-                else
-                    cp "$src" "$dst"
-                    MSG_CLAUDE_COMMAND_CREATED=$(get_message "claude_command_created" "Claude Code command created" "Claude Codeコマンドを作成しました")
-                    echo "✅ $MSG_CLAUDE_COMMAND_CREATED: $cmd_file"
-                fi
-            fi
-        else
-            MSG_CLAUDE_COMMAND_TEMPLATE_NOT_FOUND=$(get_message "claude_command_template_not_found" "Claude Code command template not found" "Claude Codeコマンドテンプレートが見つかりません")
-            echo "⚠️  $MSG_CLAUDE_COMMAND_TEMPLATE_NOT_FOUND: $cmd_file"
-        fi
-    done
-fi
-
-# .gitignoreに追加（サブモジュールモードの場合のみ）
-if [ "$SELECTED_MODE" = "submodule" ]; then
-    echo ""
-    MSG_UPDATE_GITIGNORE=$(get_message "update_gitignore" "Updating .gitignore" ".gitignoreを更新")
-    echo "📄 $MSG_UPDATE_GITIGNORE..."
-    if [ -f ".gitignore" ]; then
-        if ! grep -q "^instructions/ai_instruction_kits/$" .gitignore 2>/dev/null; then
-            MSG_ADD_TO_GITIGNORE=$(get_message "add_to_gitignore" "Add 'instructions/ai_instruction_kits/' to .gitignore?" ".gitignoreに'instructions/ai_instruction_kits/'を追加しますか？")
-            if confirm "$MSG_ADD_TO_GITIGNORE"; then
-                backup_file ".gitignore"
-                if [ "$DRY_RUN" = true ]; then
-                    dry_echo "echo 'instructions/ai_instruction_kits/' >> .gitignore"
-                else
-                    echo "instructions/ai_instruction_kits/" >> .gitignore
-                fi
-            fi
-        else
-            MSG_GITIGNORE_ENTRY_EXISTS=$(get_message "gitignore_entry_exists" ".gitignore already has the entry" ".gitignoreには既にエントリが存在します")
-            echo "✓ $MSG_GITIGNORE_ENTRY_EXISTS"
-        fi
-    else
-        MSG_CREATE_GITIGNORE=$(get_message "create_gitignore" "Create .gitignore file and add 'instructions/ai_instruction_kits/'?" ".gitignoreファイルを作成して'instructions/ai_instruction_kits/'を追加しますか？")
-        if confirm "$MSG_CREATE_GITIGNORE"; then
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "echo 'instructions/ai_instruction_kits/' > .gitignore"
-            else
-                echo "instructions/ai_instruction_kits/" > .gitignore
-            fi
-        fi
-    fi
-fi
-
-# .openhandsディレクトリを.gitignoreに追加
-echo ""
-MSG_UPDATE_GITIGNORE_OPENHANDS=$(get_message "update_gitignore_openhands" "Adding .openhands to .gitignore" ".openhandsを.gitignoreに追加")
-echo "📄 $MSG_UPDATE_GITIGNORE_OPENHANDS..."
-if [ -f ".gitignore" ]; then
-    if ! grep -q "^\.openhands/$" .gitignore 2>/dev/null; then
-        MSG_ADD_OPENHANDS_TO_GITIGNORE=$(get_message "add_openhands_to_gitignore" "Add '.openhands/' to .gitignore?" ".gitignoreに'.openhands/'を追加しますか？")
-        if confirm "$MSG_ADD_OPENHANDS_TO_GITIGNORE"; then
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "echo '.openhands/' >> .gitignore"
-            else
-                echo '.openhands/' >> .gitignore
-                MSG_OPENHANDS_GITIGNORE_ADDED=$(get_message "openhands_gitignore_added" ".openhands added to .gitignore" ".openhandsを.gitignoreに追加しました")
-                echo "✅ $MSG_OPENHANDS_GITIGNORE_ADDED"
-            fi
-        fi
-    else
-        MSG_OPENHANDS_GITIGNORE_EXISTS=$(get_message "openhands_gitignore_exists" ".gitignore already has .openhands entry" ".gitignoreには既に.openhandsエントリが存在します")
-        echo "✓ $MSG_OPENHANDS_GITIGNORE_EXISTS"
-    fi
-fi
-
-# .claudeディレクトリを.gitignoreに追加
-if [ -f ".gitignore" ]; then
-    if ! grep -q "^\.claude/$" .gitignore 2>/dev/null; then
-        MSG_ADD_CLAUDE_TO_GITIGNORE=$(get_message "add_claude_to_gitignore" "Add '.claude/' to .gitignore?" ".gitignoreに'.claude/'を追加しますか？")
-        if confirm "$MSG_ADD_CLAUDE_TO_GITIGNORE"; then
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "echo '.claude/' >> .gitignore"
-            else
-                echo '.claude/' >> .gitignore
-                MSG_CLAUDE_GITIGNORE_ADDED=$(get_message "claude_gitignore_added" ".claude added to .gitignore" ".claudeを.gitignoreに追加しました")
-                echo "✅ $MSG_CLAUDE_GITIGNORE_ADDED"
-            fi
-        fi
-    else
-        MSG_CLAUDE_GITIGNORE_EXISTS=$(get_message "claude_gitignore_exists" ".gitignore already has .claude entry" ".gitignoreには既に.claudeエントリが存在します")
-        echo "✓ $MSG_CLAUDE_GITIGNORE_EXISTS"
-    fi
-fi
-
-# Git worktree環境のセットアップ
-echo ""
-MSG_SETUP_WORKTREE=$(get_message "setup_worktree" "Setting up Git worktree environment" "Git worktree環境を設定")
-echo "🌲 $MSG_SETUP_WORKTREE..."
-
-# worktree-manager.shへのシンボリックリンク作成
-if [ -e "scripts/worktree-manager.sh" ]; then
-    if [ -L "scripts/worktree-manager.sh" ]; then
-        MSG_WORKTREE_SYMLINK_EXISTS=$(get_message "worktree_symlink_exists" "worktree-manager.sh symbolic link already exists" "worktree-manager.shシンボリックリンクは既に存在します")
-        echo "✓ $MSG_WORKTREE_SYMLINK_EXISTS"
-    else
-        MSG_WORKTREE_FILE_EXISTS=$(get_message "worktree_file_exists" "scripts/worktree-manager.sh already exists (not a symbolic link)" "scripts/worktree-manager.shが既に存在します（シンボリックリンクではありません）")
-        echo "⚠️  $MSG_WORKTREE_FILE_EXISTS"
-    fi
-else
-    MSG_CREATE_WORKTREE_LINK=$(get_message "create_worktree_link" "Create symbolic link to worktree-manager.sh?" "worktree-manager.shへのシンボリックリンクを作成しますか？")
-    if confirm "$MSG_CREATE_WORKTREE_LINK"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/worktree-manager.sh scripts/worktree-manager.sh"
-        else
-            ln -sf ../instructions/ai_instruction_kits/scripts/worktree-manager.sh scripts/worktree-manager.sh
-        fi
-    fi
-fi
-
-# .gitworktrees/をgitignoreに追加
-if ! grep -q "^\.gitworktrees/\|^gitworktrees/" .gitignore 2>/dev/null; then
-    MSG_ADD_WORKTREE_GITIGNORE=$(get_message "add_worktree_gitignore" "Add .gitworktrees/ to .gitignore?" ".gitworktrees/を.gitignoreに追加しますか？")
-    if confirm "$MSG_ADD_WORKTREE_GITIGNORE"; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "echo -e '\n# Git worktree directories\n.gitworktrees/\ngitworktrees/' >> .gitignore"
-        else
-            echo -e '\n# Git worktree directories\n.gitworktrees/\ngitworktrees/' >> .gitignore
-            MSG_WORKTREE_GITIGNORE_ADDED=$(get_message "worktree_gitignore_added" "Worktree directories added to .gitignore" "worktreeディレクトリを.gitignoreに追加しました")
-            echo "✅ $MSG_WORKTREE_GITIGNORE_ADDED"
-        fi
-    fi
-else
-    MSG_WORKTREE_GITIGNORE_EXISTS=$(get_message "worktree_gitignore_exists" ".gitignore already has worktree entries" ".gitignoreには既にworktreeエントリが存在します")
-    echo "✓ $MSG_WORKTREE_GITIGNORE_EXISTS"
-fi
-
+# 完了メッセージ
 if [ "$DRY_RUN" = true ]; then
     echo ""
     MSG_DRY_RUN_COMPLETE=$(get_message "dry_run_complete" "Dry run completed" "ドライラン完了")
