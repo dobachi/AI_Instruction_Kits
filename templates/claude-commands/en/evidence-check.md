@@ -1,20 +1,27 @@
 # Evidence Check
 
-Verify the validity of references and citations in reports and academic papers.
+Verify the validity of references and citations in reports and academic papers, and fix identified issues.
 
 ## Execution Details
 
 1. **Reference Existence Check**
    - Check if linked content exists
-   - Verify accessibility
+   - Attempt multiple access methods (WebFetch, alternatives)
+   - Request human assistance when inaccessible
 
 2. **Citation Consistency Check**
    - Verify content matches citations
    - Confirm accuracy of numerical data and objective information
+   - Present correct information when mismatches found
 
 3. **Contextual Appropriateness Check**
    - Verify citations are contextually appropriate
    - Confirm alignment with source intent
+
+4. **Auto-fix and Human Assistance**
+   - Present automatic fix proposals for correctable issues
+   - Request user confirmation for AI-inaccessible content
+   - Re-check after fixes applied
 
 ## Usage
 
@@ -74,14 +81,34 @@ Each agent executes:
 - Verify consistency with citations
 - Report results
 
-### 4. Consistency Verification
+### 4. Consistency Verification (Multi-stage Approach)
 
 For each reference:
-1. **Access Check**: Fetch content with WebFetch
-2. **Content Check**: Verify cited numbers/information exist
-3. **Context Check**: Verify appropriate use of citation
 
-### 5. Generate Report
+**Step 1: Access Attempts**
+1. Attempt content fetch with WebFetch tool
+2. If failed, try alternative approaches:
+   - URL variations (http/https, with/without www)
+   - Check Archive.org snapshots
+   - Verify DOI redirects
+3. If all fail:
+   - Request manual verification from user
+   - Ask via AskUserQuestion tool: "Can you access this URL?"
+   - If accessible, request content summary from user
+
+**Step 2: Content Verification**
+1. Verify cited numbers/information exist in source
+2. When mismatches found:
+   - Identify correct information
+   - Present fix proposal
+   - Request user confirmation
+
+**Step 3: Context Verification**
+1. Evaluate appropriateness of citation usage
+2. Check for misleading citations
+3. Present improvement proposals when issues found
+
+### 5. Generate Report and Fix Proposals
 
 Output check results in the following format:
 
@@ -94,26 +121,74 @@ Output check results in the following format:
 |----------|-----------|--------------|
 | p.5 | https://example.com/data | Statistical data matches |
 
-### ⚠️ Needs Review (Y items)
+### 🔧 Auto-fixable (Y items)
 
-| Location | Reference | Issue |
-|----------|-----------|-------|
-| p.12 | https://old-site.com | Broken link |
-| p.20 | (Smith, 2020) | Slight numerical discrepancy |
+| Location | Reference | Issue | Fix Proposal |
+|----------|-----------|-------|--------------|
+| p.20 | (Smith, 2020) | Shows 3.5%, source says 3.6% | Update to "3.6%" |
+| p.30 | https://old-site.com | Broken link (new URL found) | Update to `https://new-site.com` |
 
-### ❌ Problems Found (Z items)
+**Apply fixes? [Y/n]**
 
-| Location | Reference | Issue |
-|----------|-----------|-------|
-| p.15 | https://404.com | Page not found |
-| p.25 | (Jones, 2019) | Citation content mismatches source |
+### ⚠️ Human Verification Needed (Z items)
 
-## Recommended Actions
+| Location | Reference | Issue | Action Required |
+|----------|-----------|-------|-----------------|
+| p.12 | https://paywalled.com | AI cannot access | Awaiting user verification |
+| p.25 | (Jones, 2019) | Context appropriateness unclear | Expert review recommended |
 
-1. Fix broken links
-2. Re-verify numerical data
-3. Correct or remove mismatched citations
+**Items requiring verification:**
+
+#### 📋 Item 1: p.12 paywalled content
+- **URL**: https://paywalled.com/article
+- **Citation**: "Market share is 45%"
+- **Status**: Authentication required, AI cannot access
+- **Request**: Can you access this URL? If so, please provide
+  information about "market share" mentioned in the article.
+
+#### 📋 Item 2: p.25 context verification
+- **Citation**: "Jones (2019) states this method is effective"
+- **Source**: "This method is effective only under specific conditions"
+- **Issue**: Omitted conditions, potentially misleading
+- **Proposal**: "Jones (2019) states this method is effective under specific conditions"
+
+### ❌ Critical Issues (W items)
+
+| Location | Reference | Issue | Recommended Action |
+|----------|-----------|-------|-------------------|
+| p.15 | https://404.com | Page not found (not in Archive.org) | Remove citation or find alternative |
+| p.40 | (Black, 2018) | No matching content in source | Remove citation |
+
+## Next Steps
+
+1. **Apply Auto-fixes** (Select Y/n)
+2. **Address Human Verification Items** (Respond to requests above)
+3. **Fix Critical Issues** (Document editing required)
+4. **Re-check** (Run evidence-check again after fixes)
 ```
+
+### 6. Interactive Fix Process
+
+When fixes are needed:
+
+1. **Auto-fixable Items**
+   - Request user confirmation (AskUserQuestion tool)
+   - Apply automatic fixes with Edit tool when approved
+   - Log fix details
+
+2. **Human Verification Items**
+   - Ask specific questions via AskUserQuestion tool
+   - Receive user responses
+   - Propose appropriate actions based on responses
+
+3. **Critical Issues**
+   - Discuss fix strategy with user
+   - Present alternatives
+   - Apply fixes based on agreed approach
+
+4. **Re-check**
+   - Automatically re-run check after fixes
+   - Repeat until all issues resolved
 
 ## Usage Examples
 
@@ -167,12 +242,37 @@ When reference count is 1:
 - Citation format consistency
 - Reference list completeness
 
-## Notes
+## Notes and Best Practices
 
-- Some sites may be inaccessible due to WebFetch limitations
-- Dynamic content (JavaScript required) may not be properly fetched
-- Paid content or authenticated pages cannot be checked
-- Large numbers of references (50+) may take significant time
+### AI Limitations and Workarounds
+
+**Access Restrictions:**
+- WebFetch cannot directly access some sites
+- Workaround: Try multiple methods, request human assistance when all fail
+
+**Dynamic Content:**
+- JavaScript-required pages may not be properly fetched
+- Workaround: Try Archive.org or cached sites
+
+**Authenticated Content:**
+- Paid content or member-only pages are AI-inaccessible
+- Workaround: Request manual verification from user and obtain content summary
+
+### Efficient Usage
+
+1. **Staged Checking**:
+   - First check entire document to identify errors
+   - Fix identified issues
+   - Re-check to verify
+
+2. **Human Collaboration**:
+   - Don't hesitate to request assistance for AI-inaccessible areas
+   - Leverage user expertise (context appropriateness judgment)
+
+3. **Regular Execution**:
+   - After major document updates
+   - Quality check before final submission
+   - When adding references
 
 ## Error Handling
 
