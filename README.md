@@ -98,8 +98,10 @@ bash <(curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/m
 │       ├── commit-and-report.md # コミット＆Issue報告
 │       ├── commit-safe.md      # クリーンコミット
 │       ├── reload-instructions.md # 指示書再読み込み
-│       ├── github-issues.md    # GitHub Issue確認（新）
-│       └── reload-and-reset.md # システムリセット（新）
+│       ├── github-issues.md    # GitHub Issue確認
+│       ├── reload-and-reset.md # システムリセット
+│       ├── build.md            # ビルドコマンド実行
+│       └── evidence-check.md   # エビデンスチェック（新）
 ├── reports/       # フィードバック・レポート
 │   └── presets/   # プリセット関連レポート
 └── scripts/       # ツール・ユーティリティ

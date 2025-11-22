@@ -80,7 +80,11 @@ See the [Quick Start Guide](docs/QUICKSTART.md) for more details.
 │       ├── checkpoint.md       # Checkpoint management command
 │       ├── commit-and-report.md # Commit & Issue report
 │       ├── commit-safe.md      # Clean commit
-│       └── reload-instructions.md # Reload instructions
+│       ├── reload-instructions.md # Reload instructions
+│       ├── github-issues.md    # GitHub Issue check
+│       ├── reload-and-reset.md # System reset
+│       ├── build.md            # Build command execution
+│       └── evidence-check.md   # Evidence check (new)
 ├── reports/       # Feedback and reports
 │   └── presets/   # Preset-related reports
 └── scripts/       # Tools and utilities
