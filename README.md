@@ -212,6 +212,7 @@ Claude Codeユーザー向けの専用カスタムコマンドを提供。プロ
 | `/github-issues` 🆕 | GitHub Issueを確認してタスク整理 | `/github-issues` |
 | `/reload-and-reset` 🆕 | AIシステムをリセットして指示書再読み込み | `/reload-and-reset` |
 | `/build` 🆕 | プロジェクトに適したビルドコマンドを実行 | `/build --prod` |
+| `/evidence-check` 🆕 | 参考文献・引用の妥当性を検証 | `/evidence-check docs/paper.md` |
 
 ### 自動設定
 
@@ -319,7 +320,7 @@ bash scripts/setup-project.sh --auto --skip-instructions --submodule
 3. AI製品別シンボリックリンク (`CLAUDE.md`, `GEMINI.md`等)
 4. スクリプトツール (8個: `checkpoint.sh`, `commit.sh`等)
 5. OpenHands設定 (`.openhands/microagents/`)
-6. Claude Code設定 (`.claude/commands/`配下7ファイル)
+6. Claude Code設定 (`.claude/commands/`配下8ファイル)
 7. Git設定 (hooks, `.gitignore`)
 
 **各モードの特徴：**

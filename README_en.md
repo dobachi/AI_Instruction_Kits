@@ -191,6 +191,7 @@ Dedicated custom commands for Claude Code users to streamline project workflows.
 | `/github-issues` 🆕 | Check GitHub Issues and organize tasks | `/github-issues` |
 | `/reload-and-reset` 🆕 | Reset AI system and reload instructions | `/reload-and-reset` |
 | `/build` 🆕 | Execute project-appropriate build commands | `/build --prod` |
+| `/evidence-check` 🆕 | Verify validity of references and citations | `/evidence-check docs/paper.md` |
 
 ### Automatic Setup
 
@@ -295,7 +296,7 @@ bash scripts/setup-project.sh --auto --skip-instructions --submodule
 3. AI product symbolic links (`CLAUDE.md`, `GEMINI.md`, etc.)
 4. Script tools (8 items: `checkpoint.sh`, `commit.sh`, etc.)
 5. OpenHands configuration (`.openhands/microagents/`)
-6. Claude Code configuration (7 files under `.claude/commands/`)
+6. Claude Code configuration (8 files under `.claude/commands/`)
 7. Git configuration (hooks, `.gitignore`)
 
 #### Using Custom Repositories

@@ -324,6 +324,7 @@ setup_claude_code() {
         ".claude/commands/github-issues.md"
         ".claude/commands/reload-and-reset.md"
         ".claude/commands/build.md"
+        ".claude/commands/evidence-check.md"
     )
 
     # グループ確認
@@ -343,7 +344,7 @@ setup_claude_code() {
     fi
 
     # コマンドファイルをコピー
-    local commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md" "build.md")
+    local commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md" "build.md" "evidence-check.md")
     local lang=$(get_current_language)
 
     for cmd_file in "${commands[@]}"; do
