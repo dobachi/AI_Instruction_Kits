@@ -1143,15 +1143,22 @@ else
     echo "        ├── commit-safe.md → ../../templates/claude-commands/commit-safe.md"
     echo "        ├── checkpoint.md → ../../templates/claude-commands/checkpoint.md"
     echo "        ├── reload-instructions.md → ../../templates/claude-commands/reload-instructions.md"
-    echo "        └── build.md → ../../templates/claude-commands/build.md"
+    echo "        ├── github-issues.md → ../../templates/claude-commands/github-issues.md"
+    echo "        ├── reload-and-reset.md → ../../templates/claude-commands/reload-and-reset.md"
+    echo "        ├── build.md → ../../templates/claude-commands/build.md"
+    echo "        └── evidence-check.md → ../../templates/claude-commands/evidence-check.md"
     echo ""
     
     MSG_CLAUDE_COMMANDS_AVAILABLE=$(get_message "claude_commands_available" "Available Claude Code commands" "利用可能なClaude Codeコマンド")
     echo "⚡ $MSG_CLAUDE_COMMANDS_AVAILABLE:"
     echo "  /commit-and-report \"$(get_message "commit_message" "commit message" "コミットメッセージ")\" [Issue番号]"
+    echo "  /commit-safe \"$(get_message "commit_message" "commit message" "コミットメッセージ")\""
     echo "  /checkpoint [start <task-id> <task-name> <steps>]"
     echo "  /reload-instructions"
+    echo "  /github-issues"
+    echo "  /reload-and-reset"
     echo "  /build [--clean|--prod|--test]"
+    echo "  /evidence-check [file-path]"
     echo ""
     
     # モード別の次のステップ
