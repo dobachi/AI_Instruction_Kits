@@ -32,7 +32,7 @@ fi
 
 echo ""
 echo "🆕 最近作成されたIssue（7日以内）:"
-gh issue list --state open --search "created:>$(eval $DATE_CMD)" --limit 10 --json number,title,createdAt --template '{{range .}}#{{.number}}: {{.title}} ({{.createdAt | time "2006-01-02"}}){{"\n"}}{{end}}'
+gh issue list --state open --search "created:>$(eval $DATE_CMD)" --limit 10 --json number,title,createdAt --template '{{range .}}#{{.number}}: {{.title}} ({{.createdAt}}){{"\n"}}{{end}}'
 
 echo ""
 echo "🔥 高優先度Issue (priority:high,bug,critical):"
