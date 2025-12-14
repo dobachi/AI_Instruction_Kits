@@ -1,0 +1,17 @@
+description = "全ての変更をコミットし、リモートにプッシュし、任意でGitHub Issueに報告します。"
+prompt = """
+以下のコミット＆レポートコマンドを実行しました。
+
+---
+コマンド: `scripts/gemini/commit-and-report.sh {{args}}`
+---
+実行結果:
+```
+!{bash scripts/gemini/commit-and-report.sh {{args}}}
+```
+---
+
+上記の結果を確認してください。
+- 全てのプロセス（コミット、プッシュ、Issue報告）が正常に完了したことを確認してください。
+- エラーが発生した場合は、その内容を報告し、原因を分析してください。
+"""

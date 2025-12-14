@@ -25,38 +25,38 @@ while [[ "$#" -gt 0 ]]; do
         --mode)
             INTEGRATION_MODE="$2"
             shift
-            ;;
+            ;; 
         --copy)
             INTEGRATION_MODE="copy"
-            ;;
+            ;; 
         --clone)
             INTEGRATION_MODE="clone"
-            ;;
+            ;; 
         --submodule)
             INTEGRATION_MODE="submodule"
-            ;;
+            ;; 
         --url)
             REPO_URL="$2"
             shift
-            ;;
+            ;; 
         --force|-f)
             FORCE_MODE=true
-            ;;
+            ;; 
         --dry-run|-n)
             DRY_RUN=true
-            ;;
+            ;; 
         --no-backup)
             BACKUP_MODE=false
-            ;;
+            ;; 
         --sync-claude-commands|--sync-claude)
             SYNC_CLAUDE_COMMANDS_ONLY=true
-            ;;
+            ;; 
         --auto|--auto-setup)
             AUTO_SETUP=true
-            ;;
+            ;; 
         --skip-instructions)
             SKIP_INSTRUCTIONS=true
-            ;;
+            ;; 
         --help|-h)
             MSG_USAGE=$(get_message "usage" "Usage" "使用方法")
             MSG_DESC=$(get_message "desc" "Safely set up AI instructions in your project" "AI指示書をプロジェクトに安全にセットアップします")
@@ -89,7 +89,7 @@ while [[ "$#" -gt 0 ]]; do
             MSG_USE_DEFAULT_REPO=$(get_message "use_default_repo" "Use default repository" "デフォルトリポジトリを使用")
             MSG_USE_FORK=$(get_message "use_fork" "Use forked repository" "フォークしたリポジトリを使用")
             MSG_USE_PRIVATE=$(get_message "use_private" "Use private repository" "プライベートリポジトリを使用")
-            
+
             cat << HELP
 $MSG_USAGE: setup-project.sh [$(get_message "options" "OPTIONS" "オプション")]
 
@@ -151,14 +151,14 @@ $MSG_EXAMPLES:
   setup-project.sh --url git@github.com:mycompany/private-instructions.git --submodule
 HELP
             exit 0
-            ;;
+            ;; 
         *)
             MSG_UNKNOWN_OPTION=$(get_message "unknown_option" "Unknown option" "不明なオプション")
             MSG_SEE_HELP=$(get_message "see_help" "See setup-project.sh --help for details" "詳細は setup-project.sh --help を参照してください")
             echo "❌ $MSG_UNKNOWN_OPTION: $1"
             echo "$MSG_SEE_HELP"
             exit 1
-            ;;
+            ;; 
     esac
     shift
 done
@@ -183,10 +183,10 @@ confirm() {
     case "$response" in
         [yY][eE][sS]|[yY])
             return 0
-            ;;
+            ;; 
         *)
             return 1
-            ;;
+            ;; 
     esac
 }
 
@@ -194,7 +194,7 @@ confirm() {
 confirm_group() {
     local group_name="$1"
     shift
-    local items=("$@")
+    local items=($@)
 
     # SKIP_INSTRUCTIONSモードで指示書グループはスキップ
     if [ "$SKIP_INSTRUCTIONS" = true ] && [ "$group_name" = "instructions" ]; then
@@ -217,28 +217,31 @@ confirm_group() {
     case "$group_name" in
         instructions)
             MSG_GROUP_TITLE=$(get_message "group_instructions" "Project Instructions" "プロジェクト指示書")
-            ;;
+            ;; 
         directories)
             MSG_GROUP_TITLE=$(get_message "group_directories" "Basic Directories" "基本ディレクトリ")
-            ;;
+            ;; 
         ai_symlinks)
             MSG_GROUP_TITLE=$(get_message "group_ai_symlinks" "AI Product Symbolic Links" "AI製品別シンボリックリンク")
-            ;;
+            ;; 
         scripts)
             MSG_GROUP_TITLE=$(get_message "group_scripts" "Script Tools" "スクリプトツール")
-            ;;
+            ;; 
         openhands)
             MSG_GROUP_TITLE=$(get_message "group_openhands" "OpenHands Configuration" "OpenHands設定")
-            ;;
+            ;; 
         claude)
             MSG_GROUP_TITLE=$(get_message "group_claude" "Claude Code Configuration" "Claude Code設定")
-            ;;
+            ;; 
+        gemini)
+            MSG_GROUP_TITLE=$(get_message "group_gemini" "Gemini CLI Configuration" "Gemini CLI設定")
+            ;; 
         git)
             MSG_GROUP_TITLE=$(get_message "group_git" "Git Configuration" "Git設定")
-            ;;
+            ;; 
         *)
             MSG_GROUP_TITLE="$group_name"
-            ;;
+            ;; 
     esac
 
     echo "📦 $MSG_GROUP_TITLE"
@@ -256,10 +259,10 @@ confirm_group() {
     case "$response" in
         [nN][oO]|[nN])
             return 1
-            ;;
+            ;; 
         *)
             return 0
-            ;;
+            ;; 
     esac
 }
 
@@ -354,12 +357,12 @@ setup_claude_code() {
         # ソースファイルの検索（言語別ファイルを優先）
         if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file" ]; then
             src="instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file"
-        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$lang/$cmd_file" ]; then
-            src="${SCRIPT_DIR}/../templates/claude-commands/$lang/$cmd_file"
+        elif [ -f "$SCRIPT_DIR/../templates/claude-commands/$lang/$cmd_file" ]; then
+            src="$SCRIPT_DIR/../templates/claude-commands/$lang/$cmd_file"
         elif [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
             src="instructions/ai_instruction_kits/templates/claude-commands/$cmd_file"
-        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
-            src="${SCRIPT_DIR}/../templates/claude-commands/$cmd_file"
+        elif [ -f "$SCRIPT_DIR/../templates/claude-commands/$cmd_file" ]; then
+            src="$SCRIPT_DIR/../templates/claude-commands/$cmd_file"
         fi
 
         if [ -n "$src" ] && [ -f "$src" ]; then
@@ -429,11 +432,12 @@ setup_git_config() {
     # .gitignore更新
     local gitignore_entries=()
     [ "$SELECTED_MODE" = "submodule" ] && gitignore_entries+=("instructions/ai_instruction_kits/")
-    gitignore_entries+=(".openhands/" ".claude/" ".gitworktrees/" "gitworktrees/")
+    gitignore_entries+=(".openhands/" ".claude/" ".gemini/" ".gitworktrees/" "gitworktrees/")
 
     for entry in "${gitignore_entries[@]}"; do
         if [ -f ".gitignore" ]; then
-            if ! grep -q "^${entry}$" .gitignore 2>/dev/null; then
+            if ! grep -q "^${entry}$" .gitignore 2>/dev/null;
+ then
                 if [ "$DRY_RUN" = true ]; then
                     dry_echo "echo '$entry' >> .gitignore"
                 else
@@ -457,6 +461,7 @@ setup_git_config() {
 setup_script_tools() {
     local script_items=(
         "scripts/lib/"
+        "scripts/gemini/"
         "scripts/checkpoint.sh"
         "scripts/commit.sh"
         "scripts/generate-instruction.sh"
@@ -472,7 +477,29 @@ setup_script_tools() {
         echo "⏭️  $MSG_SKIP_SCRIPTS"
         return 1
     fi
+    
+    local base_script_path="../instructions/ai_instruction_kits/scripts"
+    
+    # copyモードの場合は直接コピー
+    if [ "$SELECTED_MODE" = "copy" ]; then
+        local copy_source_path="instructions/ai_instruction_kits/scripts"
+        
+        # ディレクトリ
+        cp -r "$copy_source_path/lib" "scripts/"
+        cp -r "$copy_source_path/gemini" "scripts/"
+        
+        # ファイル
+        local scripts_to_copy=("checkpoint.sh" "commit.sh" "generate-instruction.sh" "validate-modules.sh" "search-instructions.sh" "generate-metadata.sh" "worktree-manager.sh")
+        for script in "${scripts_to_copy[@]}"; do
+            cp "$copy_source_path/$script" "scripts/"
+        done
 
+        MSG_SCRIPTS_COPIED=$(get_message "scripts_copied" "Script tools copied" "スクリプトツールをコピーしました")
+        echo "✅ $MSG_SCRIPTS_COPIED"
+        return 0
+    fi
+
+    # clone, submoduleモードの場合はシンボリックリンク
     # scripts/lib/
     if [ -e "scripts/lib" ] && [ ! -L "scripts/lib" ]; then
         backup_file "scripts/lib"
@@ -480,9 +507,22 @@ setup_script_tools() {
     fi
     if [ ! -e "scripts/lib" ]; then
         if [ "$DRY_RUN" = true ]; then
-            dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/lib scripts/lib"
+            dry_echo "ln -sf $base_script_path/lib scripts/lib"
         else
-            ln -sf ../instructions/ai_instruction_kits/scripts/lib scripts/lib
+            ln -sf "$base_script_path/lib" scripts/lib
+        fi
+    fi
+
+    # scripts/gemini/
+    if [ -e "scripts/gemini" ] && [ ! -L "scripts/gemini" ]; then
+        backup_file "scripts/gemini"
+        [ "$DRY_RUN" = false ] && rm -rf scripts/gemini
+    fi
+    if [ ! -e "scripts/gemini" ]; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "ln -sf $base_script_path/gemini scripts/gemini"
+        else
+            ln -sf "$base_script_path/gemini" scripts/gemini
         fi
     fi
 
@@ -495,9 +535,9 @@ setup_script_tools() {
         fi
         if [ ! -e "scripts/$script" ]; then
             if [ "$DRY_RUN" = true ]; then
-                dry_echo "ln -sf ../instructions/ai_instruction_kits/scripts/$script scripts/$script"
+                dry_echo "ln -sf $base_script_path/$script scripts/$script"
             else
-                ln -sf ../instructions/ai_instruction_kits/scripts/$script scripts/$script
+                ln -sf "$base_script_path/$script" scripts/$script
             fi
         fi
     done
@@ -509,15 +549,25 @@ setup_script_tools() {
 # バックアップ関数
 backup_file() {
     local file="$1"
-    if [ -f "$file" ] && [ "$BACKUP_MODE" = true ]; then
-        local backup="${file}.backup.$(date +%Y%m%d_%H%M%S)"
+    local target_path="$file"
+    
+    # ディレクトリの場合は再帰的にバックアップ
+    if [ -d "$file" ]; then
+        target_path="$file"
+    fi
+
+    if [ -e "$target_path" ] && [ "$BACKUP_MODE" = true ]; then
+        local backup_ext=".backup.$(date +%Y%m%d_%H%M%S)"
+        local backup_path="${target_path}${backup_ext}"
+
         if [ "$DRY_RUN" = true ]; then
             MSG_BACKUP_CREATE=$(get_message "backup_create" "Creating backup" "バックアップ作成")
-            dry_echo "$MSG_BACKUP_CREATE: $file → $backup"
+            dry_echo "$MSG_BACKUP_CREATE: $target_path → $backup_path"
         else
-            cp "$file" "$backup"
+            # mvを使ってアトミックにリネーム
+            mv "$target_path" "$backup_path"
             MSG_BACKUP_CREATED=$(get_message "backup_created" "Backup created" "バックアップ作成")
-            echo "📋 $MSG_BACKUP_CREATED: $backup"
+            echo "📋 $MSG_BACKUP_CREATED: $backup_path"
         fi
     fi
 }
@@ -529,23 +579,23 @@ select_mode() {
             copy|clone|submodule)
                 SELECTED_MODE="$INTEGRATION_MODE"
                 return 0
-                ;;
+                ;; 
             *)
                 MSG_UNKNOWN_MODE=$(get_message "unknown_mode" "Unknown mode" "不明なモード")
                 MSG_AVAILABLE_MODES=$(get_message "available_modes" "Available modes" "使用可能なモード")
                 echo "❌ $MSG_UNKNOWN_MODE: $INTEGRATION_MODE"
                 echo "$MSG_AVAILABLE_MODES: copy, clone, submodule"
                 exit 1
-                ;;
+                ;; 
         esac
     fi
-    
+
     if [ "$FORCE_MODE" = true ]; then
         # forceモードではデフォルトでsubmodule
         SELECTED_MODE="submodule"
         return 0
     fi
-    
+
     MSG_SELECT_MODE=$(get_message "select_mode" "Select AI instruction integration mode" "AI指示書の統合モードを選択してください")
     MSG_SIMPLE_COPY=$(get_message "simple_copy" "Simple file copy (no Git)" "シンプルなファイルコピー（Gitなし）")
     MSG_INDEPENDENT_REPO=$(get_message "independent_repo" "Independent Git repository (freely modifiable)" "独立したGitリポジトリ（自由に変更可能）")
@@ -555,7 +605,7 @@ select_mode() {
     MSG_INVALID_CHOICE=$(get_message "invalid_choice" "Invalid choice" "無効な選択です")
     MSG_APPROACH_TITLE=$(get_message "approach_title" "Available Setup Approaches" "利用可能なセットアップ方法")
     MSG_APPROACH_DESC=$(get_message "approach_desc" "Each approach has different characteristics suited for different use cases" "それぞれの方法には異なる用途に適した特徴があります")
-    
+
     echo ""
     echo "═══════════════════════════════════════════════════════════════════"
     echo "📋 $MSG_APPROACH_TITLE"
@@ -588,24 +638,24 @@ select_mode() {
     echo "2) clone     - $MSG_INDEPENDENT_REPO"
     echo "3) submodule - $MSG_GIT_SUBMODULE"
     echo ""
-    
+
     local choice
     read -r -p "$MSG_CHOOSE [1-3] ($MSG_DEFAULT: 3): " choice
-    
+
     case "$choice" in
         1|copy)
             SELECTED_MODE="copy"
-            ;;
+            ;; 
         2|clone)
             SELECTED_MODE="clone"
-            ;;
+            ;; 
         3|submodule|"")
             SELECTED_MODE="submodule"
-            ;;
+            ;; 
         *)
             echo "❌ $MSG_INVALID_CHOICE"
             exit 1
-            ;;
+            ;; 
     esac
 }
 
@@ -728,12 +778,12 @@ sync_claude_commands() {
         # 言語別ファイルを優先的に検索
         if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file" ]; then
             src="instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file"
-        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$lang/$cmd_file" ]; then
-            src="${SCRIPT_DIR}/../templates/claude-commands/$lang/$cmd_file"
+        elif [ -f "$SCRIPT_DIR/../templates/claude-commands/$lang/$cmd_file" ]; then
+            src="$SCRIPT_DIR/../templates/claude-commands/$lang/$cmd_file"
         elif [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
             src="instructions/ai_instruction_kits/templates/claude-commands/$cmd_file"
-        elif [ -f "${SCRIPT_DIR}/../templates/claude-commands/$cmd_file" ]; then
-            src="${SCRIPT_DIR}/../templates/claude-commands/$cmd_file"
+        elif [ -f "$SCRIPT_DIR/../templates/claude-commands/$cmd_file" ]; then
+            src="$SCRIPT_DIR/../templates/claude-commands/$cmd_file"
         else
             MSG_SRC_NOT_FOUND=$(get_message "src_not_found" "Source file not found" "ソースファイルが見つかりません")
             echo "⚠️  $MSG_SRC_NOT_FOUND: $cmd_file"
@@ -812,6 +862,141 @@ sync_claude_commands() {
     echo "📊 $MSG_SYNC_COMPLETE: $MSG_UPDATED_COUNT $updated_count 件、$MSG_SKIPPED_COUNT $skipped_count 件"
 }
 
+# Gemini CLIコマンドの同期
+sync_gemini_commands() {
+    MSG_SYNC_GEMINI=$(get_message "sync_gemini_commands_msg" "Syncing Gemini CLI custom commands" "Gemini CLIカスタムコマンドを同期中")
+    echo "♊ $MSG_SYNC_GEMINI..."
+    
+    if [ ! -d ".gemini/commands" ]; then
+        MSG_CREATE_GEMINI_DIR=$(get_message "create_gemini_dir" "Create .gemini/commands directory for Gemini CLI?" "Gemini CLI用の.gemini/commandsディレクトリを作成しますか？")
+        if confirm "$MSG_CREATE_GEMINI_DIR"; then
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "mkdir -p .gemini/commands"
+            else
+                mkdir -p .gemini/commands
+                MSG_GEMINI_DIR_CREATED=$(get_message "gemini_dir_created" ".gemini/commands directory created" ".gemini/commandsディレクトリを作成しました")
+                echo "✅ $MSG_GEMINI_DIR_CREATED"
+            fi
+        else
+            return
+        fi
+    fi
+    
+    local gemini_commands_src=""
+    if [ -d "instructions/ai_instruction_kits/.gemini/commands" ]; then
+        gemini_commands_src="instructions/ai_instruction_kits/.gemini/commands"
+    elif [ -d "$SCRIPT_DIR/../.gemini/commands" ]; then
+        gemini_commands_src="$SCRIPT_DIR/../.gemini/commands"
+    else
+        MSG_GEMINI_SRC_NOT_FOUND=$(get_message "gemini_src_not_found" "Gemini command source directory not found" "Geminiコマンドのソースディレクトリが見つかりません")
+        echo "⚠️  $MSG_GEMINI_SRC_NOT_FOUND"
+        return
+    fi
+    
+    # ls と xargs を使って .toml ファイルのみを対象にする
+    local gemini_commands=()
+    if [ -d "$gemini_commands_src" ]; then
+        gemini_commands=($(ls "$gemini_commands_src"/*.toml 2>/dev/null | xargs -n 1 basename))
+    fi
+
+    if [ ${#gemini_commands[@]} -eq 0 ]; then
+        MSG_NO_GEMINI_COMMANDS=$(get_message "no_gemini_commands" "No Gemini command templates found to sync" "同期するGeminiコマンドテンプレートが見つかりません")
+        echo "ℹ️ $MSG_NO_GEMINI_COMMANDS"
+        return
+    fi
+    
+    local updated_count=0
+    local skipped_count=0
+    
+    for cmd_file in "${gemini_commands[@]}"; do
+        local src="$gemini_commands_src/$cmd_file"
+        local dst=".gemini/commands/$cmd_file"
+        
+        if [ ! -f "$src" ]; then continue; fi
+
+        if [ -e "$dst" ]; then
+            if diff -q "$src" "$dst" > /dev/null 2>&1; then
+                MSG_UP_TO_DATE=$(get_message "up_to_date" "is up to date" "は最新です")
+                echo "✓ $cmd_file $MSG_UP_TO_DATE"
+                skipped_count=$((skipped_count + 1))
+                continue
+            fi
+            
+            echo ""
+            MSG_UPDATE_AVAILABLE=$(get_message "update_available" "has updates" "に更新があります")
+            echo "📝 $cmd_file $MSG_UPDATE_AVAILABLE"
+            MSG_UPDATE_FILE=$(get_message "update_file" "Update?" "更新しますか？")
+            if confirm "$MSG_UPDATE_FILE"; then
+                backup_file "$dst"
+                if [ "$DRY_RUN" = true ]; then
+                    dry_echo "cp $src $dst"
+                else
+                    cp "$src" "$dst"
+                fi
+                MSG_UPDATED=$(get_message "updated" "updated" "を更新しました")
+                echo "✅ $cmd_file $MSG_UPDATED"
+                updated_count=$((updated_count + 1))
+            else
+                MSG_UPDATE_SKIPPED=$(get_message "update_skipped" "update skipped" "の更新をスキップしました")
+                echo "⏭️  $cmd_file $MSG_UPDATE_SKIPPED"
+                skipped_count=$((skipped_count + 1))
+            fi
+        else
+            MSG_NOT_EXISTS=$(get_message "not_exists" "does not exist" "が存在しません")
+            echo "📝 $cmd_file $MSG_NOT_EXISTS"
+            MSG_CREATE_FILE=$(get_message "create_file" "Create?" "作成しますか？")
+            if confirm "$MSG_CREATE_FILE"; then
+                if [ "$DRY_RUN" = true ]; then
+                    dry_echo "cp $src $dst"
+                else
+                    cp "$src" "$dst"
+                fi
+                MSG_CREATED=$(get_message "created" "created" "を作成しました")
+                echo "✅ $cmd_file $MSG_CREATED"
+                updated_count=$((updated_count + 1))
+            fi
+        fi
+    done
+    
+    echo ""
+    MSG_SYNC_COMPLETE=$(get_message "sync_complete" "Sync complete" "同期完了")
+    MSG_UPDATED_COUNT=$(get_message "updated_count" "updated" "更新")
+    MSG_SKIPPED_COUNT=$(get_message "skipped_count" "skipped" "スキップ")
+    echo "📊 $MSG_SYNC_COMPLETE: $MSG_UPDATED_COUNT $updated_count 件、$MSG_SKIPPED_COUNT $skipped_count 件"
+}
+
+# Gemini CLI設定のセットアップ（グループ化）
+setup_gemini_cli() {
+    local gemini_items=(
+        ".gemini/commands/"
+        "scripts/gemini/"
+    )
+
+    if ! confirm_group "gemini" "${gemini_items[@]}"; then
+        MSG_SKIP_GEMINI=$(get_message "skip_gemini" "Skipping Gemini CLI configuration" "Gemini CLI設定をスキップ")
+        echo "⏭️  $MSG_SKIP_GEMINI"
+        return 1
+    fi
+    
+    # .gemini/commandsディレクトリ作成と同期
+    sync_gemini_commands
+
+    # .gemini/ディレクトリをgitignoreに追加
+    if [ -f ".gitignore" ]; then
+        if ! grep -q "^\.gemini/$" .gitignore 2>/dev/null;
+ then
+             if [ "$DRY_RUN" = true ]; then
+                dry_echo "echo '.gemini/' >> .gitignore"
+            else
+                echo '.gemini/' >> .gitignore
+            fi
+        fi
+    fi
+
+    MSG_GEMINI_CREATED=$(get_message "gemini_created" "Gemini CLI configuration installed" "Gemini CLI設定をインストールしました")
+    echo "✅ $MSG_GEMINI_CREATED"
+}
+
 # --sync-claude-commands が指定された場合
 if [ "$SYNC_CLAUDE_COMMANDS_ONLY" = true ]; then
     sync_claude_commands
@@ -879,13 +1064,13 @@ echo ""
 case "$SELECTED_MODE" in
     copy)
         setup_copy_mode
-        ;;
+        ;; 
     clone)
         setup_clone_mode
-        ;;
+        ;; 
     submodule)
         setup_submodule_mode
-        ;;
+        ;; 
 esac
 
 # スクリプトツールのセットアップ（グループ化）
@@ -1085,15 +1270,19 @@ echo "⚡ $MSG_SETUP_CLAUDE..."
 setup_claude_code
 CLAUDE_INSTALLED=$?
 
+# Gemini CLI設定のセットアップ（グループ化）
+echo ""
+MSG_SETUP_GEMINI=$(get_message "setup_gemini" "Setting up Gemini CLI configuration" "Gemini CLI設定を設定")
+echo "♊ $MSG_SETUP_GEMINI..."
+setup_gemini_cli
+GEMINI_INSTALLED=$?
+
 # Git設定のセットアップ（グループ化）
 echo ""
 MSG_SETUP_GIT=$(get_message "setup_git" "Setting up Git configuration" "Git設定を設定")
 echo "📝 $MSG_SETUP_GIT..."
 setup_git_config
 GIT_INSTALLED=$?
-
-# worktree-manager.shへのシンボリックリンク（scriptsグループに含まれている）
-# 既にsetup_script_toolsで処理済み
 
 # 完了メッセージ
 if [ "$DRY_RUN" = true ]; then
@@ -1110,7 +1299,7 @@ else
     echo "📖 $(get_message "how_to_use" "How to use" "使い方") / Usage:"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
-    echo "🇯🇵 $(get_message "japanese" "Japanese" "日本語"):"
+    echo "🇯🇵 $(get_message "japanese" "Japanese" "日本語"):";
     MSG_JA_USAGE=$(get_message "ja_usage" 'When requesting AI assistance, say "Please refer to CLAUDE.md and [task description]"' 'AIに作業を依頼する際は「CLAUDE.mdを参照して、[タスク内容]」と伝えてください')
     MSG_JA_ALSO_AVAILABLE=$(get_message "ja_also_available" "(GEMINI.md, CURSOR.md also available)" "（GEMINI.md、CURSOR.mdも同様に使用可能）")
     echo "  $MSG_JA_USAGE"
@@ -1185,18 +1374,18 @@ else
         copy)
             echo "  1. $MSG_EDIT_PROJECT_SPECIFIC"
             echo "  2. $MSG_UPDATE_REGULAR"
-            ;;
+            ;; 
         clone)
             echo "  1. $MSG_EDIT_PROJECT_SPECIFIC"
             echo "  2. $MSG_UPDATE_GIT_PULL: cd instructions/ai_instruction_kits && git pull"
             echo "  3. $MSG_CUSTOM_CHANGES: cd instructions/ai_instruction_kits && git commit"
-            ;;
+            ;; 
         submodule)
             echo "  1. $MSG_EDIT_PROJECT_SPECIFIC"
             echo "  2. git add -A"
             echo "  3. git commit -m \"Add AI instruction configuration with flexible structure\""
             echo "  4. $MSG_UPDATE_GIT_PULL: git submodule update --remote"
-            ;;
+            ;; 
     esac
     echo ""
     MSG_IMPORTANT=$(get_message "important" "Important" "重要")
