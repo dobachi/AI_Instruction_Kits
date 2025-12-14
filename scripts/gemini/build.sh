@@ -71,8 +71,8 @@ elif [ -f "Cargo.toml" ]; then
     eval "$BUILD_CMD $ARGS"
 elif [ -f "pyproject.toml" ]; then
     echo "📦 Python プロジェクトを検出しました。"
-    echo "🚀 ビルドコマンドを実行します: python -m build $ARGS"
-    python -m build $ARGS
+    echo "🚀 ビルドコマンドを実行します: python3 -m build $ARGS"
+    python3 -m build $ARGS
 elif [ -f "go.mod" ]; then
     echo "📦 Go プロジェクトを検出しました。"
     echo "🚀 ビルドコマンドを実行します: go build $ARGS"
