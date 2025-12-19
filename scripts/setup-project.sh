@@ -176,6 +176,11 @@ confirm() {
         return 0
     fi
 
+    # AUTO_SETUPモードでは自動承認
+    if [ "$AUTO_SETUP" = true ]; then
+        return 0
+    fi
+
     local prompt="$1 [y/N]: "
     local response
 
@@ -183,10 +188,10 @@ confirm() {
     case "$response" in
         [yY][eE][sS]|[yY])
             return 0
-            ;; 
+            ;;
         *)
             return 1
-            ;; 
+            ;;
     esac
 }
 
