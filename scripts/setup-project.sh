@@ -232,10 +232,13 @@ confirm_group() {
             ;; 
         claude)
             MSG_GROUP_TITLE=$(get_message "group_claude" "Claude Code Configuration" "Claude Code設定")
-            ;; 
+            ;;
+        skills)
+            MSG_GROUP_TITLE=$(get_message "group_skills" "Claude Code Skills" "Claude Codeスキル")
+            ;;
         gemini)
             MSG_GROUP_TITLE=$(get_message "group_gemini" "Gemini CLI Configuration" "Gemini CLI設定")
-            ;; 
+            ;;
         git)
             MSG_GROUP_TITLE=$(get_message "group_git" "Git Configuration" "Git設定")
             ;; 
@@ -390,6 +393,93 @@ setup_claude_code() {
 
     MSG_CLAUDE_CREATED=$(get_message "claude_created" "Claude Code configuration installed" "Claude Code設定をインストールしました")
     echo "✅ $MSG_CLAUDE_CREATED"
+}
+
+# Claude Code Skillsのセットアップ（グループ化）
+setup_claude_skills() {
+    # 利用可能なスキルを検索
+    local skills_src_dir=""
+    local lang=$(get_current_language)
+
+    if [ -d "instructions/ai_instruction_kits/templates/claude-skills/$lang" ]; then
+        skills_src_dir="instructions/ai_instruction_kits/templates/claude-skills/$lang"
+    elif [ -d "${SCRIPT_DIR}/../templates/claude-skills/$lang" ]; then
+        skills_src_dir="${SCRIPT_DIR}/../templates/claude-skills/$lang"
+    elif [ -d "instructions/ai_instruction_kits/templates/claude-skills/en" ]; then
+        skills_src_dir="instructions/ai_instruction_kits/templates/claude-skills/en"
+    elif [ -d "${SCRIPT_DIR}/../templates/claude-skills/en" ]; then
+        skills_src_dir="${SCRIPT_DIR}/../templates/claude-skills/en"
+    fi
+
+    # スキルディレクトリが見つからない場合はスキップ
+    if [ -z "$skills_src_dir" ] || [ ! -d "$skills_src_dir" ]; then
+        MSG_NO_SKILLS=$(get_message "no_skills" "No skills templates found, skipping" "スキルテンプレートが見つかりません、スキップします")
+        echo "⏭️  $MSG_NO_SKILLS"
+        return 1
+    fi
+
+    # 利用可能なスキルをリストアップ
+    local skill_items=(".claude/skills/")
+    local available_skills=()
+    for skill_dir in "$skills_src_dir"/*/; do
+        if [ -d "$skill_dir" ] && [ -f "$skill_dir/SKILL.md" ]; then
+            local skill_name=$(basename "$skill_dir")
+            available_skills+=("$skill_name")
+            skill_items+=(".claude/skills/$skill_name/")
+        fi
+    done
+
+    # スキルがない場合はスキップ
+    if [ ${#available_skills[@]} -eq 0 ]; then
+        MSG_NO_SKILLS=$(get_message "no_skills" "No skills templates found, skipping" "スキルテンプレートが見つかりません、スキップします")
+        echo "⏭️  $MSG_NO_SKILLS"
+        return 1
+    fi
+
+    # グループ確認
+    if ! confirm_group "skills" "${skill_items[@]}"; then
+        MSG_SKIP_SKILLS=$(get_message "skip_skills" "Skipping Claude Code Skills" "Claude Codeスキルをスキップ")
+        echo "⏭️  $MSG_SKIP_SKILLS"
+        return 1
+    fi
+
+    # .claude/skillsディレクトリ作成
+    if [ ! -d ".claude/skills" ]; then
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "mkdir -p .claude/skills"
+        else
+            mkdir -p .claude/skills
+        fi
+    fi
+
+    # 各スキルをコピー
+    for skill_name in "${available_skills[@]}"; do
+        local src="$skills_src_dir/$skill_name"
+        local dst=".claude/skills/$skill_name"
+
+        # 既存ディレクトリのバックアップ
+        if [ -d "$dst" ] && [ ! -L "$dst" ]; then
+            backup_file "$dst"
+            [ "$DRY_RUN" = false ] && rm -rf "$dst"
+        fi
+
+        # シンボリックリンクの場合は削除
+        if [ -L "$dst" ]; then
+            [ "$DRY_RUN" = false ] && rm "$dst"
+        fi
+
+        # コピー
+        if [ ! -e "$dst" ]; then
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "cp -r $src $dst"
+            else
+                cp -r "$src" "$dst"
+            fi
+        fi
+    done
+
+    MSG_SKILLS_CREATED=$(get_message "skills_created" "Claude Code Skills installed" "Claude Codeスキルをインストールしました")
+    echo "✅ $MSG_SKILLS_CREATED"
 }
 
 # Git設定のセットアップ（グループ化）
@@ -1270,6 +1360,13 @@ echo "⚡ $MSG_SETUP_CLAUDE..."
 setup_claude_code
 CLAUDE_INSTALLED=$?
 
+# Claude Codeスキルのセットアップ（グループ化）
+echo ""
+MSG_SETUP_SKILLS=$(get_message "setup_skills" "Setting up Claude Code Skills" "Claude Codeスキルを設定")
+echo "🎯 $MSG_SETUP_SKILLS..."
+setup_claude_skills
+SKILLS_INSTALLED=$?
+
 # Gemini CLI設定のセットアップ（グループ化）
 echo ""
 MSG_SETUP_GEMINI=$(get_message "setup_gemini" "Setting up Gemini CLI configuration" "Gemini CLI設定を設定")
@@ -1361,7 +1458,27 @@ else
         echo "  /evidence-check [file-path]"
         echo ""
     fi
-    
+
+    # スキルが実際にインストールされた場合のみ表示
+    if [ "${SKILLS_INSTALLED:-1}" -eq 0 ]; then
+        echo "  .claude/"
+        echo "    └── skills/"
+        echo "        ├── verify-content/"
+        echo "        │   ├── SKILL.md, scan.md, verify.md, reference.md"
+        echo "        ├── checkpoint-manager/"
+        echo "        │   ├── SKILL.md, workflow.md"
+        echo "        └── auto-build/"
+        echo "            └── SKILL.md"
+        echo ""
+
+        MSG_SKILLS_AVAILABLE=$(get_message "skills_available" "Available Claude Code Skills (auto-invoked)" "利用可能なClaude Codeスキル（自動呼び出し）")
+        echo "🎯 $MSG_SKILLS_AVAILABLE:"
+        echo "  verify-content      - $(get_message "skill_verify_content" "Integrated content verification (scan → verify → reference)" "統合コンテンツ検証（洗い出し→検証→参照整備）")"
+        echo "  checkpoint-manager  - $(get_message "skill_checkpoint_manager" "Task progress tracking (auto-suggest start/progress/complete)" "タスク進捗管理（開始/進捗/完了を自動提案）")"
+        echo "  auto-build          - $(get_message "skill_auto_build" "Auto-detect project type and build (Node.js/Rust/Python/Go)" "プロジェクト自動検出とビルド（Node.js/Rust/Python/Go）")"
+        echo ""
+    fi
+
     # モード別の次のステップ
     MSG_NEXT_STEPS=$(get_message "next_steps" "Next steps" "次のステップ")
     echo "🔗 $MSG_NEXT_STEPS:"
