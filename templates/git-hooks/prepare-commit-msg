@@ -11,6 +11,8 @@ MESSAGE=$(cat "$COMMIT_MSG_FILE")
 # AIツールのサインを検出するパターン
 AI_PATTERNS=(
     "🤖 Generated with"
+    "Generated with Claude Code"
+    "Generated with [Claude Code]"
     "Co-Authored-By: Claude"
     "Co-Authored-By: GPT"
     "Co-Authored-By: Gemini"
