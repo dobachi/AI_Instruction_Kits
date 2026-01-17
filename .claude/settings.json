@@ -2,9 +2,14 @@
   "hooks": {
     "SessionStart": [
       {
-        "type": "command",
-        "command": "bash \"${CLAUDE_PROJECT_DIR:-$(pwd)}/scripts/gh-setup.sh\"",
-        "timeout": 120
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/gh-setup.sh\"",
+            "timeout": 120
+          }
+        ]
       }
     ]
   }
