@@ -396,6 +396,62 @@ setup_claude_code() {
         fi
     done
 
+    # gh-setup.shスクリプトのコピー
+    local gh_setup_src=""
+    if [ -f "instructions/ai_instruction_kits/scripts/gh-setup.sh" ]; then
+        gh_setup_src="instructions/ai_instruction_kits/scripts/gh-setup.sh"
+    elif [ -f "$SCRIPT_DIR/gh-setup.sh" ]; then
+        gh_setup_src="$SCRIPT_DIR/gh-setup.sh"
+    fi
+
+    if [ -n "$gh_setup_src" ] && [ -f "$gh_setup_src" ]; then
+        if [ ! -d "scripts" ]; then
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "mkdir -p scripts"
+            else
+                mkdir -p scripts
+            fi
+        fi
+
+        if [ ! -f "scripts/gh-setup.sh" ]; then
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "cp $gh_setup_src scripts/gh-setup.sh"
+                dry_echo "chmod +x scripts/gh-setup.sh"
+            else
+                cp "$gh_setup_src" scripts/gh-setup.sh
+                chmod +x scripts/gh-setup.sh
+            fi
+            MSG_GH_SETUP_COPIED=$(get_message "gh_setup_copied" "GitHub CLI auto-setup script installed" "GitHub CLI自動セットアップスクリプトをインストールしました")
+            echo "  ✅ $MSG_GH_SETUP_COPIED"
+        fi
+    fi
+
+    # settings.jsonの配備
+    local settings_src=""
+    if [ -f "instructions/ai_instruction_kits/.claude/settings.json" ]; then
+        settings_src="instructions/ai_instruction_kits/.claude/settings.json"
+    elif [ -f "$SCRIPT_DIR/../.claude/settings.json" ]; then
+        settings_src="$SCRIPT_DIR/../.claude/settings.json"
+    fi
+
+    if [ -n "$settings_src" ] && [ -f "$settings_src" ]; then
+        local settings_dst=".claude/settings.json"
+
+        if [ ! -f "$settings_dst" ]; then
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "cp $settings_src $settings_dst"
+            else
+                cp "$settings_src" "$settings_dst"
+            fi
+            MSG_SETTINGS_CREATED=$(get_message "settings_created" "Claude settings.json created (includes GitHub CLI setup hook)" "Claude settings.jsonを作成しました（GitHub CLIセットアップフックを含む）")
+            echo "  ✅ $MSG_SETTINGS_CREATED"
+        else
+            MSG_SETTINGS_EXISTS=$(get_message "settings_exists" "⚠️  .claude/settings.json already exists. To enable GitHub CLI auto-setup, add SessionStart hook manually." "⚠️  .claude/settings.jsonが既に存在します。GitHub CLI自動セットアップを有効にするには、SessionStartフックを手動で追加してください。")
+            echo "  $MSG_SETTINGS_EXISTS"
+            echo "  Reference: $settings_src"
+        fi
+    fi
+
     MSG_CLAUDE_CREATED=$(get_message "claude_created" "Claude Code configuration installed" "Claude Code設定をインストールしました")
     echo "✅ $MSG_CLAUDE_CREATED"
 }
