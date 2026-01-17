@@ -626,4 +626,4 @@ scripts/checkpoint.sh history
 - **デフォルト**: MIT License（[LICENSE](LICENSE)参照）
 - **個別の指示書**: 各ファイルの末尾に記載されたライセンスが優先されます
 
-詳細は[LICENSE-NOTICE.md](LICENSE-NOTICE.md)をご確認ください。
+詳細は[LICENSE-NOTICE.md](LICENSE-NOTICE.md)をご確認ください。# Signing test Sat Jan 17 13:11:33 UTC 2026
