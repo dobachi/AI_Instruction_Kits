@@ -3,7 +3,7 @@
     "SessionStart": [
       {
         "type": "command",
-        "command": "bash scripts/gh-setup.sh",
+        "command": "bash \"${CLAUDE_PROJECT_DIR:-$(pwd)}/scripts/gh-setup.sh\"",
         "timeout": 120
       }
     ]
