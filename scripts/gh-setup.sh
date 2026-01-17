@@ -172,6 +172,40 @@ configure_auth() {
     fi
 }
 
+# Configure git user from GitHub account
+configure_git_user() {
+    local token="${GH_TOKEN:-${GITHUB_TOKEN}}"
+
+    if [[ -z "${token}" ]]; then
+        warn "No GitHub token found, skipping git user configuration"
+        return 0
+    fi
+
+    info "Configuring git user from GitHub account..."
+
+    # Get user info from GitHub API
+    local user_info
+    user_info=$("${GH_BINARY}" api user 2>/dev/null) || {
+        warn "Failed to get user info from GitHub API"
+        return 0
+    }
+
+    local name email login
+    name=$(echo "${user_info}" | jq -r '.name // .login')
+    login=$(echo "${user_info}" | jq -r '.login')
+    email=$(echo "${user_info}" | jq -r '.email // empty')
+
+    # If email is not public, use GitHub noreply email
+    if [[ -z "${email}" || "${email}" == "null" ]]; then
+        email="${login}@users.noreply.github.com"
+    fi
+
+    git config user.name "${name}"
+    git config user.email "${email}"
+
+    info "Git user configured: ${name} <${email}>"
+}
+
 # Main execution
 main() {
     info "GitHub CLI Setup Script v1.0"
@@ -188,6 +222,7 @@ main() {
         info "GitHub CLI v${GH_VERSION} is already installed"
         setup_path
         configure_auth
+        configure_git_user
         exit 0
     fi
 
@@ -199,6 +234,9 @@ main() {
 
     # Configure authentication
     configure_auth
+
+    # Configure git user from GitHub account
+    configure_git_user
 
     info "Setup complete!"
     info "GitHub CLI is ready to use: ${GH_BINARY}"
