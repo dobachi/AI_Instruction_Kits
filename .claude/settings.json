@@ -2,11 +2,11 @@
   "hooks": {
     "SessionStart": [
       {
-        "matcher": "startup",
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/gh-setup.sh\"",
+            "command": "echo '[SessionStart hook triggered]' > /tmp/hook-test.log && bash /home/user/AI_Instruction_Kits/scripts/gh-setup.sh >> /tmp/hook-test.log 2>&1",
             "timeout": 120
           }
         ]
