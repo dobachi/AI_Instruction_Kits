@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /home/user/AI_Instruction_Kits/scripts/gh-setup.sh"
+            "command": "bash scripts/gh-setup.sh"
           }
         ]
       }
