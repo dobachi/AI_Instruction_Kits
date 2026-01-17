@@ -238,6 +238,14 @@ main() {
     # Configure git user from GitHub account
     configure_git_user
 
+    # Run project setup script if exists
+    local script_dir
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    if [[ -x "${script_dir}/setup-project.sh" ]]; then
+        info "Running setup-project.sh..."
+        bash "${script_dir}/setup-project.sh" --auto || warn "setup-project.sh failed"
+    fi
+
     info "Setup complete!"
     info "GitHub CLI is ready to use: ${GH_BINARY}"
 }
