@@ -693,7 +693,7 @@ setup_script_tools() {
     fi
 
     # スクリプトファイルのシンボリックリンク作成
-    local scripts=("checkpoint.sh" "commit.sh" "generate-instruction.sh" "validate-modules.sh" "search-instructions.sh" "generate-metadata.sh" "worktree-manager.sh")
+    local scripts=("checkpoint.sh" "commit.sh" "generate-instruction.sh" "validate-modules.sh" "search-instructions.sh" "generate-metadata.sh" "worktree-manager.sh" "submodule-update-check.sh")
     for script in "${scripts[@]}"; do
         if [ -e "scripts/$script" ] && [ ! -L "scripts/$script" ]; then
             backup_file "scripts/$script"

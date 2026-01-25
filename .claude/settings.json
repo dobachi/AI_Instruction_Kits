@@ -6,6 +6,10 @@
           {
             "type": "command",
             "command": "bash scripts/gh-setup.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash scripts/submodule-update-check.sh"
           }
         ]
       }
