@@ -92,7 +92,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/m
 │   │   ├── presets/   # 事前定義された組み合わせ
 │   │   └── templates/ # 生成用テンプレート
 │   └── en/        # 英語モジュール
-├── .claude/       # Claude Code カスタムコマンド（新機能）
+├── .claude/       # Claude Code カスタムコマンド
 │   └── commands/  # カスタムコマンド定義
 │       ├── checkpoint.md       # チェックポイント管理コマンド
 │       ├── commit-and-report.md # コミット＆Issue報告
@@ -101,7 +101,17 @@ bash <(curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/m
 │       ├── github-issues.md    # GitHub Issue確認
 │       ├── reload-and-reset.md # システムリセット
 │       ├── build.md            # ビルドコマンド実行
-│       └── evidence-check.md   # エビデンスチェック（新）
+│       └── evidence-check.md   # エビデンスチェック
+├── .codex/        # Codex CLI カスタムプロンプト
+│   └── prompts/   # カスタムプロンプト定義
+│       ├── checkpoint.md       # チェックポイント管理
+│       ├── commit-and-report.md # コミット＆Issue報告
+│       ├── commit-safe.md      # 安全なコミット
+│       ├── reload-instructions.md # 指示書再読み込み
+│       ├── github-issues.md    # GitHub Issue確認
+│       ├── reload-and-reset.md # システムリセット
+│       ├── build.md            # ビルドコマンド実行
+│       └── evidence-check.md   # エビデンスチェック
 ├── reports/       # フィードバック・レポート
 │   └── presets/   # プリセット関連レポート
 └── scripts/       # ツール・ユーティリティ
@@ -235,6 +245,47 @@ bash scripts/setup-project.sh --sync-claude-commands
 ```
 
 詳細は[Claude Codeカスタムコマンドドキュメント](docs/claude-custom-commands.md)を参照してください。
+
+## Codex CLI カスタムプロンプト
+
+### 概要
+
+Codex CLIユーザー向けの専用カスタムプロンプトを提供。Claude Codeと同等の機能をCodex CLIで利用できます。
+
+### 利用可能なコマンド
+
+| コマンド | 説明 | 使用例 |
+|---------|------|--------|
+| `/checkpoint` | チェックポイント管理 | `/checkpoint start "新機能実装" 5` |
+| `/commit-and-report` | コミット＆Issue報告 | `/commit-and-report "バグ修正完了"` |
+| `/commit-safe` | 安全なコミット | `/commit-safe "ドキュメント更新"` |
+| `/reload-instructions` | 指示書の再読み込み | `/reload-instructions` |
+| `/github-issues` | GitHub Issueを確認してタスク整理 | `/github-issues` |
+| `/reload-and-reset` | AIシステムをリセットして指示書再読み込み | `/reload-and-reset` |
+| `/build` | プロジェクトに適したビルドコマンドを実行 | `/build --prod` |
+| `/evidence-check` | 参考文献・引用の妥当性を検証 | `/evidence-check docs/paper.md` |
+
+### 自動設定
+
+`setup-project.sh`実行時に自動的に`.codex/prompts/`ディレクトリが設定されます。
+
+```bash
+# カスタムプロンプトも含めて自動設定
+bash scripts/setup-project.sh
+```
+
+### カスタムプロンプトの更新
+
+最新のプロンプトに更新する場合：
+
+```bash
+# ファイル同期（最新版への更新）
+bash scripts/setup-project.sh --sync-codex-commands
+# または短縮形
+bash scripts/setup-project.sh --sync-codex
+```
+
+詳細は[Codex CLIカスタムコマンドドキュメント](docs/codex-custom-commands.md)を参照してください。
 
 ## アンインストール
 

@@ -17,6 +17,8 @@ BACKUP_MODE=true
 INTEGRATION_MODE=""
 SELECTED_MODE=""
 SYNC_CLAUDE_COMMANDS_ONLY=false
+SYNC_CODEX_COMMANDS_ONLY=false
+SYNC_GEMINI_COMMANDS_ONLY=false
 AUTO_SETUP=false
 SKIP_INSTRUCTIONS=false
 
@@ -50,6 +52,12 @@ while [[ "$#" -gt 0 ]]; do
             ;; 
         --sync-claude-commands|--sync-claude)
             SYNC_CLAUDE_COMMANDS_ONLY=true
+            ;;
+        --sync-codex-commands|--sync-codex)
+            SYNC_CODEX_COMMANDS_ONLY=true
+            ;;
+        --sync-gemini-commands|--sync-gemini)
+            SYNC_GEMINI_COMMANDS_ONLY=true
             ;; 
         --auto|--auto-setup)
             AUTO_SETUP=true
@@ -111,6 +119,10 @@ $MSG_OPTIONS:
                    $(get_message "skip_instructions" "Skip PROJECT.md installation (can combine with --auto)" "PROJECT.mdをスキップ（--autoと組み合わせ可能）")
   --sync-claude-commands, --sync-claude
                    $(get_message "sync_claude_commands" "Sync Claude Code custom commands only" "Claude Codeカスタムコマンドの同期のみ実行")
+  --sync-codex-commands, --sync-codex
+                   $(get_message "sync_codex_commands" "Sync Codex CLI custom prompts only" "Codex CLIカスタムプロンプトの同期のみ実行")
+  --sync-gemini-commands, --sync-gemini
+                   $(get_message "sync_gemini_commands" "Sync Gemini CLI custom commands only" "Gemini CLIカスタムコマンドの同期のみ実行")
   -h, --help       $MSG_SHOW_HELP
 
 $MSG_MODE_DETAILS:
@@ -244,9 +256,12 @@ confirm_group() {
         gemini)
             MSG_GROUP_TITLE=$(get_message "group_gemini" "Gemini CLI Configuration" "Gemini CLI設定")
             ;;
+        codex)
+            MSG_GROUP_TITLE=$(get_message "group_codex" "Codex CLI Configuration" "Codex CLI設定")
+            ;;
         git)
             MSG_GROUP_TITLE=$(get_message "group_git" "Git Configuration" "Git設定")
-            ;; 
+            ;;
         *)
             MSG_GROUP_TITLE="$group_name"
             ;; 
@@ -1148,9 +1163,154 @@ setup_gemini_cli() {
     echo "✅ $MSG_GEMINI_CREATED"
 }
 
+# Codex CLIコマンドの同期
+sync_codex_commands() {
+    MSG_SYNC_CODEX=$(get_message "sync_codex_commands_msg" "Syncing Codex CLI custom prompts" "Codex CLIカスタムプロンプトを同期中")
+    echo "📦 $MSG_SYNC_CODEX..."
+
+    if [ ! -d ".codex/prompts" ]; then
+        MSG_CREATE_CODEX_DIR=$(get_message "create_codex_dir" "Create .codex/prompts directory for Codex CLI?" "Codex CLI用の.codex/promptsディレクトリを作成しますか？")
+        if confirm "$MSG_CREATE_CODEX_DIR"; then
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "mkdir -p .codex/prompts"
+            else
+                mkdir -p .codex/prompts
+                MSG_CODEX_DIR_CREATED=$(get_message "codex_dir_created" ".codex/prompts directory created" ".codex/promptsディレクトリを作成しました")
+                echo "✅ $MSG_CODEX_DIR_CREATED"
+            fi
+        else
+            return
+        fi
+    fi
+
+    local codex_prompts_src=""
+    if [ -d "instructions/ai_instruction_kits/.codex/prompts" ]; then
+        codex_prompts_src="instructions/ai_instruction_kits/.codex/prompts"
+    elif [ -d "$SCRIPT_DIR/../.codex/prompts" ]; then
+        codex_prompts_src="$SCRIPT_DIR/../.codex/prompts"
+    else
+        MSG_CODEX_SRC_NOT_FOUND=$(get_message "codex_src_not_found" "Codex prompts source directory not found" "Codexプロンプトのソースディレクトリが見つかりません")
+        echo "⚠️  $MSG_CODEX_SRC_NOT_FOUND"
+        return
+    fi
+
+    # ls と xargs を使って .md ファイルのみを対象にする
+    local codex_prompts=()
+    if [ -d "$codex_prompts_src" ]; then
+        codex_prompts=($(ls "$codex_prompts_src"/*.md 2>/dev/null | xargs -n 1 basename))
+    fi
+
+    if [ ${#codex_prompts[@]} -eq 0 ]; then
+        MSG_NO_CODEX_PROMPTS=$(get_message "no_codex_prompts" "No Codex prompt templates found to sync" "同期するCodexプロンプトテンプレートが見つかりません")
+        echo "ℹ️ $MSG_NO_CODEX_PROMPTS"
+        return
+    fi
+
+    local updated_count=0
+    local skipped_count=0
+
+    for prompt_file in "${codex_prompts[@]}"; do
+        local src="$codex_prompts_src/$prompt_file"
+        local dst=".codex/prompts/$prompt_file"
+
+        if [ ! -f "$src" ]; then continue; fi
+
+        if [ -e "$dst" ]; then
+            if diff -q "$src" "$dst" > /dev/null 2>&1; then
+                MSG_UP_TO_DATE=$(get_message "up_to_date" "is up to date" "は最新です")
+                echo "✓ $prompt_file $MSG_UP_TO_DATE"
+                skipped_count=$((skipped_count + 1))
+                continue
+            fi
+
+            echo ""
+            MSG_UPDATE_AVAILABLE=$(get_message "update_available" "has updates" "に更新があります")
+            echo "📝 $prompt_file $MSG_UPDATE_AVAILABLE"
+            MSG_UPDATE_FILE=$(get_message "update_file" "Update?" "更新しますか？")
+            if confirm "$MSG_UPDATE_FILE"; then
+                backup_file "$dst"
+                if [ "$DRY_RUN" = true ]; then
+                    dry_echo "cp $src $dst"
+                else
+                    cp "$src" "$dst"
+                fi
+                MSG_UPDATED=$(get_message "updated" "updated" "を更新しました")
+                echo "✅ $prompt_file $MSG_UPDATED"
+                updated_count=$((updated_count + 1))
+            else
+                MSG_UPDATE_SKIPPED=$(get_message "update_skipped" "update skipped" "の更新をスキップしました")
+                echo "⏭️  $prompt_file $MSG_UPDATE_SKIPPED"
+                skipped_count=$((skipped_count + 1))
+            fi
+        else
+            MSG_NOT_EXISTS=$(get_message "not_exists" "does not exist" "が存在しません")
+            echo "📝 $prompt_file $MSG_NOT_EXISTS"
+            MSG_CREATE_FILE=$(get_message "create_file" "Create?" "作成しますか？")
+            if confirm "$MSG_CREATE_FILE"; then
+                if [ "$DRY_RUN" = true ]; then
+                    dry_echo "cp $src $dst"
+                else
+                    cp "$src" "$dst"
+                fi
+                MSG_CREATED=$(get_message "created" "created" "を作成しました")
+                echo "✅ $prompt_file $MSG_CREATED"
+                updated_count=$((updated_count + 1))
+            fi
+        fi
+    done
+
+    echo ""
+    MSG_SYNC_COMPLETE=$(get_message "sync_complete" "Sync complete" "同期完了")
+    MSG_UPDATED_COUNT=$(get_message "updated_count" "updated" "更新")
+    MSG_SKIPPED_COUNT=$(get_message "skipped_count" "skipped" "スキップ")
+    echo "📊 $MSG_SYNC_COMPLETE: $MSG_UPDATED_COUNT $updated_count 件、$MSG_SKIPPED_COUNT $skipped_count 件"
+}
+
+# Codex CLI設定のセットアップ（グループ化）
+setup_codex_cli() {
+    local codex_items=(
+        ".codex/prompts/"
+    )
+
+    if ! confirm_group "codex" "${codex_items[@]}"; then
+        MSG_SKIP_CODEX=$(get_message "skip_codex" "Skipping Codex CLI configuration" "Codex CLI設定をスキップ")
+        echo "⏭️  $MSG_SKIP_CODEX"
+        return 1
+    fi
+
+    # .codex/promptsディレクトリ作成と同期
+    sync_codex_commands
+
+    # .codex/ディレクトリをgitignoreに追加
+    if [ -f ".gitignore" ]; then
+        if ! grep -q "^\.codex/$" .gitignore 2>/dev/null; then
+            if [ "$DRY_RUN" = true ]; then
+                dry_echo "echo '.codex/' >> .gitignore"
+            else
+                echo '.codex/' >> .gitignore
+            fi
+        fi
+    fi
+
+    MSG_CODEX_CREATED=$(get_message "codex_created" "Codex CLI configuration installed" "Codex CLI設定をインストールしました")
+    echo "✅ $MSG_CODEX_CREATED"
+}
+
 # --sync-claude-commands が指定された場合
 if [ "$SYNC_CLAUDE_COMMANDS_ONLY" = true ]; then
     sync_claude_commands
+    exit 0
+fi
+
+# --sync-codex-commands が指定された場合
+if [ "$SYNC_CODEX_COMMANDS_ONLY" = true ]; then
+    sync_codex_commands
+    exit 0
+fi
+
+# --sync-gemini-commands が指定された場合
+if [ "$SYNC_GEMINI_COMMANDS_ONLY" = true ]; then
+    sync_gemini_commands
     exit 0
 fi
 
@@ -1351,8 +1511,8 @@ fi  # SKIP_INSTRUCTIONSのif文を閉じる
 echo ""
 MSG_CREATE_AI_SYMLINKS=$(get_message "create_ai_symlinks" "Creating symbolic links for AI products" "AI製品別のシンボリックリンクを作成")
 
-ai_files=("CLAUDE.md" "GEMINI.md" "CURSOR.md")
-ai_files_en=("CLAUDE.en.md" "GEMINI.en.md" "CURSOR.en.md")
+ai_files=("CLAUDE.md" "GEMINI.md" "CURSOR.md" "CODEX.md")
+ai_files_en=("CLAUDE.en.md" "GEMINI.en.md" "CURSOR.en.md" "CODEX.en.md")
 
 # グループ確認用の配列を準備
 ai_symlink_items=()
@@ -1435,6 +1595,13 @@ echo "♊ $MSG_SETUP_GEMINI..."
 setup_gemini_cli
 GEMINI_INSTALLED=$?
 
+# Codex CLI設定のセットアップ（グループ化）
+echo ""
+MSG_SETUP_CODEX=$(get_message "setup_codex" "Setting up Codex CLI configuration" "Codex CLI設定を設定")
+echo "📦 $MSG_SETUP_CODEX..."
+setup_codex_cli
+CODEX_INSTALLED=$?
+
 # Git設定のセットアップ（グループ化）
 echo ""
 MSG_SETUP_GIT=$(get_message "setup_git" "Setting up Git configuration" "Git設定を設定")
@@ -1459,13 +1626,13 @@ else
     echo ""
     echo "🇯🇵 $(get_message "japanese" "Japanese" "日本語"):";
     MSG_JA_USAGE=$(get_message "ja_usage" 'When requesting AI assistance, say "Please refer to CLAUDE.md and [task description]"' 'AIに作業を依頼する際は「CLAUDE.mdを参照して、[タスク内容]」と伝えてください')
-    MSG_JA_ALSO_AVAILABLE=$(get_message "ja_also_available" "(GEMINI.md, CURSOR.md also available)" "（GEMINI.md、CURSOR.mdも同様に使用可能）")
+    MSG_JA_ALSO_AVAILABLE=$(get_message "ja_also_available" "(GEMINI.md, CURSOR.md, CODEX.md also available)" "（GEMINI.md、CURSOR.md、CODEX.mdも同様に使用可能）")
     echo "  $MSG_JA_USAGE"
     echo "  $MSG_JA_ALSO_AVAILABLE"
     echo ""
     echo "🇺🇸 English:"
     echo "  When requesting AI assistance, say \"Please refer to CLAUDE.en.md and [task description]\""
-    echo "  (GEMINI.en.md, CURSOR.en.md also available)"
+    echo "  (GEMINI.en.md, CURSOR.en.md, CODEX.en.md also available)"
     echo ""
     MSG_CREATED_STRUCTURE=$(get_message "created_structure" "Created structure" "作成された構成")
     echo "📁 $MSG_CREATED_STRUCTURE:"
@@ -1485,6 +1652,7 @@ else
     echo "  CLAUDE.md → instructions/PROJECT.md"
     echo "  GEMINI.md → instructions/PROJECT.md"
     echo "  CURSOR.md → instructions/PROJECT.md"
+    echo "  CODEX.md → instructions/PROJECT.md"
 
     # OpenHandsが実際にインストールされた場合のみ表示
     if [ "${OPENHANDS_INSTALLED:-1}" -eq 0 ]; then
@@ -1537,6 +1705,33 @@ else
         echo "  verify-content      - $(get_message "skill_verify_content" "Integrated content verification (scan → verify → reference)" "統合コンテンツ検証（洗い出し→検証→参照整備）")"
         echo "  checkpoint-manager  - $(get_message "skill_checkpoint_manager" "Task progress tracking (auto-suggest start/progress/complete)" "タスク進捗管理（開始/進捗/完了を自動提案）")"
         echo "  auto-build          - $(get_message "skill_auto_build" "Auto-detect project type and build (Node.js/Rust/Python/Go)" "プロジェクト自動検出とビルド（Node.js/Rust/Python/Go）")"
+        echo ""
+    fi
+
+    # Codex CLIが実際にインストールされた場合のみ表示
+    if [ "${CODEX_INSTALLED:-1}" -eq 0 ]; then
+        echo "  .codex/"
+        echo "    └── prompts/"
+        echo "        ├── checkpoint.md"
+        echo "        ├── commit-and-report.md"
+        echo "        ├── commit-safe.md"
+        echo "        ├── github-issues.md"
+        echo "        ├── reload-instructions.md"
+        echo "        ├── reload-and-reset.md"
+        echo "        ├── build.md"
+        echo "        └── evidence-check.md"
+        echo ""
+
+        MSG_CODEX_COMMANDS_AVAILABLE=$(get_message "codex_commands_available" "Available Codex CLI commands" "利用可能なCodex CLIコマンド")
+        echo "📦 $MSG_CODEX_COMMANDS_AVAILABLE:"
+        echo "  /checkpoint [start <task-id> <task-name> <steps>]"
+        echo "  /commit-and-report \"$(get_message "commit_message" "commit message" "コミットメッセージ")\" [Issue$(get_message "number" "number" "番号")]"
+        echo "  /commit-safe \"$(get_message "commit_message" "commit message" "コミットメッセージ")\""
+        echo "  /github-issues"
+        echo "  /reload-instructions"
+        echo "  /reload-and-reset"
+        echo "  /build [--clean|--prod|--test]"
+        echo "  /evidence-check [file-path]"
         echo ""
     fi
 
