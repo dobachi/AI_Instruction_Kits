@@ -15,9 +15,12 @@
 ## サブモジュール一括更新
 
 ```bash
-for repo in */; do
-  [ -d "$repo/.git" ] || continue
-  echo "=== $repo ==="
-  (cd "$repo" && git submodule update --remote instructions/ai_instruction_kits && git add -A && git commit -m "chore: update ai_instruction_kits submodule" && git push)
-done
+# プロジェクトルートから実行
+bash scripts/update-downstream.sh
+
+# ドライラン（確認のみ）
+bash scripts/update-downstream.sh --dry-run
+
+# 特定リポジトリのみ
+bash scripts/update-downstream.sh ResearchTemplate
 ```

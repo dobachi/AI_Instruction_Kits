@@ -170,10 +170,14 @@ scripts/worktree-manager.sh complete TASK-123456-abc
 
 ### 更新手順
 ```bash
-# 各ダウンストリームプロジェクトのサブモジュールを更新
-for repo in downstream/*/; do
-  (cd "$repo" && git submodule update --remote instructions/ai_instruction_kits && git add -A && git commit -m "chore: update ai_instruction_kits submodule" && git push)
-done
+# 全リポジトリを一括更新
+bash scripts/update-downstream.sh
+
+# ドライラン（確認のみ）
+bash scripts/update-downstream.sh --dry-run
+
+# 特定のリポジトリのみ
+bash scripts/update-downstream.sh ResearchTemplate
 ```
 
 ## コミットルール

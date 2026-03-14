@@ -170,10 +170,14 @@ When this project is updated, their submodule references need to be updated as w
 
 ### Update procedure
 ```bash
-# Update submodules in all downstream projects
-for repo in downstream/*/; do
-  (cd "$repo" && git submodule update --remote instructions/ai_instruction_kits && git add -A && git commit -m "chore: update ai_instruction_kits submodule" && git push)
-done
+# Update all downstream repos
+bash scripts/update-downstream.sh
+
+# Dry run (check only)
+bash scripts/update-downstream.sh --dry-run
+
+# Specific repo only
+bash scripts/update-downstream.sh ResearchTemplate
 ```
 
 ## Commit Rules
