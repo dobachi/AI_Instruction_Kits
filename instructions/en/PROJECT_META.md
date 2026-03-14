@@ -3,7 +3,9 @@
 This project is a meta-project for developing and improving the AI instruction system itself.
 When starting a task, please load `instructions/en/system/ROOT_INSTRUCTION.md`.
 
-## ⚠️ Important: Path Translation
+**Important**: ROOT_INSTRUCTION.md is a skill orchestrator. Check installed skills and use them according to the task.
+
+## Important: Path Translation
 
 When using instructions in this project itself, **path translation is required**:
 
@@ -27,6 +29,20 @@ scripts/checkpoint.sh
 - **Purpose**: Development of a system to structurally manage and provide instructions to AI
 - **Language**: Japanese priority (maintaining English version simultaneously)
 - **License**: Apache-2.0 (individual instructions have their own licenses)
+- **Architecture**: Skill-based (v2.0) - 4 core skills maintained locally, others via marketplace
+
+## Skill-Based Architecture (v2.0)
+
+### Core Skills (maintained locally)
+| Skill | Purpose |
+|-------|---------|
+| checkpoint-manager | Task progress tracking and management |
+| worktree-manager | Git worktree management |
+| auto-build | Project build automation |
+| commit-safe | Safe commits |
+
+### Additional Skills
+Install from marketplace: https://github.com/dobachi/claude-skills-marketplace
 
 ## Development Principles
 
@@ -41,7 +57,7 @@ scripts/checkpoint.sh
 - Documentation must include examples
 
 ### 3. Extensibility
-- Easy to add new instruction types
+- Easy to add new skills
 - Flexible customization
 - Ability to support other AI tools
 
@@ -50,8 +66,7 @@ scripts/checkpoint.sh
 ### When Editing Files
 1. **Japanese-English Synchronization**: Always update English version when updating Japanese version
 2. **Examples First**: Prioritize concrete examples over abstract explanations
-3. **Backward Compatibility**: Don't break existing usage methods
-4. **Path Descriptions**: Paths in instructions should assume submodule usage
+3. **Path Descriptions**: Paths in instructions should assume submodule usage
 
 ### When Adding New Features
 1. First implement and verify in Japanese version
@@ -61,9 +76,30 @@ scripts/checkpoint.sh
 
 ### Testing and Verification
 1. Verify setup-project.sh works correctly
-2. Verify each instruction functions independently
-3. Verify ROOT_INSTRUCTION and MODULE_COMPOSER coordination
-4. Verify path consistency (operation in submodule environment)
+2. Verify each skill functions independently
+3. Verify path consistency (operation in submodule environment)
+
+## Claude Code Agent Feature Usage
+
+For project analysis and large-scale investigation tasks, actively use the Agent tool (Task tool):
+
+### Recommended Use Cases
+- Skill quality checks and duplicate detection
+- Identifying unused code
+- Dependency analysis
+- Documentation and code consistency verification
+
+## Codex CLI Custom Commands
+
+Codex-specific prompt files live in `.codex/prompts/`. The file name becomes the `/command` (for example `build.md` → `/build`). Copy the files to your local `~/.codex/prompts/` and restart the CLI to make them available.
+
+- `build` — assists with detecting the project type and running the appropriate build
+- `checkpoint` — wraps `scripts/checkpoint.sh` subcommands
+- `commit-and-report` — guides commit, push, and optional issue updates
+- `commit-safe` — walks through safe, file-scoped commits
+- `github-issues` — gathers and summarizes open GitHub issues
+- `reload-instructions` — updates the instruction submodule and reloads ROOT_INSTRUCTION
+- `reload-and-reset` — refreshes instructions and reiterates the operating rules
 
 ## Project-Specific Instructions
 
@@ -91,12 +127,6 @@ scripts/checkpoint.sh
 ## Frequently Used Commands
 
 ```bash
-# Add new instruction (Japanese)
-cp templates/ja/instruction_template.md instructions/ja/<category>/<name>.md
-
-# Add new instruction (English)
-cp templates/en/instruction_template.md instructions/en/<category>/<name>.md
-
 # Integration test
 bash scripts/setup-project.sh
 
@@ -105,35 +135,32 @@ bash scripts/checkpoint.sh
 
 # Clean commit (without AI messages)
 bash scripts/commit.sh "commit message"
-
-# File consistency check (future implementation)
-# bash scripts/validate-instructions.sh
 ```
 
-## Codex CLI Custom Commands
+## Git Worktree Usage (Recommended)
+For complex tasks or multi-file changes, work in a dedicated worktree:
 
-Codex-specific prompt files live in `.codex/prompts/`. The file name becomes the `/command` (for example `build.md` → `/build`). Copy the files to your local `~/.codex/prompts/` and restart the CLI to make them available.
+```bash
+# Start task
+scripts/checkpoint.sh start "Feature development" 3
+# → Task ID: TASK-123456-abc
 
-- `build` — assists with detecting the project type and running the appropriate build
-- `checkpoint` — wraps `scripts/checkpoint.sh` subcommands
-- `commit-and-report` — guides commit, push, and optional issue updates
-- `commit-safe` — walks through safe, file-scoped commits
-- `github-issues` — gathers and summarizes open GitHub issues
-- `reload-instructions` — updates the instruction submodule and reloads ROOT_INSTRUCTION
-- `reload-and-reset` — refreshes instructions and reiterates the operating rules
+# Create worktree
+scripts/worktree-manager.sh create TASK-123456-abc "feature-dev"
+cd .gitworktrees/ai-TASK-123456-abc-feature-dev/
 
-These prompts avoid Claude-specific directives (`!`, `@`). Extend them by editing the Markdown body if additional steps are needed.
+# Do work...
 
-## Current Issues and Future Improvements
+# Complete
+scripts/checkpoint.sh complete TASK-123456-abc "Done"
+scripts/worktree-manager.sh complete TASK-123456-abc
+```
 
-1. Mechanism to reduce duplication between instructions
-2. Version control and update notifications
-3. Mechanism to accept community contributions
-4. Enhanced automated testing
-5. Performance optimization (when loading large numbers of instructions)
-6. Automatic path conversion feature (for meta usage)
+## Commit Rules
+- **Required**: `bash scripts/commit.sh "message"` or `git commit -m "message"`
+- **Prohibited**: Commits with AI signatures (auto-detected and rejected)
 
 ---
 ## License Information
-- **License**: Apache-2.0
+- **License**: MIT
 - **Created**: 2025-01-03
