@@ -67,59 +67,36 @@ claude "Commit my changes"
 # → commit-safe skill commits without AI signatures
 ```
 
-## 📚 Instruction Categories
+## 📚 Skills and Customization
 
-### 1. System Management (system)
-Basic instructions to control AI behavior
+### System Instructions
+- **ROOT_INSTRUCTION.md** - Skill orchestrator (auto-selects optimal skills from `.claude/skills/`)
 
-- **ROOT_INSTRUCTION.md** - Operates as skill orchestrator
-- **CHECKPOINT_MANAGER.md** - Progress management system (extended version)
+### Core Skills (placed in `.claude/skills/`)
+| Skill | Purpose | Auto-suggestion Timing |
+|-------|---------|----------------------|
+| checkpoint-manager | Task progress tracking | Check pending at session start |
+| worktree-manager | Git worktree management | Suggest worktree for complex tasks |
+| auto-build | Project build automation | Suggest build after code changes |
+| commit-safe | Safe commits | Suggest file-specific commit after changes |
 
-### 2. General Tasks
-General-purpose instructions for daily tasks
+### Marketplace Skills
 
-- **basic_qa.md** - Q&A, information provision
-- Project management support
-- Documentation assistance
+Install additional specialized skills from [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace).
 
-### 3. Coding
-Instructions specialized for programming tasks
+| Category | Example Skills |
+|----------|---------------|
+| Development Tools | build, commit-and-report, github-issues |
+| Role Skills | web-api-dev, data-analyst, python-expert, code-reviewer |
+| Presentation | marp-slides |
+| Quality | fact-checker, evidence-check |
 
-- **basic_code_generation.md** - Basics of code generation
-- Debugging support
-- Refactoring guidance
-- Test code creation
+### Custom Instructions
 
-### 4. Writing
-For document and content creation
-
-- **basic_text_creation.md** - Basic text creation
-- **presentation_creation.md** - Presentation structure
-- Technical documentation
-- Marketing content
-
-### 5. Analysis
-For data analysis and research tasks
-
-- **basic_data_analysis.md** - Basics of data analysis
-- Market research support
-- Competitive analysis
-- Performance analysis
-
-### 6. Creative
-Support for creative tasks
-
-- **basic_creative_work.md** - Idea generation
-- Design proposals
-- Storytelling
-- Brainstorming
-
-### 7. Agent-based
-Instructions to behave as specific experts
-
-- **python_expert.md** - Python development expert
-- **code_reviewer.md** - Code reviewer
-- **technical_writer.md** - Technical writer
+Add project-specific instructions under `instructions/en/`:
+- `instructions/en/coding/` - Coding related
+- `instructions/en/writing/` - Writing related
+- `instructions/en/analysis/` - Analysis related
 
 ## 🔧 Core Features
 
@@ -482,8 +459,8 @@ Ensure instruction quality
 <div style="margin-top: 3em; padding: 1em; background-color: #f0f8ff; border-radius: 8px;">
   <h3>📚 Learn More</h3>
   <ul>
-    <li><a href="https://github.com/dobachi/AI_Instruction_Kits/tree/main/instructions">View all instructions</a></li>
-    <li><a href="https://github.com/dobachi/AI_Instruction_Kits/blob/main/docs/HOW_TO_USE_en.md">Detailed usage guide</a></li>
+    <li><a href="usage">Usage Guide</a></li>
+    <li><a href="https://github.com/dobachi/claude-skills-marketplace">Skills Marketplace</a></li>
     <li><a href="https://github.com/dobachi/AI_Instruction_Kits/issues/new">Feature requests</a></li>
   </ul>
 </div>

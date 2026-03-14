@@ -67,59 +67,36 @@ claude "変更をコミットして"
 # → commit-safe スキルがAI署名なしでコミット
 ```
 
-## 📚 指示書カテゴリ
+## 📚 スキルとカスタマイズ
 
-### 1. システム管理 (system)
-AIの動作を制御する基本的な指示書
+### システム指示書
+- **ROOT_INSTRUCTION.md** - スキルオーケストレーター（`.claude/skills/`から最適なスキルを自動選択）
 
-- **ROOT_INSTRUCTION.md** - スキルオーケストレーターとして動作
-- **CHECKPOINT_MANAGER.md** - 進捗管理システム（拡張版）
+### コアスキル（`.claude/skills/`に配置）
+| スキル | 用途 | 自動提案タイミング |
+|--------|------|-------------------|
+| checkpoint-manager | タスク進捗追跡 | 会話開始時にpending確認 |
+| worktree-manager | Git worktree管理 | 複雑なタスクでworktree作成 |
+| auto-build | プロジェクトビルド自動化 | コード変更後にビルド |
+| commit-safe | 安全なコミット | 変更後にファイル指定コミット |
 
-### 2. 一般タスク (general)
-日常的なタスクに使える汎用指示書
+### マーケットプレイススキル
 
-- **basic_qa.md** - 質問応答、情報提供
-- プロジェクト管理支援
-- ドキュメント作成補助
+追加の専門スキルは [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) からインストールできます。
 
-### 3. コーディング (coding)
-プログラミング作業に特化した指示書
+| カテゴリ | スキル例 |
+|---------|---------|
+| 開発ツール | build, commit-and-report, github-issues |
+| 役割スキル | web-api-dev, data-analyst, python-expert, code-reviewer |
+| プレゼンテーション | marp-slides |
+| 品質管理 | fact-checker, evidence-check |
 
-- **basic_code_generation.md** - コード生成の基本
-- デバッグ支援
-- リファクタリング指南
-- テストコード作成
+### カスタム指示書
 
-### 4. 文章作成 (writing)
-ドキュメントやコンテンツ作成用
-
-- **basic_text_creation.md** - 基本的な文章作成
-- **presentation_creation.md** - プレゼンテーション構成
-- 技術文書作成
-- マーケティングコンテンツ
-
-### 5. 分析 (analysis)
-データ分析や調査タスク用
-
-- **basic_data_analysis.md** - データ分析の基本
-- 市場調査支援
-- 競合分析
-- パフォーマンス分析
-
-### 6. クリエイティブ (creative)
-創造的なタスクのサポート
-
-- **basic_creative_work.md** - アイデア生成
-- デザイン提案
-- ストーリーテリング
-- ブレインストーミング
-
-### 7. エージェント型 (agent)
-特定の専門家として振る舞う指示書
-
-- **python_expert.md** - Python開発の専門家
-- **code_reviewer.md** - コードレビュアー
-- **technical_writer.md** - テクニカルライター
+`instructions/ja/` 配下にプロジェクト固有の指示書を追加可能：
+- `instructions/ja/coding/` - コーディング関連
+- `instructions/ja/writing/` - 文章作成関連
+- `instructions/ja/analysis/` - 分析関連
 
 ## 🔧 コア機能
 
@@ -482,8 +459,8 @@ grep "成果:" checkpoint.log | grep -E "[0-9]+個|[0-9]+件|[0-9]+ファイル"
 <div style="margin-top: 3em; padding: 1em; background-color: #f0f8ff; border-radius: 8px;">
   <h3>📚 さらに詳しく</h3>
   <ul>
-    <li><a href="https://github.com/dobachi/AI_Instruction_Kits/tree/main/instructions">全指示書を確認</a></li>
-    <li><a href="https://github.com/dobachi/AI_Instruction_Kits/blob/main/docs/HOW_TO_USE.md">詳細な使用ガイド</a></li>
+    <li><a href="usage">使用ガイド</a></li>
+    <li><a href="https://github.com/dobachi/claude-skills-marketplace">スキルマーケットプレイス</a></li>
     <li><a href="https://github.com/dobachi/AI_Instruction_Kits/issues/new">機能リクエスト</a></li>
   </ul>
 </div>
