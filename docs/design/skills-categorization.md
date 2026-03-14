@@ -1,5 +1,9 @@
 # スキル仕分けと新アーキテクチャ設計
 
+> **移行完了**: 2026-03-14 にv2.0移行を実施。modular/は`archive/v1-modular`ブランチに退避済み。
+> コアスキル4個（checkpoint-manager, worktree-manager, auto-build, commit-safe）をローカル維持、
+> その他はdobachi/claude-skills-marketplaceへ移動予定。
+
 ## 1. 背景・目的
 
 ### 現状の問題

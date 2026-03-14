@@ -3,7 +3,7 @@
 このプロジェクトはAI指示書システム自体の開発・改善を行うためのメタプロジェクトです。
 タスク開始時は`instructions/ja/system/ROOT_INSTRUCTION.md`を読み込んでください。
 
-**重要**: ROOT_INSTRUCTION.mdは指示書選択専用です。選択した業務指示書を必ず読み込んでから作業を実行してください。
+**重要**: ROOT_INSTRUCTION.mdはスキルオーケストレーターです。インストール済みスキルを確認し、タスクに応じて利用してください。
 
 ## ⚠️ 重要: パスの読み替えについて
 
@@ -29,6 +29,20 @@ scripts/checkpoint.sh
 - **目的**: AIへの指示書を構造的に管理・提供するシステムの開発
 - **言語**: 日本語優先（英語版も同時メンテナンス）
 - **ライセンス**: Apache-2.0（個別指示書は各自のライセンス）
+- **アーキテクチャ**: スキルベース（v2.0） - コアスキル4個をローカル維持、その他はマーケットプレイスへ
+
+## スキルベースアーキテクチャ（v2.0）
+
+### コアスキル（ローカル維持）
+| スキル | 用途 |
+|--------|------|
+| checkpoint-manager | タスク進捗追跡・管理 |
+| worktree-manager | Git worktree管理 |
+| auto-build | プロジェクトビルド自動化 |
+| commit-safe | 安全なコミット |
+
+### 追加スキル
+マーケットプレイスからインストール: https://github.com/dobachi/claude-skills-marketplace
 
 ## 開発原則
 
@@ -43,7 +57,7 @@ scripts/checkpoint.sh
 - ドキュメントは実例を含むこと
 
 ### 3. 拡張性
-- 新しい指示書タイプの追加が容易であること
+- 新しいスキルの追加が容易であること
 - カスタマイズが柔軟にできること
 - 他のAIツールへの対応が可能であること
 
@@ -52,8 +66,7 @@ scripts/checkpoint.sh
 ### ファイル編集時
 1. **日英同期**: 日本語版を更新したら必ず英語版も更新
 2. **実例優先**: 抽象的な説明より具体例を重視
-3. **後方互換性**: 既存の使用方法を壊さない
-4. **パス記述**: 指示書内のパスはサブモジュール使用を前提に記述
+3. **パス記述**: 指示書内のパスはサブモジュール使用を前提に記述
 
 ### 新機能追加時
 1. まず日本語版で実装・検証
@@ -63,23 +76,18 @@ scripts/checkpoint.sh
 
 ### テスト・検証
 1. setup-project.shが正しく動作するか確認
-2. 各指示書が独立して機能するか確認
-3. ROOT_INSTRUCTIONとMODULE_COMPOSERの連携確認
-4. パスの整合性確認（サブモジュール環境での動作）
+2. 各スキルが独立して機能するか確認
+3. パスの整合性確認（サブモジュール環境での動作）
 
 ## Claude Codeエージェント機能の活用
 
-プロジェクト分析や大規模な調査タスクには、Task toolを積極的に活用してください：
+プロジェクト分析や大規模な調査タスクには、Agent tool（Taskツール）を積極的に活用してください：
 
 ### 推奨される使用場面
-- 指示書の品質チェック・重複検出
+- スキルの品質チェック・重複検出
 - 未使用コードの特定
 - 依存関係の分析
 - ドキュメントとコードの整合性確認
-
-### 使用方法
-詳細は `instructions/ja/system/CLAUDE_CODE_AGENT.md` を参照してください。
-エージェント機能により、複雑な分析タスクを自律的に実行できます。
 
 ## Codex CLIカスタムコマンド
 
@@ -92,8 +100,6 @@ Codex CLI向けのカスタムプロンプトを`.codex/prompts/`に追加しま
 - `github-issues` — GitHub Issueの取得と整理
 - `reload-instructions` — 指示書サブモジュールの更新と再読込
 - `reload-and-reset` — 指示書更新とルール再確認
-
-いずれもClaude専用ディレクティブ（`!`や`@`）を含まないCodex対応版です。独自に拡張する場合は、Markdown本文に実行手順を追記してください。
 
 ## プロジェクト固有の指示
 
@@ -121,12 +127,6 @@ Codex CLI向けのカスタムプロンプトを`.codex/prompts/`に追加しま
 ## よく使うコマンド
 
 ```bash
-# 新しい指示書の追加（日本語）
-cp templates/ja/instruction_template.md instructions/ja/<category>/<name>.md
-
-# 新しい指示書の追加（英語）
-cp templates/en/instruction_template.md instructions/en/<category>/<name>.md
-
 # 統合テスト
 bash scripts/setup-project.sh
 
@@ -135,9 +135,6 @@ bash scripts/checkpoint.sh
 
 # クリーンなコミット（AIメッセージなし）
 bash scripts/commit.sh "コミットメッセージ"
-
-# ファイル整合性チェック（将来実装予定）
-# bash scripts/validate-instructions.sh
 ```
 
 ## Git worktree運用（推奨）
@@ -162,15 +159,6 @@ scripts/worktree-manager.sh complete TASK-123456-abc
 ## コミットルール
 - **必須**: `bash scripts/commit.sh "メッセージ"` または `git commit -m "メッセージ"`
 - **禁止**: AI署名付きコミット（自動検出・拒否されます）
-
-## 現在の課題と今後の改善点
-
-1. 指示書間の重複を減らす仕組み
-2. バージョン管理とアップデート通知
-3. コミュニティからの貢献を受け入れる仕組み
-4. 自動テストの充実
-5. パフォーマンス最適化（大量の指示書読み込み時）
-6. パスの自動変換機能（メタ使用時）
 
 ---
 ## ライセンス情報

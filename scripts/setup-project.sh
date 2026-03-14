@@ -630,11 +630,8 @@ setup_script_tools() {
         "scripts/gemini/"
         "scripts/checkpoint.sh"
         "scripts/commit.sh"
-        "scripts/generate-instruction.sh"
-        "scripts/validate-modules.sh"
-        "scripts/search-instructions.sh"
-        "scripts/generate-metadata.sh"
         "scripts/worktree-manager.sh"
+        "scripts/submodule-update-check.sh"
     )
 
     # グループ確認
@@ -655,7 +652,7 @@ setup_script_tools() {
         cp -r "$copy_source_path/gemini" "scripts/"
         
         # ファイル
-        local scripts_to_copy=("checkpoint.sh" "commit.sh" "generate-instruction.sh" "validate-modules.sh" "search-instructions.sh" "generate-metadata.sh" "worktree-manager.sh")
+        local scripts_to_copy=("checkpoint.sh" "commit.sh" "worktree-manager.sh" "submodule-update-check.sh")
         for script in "${scripts_to_copy[@]}"; do
             cp "$copy_source_path/$script" "scripts/"
         done
@@ -693,7 +690,7 @@ setup_script_tools() {
     fi
 
     # スクリプトファイルのシンボリックリンク作成
-    local scripts=("checkpoint.sh" "commit.sh" "generate-instruction.sh" "validate-modules.sh" "search-instructions.sh" "generate-metadata.sh" "worktree-manager.sh" "submodule-update-check.sh")
+    local scripts=("checkpoint.sh" "commit.sh" "worktree-manager.sh" "submodule-update-check.sh")
     for script in "${scripts[@]}"; do
         if [ -e "scripts/$script" ] && [ ! -L "scripts/$script" ]; then
             backup_file "scripts/$script"
@@ -912,121 +909,7 @@ setup_submodule_mode() {
     fi
 }
 
-# Claude Codeコマンドの同期
-sync_claude_commands() {
-    MSG_SYNC_CLAUDE=$(get_message "sync_claude_commands_msg" "Syncing Claude Code custom commands" "Claude Codeカスタムコマンドを同期中")
-    echo "🔄 $MSG_SYNC_CLAUDE..."
-    
-    # .claudeディレクトリの存在確認
-    if [ ! -d ".claude/commands" ]; then
-        MSG_NO_CLAUDE_DIR=$(get_message "no_claude_dir" ".claude/commands directory not found" ".claude/commandsディレクトリが見つかりません")
-        echo "⚠️  $MSG_NO_CLAUDE_DIR"
-        
-        MSG_CREATE_CLAUDE_DIR=$(get_message "create_claude_dir" "Create .claude/commands directory?" ".claude/commandsディレクトリを作成しますか？")
-        if confirm "$MSG_CREATE_CLAUDE_DIR"; then
-            mkdir -p .claude/commands
-            MSG_CLAUDE_DIR_CREATED=$(get_message "claude_dir_created" ".claude/commands directory created" ".claude/commandsディレクトリを作成しました")
-            echo "✅ $MSG_CLAUDE_DIR_CREATED"
-        else
-            return
-        fi
-    fi
-    
-    local claude_commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md" "build.md")
-    local updated_count=0
-    local skipped_count=0
-    
-    for cmd_file in "${claude_commands[@]}"; do
-        local src=""
-        local dst=".claude/commands/$cmd_file"
-        local lang=$(get_current_language)
-        
-        # 言語別ファイルを優先的に検索
-        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file" ]; then
-            src="instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file"
-        elif [ -f "$SCRIPT_DIR/../templates/claude-commands/$lang/$cmd_file" ]; then
-            src="$SCRIPT_DIR/../templates/claude-commands/$lang/$cmd_file"
-        elif [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
-            src="instructions/ai_instruction_kits/templates/claude-commands/$cmd_file"
-        elif [ -f "$SCRIPT_DIR/../templates/claude-commands/$cmd_file" ]; then
-            src="$SCRIPT_DIR/../templates/claude-commands/$cmd_file"
-        else
-            MSG_SRC_NOT_FOUND=$(get_message "src_not_found" "Source file not found" "ソースファイルが見つかりません")
-            echo "⚠️  $MSG_SRC_NOT_FOUND: $cmd_file"
-            continue
-        fi
-        
-        # 差分チェック（シンボリックリンクチェック含む）
-        if [ -e "$dst" ] || [ -L "$dst" ]; then
-            if [ -L "$dst" ]; then
-                MSG_MIGRATE_SYMLINK=$(get_message "migrate_symlink" "Migrate symbolic link to file?" "シンボリックリンクをファイルに移行しますか？")
-                echo "🔄 $cmd_file はシンボリックリンクです"
-                if confirm "$MSG_MIGRATE_SYMLINK"; then
-                    if [ "$DRY_RUN" = true ]; then
-                        dry_echo "rm $dst && cp $src $dst"
-                    else
-                        rm "$dst"
-                        cp "$src" "$dst"
-                    fi
-                    MSG_MIGRATED=$(get_message "migrated" "migrated to file" "をファイルに移行しました")
-                    echo "✅ $cmd_file $MSG_MIGRATED"
-                    updated_count=$((updated_count + 1))
-                else
-                    skipped_count=$((skipped_count + 1))
-                fi
-                continue
-            fi
-            
-            if diff -q "$src" "$dst" > /dev/null 2>&1; then
-                MSG_UP_TO_DATE=$(get_message "up_to_date" "is up to date" "は最新です")
-                echo "✓ $cmd_file $MSG_UP_TO_DATE"
-                skipped_count=$((skipped_count + 1))
-                continue
-            fi
-            
-            # 更新確認
-            echo ""
-            MSG_UPDATE_AVAILABLE=$(get_message "update_available" "has updates" "に更新があります")
-            echo "📝 $cmd_file $MSG_UPDATE_AVAILABLE"
-            MSG_UPDATE_FILE=$(get_message "update_file" "Update?" "更新しますか？")
-            if confirm "$MSG_UPDATE_FILE"; then
-                backup_file "$dst"
-                if [ "$DRY_RUN" = true ]; then
-                    dry_echo "cp $src $dst"
-                else
-                    cp "$src" "$dst"
-                fi
-                MSG_UPDATED=$(get_message "updated" "updated" "を更新しました")
-                echo "✅ $cmd_file $MSG_UPDATED"
-                updated_count=$((updated_count + 1))
-            else
-                MSG_UPDATE_SKIPPED=$(get_message "update_skipped" "update skipped" "の更新をスキップしました")
-                echo "⏭️  $cmd_file $MSG_UPDATE_SKIPPED"
-                skipped_count=$((skipped_count + 1))
-            fi
-        else
-            MSG_NOT_EXISTS=$(get_message "not_exists" "does not exist" "が存在しません")
-            echo "📝 $cmd_file $MSG_NOT_EXISTS"
-            MSG_CREATE_FILE=$(get_message "create_file" "Create?" "作成しますか？")
-            if confirm "$MSG_CREATE_FILE"; then
-                if [ "$DRY_RUN" = true ]; then
-                    dry_echo "cp $src $dst"
-                else
-                    cp "$src" "$dst"
-                fi
-                MSG_CREATED=$(get_message "created" "created" "を作成しました")
-                echo "✅ $cmd_file $MSG_CREATED"
-                updated_count=$((updated_count + 1))
-            fi
-        fi
-    done
-    
-    echo ""
-    MSG_SYNC_COMPLETE=$(get_message "sync_complete" "Sync complete" "同期完了")
-    MSG_UPDATED_COUNT=$(get_message "updated_count" "updated" "更新")
-    MSG_SKIPPED_COUNT=$(get_message "skipped_count" "skipped" "スキップ")
-    echo "📊 $MSG_SYNC_COMPLETE: $MSG_UPDATED_COUNT $updated_count 件、$MSG_SKIPPED_COUNT $skipped_count 件"
-}
+# sync_claude_commands() は v2.0 で削除（スキルに統合済み）
 
 # Gemini CLIコマンドの同期
 sync_gemini_commands() {
@@ -1296,9 +1179,9 @@ setup_codex_cli() {
     echo "✅ $MSG_CODEX_CREATED"
 }
 
-# --sync-claude-commands が指定された場合
+# --sync-claude-commands は v2.0 で廃止（スキルに統合済み）
 if [ "$SYNC_CLAUDE_COMMANDS_ONLY" = true ]; then
-    sync_claude_commands
+    echo "⚠️  --sync-claude-commands は廃止されました。スキルは .claude/skills/ で管理されます。"
     exit 0
 fi
 
@@ -1637,13 +1520,10 @@ else
     MSG_CREATED_STRUCTURE=$(get_message "created_structure" "Created structure" "作成された構成")
     echo "📁 $MSG_CREATED_STRUCTURE:"
     echo "  scripts/"
-    echo "    ├── lib/ → ../instructions/ai_instruction_kits/scripts/lib"
-    echo "    ├── checkpoint.sh → ../instructions/ai_instruction_kits/scripts/checkpoint.sh"
-    echo "    ├── commit.sh → ../instructions/ai_instruction_kits/scripts/commit.sh"
-    echo "    ├── generate-instruction.sh → ../instructions/ai_instruction_kits/scripts/generate-instruction.sh"
-    echo "    ├── validate-modules.sh → ../instructions/ai_instruction_kits/scripts/validate-modules.sh"
-    echo "    ├── search-instructions.sh → ../instructions/ai_instruction_kits/scripts/search-instructions.sh"
-    echo "    └── generate-metadata.sh → ../instructions/ai_instruction_kits/scripts/generate-metadata.sh"
+    echo "    ├── lib/"
+    echo "    ├── checkpoint.sh"
+    echo "    ├── commit.sh"
+    echo "    └── worktree-manager.sh"
     echo "  instructions/"
     echo "    ├── ai_instruction_kits/ ($SELECTED_MODE $(get_message "mode" "mode" "モード"))"
     MSG_PROJECT_CONFIG=$(get_message "project_config" "Project configuration" "プロジェクト設定")
@@ -1661,50 +1541,29 @@ else
         echo "        └── repo.md → ../../instructions/PROJECT.md"
     fi
 
-    # Claude Codeが実際にインストールされた場合のみ表示
-    if [ "${CLAUDE_INSTALLED:-1}" -eq 0 ]; then
-        echo "  .claude/"
-        echo "    └── commands/"
-        echo "        ├── commit-and-report.md"
-        echo "        ├── commit-safe.md"
-        echo "        ├── checkpoint.md"
-        echo "        ├── reload-instructions.md"
-        echo "        ├── github-issues.md"
-        echo "        ├── reload-and-reset.md"
-        echo "        ├── build.md"
-        echo "        └── evidence-check.md"
-        echo ""
-
-        MSG_CLAUDE_COMMANDS_AVAILABLE=$(get_message "claude_commands_available" "Available Claude Code commands" "利用可能なClaude Codeコマンド")
-        echo "⚡ $MSG_CLAUDE_COMMANDS_AVAILABLE:"
-        echo "  /commit-and-report \"$(get_message "commit_message" "commit message" "コミットメッセージ")\" [Issue番号]"
-        echo "  /commit-safe \"$(get_message "commit_message" "commit message" "コミットメッセージ")\""
-        echo "  /checkpoint [start <task-id> <task-name> <steps>]"
-        echo "  /reload-instructions"
-        echo "  /github-issues"
-        echo "  /reload-and-reset"
-        echo "  /build [--clean|--prod|--test]"
-        echo "  /evidence-check [file-path]"
-        echo ""
-    fi
-
     # スキルが実際にインストールされた場合のみ表示
     if [ "${SKILLS_INSTALLED:-1}" -eq 0 ]; then
         echo "  .claude/"
         echo "    └── skills/"
-        echo "        ├── verify-content/"
-        echo "        │   ├── SKILL.md, scan.md, verify.md, reference.md"
         echo "        ├── checkpoint-manager/"
         echo "        │   ├── SKILL.md, workflow.md"
-        echo "        └── auto-build/"
+        echo "        ├── worktree-manager/"
+        echo "        │   └── SKILL.md"
+        echo "        ├── auto-build/"
+        echo "        │   └── SKILL.md"
+        echo "        └── commit-safe/"
         echo "            └── SKILL.md"
         echo ""
 
         MSG_SKILLS_AVAILABLE=$(get_message "skills_available" "Available Claude Code Skills (auto-invoked)" "利用可能なClaude Codeスキル（自動呼び出し）")
         echo "🎯 $MSG_SKILLS_AVAILABLE:"
-        echo "  verify-content      - $(get_message "skill_verify_content" "Integrated content verification (scan → verify → reference)" "統合コンテンツ検証（洗い出し→検証→参照整備）")"
         echo "  checkpoint-manager  - $(get_message "skill_checkpoint_manager" "Task progress tracking (auto-suggest start/progress/complete)" "タスク進捗管理（開始/進捗/完了を自動提案）")"
+        echo "  worktree-manager    - $(get_message "skill_worktree_manager" "Git worktree management (create/merge/cleanup)" "Git worktree管理（作成/マージ/クリーンアップ）")"
         echo "  auto-build          - $(get_message "skill_auto_build" "Auto-detect project type and build (Node.js/Rust/Python/Go)" "プロジェクト自動検出とビルド（Node.js/Rust/Python/Go）")"
+        echo "  commit-safe         - $(get_message "skill_commit_safe" "Safe file-specific commits" "ファイル指定の安全なコミット")"
+        echo ""
+        echo "🛒 $(get_message "marketplace_info" "Additional skills available at" "追加スキルは以下から入手可能"):"
+        echo "  https://github.com/dobachi/claude-skills-marketplace"
         echo ""
     fi
 
