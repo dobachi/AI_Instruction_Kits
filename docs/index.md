@@ -101,10 +101,9 @@ claude "Webサイトを作成してください"
 
 - [クイックスタートガイド](quickstart)
 - [機能詳細](features)
-- [**OpenHandsでオープンソースモデルを使用するガイド**](openhands-oss-guide) 🆕
-- [提案ドキュメント](proposals)
-- [開発者向け情報](developers)
-- [カスタマイズ方法](https://github.com/dobachi/AI_Instruction_Kits/blob/main/docs/HOW_TO_USE.md)
+- [使い方](usage)
+- [スキルマーケットプレイス](https://github.com/dobachi/claude-skills-marketplace)
+- [v2.0設計ドキュメント](https://github.com/dobachi/AI_Instruction_Kits/blob/main/docs/design/)
 
 ## 🤝 コントリビューション
 

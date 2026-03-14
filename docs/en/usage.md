@@ -46,9 +46,13 @@ claude "Refer to CLAUDE.md and implement user authentication"
 Process complex tasks in stages:
 
 ```markdown
-Step 1: Analyze data with instructions/en/analysis/basic_data_analysis.md
-Step 2: Create report with instructions/en/writing/basic_text_creation.md
-Step 3: Generate improvements with instructions/en/creative/basic_creative_work.md
+# In v2.0, ROOT_INSTRUCTION automatically selects skills for each step
+Step 1: Refer to ROOT_INSTRUCTION.md to analyze data (analysis skill auto-selected)
+Step 2: Refer to ROOT_INSTRUCTION.md to create report (writing skill auto-selected)
+Step 3: Refer to ROOT_INSTRUCTION.md to generate improvements (creative skill auto-selected)
+
+# Or install specialized skills from the marketplace
+# Simply place them in .claude/skills/ to make them available
 ```
 
 ### Pattern 2: Role Distribution

@@ -46,9 +46,13 @@ claude "CLAUDE.mdを参照して、ユーザー認証機能を実装"
 複雑なタスクを段階的に処理：
 
 ```markdown
-ステップ1: instructions/ja/analysis/basic_data_analysis.md でデータを分析
-ステップ2: instructions/ja/writing/basic_text_creation.md で報告書作成
-ステップ3: instructions/ja/creative/basic_creative_work.md で改善提案
+# v2.0ではROOT_INSTRUCTIONが自動でスキルを選択します
+ステップ1: ROOT_INSTRUCTION.md を参照してデータを分析（分析スキルが自動選択）
+ステップ2: ROOT_INSTRUCTION.md を参照して報告書作成（文章作成スキルが自動選択）
+ステップ3: ROOT_INSTRUCTION.md を参照して改善提案（クリエイティブスキルが自動選択）
+
+# または、マーケットプレイスから専門スキルをインストール
+# .claude/skills/ に配置するだけで利用可能
 ```
 
 ### パターン2: 役割分担
@@ -156,9 +160,9 @@ scripts/checkpoint.sh start "新機能実装" 5
 scripts/checkpoint.sh progress TASK-123 3 5 "実装完了" "テスト作成"
 scripts/checkpoint.sh complete TASK-123 "5機能実装、テスト20個作成"
 
-# 指示書使用の追跡（新機能）
-scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api_production.md" "API開発" TASK-123
-scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api_production.md" "3エンドポイント実装" TASK-123
+# スキル使用の追跡（新機能）
+scripts/checkpoint.sh instruction-start ".claude/skills/auto-build.md" "API開発" TASK-123
+scripts/checkpoint.sh instruction-complete ".claude/skills/auto-build.md" "3エンドポイント実装" TASK-123
 
 # AI向け簡潔モード（新機能）
 scripts/checkpoint.sh ai pending

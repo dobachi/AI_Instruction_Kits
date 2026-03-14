@@ -132,7 +132,7 @@ Automate large-scale analysis tasks using Task tool (agent feature):
 - **Test Coverage**: Thorough coverage analysis
 - **Documentation Verification**: Implementation consistency checks
 
-See [Claude Code Agent Usage Guide](../instructions/en/system/CLAUDE_CODE_AGENT.md) for details.
+Use Claude Code's Task tool to run sub-agents that perform parallel analysis in independent contexts. Refer to the "Claude Code Agent Feature" section in CLAUDE.md for configuration details.
 
 ### Checkpoint Management (Extended Version)
 

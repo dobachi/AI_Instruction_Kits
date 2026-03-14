@@ -108,9 +108,9 @@ Automate large-scale analysis tasks using Task tool (agent feature)
 
 - [Quick Start Guide](quickstart)
 - [Features](features)
-- [Proposals](proposals)
-- [Developer Documentation](developers)
 - [How to Use](usage)
+- [Skills Marketplace](https://github.com/dobachi/claude-skills-marketplace)
+- [v2.0 Design Docs](https://github.com/dobachi/AI_Instruction_Kits/blob/main/docs/design/)
 
 <div style="margin-top: 3em; padding: 1em; background-color: #f0f8ff; border-radius: 8px;">
   <h3>🚀 Get Started Now</h3>
