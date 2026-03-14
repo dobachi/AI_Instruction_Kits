@@ -156,6 +156,26 @@ scripts/checkpoint.sh complete TASK-123456-abc "Done"
 scripts/worktree-manager.sh complete TASK-123456-abc
 ```
 
+## Downstream Projects (downstream/)
+
+The `downstream/` directory contains clones of repositories that use this project as a submodule (`.gitignored`).
+When this project is updated, their submodule references need to be updated as well.
+
+| Repository | Purpose |
+|-----------|---------|
+| ResearchTemplate | Research project template |
+| DevProjectTemplate | Development project template |
+| PresentationTemplate | Presentation template |
+| DeliberationTemplate | Deliberation template |
+
+### Update procedure
+```bash
+# Update submodules in all downstream projects
+for repo in downstream/*/; do
+  (cd "$repo" && git submodule update --remote instructions/ai_instruction_kits && git add -A && git commit -m "chore: update ai_instruction_kits submodule" && git push)
+done
+```
+
 ## Commit Rules
 - **Required**: `bash scripts/commit.sh "message"` or `git commit -m "message"`
 - **Prohibited**: Commits with AI signatures (auto-detected and rejected)

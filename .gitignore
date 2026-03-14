@@ -24,12 +24,10 @@ private/
 secret/
 *.private.md
 
-# Modular system cache
-modular/cache/*
-!modular/cache/.gitkeep
-!modular/cache/generated/
-modular/cache/generated/*
-!modular/cache/generated/.gitkeep
+# Downstream projects (submodule consumers)
+# このプロジェクトをサブモジュールとして利用しているリポジトリのクローン
+downstream/*
+!downstream/README.md
 
 # Test directories and files
 test/

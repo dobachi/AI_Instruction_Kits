@@ -106,6 +106,7 @@ https://github.com/dobachi/claude-skills-marketplace
 │       └── commit-safe.md
 ├── .codex/            # Codex CLI カスタムプロンプト
 │   └── prompts/       # カスタムプロンプト定義
+├── downstream/        # サブモジュール利用プロジェクトのクローン（.gitignore対象）
 ├── reports/           # フィードバック・レポート
 └── scripts/           # ツール・ユーティリティ
     ├── setup-project.sh        # プロジェクト統合用セットアップ（コアスキルをインストール）

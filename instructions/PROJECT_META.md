@@ -156,6 +156,26 @@ scripts/checkpoint.sh complete TASK-123456-abc "完了"
 scripts/worktree-manager.sh complete TASK-123456-abc
 ```
 
+## ダウンストリームプロジェクト（downstream/）
+
+`downstream/` ディレクトリには、このプロジェクトをサブモジュールとして利用しているリポジトリのクローンを配置しています（`.gitignore`対象）。
+このプロジェクトの更新時に、これらのサブモジュール参照も合わせて更新する必要があります。
+
+| リポジトリ | 用途 |
+|-----------|------|
+| ResearchTemplate | 研究プロジェクトテンプレート |
+| DevProjectTemplate | 開発プロジェクトテンプレート |
+| PresentationTemplate | プレゼンテーションテンプレート |
+| DeliberationTemplate | 検討・審議テンプレート |
+
+### 更新手順
+```bash
+# 各ダウンストリームプロジェクトのサブモジュールを更新
+for repo in downstream/*/; do
+  (cd "$repo" && git submodule update --remote instructions/ai_instruction_kits && git add -A && git commit -m "chore: update ai_instruction_kits submodule" && git push)
+done
+```
+
 ## コミットルール
 - **必須**: `bash scripts/commit.sh "メッセージ"` または `git commit -m "メッセージ"`
 - **禁止**: AI署名付きコミット（自動検出・拒否されます）

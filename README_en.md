@@ -104,6 +104,7 @@ To install a skill, copy its directory into `.claude/skills/` in your project.
 │   │   └── PROJECT_TEMPLATE.md
 │   ├── claude-skills/ # Core skill templates
 │   └── git-hooks/     # Git hook templates
+├── downstream/        # Clones of projects using this as submodule (.gitignored)
 ├── scripts/           # Tools and utilities
 │   ├── setup-project.sh    # Project integration setup
 │   ├── install.sh          # One-liner installer
