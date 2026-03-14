@@ -203,14 +203,14 @@ check_claude_command_updates() {
     local updates_available=false
     local update_files=()
     
-    # .claude/commands ディレクトリが存在する場合のみチェック
-    if [ ! -d ".claude/commands" ]; then
+    # .claude/skills ディレクトリが存在する場合のみチェック
+    if [ ! -d ".claude/skills" ]; then
         return
     fi
-    
-    for cmd in checkpoint.md commit-and-report.md reload-instructions.md; do
-        src="$SCRIPT_DIR/../templates/claude-commands/$cmd"
-        dst=".claude/commands/$cmd"
+
+    for cmd in checkpoint-manager commit-and-report reload-instructions; do
+        src="$SCRIPT_DIR/../templates/claude-skills/$cmd"
+        dst=".claude/skills/$cmd"
         
         if [ -f "$src" ] && [ -f "$dst" ]; then
             if ! diff -q "$src" "$dst" > /dev/null 2>&1; then
@@ -319,10 +319,8 @@ case "$ACTION" in
             echo "  scripts/checkpoint.sh instruction-start <$(get_message "instruction_path" "instruction path" "指示書パス")> <$(get_message "purpose" "purpose" "目的")> $TASK_ID"
             echo ""
             echo "$MSG_RECOMMENDED_INST"
-            echo "  - instructions/ja/presets/web_api_production.md"
-            echo "  - instructions/ja/presets/cli_tool_basic.md"
-            echo "  - instructions/ja/presets/data_analyst.md"
-            echo "  - instructions/ja/presets/technical_writer.md"
+            echo "  - instructions/ja/coding/ (コーディング関連の指示書)"
+            echo "  - instructions/ja/system/ROOT_INSTRUCTION.md (業務指示書の選択)"
             echo "  - instructions/ja/system/MODULE_COMPOSER.md (カスタム指示書生成)"
             echo ""
             MSG_MUST_READ_INST=$(get_message "must_read_inst" "⚠️  After specifying an instruction, you MUST read it:" "⚠️  指示書を指定した後、必ずその指示書を読み込んでください：")
@@ -666,11 +664,11 @@ case "$ACTION" in
         echo "$MSG_INST_MGMT_CMDS"
         echo "  instruction-start <path> <purpose> [task-id]"
         echo "    $MSG_INST_START_DESC2"
-        echo "    $MSG_EXAMPLE: scripts/checkpoint.sh instruction-start \"instructions/ja/presets/web_api.md\" \"$MSG_REST_API_DEV\" TASK-xxx"
+        echo "    $MSG_EXAMPLE: scripts/checkpoint.sh instruction-start \"instructions/ja/coding/web_api.md\" \"$MSG_REST_API_DEV\" TASK-xxx"
         echo ""
         echo "  instruction-complete <path> <result> [task-id]"
         echo "    $MSG_INST_COMPLETE_DESC2"
-        echo "    $MSG_EXAMPLE: scripts/checkpoint.sh instruction-complete \"instructions/ja/presets/web_api.md\" \"3$MSG_ENDPOINTS\" TASK-xxx"
+        echo "    $MSG_EXAMPLE: scripts/checkpoint.sh instruction-complete \"instructions/ja/coding/web_api.md\" \"3$MSG_ENDPOINTS\" TASK-xxx"
         echo ""
         echo "$MSG_STATUS_CMDS"
         echo "  pending"

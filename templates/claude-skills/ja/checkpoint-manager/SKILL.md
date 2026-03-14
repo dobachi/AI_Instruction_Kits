@@ -106,7 +106,7 @@ scripts/checkpoint.sh start "機能実装" 5
 AI: 指示書の使用を記録しますか？
 
 # 実行
-scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api.md" "REST API開発" TASK-123456-abc123
+scripts/checkpoint.sh instruction-start "instructions/ja/coding/web_api.md" "REST API開発" TASK-123456-abc123
 ```
 
 ### シナリオ4: 作業の区切り
@@ -132,7 +132,7 @@ AI: タスクを完了しますか？
     成果: [作業の成果をまとめ]
 
 # 実行（指示書完了を先に）
-scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api.md" "3エンドポイント実装" TASK-123456-abc123
+scripts/checkpoint.sh instruction-complete "instructions/ja/coding/web_api.md" "3エンドポイント実装" TASK-123456-abc123
 
 # その後タスク完了
 scripts/checkpoint.sh complete TASK-123456-abc123 "REST API 3エンドポイント実装完了"

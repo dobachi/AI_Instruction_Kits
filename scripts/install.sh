@@ -381,13 +381,9 @@ run_setup() {
         exit 1
     fi
     
-    # プリセット適用
+    # プリセット適用（v2.0ではスキルベースのため、プリセットの自動適用は不要）
     if [ -n "$PRESET" ]; then
-        echo -e "\n${BLUE}🎨 Applying preset: $PRESET${NC}"
-        if [ -f "scripts/generate-instruction.sh" ]; then
-            bash scripts/generate-instruction.sh --preset "$PRESET" --output "instructions/CURRENT_INSTRUCTION.md"
-            echo -e "${GREEN}✅ Preset applied${NC}"
-        fi
+        echo -e "\n${YELLOW}📝 Preset '$PRESET' noted. In v2.0, use skills in .claude/skills/ for project configuration.${NC}"
     fi
 }
 
@@ -412,7 +408,6 @@ show_completion() {
     
     echo -e "\n${BLUE}⚡ Quick commands:${NC}"
     echo "  scripts/checkpoint.sh start \"task-name\" 3"
-    echo "  scripts/generate-instruction.sh --preset web_api"
     echo "  scripts/commit.sh \"your commit message\""
 }
 

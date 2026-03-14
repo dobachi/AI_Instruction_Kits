@@ -104,6 +104,30 @@ cp templates/en/instruction_template.md instructions/en/[category]/my_instructio
 
 3. Add to ROOT_INSTRUCTION.md (optional)
 
+### Skill-Based Workflow
+
+In v2.0, the Skill Orchestrator (ROOT_INSTRUCTION) automatically selects optimal skills from `.claude/skills/` based on your task.
+
+#### Core Skills
+```bash
+# checkpoint-manager: Task progress management
+scripts/checkpoint.sh start "New feature development" 5
+
+# worktree-manager: Safe working branch management
+scripts/worktree-manager.sh create TASK-123 "feature-dev"
+
+# auto-build: Automatic build and test
+# Detects project type and runs appropriate build
+
+# commit-safe: Clean commits without AI signatures
+scripts/commit.sh "feat: Add new feature"
+```
+
+#### Marketplace Skills
+
+Add community-built skills from [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace).
+Simply place skill files in `.claude/skills/` to make them available.
+
 ### Organization Customization Example
 
 ```markdown

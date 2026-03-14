@@ -9,100 +9,62 @@ lang: ja
 
 AI Instruction Kitsの全機能を詳しくご紹介します。
 
-## 🧩 NEW! モジュラー指示書システム
+## 🧩 v2.0 スキルベースアーキテクチャ
 
 ### 概要
-2025年7月にリリースされた革新的な機能で、プロジェクトの要件に応じて動的に指示書を生成します。
+v2.0で導入されたスキルベースアーキテクチャにより、タスクに応じたスキルの自動選択・実行が可能になりました。
 
-### MODULE_COMPOSER
-タスクを分析し、最適なモジュールを組み合わせて、カスタマイズされた指示書を自動生成します。
+### スキルオーケストレーター（ROOT_INSTRUCTION）
+タスクを分析し、`.claude/skills/` に配置されたスキルから最適なものを自動選択して実行します。
 
 **主な特徴：**
 - **自動タスク分析**：自然言語でタスクを入力するだけ
-- **インテリジェントな選択**：メタデータを使用して最適なモジュールを選択
-- **柔軟な組み合わせ**：複数のモジュールを統合可能
-- **デフォルト値対応**：最小限の設定で使用開始
+- **インテリジェントな選択**：タスク内容に基づいて最適なスキルを選択
+- **マーケットプレイス連携**：コミュニティ製スキルを簡単に追加
+- **最小構成で開始**：コアスキルだけですぐに利用可能
 
-### 🚀 事前生成プリセット（高速・推奨）
+### コアスキル（4種類）
 
-**応答時間0秒**で即座に使用できる、事前生成済みの指示書です。
+1. **checkpoint-manager**：タスク進捗管理
+   - タスクの開始・進捗・完了を自動追跡
+   - 並行タスクの管理、統計表示
 
-#### 利用可能なプリセット（8種類）
+2. **worktree-manager**：Git worktree管理
+   - タスクごとの安全な作業ブランチを自動作成
+   - 完了時のマージ・クリーンアップ
 
-1. **web_api_production**：本番環境向けWeb API開発
-   - RESTful API設計、セキュリティ実装、ドキュメント生成
-   - パス: `instructions/ja/presets/web_api_production.md`
+3. **auto-build**：自動ビルド・テスト
+   - プロジェクトの種類を判別して適切なビルドコマンドを実行
+   - テスト実行と結果のレポート
 
-2. **cli_tool_basic**：CLIツール開発
-   - コマンドライン解析、エラーハンドリング、配布準備
-   - パス: `instructions/ja/presets/cli_tool_basic.md`
+4. **commit-safe**：安全なコミット
+   - AI署名なしのクリーンコミット
+   - ファイル指定型の安全なコミット手順
 
-3. **data_analyst**：データ分析タスク
-   - データ前処理、統計分析、可視化、レポート作成
-   - パス: `instructions/ja/presets/data_analyst.md`
+### マーケットプレイススキル
 
-4. **technical_writer**：技術文書作成
-   - API文書、ユーザーガイド、技術ブログ、README作成
-   - パス: `instructions/ja/presets/technical_writer.md`
+コミュニティが作成したスキルを [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) から追加できます。
 
-5. **academic_researcher**：学術研究支援
-   - 文献調査、論文執筆、引用管理、研究計画
-   - パス: `instructions/ja/presets/academic_researcher.md`
-
-6. **business_consultant**：ビジネスコンサルティング
-   - 市場分析、戦略立案、プレゼン作成、ROI計算
-   - パス: `instructions/ja/presets/business_consultant.md`
-
-7. **project_manager**：プロジェクト管理
-   - タスク管理、リソース配分、進捗追跡、リスク管理
-   - パス: `instructions/ja/presets/project_manager.md`
-
-8. **startup_advisor**：スタートアップ支援
-   - ビジネスモデル、ピッチデッキ、資金調達、MVP開発
-   - パス: `instructions/ja/presets/startup_advisor.md`
-
-#### プリセットのメリット
-
-- **即座に使用可能**：生成待ち時間なし（0秒）
-- **最適化済み**：よく使用されるタスクに特化
-- **品質保証**：テスト済みで信頼性が高い
-- **自動更新**：モジュール変更時に自動再生成
-
-### 専門知識モジュール（5種類）
-
-1. **software_engineering**：SWEBOK v4.0準拠の最新ソフトウェア工学
-2. **legal_engineering**：法令工学と規制技術の専門知識
-3. **machine_learning**：ML/AIの設計・実装・運用
-4. **parallel_distributed**：並列分散処理システムの専門知識
-5. **data_space**：GAIA-X、IDSなどのデータスペース構築
-
-### モジュールの種類
-
-- **Core（コア）**：システムの基本構造を定義
-- **Tasks（タスク）**：具体的な作業内容（コード生成、データ分析、文書作成など）
-- **Skills（スキル）**：特定の能力（API設計、テスト、エラー処理など）
-- **Methods（方法論）**：作業アプローチ（アジャイル、リーン、デザイン思考など）
-- **Domains（ドメイン）**：業界固有の知識（金融、ヘルスケア、教育など）
-- **Roles（役割）**：AIの振る舞い（メンター、レビュアー、コンサルタントなど）
-- **Quality（品質）**：品質レベルや基準
-- **Expertise（専門知識）**：深い専門知識と最新ベストプラクティス
+スキルは `.claude/skills/` に配置するだけで利用可能になります。
 
 ### 使用例
 ```bash
-# 学術論文を書く場合
-claude "研究論文を執筆してください"
-# → MODULE_COMPOSERがacademic_researcherプリセットを選択
-# → 引用管理、方法論設計、統計分析モジュールも追加
+# スキルオーケストレーターが自動でスキルを選択
+claude "新機能を実装してください"
+# → ROOT_INSTRUCTION がタスクを分析
+# → worktree-manager で安全な作業ブランチを作成
+# → checkpoint-manager で進捗を自動追跡
+# → auto-build でビルド・テストを実行
+# → commit-safe でクリーンコミット
 
-# データ分析を行う場合
-claude "売上データを分析して"
-# → data_analystプリセットが自動選択
-# → 可視化、統計処理、レポート作成モジュールを組み合わせ
+# 進捗管理
+claude "タスクの進捗を確認して"
+# → checkpoint-manager スキルが起動
+# → 未完了タスクの一覧と統計を表示
 
-# 専門的なタスクの場合
-claude "分散システムの設計をして"
-# → parallel_distributed expertiseモジュールが選択
-# → 2024-2025年の最新技術トレンドに基づく設計
+# 安全なコミット
+claude "変更をコミットして"
+# → commit-safe スキルがAI署名なしでコミット
 ```
 
 ## 📚 指示書カテゴリ
@@ -110,9 +72,8 @@ claude "分散システムの設計をして"
 ### 1. システム管理 (system)
 AIの動作を制御する基本的な指示書
 
-- **ROOT_INSTRUCTION.md** - 指示書マネージャーとして動作
+- **ROOT_INSTRUCTION.md** - スキルオーケストレーターとして動作
 - **CHECKPOINT_MANAGER.md** - 進捗管理システム（拡張版）
-- **MODULE_COMPOSER.md** - モジュラー指示書生成システム
 
 ### 2. 一般タスク (general)
 日常的なタスクに使える汎用指示書
@@ -172,8 +133,8 @@ scripts/checkpoint.sh start "新機能実装" 5
 📌 タスクID: TASK-123456-abc123
 
 # 指示書使用の追跡（新機能）
-scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api_production.md" "API開発" TASK-123456-abc123
-scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api_production.md" "3エンドポイント実装" TASK-123456-abc123
+scripts/checkpoint.sh instruction-start "instructions/ja/system/ROOT_INSTRUCTION.md" "API開発" TASK-123456-abc123
+scripts/checkpoint.sh instruction-complete "instructions/ja/system/ROOT_INSTRUCTION.md" "3エンドポイント実装" TASK-123456-abc123
 
 # AI向け簡潔出力モード（新機能）
 scripts/checkpoint.sh ai pending

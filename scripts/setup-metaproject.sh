@@ -490,9 +490,6 @@ show_completion() {
     echo "  # タスク開始"
     echo "  scripts/checkpoint.sh start \"タスク名\" 5"
     echo ""
-    echo "  # 指示書生成"
-    echo "  scripts/generate-instruction.sh --preset web_api"
-    echo ""
     echo "  # コミット"
     echo "  scripts/commit.sh \"メタプロジェクト初期設定\""
 }

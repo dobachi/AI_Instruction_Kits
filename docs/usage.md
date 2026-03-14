@@ -102,72 +102,33 @@ cp templates/ja/instruction_template.md instructions/ja/[category]/my_instructio
 
 2. 内容を編集
 
-3. メタデータを生成：
+3. ROOT_INSTRUCTION.mdに追加（オプション）
+
+## 🔍 スキルベースのワークフロー
+
+### スキルの活用
+
+v2.0では、スキルオーケストレーター（ROOT_INSTRUCTION）がタスクに応じて `.claude/skills/` から最適なスキルを自動選択します。
+
+#### コアスキル
 ```bash
-./scripts/generate-metadata.sh instructions/ja/[category]/my_instruction.md
+# checkpoint-manager: タスク進捗管理
+scripts/checkpoint.sh start "新機能開発" 5
+
+# worktree-manager: 安全な作業ブランチ管理
+scripts/worktree-manager.sh create TASK-123 "feature-dev"
+
+# auto-build: 自動ビルド・テスト
+# プロジェクトタイプを自動判別してビルド実行
+
+# commit-safe: AI署名なしのクリーンコミット
+scripts/commit.sh "feat: 新機能追加"
 ```
 
-4. ROOT_INSTRUCTION.mdに追加（オプション）
+#### マーケットプレイススキル
 
-## 🔍 検索機能の活用（新機能）
-
-### 基本的な検索
-
-```bash
-# キーワード検索
-./scripts/search-instructions.sh python
-
-# カテゴリで絞り込み
-./scripts/search-instructions.sh -c coding
-
-# 言語で絞り込み
-./scripts/search-instructions.sh -l ja
-
-# 詳細情報を表示
-./scripts/search-instructions.sh -f detail marp
-```
-
-### 🆕 AI分析によるモジュール推奨
-
-```bash
-# タスクを自然言語で指定してAIが最適なモジュールを推奨
-./scripts/generate-instruction.sh --metadata \
-  --prompt "RESTful APIとデータベース統合を含むWebサービス開発"
-
-# プリセットをカスタマイズ
-./scripts/generate-instruction.sh --preset web_api_production \
-  --modules skill_testing skill_deployment \
-  --variable framework=FastAPI
-```
-
-### 複合検索
-
-```bash
-# 日本語のコーディング指示書を検索
-./scripts/search-instructions.sh -l ja -c coding
-
-# Pythonに関するエージェント型指示書を詳細表示
-./scripts/search-instructions.sh -c agent -f detail python
-```
-
-### Python APIを使った検索
-
-```python
-# scripts/select-instruction.pyを使用
-python3 scripts/select-instruction.py --search "API開発"
-python3 scripts/select-instruction.py --category agent
-python3 scripts/select-instruction.py --id ja_agent_python_expert
-```
-
-### メタデータの管理
-
-```bash
-# 全指示書のメタデータを再生成
-./scripts/generate-metadata.sh
-
-# メタデータの整合性チェック（ファイルサイズやチェックサムを確認）
-ls -la instructions/**/*.yaml
-```
+コミュニティ製スキルを [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) から追加できます。
+`.claude/skills/` にスキルファイルを配置するだけで利用可能です。
 
 ### 組織用カスタマイズ例
 

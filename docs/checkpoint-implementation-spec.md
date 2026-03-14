@@ -68,9 +68,9 @@ Error: サブコマンドを指定してください
   scripts/checkpoint.sh start "新機能開発" 5
   → タスクID: TASK-4321-abc123
 
-  scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api.md" "API開発"
+  scripts/checkpoint.sh instruction-start "instructions/ja/system/ROOT_INSTRUCTION.md" "API開発"
   scripts/checkpoint.sh progress TASK-4321-abc123 1 5 "設計完了" "実装開始"
-  scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api.md" "3エンドポイント実装"
+  scripts/checkpoint.sh instruction-complete "instructions/ja/system/ROOT_INSTRUCTION.md" "3エンドポイント実装"
   scripts/checkpoint.sh complete TASK-4321-abc123 "機能実装完了"
 EOF
 }
@@ -187,9 +187,9 @@ validate_progress_workflow() {
         echo "  scripts/checkpoint.sh instruction-start <指示書パス> <目的>"
         echo ""
         echo "推奨される指示書:"
-        echo "  - instructions/ja/presets/web_api_production.md"
-        echo "  - instructions/ja/presets/cli_tool_basic.md"
         echo "  - instructions/ja/system/ROOT_INSTRUCTION.md"
+        echo "  - instructions/ja/coding/basic_code_generation.md"
+        echo "  - instructions/ja/analysis/basic_data_analysis.md"
         return 1
     fi
     
@@ -335,13 +335,13 @@ validate_complete_workflow() {
 $ scripts/checkpoint.sh start "API開発" 3
 タスクID: TASK-4321-abc
 
-$ scripts/checkpoint.sh instruction-start "instructions/ja/presets/web_api.md" "REST API" TASK-4321-abc
+$ scripts/checkpoint.sh instruction-start "instructions/ja/system/ROOT_INSTRUCTION.md" "REST API" TASK-4321-abc
 ✓ 指示書使用開始
 
 $ scripts/checkpoint.sh progress TASK-4321-abc 1 3 "設計完了" "実装"
 ✓ 進捗報告成功
 
-$ scripts/checkpoint.sh instruction-complete "instructions/ja/presets/web_api.md" "3エンドポイント" TASK-4321-abc
+$ scripts/checkpoint.sh instruction-complete "instructions/ja/system/ROOT_INSTRUCTION.md" "3エンドポイント" TASK-4321-abc
 ✓ 指示書使用完了
 
 $ scripts/checkpoint.sh complete TASK-4321-abc "API実装完了"

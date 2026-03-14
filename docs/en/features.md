@@ -9,100 +9,62 @@ lang: en
 
 Detailed introduction to all features of AI Instruction Kits.
 
-## 🧩 NEW! Modular Instruction System
+## 🧩 v2.0 Skill-Based Architecture
 
 ### Overview
-Revolutionary feature released in July 2025 that dynamically generates instructions based on project requirements.
+The v2.0 skill-based architecture enables automatic selection and execution of skills tailored to each task.
 
-### MODULE_COMPOSER
-Analyzes tasks and automatically generates customized instructions by combining optimal modules.
+### Skill Orchestrator (ROOT_INSTRUCTION)
+Analyzes tasks and automatically selects the optimal skills from `.claude/skills/` to execute them.
 
 **Key Features:**
 - **Automatic task analysis**: Just input tasks in natural language
-- **Intelligent selection**: Uses metadata to select optimal modules
-- **Flexible combination**: Can integrate multiple modules
-- **Default value support**: Start with minimal configuration
+- **Intelligent selection**: Selects optimal skills based on task content
+- **Marketplace integration**: Easily add community-built skills
+- **Start with minimal config**: Get started with just the core skills
 
-### 🚀 Pre-generated Presets (Fast & Recommended)
+### Core Skills (4 types)
 
-Pre-generated instructions that can be used immediately with **0-second response time**.
+1. **checkpoint-manager**: Task progress management
+   - Automatically tracks task start, progress, and completion
+   - Parallel task management, statistics display
 
-#### Available Presets (8 types)
+2. **worktree-manager**: Git worktree management
+   - Automatically creates safe working branches per task
+   - Merge and cleanup on completion
 
-1. **web_api_production**: Production Web API Development
-   - RESTful API design, security implementation, documentation generation
-   - Path: `instructions/en/presets/web_api_production.md`
+3. **auto-build**: Automatic build and test
+   - Detects project type and runs appropriate build commands
+   - Test execution and result reporting
 
-2. **cli_tool_basic**: CLI Tool Development
-   - Command line parsing, error handling, distribution preparation
-   - Path: `instructions/en/presets/cli_tool_basic.md`
+4. **commit-safe**: Safe commits
+   - Clean commits without AI signatures
+   - File-specific safe commit workflow
 
-3. **data_analyst**: Data Analysis Tasks
-   - Data preprocessing, statistical analysis, visualization, report creation
-   - Path: `instructions/en/presets/data_analyst.md`
+### Marketplace Skills
 
-4. **technical_writer**: Technical Documentation
-   - API documentation, user guides, technical blogs, README creation
-   - Path: `instructions/en/presets/technical_writer.md`
+Add community-created skills from [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace).
 
-5. **academic_researcher**: Academic Research Support
-   - Literature review, paper writing, citation management, research planning
-   - Path: `instructions/en/presets/academic_researcher.md`
-
-6. **business_consultant**: Business Consulting
-   - Market analysis, strategy planning, presentation creation, ROI calculation
-   - Path: `instructions/en/presets/business_consultant.md`
-
-7. **project_manager**: Project Management
-   - Task management, resource allocation, progress tracking, risk management
-   - Path: `instructions/en/presets/project_manager.md`
-
-8. **startup_advisor**: Startup Support
-   - Business model, pitch deck, fundraising, MVP development
-   - Path: `instructions/en/presets/startup_advisor.md`
-
-#### Benefits of Presets
-
-- **Immediately available**: No generation wait time (0 seconds)
-- **Optimized**: Specialized for commonly used tasks
-- **Quality assured**: Tested and highly reliable
-- **Auto-updated**: Automatically regenerated when modules change
-
-### Expertise Modules (5 types)
-
-1. **software_engineering**: Latest software engineering compliant with SWEBOK v4.0
-2. **legal_engineering**: Legal engineering and regulatory technology expertise
-3. **machine_learning**: ML/AI design, implementation, and operations
-4. **parallel_distributed**: Parallel and distributed system expertise
-5. **data_space**: Data space construction including GAIA-X, IDS
-
-### Module Types
-
-- **Core**: Defines basic system structure
-- **Tasks**: Specific work content (code generation, data analysis, documentation, etc.)
-- **Skills**: Specific abilities (API design, testing, error handling, etc.)
-- **Methods**: Work approaches (agile, lean, design thinking, etc.)
-- **Domains**: Industry-specific knowledge (finance, healthcare, education, etc.)
-- **Roles**: AI behavior (mentor, reviewer, consultant, etc.)
-- **Quality**: Quality levels and standards
-- **Expertise**: Deep expertise and latest best practices
+Skills become available simply by placing them in `.claude/skills/`.
 
 ### Usage Examples
 ```bash
-# Writing academic papers
-claude "Write a research paper"
-# → MODULE_COMPOSER selects academic_researcher preset
-# → Also adds citation management, methodology design, statistical analysis modules
+# Skill orchestrator automatically selects skills
+claude "Implement a new feature"
+# → ROOT_INSTRUCTION analyzes the task
+# → worktree-manager creates a safe working branch
+# → checkpoint-manager automatically tracks progress
+# → auto-build runs build and tests
+# → commit-safe performs clean commits
 
-# Data analysis
-claude "Analyze sales data"
-# → data_analyst preset is automatically selected
-# → Combines visualization, statistical processing, report creation modules
+# Progress management
+claude "Check task progress"
+# → checkpoint-manager skill activates
+# → Shows list of incomplete tasks and statistics
 
-# Specialized tasks
-claude "Design a distributed system"
-# → parallel_distributed expertise module is selected
-# → Design based on 2024-2025 latest technology trends
+# Safe commits
+claude "Commit my changes"
+# → commit-safe skill commits without AI signatures
 ```
 
 ## 📚 Instruction Categories
@@ -110,9 +72,8 @@ claude "Design a distributed system"
 ### 1. System Management (system)
 Basic instructions to control AI behavior
 
-- **ROOT_INSTRUCTION.md** - Operates as instruction manager
+- **ROOT_INSTRUCTION.md** - Operates as skill orchestrator
 - **CHECKPOINT_MANAGER.md** - Progress management system (extended version)
-- **MODULE_COMPOSER.md** - Modular instruction generation system
 
 ### 2. General Tasks
 General-purpose instructions for daily tasks
@@ -183,8 +144,8 @@ scripts/checkpoint.sh start "New feature implementation" 5
 📌 Task ID: TASK-123456-abc123
 
 # Track instruction usage (new feature)
-scripts/checkpoint.sh instruction-start "instructions/en/presets/web_api_production.md" "API development" TASK-123456-abc123
-scripts/checkpoint.sh instruction-complete "instructions/en/presets/web_api_production.md" "3 endpoints implemented" TASK-123456-abc123
+scripts/checkpoint.sh instruction-start "instructions/en/system/ROOT_INSTRUCTION.md" "API development" TASK-123456-abc123
+scripts/checkpoint.sh instruction-complete "instructions/en/system/ROOT_INSTRUCTION.md" "3 endpoints implemented" TASK-123456-abc123
 
 # AI-friendly concise output mode (new feature)
 scripts/checkpoint.sh ai pending

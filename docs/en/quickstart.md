@@ -63,18 +63,23 @@ Edit the generated `instructions/PROJECT.md`:
 
 ## 💬 Step 4: Give Instructions to AI
 
-### 🆕 Using the Modular System (Recommended)
+### v2.0 Skill-Based Workflow (Recommended)
 ```bash
 # Just give tasks in natural language!
 claude "Create an e-commerce website"
-# → MODULE_COMPOSER automatically selects and combines optimal modules
+# → CLAUDE.md → ROOT_INSTRUCTION (skill orchestrator) activates
+# → Automatically selects optimal skills from .claude/skills/
+# → checkpoint-manager tracks progress automatically
 
-claude "Write a research paper"
-# → academic_researcher preset is automatically selected
+claude "Write tests"
+# → auto-build skill supports build and test execution
 
-claude "Analyze data"
-# → data_analyst preset is automatically selected
+claude "Commit safely"
+# → commit-safe skill performs clean commits
 ```
+
+You can also add more skills from the marketplace:
+[claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace)
 
 ### Traditional Method
 ```bash

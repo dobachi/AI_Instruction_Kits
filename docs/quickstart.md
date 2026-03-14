@@ -63,18 +63,23 @@ bash path/to/AI_Instruction_Kits/scripts/setup-project.sh
 
 ## 💬 ステップ4: AIに指示を出す
 
-### 🆕 モジュラーシステムを使う場合（推奨）
+### v2.0 スキルベースのワークフロー（推奨）
 ```bash
 # 自然言語でタスクを指示するだけ！
 claude "ECサイトを作成してください"
-# → MODULE_COMPOSERが自動的に最適なモジュールを選択・組み合わせ
+# → CLAUDE.md → ROOT_INSTRUCTION（スキルオーケストレーター）が起動
+# → .claude/skills/ から最適なスキルを自動選択
+# → checkpoint-manager で進捗を自動追跡
 
-claude "研究論文を書いてください"
-# → academic_researcherプリセットが自動選択
+claude "テストを書いてください"
+# → auto-build スキルがビルド・テスト実行を支援
 
-claude "データを分析してください"
-# → data_analystプリセットが自動選択
+claude "安全にコミットしてください"
+# → commit-safe スキルがクリーンコミットを実行
 ```
+
+マーケットプレイスから追加スキルを導入することも可能です:
+[claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace)
 
 ### 従来の方法
 ```bash

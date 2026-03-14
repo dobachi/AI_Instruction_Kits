@@ -41,7 +41,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/m
 - プロジェクトタイプ（Web API/CLI/データ分析など）
 - 言語（日本語/英語）
 
-### プリセット付き高速インストール
+### プロジェクトタイプ別高速インストール
 
 #### Web API開発
 ```bash
@@ -138,7 +138,7 @@ curl -sSL ... | bash
 |-----------|------|------------|
 | `--mode <mode>` | インストールモード (copy/clone/submodule) | submodule |
 | `--lang <lang>` | 言語 (ja/en) | ja |
-| `--preset <name>` | プリセット設定 | なし |
+| `--preset <name>` | プロジェクトタイプ設定 | なし |
 | `--repo <url>` | カスタムリポジトリURL | 公式リポジトリ |
 | `--force` | 確認をスキップ | false |
 | `--skip-claude` | Claude Codeコマンドをスキップ | false |
@@ -148,5 +148,5 @@ curl -sSL ... | bash
 ## さらに詳しく
 
 - [完全なセットアップガイド](../README.md)
-- [プロジェクト設定のカスタマイズ](./PROJECT_CUSTOMIZATION.md)
-- [モジュラーシステムの使い方](./MODULAR_SYSTEM.md)
+- [スキルベースアーキテクチャの詳細](features)
+- [マーケットプレイス](https://github.com/dobachi/claude-skills-marketplace)

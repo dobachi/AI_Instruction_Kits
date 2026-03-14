@@ -106,7 +106,7 @@ Before loading an instruction:
 AI: Shall I record instruction usage?
 
 # Execute
-scripts/checkpoint.sh instruction-start "instructions/en/presets/web_api.md" "REST API development" TASK-123456-abc123
+scripts/checkpoint.sh instruction-start "instructions/en/coding/web_api.md" "REST API development" TASK-123456-abc123
 ```
 
 ### Scenario 4: Work Milestone
@@ -132,7 +132,7 @@ AI: Shall I complete the task?
     Result: [summary of work]
 
 # Execute instruction completion first
-scripts/checkpoint.sh instruction-complete "instructions/en/presets/web_api.md" "3 endpoints implemented" TASK-123456-abc123
+scripts/checkpoint.sh instruction-complete "instructions/en/coding/web_api.md" "3 endpoints implemented" TASK-123456-abc123
 
 # Then complete task
 scripts/checkpoint.sh complete TASK-123456-abc123 "REST API 3 endpoints implemented"

@@ -66,13 +66,9 @@ Removed items:
     - scripts/checkpoint.sh (シンボリックリンク)
     - scripts/commit.sh (シンボリックリンク)
     - scripts/lib/ (シンボリックリンク)
-    - scripts/generate-instruction.sh (シンボリックリンク)
-    - scripts/validate-modules.sh (シンボリックリンク)
-    - scripts/search-instructions.sh (シンボリックリンク)
-    - scripts/generate-metadata.sh (シンボリックリンク)
     - scripts/worktree-manager.sh (シンボリックリンク)
     - CLAUDE.md, GEMINI.md, CURSOR.md (シンボリックリンク)
-    - .claude/commands/ (カスタムコマンド)
+    - .claude/skills/ (スキル設定)
     - .openhands/microagents/repo.md (シンボリックリンク)
     - .git/hooks/prepare-commit-msg (Gitフック)
 
@@ -182,7 +178,7 @@ confirm_removal() {
         echo "  - instructions/ai_instruction_kits/ (AI指示書システム本体)"
         echo "  - scripts/配下のシンボリックリンク"
         echo "  - CLAUDE.md, GEMINI.md, CURSOR.md (シンボリックリンク)"
-        echo "  - .claude/commands/ (カスタムコマンド)"
+        echo "  - .claude/skills/ (スキル設定)"
         echo "  - .openhands/microagents/repo.md"
         echo "  - .git/hooks/prepare-commit-msg"
         if [ "$KEEP_BACKUP" = false ]; then
@@ -223,7 +219,7 @@ confirm_removal() {
     echo "  - instructions/ai_instruction_kits/ (AI指示書システム本体)"
     echo "  - scripts/配下のシンボリックリンク"
     echo "  - CLAUDE.md, GEMINI.md, CURSOR.md (シンボリックリンク)"
-    echo "  - .claude/commands/ (カスタムコマンド)"
+    echo "  - .claude/skills/ (スキル設定)"
     echo "  - .openhands/microagents/repo.md"
     echo "  - .git/hooks/prepare-commit-msg"
 
@@ -286,10 +282,6 @@ perform_uninstall() {
     if remove_symlink "scripts/checkpoint.sh" "Checkpoint manager"; then ((removed_count++)); fi
     if remove_symlink "scripts/commit.sh" "Commit script"; then ((removed_count++)); fi
     if remove_symlink "scripts/lib" "Library directory"; then ((removed_count++)); fi
-    if remove_symlink "scripts/generate-instruction.sh" "Instruction generator"; then ((removed_count++)); fi
-    if remove_symlink "scripts/validate-modules.sh" "Module validator"; then ((removed_count++)); fi
-    if remove_symlink "scripts/search-instructions.sh" "Instruction searcher"; then ((removed_count++)); fi
-    if remove_symlink "scripts/generate-metadata.sh" "Metadata generator"; then ((removed_count++)); fi
     if remove_symlink "scripts/worktree-manager.sh" "Worktree manager"; then ((removed_count++)); fi
 
     # 3. ルートディレクトリのシンボリックリンク
@@ -300,8 +292,8 @@ perform_uninstall() {
     if remove_symlink "GEMINI.en.md" "Gemini AI configuration (English)"; then ((removed_count++)); fi
     if remove_symlink "CURSOR.en.md" "Cursor AI configuration (English)"; then ((removed_count++)); fi
 
-    # 4. Claude Codeカスタムコマンド
-    if remove_item ".claude/commands" "Claude Code custom commands"; then ((removed_count++)); fi
+    # 4. Claude Codeスキル設定
+    if remove_item ".claude/skills" "Claude Code skills"; then ((removed_count++)); fi
 
     # 5. OpenHandsマイクロエージェント設定
     if remove_symlink ".openhands/microagents/repo.md" "OpenHands microagent config"; then ((removed_count++)); fi

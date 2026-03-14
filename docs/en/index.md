@@ -27,10 +27,10 @@ By centralizing management of scattered AI instructions, it achieves:
 
 ## 🚀 Key Features
 
-### 🧩 NEW! Modular Instruction System
-- **Dynamic instruction generation**: Customized to match your project
-- **6 presets**: Academic research, business consulting, data analysis, and more
-- **5 expertise modules**: Software engineering, legal engineering, ML/AI, parallel/distributed, data spaces
+### 🧩 v2.0 Skill-Based Architecture
+- **Skill Orchestrator (ROOT_INSTRUCTION)** automatically selects optimal skills for your task
+- **4 core skills**: checkpoint-manager, worktree-manager, auto-build, commit-safe
+- **Marketplace**: Add community-built skills ([claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace))
 
 ### 1. One-command Setup
 ```bash
@@ -86,10 +86,10 @@ Automate large-scale analysis tasks using Task tool (agent feature)
 
 2. **Give Instructions to AI**
    ```bash
-   # Using the modular system (recommended)
+   # Skill-based workflow (recommended)
    claude "Create a website"
-   # → MODULE_COMPOSER automatically selects optimal modules
-   
+   # → CLAUDE.md → ROOT_INSTRUCTION → skills are automatically selected
+
    # Traditional method
    claude "Refer to CLAUDE.md and implement user authentication API"
    ```

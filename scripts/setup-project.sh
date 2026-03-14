@@ -342,15 +342,15 @@ setup_openhands() {
 # Claude Code設定のセットアップ（グループ化）
 setup_claude_code() {
     local claude_items=(
-        ".claude/commands/"
-        ".claude/commands/commit-and-report.md"
-        ".claude/commands/commit-safe.md"
-        ".claude/commands/checkpoint.md"
-        ".claude/commands/reload-instructions.md"
-        ".claude/commands/github-issues.md"
-        ".claude/commands/reload-and-reset.md"
-        ".claude/commands/build.md"
-        ".claude/commands/evidence-check.md"
+        ".claude/skills/"
+        ".claude/skills/commit-and-report.md"
+        ".claude/skills/commit-safe.md"
+        ".claude/skills/checkpoint.md"
+        ".claude/skills/reload-instructions.md"
+        ".claude/skills/github-issues.md"
+        ".claude/skills/reload-and-reset.md"
+        ".claude/skills/build.md"
+        ".claude/skills/evidence-check.md"
     )
 
     # グループ確認
@@ -360,12 +360,12 @@ setup_claude_code() {
         return 1
     fi
 
-    # .claude/commandsディレクトリ作成
-    if [ ! -d ".claude/commands" ]; then
+    # .claude/skillsディレクトリ作成
+    if [ ! -d ".claude/skills" ]; then
         if [ "$DRY_RUN" = true ]; then
-            dry_echo "mkdir -p .claude/commands"
+            dry_echo "mkdir -p .claude/skills"
         else
-            mkdir -p .claude/commands
+            mkdir -p .claude/skills
         fi
     fi
 
@@ -375,17 +375,17 @@ setup_claude_code() {
 
     for cmd_file in "${commands[@]}"; do
         local src=""
-        local dst=".claude/commands/$cmd_file"
+        local dst=".claude/skills/$cmd_file"
 
         # ソースファイルの検索（言語別ファイルを優先）
-        if [ -f "instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file" ]; then
-            src="instructions/ai_instruction_kits/templates/claude-commands/$lang/$cmd_file"
-        elif [ -f "$SCRIPT_DIR/../templates/claude-commands/$lang/$cmd_file" ]; then
-            src="$SCRIPT_DIR/../templates/claude-commands/$lang/$cmd_file"
-        elif [ -f "instructions/ai_instruction_kits/templates/claude-commands/$cmd_file" ]; then
-            src="instructions/ai_instruction_kits/templates/claude-commands/$cmd_file"
-        elif [ -f "$SCRIPT_DIR/../templates/claude-commands/$cmd_file" ]; then
-            src="$SCRIPT_DIR/../templates/claude-commands/$cmd_file"
+        if [ -f "instructions/ai_instruction_kits/templates/claude-skills/$lang/$cmd_file" ]; then
+            src="instructions/ai_instruction_kits/templates/claude-skills/$lang/$cmd_file"
+        elif [ -f "$SCRIPT_DIR/../templates/claude-skills/$lang/$cmd_file" ]; then
+            src="$SCRIPT_DIR/../templates/claude-skills/$lang/$cmd_file"
+        elif [ -f "instructions/ai_instruction_kits/templates/claude-skills/$cmd_file" ]; then
+            src="instructions/ai_instruction_kits/templates/claude-skills/$cmd_file"
+        elif [ -f "$SCRIPT_DIR/../templates/claude-skills/$cmd_file" ]; then
+            src="$SCRIPT_DIR/../templates/claude-skills/$cmd_file"
         fi
 
         if [ -n "$src" ] && [ -f "$src" ]; then
