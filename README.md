@@ -69,10 +69,12 @@ rm install.sh
 
 ### スキルマーケットプレイス
 
-追加スキルが必要な場合は、マーケットプレイスからインストールできます：
+追加スキルは [マーケットプレイス](https://github.com/dobachi/claude-skills-marketplace) からインストールできます：
 
-```
-https://github.com/dobachi/claude-skills-marketplace
+```bash
+# Claude Codeの /plugin コマンドでインストール
+/plugin marketplace add dobachi/claude-skills-marketplace
+/plugin install code-reviewer@dobachi-skills
 ```
 
 カスタムスキルが必要な場合は、マーケットプレイスの skill-creator スキルを利用してください。

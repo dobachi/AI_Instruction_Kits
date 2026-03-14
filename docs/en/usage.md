@@ -106,23 +106,41 @@ scripts/commit.sh "feat: Add user authentication"
 
 ## 🛒 Marketplace Skills
 
-Install additional community-built skills from [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace).
+Install additional skills from [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace).
 
-### Installation
+### Install via Claude Code `/plugin` Command
 
 ```bash
-# Download skills from the marketplace
-# Simply place them in .claude/skills/
+# Step 1: Register the marketplace (one-time only)
+/plugin marketplace add dobachi/claude-skills-marketplace
 
-# Example: Add a code review skill
-cp path/to/code-review .claude/skills/code-review
+# Step 2: Install skills
+/plugin install code-reviewer@dobachi-skills
+/plugin install data-analyst@dobachi-skills
+```
 
-# After installation, ROOT_INSTRUCTION automatically recognizes new skills
+Run `/plugin` alone to open the plugin manager UI for interactive skill browsing, installation, and management.
+
+### Installation Scopes
+
+| Scope | Description | Saved to |
+|-------|-------------|----------|
+| **User** | Available across all your projects | `~/.claude/settings.json` |
+| **Project** | Available to team members | `.claude/settings.json` |
+| **Local** | Only you, this repo only | `.claude/settings.local.json` |
+
+### Manual Installation
+
+If not using the `/plugin` command, you can place skill files directly:
+
+```bash
+# Copy a skill directory from the marketplace
+cp -r path/to/code-reviewer .claude/skills/code-reviewer
 ```
 
 ### Creating Custom Skills
 
-If you need custom skills, you can use the skill-creator skill. Simply place skill files in `.claude/skills/` to make them available.
+If you need custom skills, use the skill-creator skill from the marketplace. Simply place skill files in `.claude/skills/` to make them available.
 
 ## 📊 Checkpoint Management
 

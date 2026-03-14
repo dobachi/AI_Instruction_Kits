@@ -106,23 +106,41 @@ scripts/commit.sh "feat: ユーザー認証機能を追加"
 
 ## 🛒 マーケットプレイススキル
 
-コミュニティ製の追加スキルを [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) からインストールできます。
+追加スキルを [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) からインストールできます。
 
-### インストール方法
+### Claude Code の `/plugin` コマンドでインストール
 
 ```bash
-# マーケットプレイスからスキルをダウンロード
-# .claude/skills/ にファイルを配置するだけ
+# Step 1: マーケットプレイスを登録（初回のみ）
+/plugin marketplace add dobachi/claude-skills-marketplace
 
-# 例: コードレビュースキルを追加
-cp path/to/code-review .claude/skills/code-review
+# Step 2: スキルをインストール
+/plugin install code-reviewer@dobachi-skills
+/plugin install data-analyst@dobachi-skills
+```
 
-# インストール後、ROOT_INSTRUCTIONが自動的に新スキルを認識
+`/plugin` を単独で実行すると、プラグインマネージャーUIが開き、スキルの一覧・インストール・管理が対話的に行えます。
+
+### インストールスコープ
+
+| スコープ | 説明 | 保存先 |
+|---------|------|--------|
+| **User** | 自分の全プロジェクトで有効 | `~/.claude/settings.json` |
+| **Project** | チームメンバーも利用可能 | `.claude/settings.json` |
+| **Local** | このリポジトリの自分だけ | `.claude/settings.local.json` |
+
+### 手動インストール
+
+`/plugin` コマンドを使わない場合は、スキルファイルを直接配置できます：
+
+```bash
+# マーケットプレイスからスキルディレクトリをコピー
+cp -r path/to/code-reviewer .claude/skills/code-reviewer
 ```
 
 ### カスタムスキルの作成
 
-独自のスキルが必要な場合は、skill-creatorスキルを活用できます。スキルファイルを `.claude/skills/` に配置するだけで利用可能になります。
+独自のスキルが必要な場合は、マーケットプレイスの skill-creator スキルを活用できます。スキルファイルを `.claude/skills/` に配置するだけで利用可能になります。
 
 ## 📊 チェックポイント管理
 

@@ -75,7 +75,11 @@ Browse and install additional skills from the marketplace:
 
 Example marketplace skills include role-based skills (web-api-dev, data-analyst, technical-writer, etc.), utility skills (fact-checker, code-reviewer, etc.), and more.
 
-To install a skill, copy its directory into `.claude/skills/` in your project.
+```bash
+# Install via Claude Code's /plugin command
+/plugin marketplace add dobachi/claude-skills-marketplace
+/plugin install code-reviewer@dobachi-skills
+```
 
 ## Directory Structure
 
