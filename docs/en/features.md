@@ -23,23 +23,13 @@ Analyzes tasks and automatically selects the optimal skills from `.claude/skills
 - **Marketplace integration**: Easily add community-built skills
 - **Start with minimal config**: Get started with just the core skills
 
-### Core Skills (4 types)
+### Core Skills
 
-1. **checkpoint-manager**: Task progress management
-   - Automatically tracks task start, progress, and completion
-   - Parallel task management, statistics display
-
-2. **worktree-manager**: Git worktree management
-   - Automatically creates safe working branches per task
-   - Merge and cleanup on completion
-
-3. **auto-build**: Automatic build and test
-   - Detects project type and runs appropriate build commands
-   - Test execution and result reporting
-
-4. **commit-safe**: Safe commits
+- **commit-safe**: Safe commits
    - Clean commits without AI signatures
    - File-specific safe commit workflow
+
+For task management (Todo), progress tracking, Git worktree, and build detection, use your AI tool's native features (Claude Code's Todo, worktree, build detection), since modern AI agents ship with these built in.
 
 ### Marketplace Skills
 
@@ -52,15 +42,8 @@ Skills become available simply by placing them in `.claude/skills/`.
 # Skill orchestrator automatically selects skills
 claude "Implement a new feature"
 # → ROOT_INSTRUCTION analyzes the task
-# → worktree-manager creates a safe working branch
-# → checkpoint-manager automatically tracks progress
-# → auto-build runs build and tests
+# → AI tool's native features manage progress and work (Todo / worktree / build detection)
 # → commit-safe performs clean commits
-
-# Progress management
-claude "Check task progress"
-# → checkpoint-manager skill activates
-# → Shows list of incomplete tasks and statistics
 
 # Safe commits
 claude "Commit my changes"
@@ -75,10 +58,9 @@ claude "Commit my changes"
 ### Core Skills (placed in `.claude/skills/`)
 | Skill | Purpose | Auto-suggestion Timing |
 |-------|---------|----------------------|
-| checkpoint-manager | Task progress tracking | Check pending at session start |
-| worktree-manager | Git worktree management | Suggest worktree for complex tasks |
-| auto-build | Project build automation | Suggest build after code changes |
 | commit-safe | Safe commits | Suggest file-specific commit after changes |
+
+For task management (Todo), progress tracking, Git worktree, and build detection, use your AI tool's native features.
 
 ### Marketplace Skills
 
@@ -111,27 +93,9 @@ Automate large-scale analysis tasks using Task tool (agent feature):
 
 Use Claude Code's Task tool to run sub-agents that perform parallel analysis in independent contexts. Refer to the "Claude Code Agent Feature" section in CLAUDE.md for configuration details.
 
-### Checkpoint Management (Extended Version)
+### Task Management & Progress Tracking
 
-Detailed tracking of work progress and instruction usage history
-
-```bash
-# Task start
-scripts/checkpoint.sh start "New feature implementation" 5
-📌 Task ID: TASK-123456-abc123
-
-# Track instruction usage (new feature)
-scripts/checkpoint.sh instruction-start "instructions/en/system/ROOT_INSTRUCTION.md" "API development" TASK-123456-abc123
-scripts/checkpoint.sh instruction-complete "instructions/en/system/ROOT_INSTRUCTION.md" "3 endpoints implemented" TASK-123456-abc123
-
-# AI-friendly concise output mode (new feature)
-scripts/checkpoint.sh ai pending
-scripts/checkpoint.sh ai progress TASK-123456-abc123 2 5 "Implementing" "Creating tests"
-
-# Statistics display (new feature)
-scripts/checkpoint.sh stats
-scripts/checkpoint.sh history
-```
+Track work progress and instruction usage history with your AI tool's native features (Claude Code's Todo, for example). Task breakdown and progress visualization happen automatically during the conversation, so a custom checkpoint script is no longer needed.
 
 ### Claude Code Custom Commands (New Feature)
 
@@ -139,7 +103,6 @@ Efficiency features for Claude Code users:
 
 | Command | Description | Example |
 |---------|-------------|------|
-| `/checkpoint` | Checkpoint management | `/checkpoint start "New feature implementation" 5` |
 | `/commit-and-report` | Commit & Issue report | `/commit-and-report "Bug fix complete"` |
 | `/commit-safe` | Clean commit (no AI signature) | `/commit-safe "Documentation update"` |
 | `/reload-instructions` | Reload instructions | `/reload-instructions` |
@@ -365,38 +328,6 @@ git commit -m "Rollback instructions to v1.1.0 (stable)"
 
 ## 📊 Usage Statistics and Metrics
 
-### Checkpoint Log Analysis
-
-Quantitatively understand work progress and results.
-
-#### Basic Statistics
-```bash
-# Total completed tasks
-grep "COMPLETE" checkpoint.log | wc -l
-
-# Check running tasks (incomplete)
-grep "START" checkpoint.log | grep -v "COMPLETE"
-
-# Today's task list
-grep "$(date +%Y-%m-%d)" checkpoint.log
-
-# Extract tasks with errors
-grep "ERROR" checkpoint.log
-```
-
-#### Task Analysis Example
-```bash
-# Script example to calculate time per task ID
-#!/bin/bash
-while read -r line; do
-    if [[ $line =~ \[TASK-([a-f0-9]+)\] ]]; then
-        task_id="${BASH_REMATCH[1]}"
-        # Find START/COMPLETE pairs and calculate time difference
-        # (Implementation details omitted)
-    fi
-done < checkpoint.log
-```
-
 ### Project Customization Analysis
 
 Understand project characteristics from PROJECT.md contents:
@@ -407,18 +338,6 @@ cat instructions/PROJECT.md | grep -E "(Build command|Lint command|Test framewor
 
 # Count customized items
 grep -v "^#" instructions/PROJECT.md | grep -v "^$" | grep -v "Example:" | wc -l
-```
-
-### Deliverable Quantification
-
-Extract results from checkpoint log:
-
-```bash
-# Generate deliverable summary
-grep "Result:" checkpoint.log | sed 's/.*Result: //' | sort | uniq -c | sort -nr
-
-# Count created files, tests, etc.
-grep "Result:" checkpoint.log | grep -E "[0-9]+ (files|tests|endpoints)"
 ```
 
 ## 🚀 Future Plans

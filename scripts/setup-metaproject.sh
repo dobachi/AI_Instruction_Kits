@@ -202,21 +202,9 @@ create_readme() {
 
 CLAUDE.mdは自動的にinstructions/PROJECT.mdを参照するよう設定されています。
 
-### 2. チェックポイント管理
+### 2. タスク管理・進捗追跡
 
-```bash
-# タスク開始
-scripts/checkpoint.sh start "機能開発" 5
-
-# 指示書使用開始
-scripts/checkpoint.sh instruction-start "指示書パス" "目的" TASK-ID
-
-# 進捗報告
-scripts/checkpoint.sh progress TASK-ID 2 5 "実装中" "テスト作成"
-
-# 完了
-scripts/checkpoint.sh complete TASK-ID "完了"
-```
+タスク管理・進捗追跡・Git worktree・ビルドはAIツールのネイティブ機能を利用してください。
 
 ### 3. Git管理
 
@@ -244,7 +232,7 @@ scripts/checkpoint.sh complete TASK-ID "完了"
 
 - `sources/`内のプロジェクトは独立したGitリポジトリとして管理
 - AI生成物は`analysis/`や`docs/`に保存
-- AI指示書キットのルール（チェックポイント管理など）に従う
+- AI指示書キットのルール（安全なコミットなど）に従う
 
 ---
 生成日: $(date +%Y-%m-%d)
@@ -270,13 +258,11 @@ create_project_md() {
 
 ## プロジェクト設定
 - 言語: 日本語 (ja)
-- チェックポイント管理: 有効
-- チェックポイントスクリプト: scripts/checkpoint.sh
-- ログファイル: checkpoint.log
+- タスク管理・進捗追跡: AIツールのネイティブ機能を利用
 
 ## 重要なパス
 - AI指示書システム: `instructions/ai_instruction_kits/`
-- チェックポイントスクリプト: `scripts/checkpoint.sh`
+- 安全なコミット: `scripts/commit.sh`
 - プロジェクト固有の設定: このファイル（`instructions/PROJECT.md`）
 
 ## コミットルール
@@ -365,10 +351,6 @@ gitworktrees/
 
 # 開発対象のソースコード（別リポジトリで管理）
 sources/
-
-# チェックポイントログ
-checkpoint.log
-*.checkpoint.log
 
 # Analysis outputs
 analysis/*.tmp
@@ -487,11 +469,10 @@ show_completion() {
     echo "   「CLAUDE.mdを読み込んで、sources/$PROJECT_NAME/の開発を支援してください」"
 
     echo -e "\n${BLUE}💡 便利なコマンド:${NC}"
-    echo "  # タスク開始"
-    echo "  scripts/checkpoint.sh start \"タスク名\" 5"
-    echo ""
     echo "  # コミット"
     echo "  scripts/commit.sh \"メタプロジェクト初期設定\""
+    echo ""
+    echo "  # タスク管理・進捗追跡はAIツールのネイティブ機能を利用してください"
 }
 
 # AI指示書キットのサブモジュール設定

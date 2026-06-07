@@ -5,13 +5,11 @@
 
 ## プロジェクト設定
 - 言語: 日本語 (ja)
-- チェックポイント管理: 有効
-- チェックポイントスクリプト: scripts/checkpoint.sh
-- ログファイル: checkpoint.log
+- タスク管理・進捗追跡: AIツールのネイティブ機能を利用
 
 ## 重要なパス
 - AI指示書システム: `instructions/ai_instruction_kits/`
-- チェックポイントスクリプト: `scripts/checkpoint.sh`
+- 安全なコミット: `scripts/commit.sh`
 - プロジェクト固有の設定: このファイル（`instructions/PROJECT.md`）
 
 ## コミットルール

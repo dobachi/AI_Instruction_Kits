@@ -44,12 +44,6 @@ work/
 .tmp/
 .sandbox/
 
-# Checkpoint files
-checkpoints/
-checkpoint.log.lock
-.checkpoint/
-.checkpoint_last_run
-
 # Python virtual environments
 .venv/
 venv/

@@ -12,13 +12,13 @@ When using instructions in this project itself, **path translation is required**
 ### Normal Project Usage (via submodule)
 ```
 instructions/ai_instruction_kits/instructions/en/system/ROOT_INSTRUCTION.md
-scripts/checkpoint.sh
+scripts/commit.sh
 ```
 
 ### Usage in This Project Itself
 ```
 instructions/en/system/ROOT_INSTRUCTION.md
-scripts/checkpoint.sh
+scripts/commit.sh
 ```
 
 ### Path Conversion Rules
@@ -29,17 +29,16 @@ scripts/checkpoint.sh
 - **Purpose**: Development of a system to structurally manage and provide instructions to AI
 - **Language**: Japanese priority (maintaining English version simultaneously)
 - **License**: Apache-2.0 (individual instructions have their own licenses)
-- **Architecture**: Skill-based (v2.0) - 4 core skills maintained locally, others via marketplace
+- **Architecture**: Skill-based (v2.0) - core skill commit-safe maintained locally, others via marketplace
 
 ## Skill-Based Architecture (v2.0)
 
 ### Core Skills (maintained locally)
 | Skill | Purpose |
 |-------|---------|
-| checkpoint-manager | Task progress tracking and management |
-| worktree-manager | Git worktree management |
-| auto-build | Project build automation |
 | commit-safe | Safe commits |
+
+> Use your AI tool's native features for task management, progress tracking, Git worktrees, and builds.
 
 ### Additional Skills
 Install from marketplace: https://github.com/dobachi/claude-skills-marketplace
@@ -91,10 +90,8 @@ For project analysis and large-scale investigation tasks, actively use the Agent
 
 ## Codex CLI Custom Commands
 
-Codex-specific prompt files live in `.codex/prompts/`. The file name becomes the `/command` (for example `build.md` → `/build`). Copy the files to your local `~/.codex/prompts/` and restart the CLI to make them available.
+Codex-specific prompt files live in `.codex/prompts/`. The file name becomes the `/command` (for example `commit-safe.md` → `/commit-safe`). Copy the files to your local `~/.codex/prompts/` and restart the CLI to make them available.
 
-- `build` — assists with detecting the project type and running the appropriate build
-- `checkpoint` — wraps `scripts/checkpoint.sh` subcommands
 - `commit-and-report` — guides commit, push, and optional issue updates
 - `commit-safe` — walks through safe, file-scoped commits
 - `github-issues` — gathers and summarizes open GitHub issues
@@ -130,31 +127,12 @@ Codex-specific prompt files live in `.codex/prompts/`. The file name becomes the
 # Integration test
 bash scripts/setup-project.sh
 
-# Execute checkpoint in this project itself
-bash scripts/checkpoint.sh
-
 # Clean commit (without AI messages)
 bash scripts/commit.sh "commit message"
 ```
 
-## Git Worktree Usage (Recommended)
-For complex tasks or multi-file changes, work in a dedicated worktree:
-
-```bash
-# Start task
-scripts/checkpoint.sh start "Feature development" 3
-# → Task ID: TASK-123456-abc
-
-# Create worktree
-scripts/worktree-manager.sh create TASK-123456-abc "feature-dev"
-cd .gitworktrees/ai-TASK-123456-abc-feature-dev/
-
-# Do work...
-
-# Complete
-scripts/checkpoint.sh complete TASK-123456-abc "Done"
-scripts/worktree-manager.sh complete TASK-123456-abc
-```
+## Task Management & Progress Tracking
+Use your AI tool's native features for task management, progress tracking, Git worktrees, and builds.
 
 ## Downstream Projects (downstream/)
 

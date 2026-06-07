@@ -87,15 +87,11 @@ curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scr
 ```
 
 ### 2. 進捗管理
+タスク管理・進捗追跡は、AIツールのネイティブ機能（Claude Code の Todo など）を利用してください。近年のAIエージェントはタスクの分解・進捗追跡を標準装備しています。
+
 ```bash
-# タスク開始
-scripts/checkpoint.sh start "機能実装" 5
-
-# 進捗確認
-scripts/checkpoint.sh progress
-
-# タスク完了
-scripts/checkpoint.sh complete TASK-xxx "実装完了"
+# 自然言語でタスクを指示するだけで、AIが進捗を管理
+claude "機能を実装してください"
 ```
 
 ### 3. コミット

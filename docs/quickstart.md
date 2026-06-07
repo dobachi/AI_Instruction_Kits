@@ -69,10 +69,10 @@ bash path/to/AI_Instruction_Kits/scripts/setup-project.sh
 claude "ECサイトを作成してください"
 # → CLAUDE.md → ROOT_INSTRUCTION（スキルオーケストレーター）が起動
 # → .claude/skills/ から最適なスキルを自動選択
-# → checkpoint-manager で進捗を自動追跡
+# → タスク管理・進捗追跡はAIツールのネイティブ機能（Claude Code の Todo など）を利用
 
 claude "テストを書いてください"
-# → auto-build スキルがビルド・テスト実行を支援
+# → ビルド・テスト実行はAIツールのネイティブ機能（ビルド検出など）を利用
 
 claude "安全にコミットしてください"
 # → commit-safe スキルがクリーンコミットを実行
@@ -139,21 +139,12 @@ bash setup-project.sh --submodule --force
 
 ## 📊 進捗管理
 
-チェックポイント機能が自動的に作業を記録：
+タスク管理・進捗追跡は、AIツールのネイティブ機能（Claude Code の Todo など）を利用してください。近年のAIエージェントはタスクの分解・進捗追跡を標準装備しているため、独自のスクリプトは不要です。
 
 ```bash
-# タスク開始
-scripts/checkpoint.sh start "ユーザー認証API実装" 5
-
-# 進捗更新
-scripts/checkpoint.sh progress TASK-abc123 3 5 "実装完了" "テスト作成"
-
-# 進捗ログを確認
-cat checkpoint.log
-
-# 出力例：
-[2025-07-28 10:00:00] [TASK-abc123] [START] ユーザー認証API実装 (推定5ステップ)
-[2025-07-28 10:30:00] [TASK-abc123] [COMPLETE] 成果: API 3エンドポイント、テスト15個作成
+# 自然言語でタスクを指示するだけで、AIが進捗を管理
+claude "ユーザー認証APIを実装してください"
+# → Claude Code が Todo リストを自動生成し、進捗を追跡
 ```
 
 ## 🆕 Claude Code カスタムコマンド
@@ -161,9 +152,6 @@ cat checkpoint.log
 Claude Codeユーザーは専用コマンドが利用可能：
 
 ```bash
-# チェックポイント管理
-/checkpoint start "新機能実装" 5
-
 # コミット＆Issue報告
 /commit-and-report "バグ修正完了"
 
@@ -182,7 +170,7 @@ Claude Codeユーザーは専用コマンドが利用可能：
 A: 最小限の影響で導入できます。追加されるのは：
 - `instructions/` ディレクトリ
 - シンボリックリンク（CLAUDE.md等）
-- `scripts/checkpoint.sh` へのリンク
+- `.claude/skills/` ディレクトリ（commit-safe スキル等）
 
 ### Q: 指示書は日本語のみですか？
 A: 日本語と英語の両方に対応しています。`PROJECT.en.md`を編集すれば英語版も利用できます。

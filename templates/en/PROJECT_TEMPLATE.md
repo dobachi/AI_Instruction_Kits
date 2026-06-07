@@ -5,13 +5,11 @@ Please load `instructions/ai_instruction_kits/instructions/en/system/ROOT_INSTRU
 
 ## Project Settings
 - Language: English (en)
-- Checkpoint Management: Enabled
-- Checkpoint Script: scripts/checkpoint.sh
-- Log File: checkpoint.log
+- Task management & progress tracking: use your AI tool's native features
 
 ## Important Paths
 - AI Instruction System: `instructions/ai_instruction_kits/`
-- Checkpoint Script: `scripts/checkpoint.sh`
+- Safe commit: `scripts/commit.sh`
 - Project-Specific Configuration: This file (`instructions/PROJECT.en.md`)
 
 ## Commit Rules

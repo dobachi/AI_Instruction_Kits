@@ -345,11 +345,9 @@ setup_claude_code() {
         ".claude/skills/"
         ".claude/skills/commit-and-report.md"
         ".claude/skills/commit-safe.md"
-        ".claude/skills/checkpoint.md"
         ".claude/skills/reload-instructions.md"
         ".claude/skills/github-issues.md"
         ".claude/skills/reload-and-reset.md"
-        ".claude/skills/build.md"
         ".claude/skills/evidence-check.md"
     )
 
@@ -370,7 +368,7 @@ setup_claude_code() {
     fi
 
     # コマンドファイルをコピー
-    local commands=("commit-and-report.md" "commit-safe.md" "checkpoint.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md" "build.md" "evidence-check.md")
+    local commands=("commit-and-report.md" "commit-safe.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md" "evidence-check.md")
     local lang=$(get_current_language)
 
     for cmd_file in "${commands[@]}"; do
@@ -628,9 +626,7 @@ setup_script_tools() {
     local script_items=(
         "scripts/lib/"
         "scripts/gemini/"
-        "scripts/checkpoint.sh"
         "scripts/commit.sh"
-        "scripts/worktree-manager.sh"
         "scripts/submodule-update-check.sh"
     )
 
@@ -652,7 +648,7 @@ setup_script_tools() {
         cp -r "$copy_source_path/gemini" "scripts/"
         
         # ファイル
-        local scripts_to_copy=("checkpoint.sh" "commit.sh" "worktree-manager.sh" "submodule-update-check.sh")
+        local scripts_to_copy=("commit.sh" "submodule-update-check.sh")
         for script in "${scripts_to_copy[@]}"; do
             cp "$copy_source_path/$script" "scripts/"
         done
@@ -690,7 +686,7 @@ setup_script_tools() {
     fi
 
     # スクリプトファイルのシンボリックリンク作成
-    local scripts=("checkpoint.sh" "commit.sh" "worktree-manager.sh" "submodule-update-check.sh")
+    local scripts=("commit.sh" "submodule-update-check.sh")
     for script in "${scripts[@]}"; do
         if [ -e "scripts/$script" ] && [ ! -L "scripts/$script" ]; then
             backup_file "scripts/$script"
@@ -1521,9 +1517,7 @@ else
     echo "📁 $MSG_CREATED_STRUCTURE:"
     echo "  scripts/"
     echo "    ├── lib/"
-    echo "    ├── checkpoint.sh"
-    echo "    ├── commit.sh"
-    echo "    └── worktree-manager.sh"
+    echo "    └── commit.sh"
     echo "  instructions/"
     echo "    ├── ai_instruction_kits/ ($SELECTED_MODE $(get_message "mode" "mode" "モード"))"
     MSG_PROJECT_CONFIG=$(get_message "project_config" "Project configuration" "プロジェクト設定")
@@ -1545,21 +1539,12 @@ else
     if [ "${SKILLS_INSTALLED:-1}" -eq 0 ]; then
         echo "  .claude/"
         echo "    └── skills/"
-        echo "        ├── checkpoint-manager/"
-        echo "        │   ├── SKILL.md, workflow.md"
-        echo "        ├── worktree-manager/"
-        echo "        │   └── SKILL.md"
-        echo "        ├── auto-build/"
-        echo "        │   └── SKILL.md"
         echo "        └── commit-safe/"
         echo "            └── SKILL.md"
         echo ""
 
         MSG_SKILLS_AVAILABLE=$(get_message "skills_available" "Available Claude Code Skills (auto-invoked)" "利用可能なClaude Codeスキル（自動呼び出し）")
         echo "🎯 $MSG_SKILLS_AVAILABLE:"
-        echo "  checkpoint-manager  - $(get_message "skill_checkpoint_manager" "Task progress tracking (auto-suggest start/progress/complete)" "タスク進捗管理（開始/進捗/完了を自動提案）")"
-        echo "  worktree-manager    - $(get_message "skill_worktree_manager" "Git worktree management (create/merge/cleanup)" "Git worktree管理（作成/マージ/クリーンアップ）")"
-        echo "  auto-build          - $(get_message "skill_auto_build" "Auto-detect project type and build (Node.js/Rust/Python/Go)" "プロジェクト自動検出とビルド（Node.js/Rust/Python/Go）")"
         echo "  commit-safe         - $(get_message "skill_commit_safe" "Safe file-specific commits" "ファイル指定の安全なコミット")"
         echo ""
         echo "🛒 $(get_message "marketplace_info" "Additional skills available at" "追加スキルは以下から入手可能"):"
@@ -1571,25 +1556,21 @@ else
     if [ "${CODEX_INSTALLED:-1}" -eq 0 ]; then
         echo "  .codex/"
         echo "    └── prompts/"
-        echo "        ├── checkpoint.md"
         echo "        ├── commit-and-report.md"
         echo "        ├── commit-safe.md"
         echo "        ├── github-issues.md"
         echo "        ├── reload-instructions.md"
         echo "        ├── reload-and-reset.md"
-        echo "        ├── build.md"
         echo "        └── evidence-check.md"
         echo ""
 
         MSG_CODEX_COMMANDS_AVAILABLE=$(get_message "codex_commands_available" "Available Codex CLI commands" "利用可能なCodex CLIコマンド")
         echo "📦 $MSG_CODEX_COMMANDS_AVAILABLE:"
-        echo "  /checkpoint [start <task-id> <task-name> <steps>]"
         echo "  /commit-and-report \"$(get_message "commit_message" "commit message" "コミットメッセージ")\" [Issue$(get_message "number" "number" "番号")]"
         echo "  /commit-safe \"$(get_message "commit_message" "commit message" "コミットメッセージ")\""
         echo "  /github-issues"
         echo "  /reload-instructions"
         echo "  /reload-and-reset"
-        echo "  /build [--clean|--prod|--test]"
         echo "  /evidence-check [file-path]"
         echo ""
     fi
@@ -1621,9 +1602,9 @@ else
     esac
     echo ""
     MSG_IMPORTANT=$(get_message "important" "Important" "重要")
-    MSG_CHECKPOINT_RUN_FROM=$(get_message "checkpoint_run_from" "Checkpoints are run from scripts/checkpoint.sh" "チェックポイントは scripts/checkpoint.sh から実行されます")
+    MSG_NATIVE_TASK_MGMT=$(get_message "native_task_mgmt" "Use your AI tool's native task management / worktree / build features" "タスク管理・worktree・ビルドはAIツールのネイティブ機能を利用してください")
     MSG_AI_AUTO_PATH=$(get_message "ai_auto_path" "AI will automatically use the correct paths" "AIは自動的に正しいパスを使用します")
     echo "⚠️  $MSG_IMPORTANT:"
-    echo "  • $MSG_CHECKPOINT_RUN_FROM"
+    echo "  • $MSG_NATIVE_TASK_MGMT"
     echo "  • $MSG_AI_AUTO_PATH"
 fi

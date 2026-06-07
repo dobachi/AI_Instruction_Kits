@@ -8,7 +8,7 @@ v2.0では、従来のモジュラー合成方式から**スキルベースア�
 ## v2.0の主な変更点
 
 - **ROOT_INSTRUCTIONがスキルオーケストレーターに**: 約30行のシンプルな構成で、インストール済みスキルを自動的に活用
-- **4つのコアスキル**: checkpoint-manager, worktree-manager, auto-build, commit-safe
+- **コアスキル: commit-safe（その他はマーケットプレイス）**: タスク管理・進捗追跡・worktree・ビルドは近年のAIエージェント（Claude Code等）が標準装備しているため、コアスキルは commit-safe のみに集約
 - **スキルマーケットプレイス**: 追加スキルは [dobachi/claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) から取得
 - **Python依存の廃止**: composer.py, select-instruction.py 等は不要に
 - **`.claude/skills/`**: 従来の `.claude/commands/` に代わるスキル配置先
@@ -54,18 +54,15 @@ rm install.sh
 
 `ROOT_INSTRUCTION.md`はスキルオーケストレーターとして機能します。AIエージェントはタスクに応じて`.claude/skills/`のインストール済みスキルを自動的に活用します。
 
-```
-1. pending確認 → 2. タスク開始 → 3. worktree作成(任意) → 4. 作業 → 5. コミット → 6. 完了
-```
+タスク管理・進捗追跡・Git worktree・ビルド検出などは、AIツールのネイティブ機能（Claude Code の Todo / worktree / ビルド検出など）を利用してください。
 
-### コアスキル（4つ）
+### コアスキル
 
 | スキル | 用途 | 自動提案 |
 |--------|------|----------|
-| **checkpoint-manager** | タスク進捗追跡 | 会話開始時にpending確認を提案 |
-| **worktree-manager** | Git worktree管理 | 複雑なタスクでworktree作成を提案 |
-| **auto-build** | プロジェクトビルド自動化 | コード変更後にビルドを提案 |
 | **commit-safe** | 安全なコミット | 変更後にファイル指定コミットを提案 |
+
+その他のスキルは [マーケットプレイス](https://github.com/dobachi/claude-skills-marketplace) からインストールできます。
 
 ### スキルマーケットプレイス
 
@@ -101,10 +98,7 @@ rm install.sh
 │   ├── ja/            # 日本語テンプレート
 │   └── en/            # 英語テンプレート
 ├── .claude/           # Claude Code スキル
-│   └── skills/        # スキル定義（4コアスキル）
-│       ├── checkpoint-manager.md
-│       ├── worktree-manager.md
-│       ├── auto-build.md
+│   └── skills/        # スキル定義（コアスキル: commit-safe）
 │       └── commit-safe.md
 ├── .codex/            # Codex CLI カスタムプロンプト
 │   └── prompts/       # カスタムプロンプト定義
@@ -116,9 +110,7 @@ rm install.sh
     ├── install-metaproject.sh  # メタプロジェクト化ワンライナー
     ├── install.sh              # ワンライナーインストール
     ├── uninstall.sh            # アンインストール
-    ├── checkpoint.sh           # チェックポイント管理スクリプト
     ├── commit.sh               # クリーンコミットスクリプト
-    ├── worktree-manager.sh     # Git worktree管理スクリプト
     └── submodule-update-check.sh # サブモジュール更新チェック
 ```
 
@@ -126,7 +118,6 @@ rm install.sh
 
 ### AIへの指示書
 - **[instructions/ja/system/ROOT_INSTRUCTION.md](instructions/ja/system/ROOT_INSTRUCTION.md)** - スキルオーケストレーター（約30行）
-- **[instructions/ja/system/CHECKPOINT_MANAGER.md](instructions/ja/system/CHECKPOINT_MANAGER.md)** - チェックポイント管理システム
 
 ### 人間向けドキュメント
 - **[プロジェクトサイト](https://dobachi.github.io/AI_Instruction_Kits/)** - 詳細なドキュメント（GitHub Pages）
@@ -186,14 +177,12 @@ bash scripts/setup-project.sh --help
 
 ```
 あなたのプロジェクト/
-├── scripts/
-│   └── checkpoint.sh → ../instructions/ai_instruction_kits/scripts/checkpoint.sh
 ├── instructions/
 │   ├── ai_instruction_kits/  # サブモジュール（このリポジトリ）
 │   ├── PROJECT.md            # プロジェクト固有の設定（日本語）
 │   └── PROJECT.en.md         # プロジェクト固有の設定（英語）
 ├── .claude/
-│   └── skills/               # 4コアスキルが自動インストール
+│   └── skills/               # コアスキル commit-safe が自動インストール
 ├── CLAUDE.md → instructions/PROJECT.md
 ├── GEMINI.md → instructions/PROJECT.md
 └── CURSOR.md → instructions/PROJECT.md
@@ -223,43 +212,9 @@ claude "instructions/ja/system/ROOT_INSTRUCTION.md を参照して、売上デ�
 
 AIエージェントはROOT_INSTRUCTIONを読み込むと、自動的にインストール済みスキルを確認し、タスクに最適なスキルを活用します。
 
-## チェックポイント管理
+## タスク管理・進捗追跡・worktree
 
-タスクの進捗を追跡し、指示書の使用履歴を記録する管理システム。
-
-```bash
-# タスク開始
-scripts/checkpoint.sh start "新機能実装" 5
-
-# 進捗報告
-scripts/checkpoint.sh ai progress TASK-123 2 5 "実装中" "テスト作成"
-
-# 保留中のタスク確認
-scripts/checkpoint.sh ai pending
-
-# 使用統計
-scripts/checkpoint.sh stats
-```
-
-## Git worktree運用（推奨）
-
-複雑なタスクや複数ファイルの変更時は、専用のworktreeで作業してください：
-
-```bash
-# タスク開始時
-scripts/checkpoint.sh start "機能開発" 3
-# → タスクID: TASK-123456-abc
-
-# worktree作成
-scripts/worktree-manager.sh create TASK-123456-abc "feature-dev"
-cd .gitworktrees/ai-TASK-123456-abc-feature-dev/
-
-# 作業実施...
-
-# 完了時
-scripts/checkpoint.sh complete TASK-123456-abc "完了"
-scripts/worktree-manager.sh complete TASK-123456-abc
-```
+タスク管理・進捗追跡・Git worktree・ビルド検出などは、AIツールのネイティブ機能（Claude Code の Todo / worktree / ビルド検出など）を利用してください。これらは近年のAIエージェントが標準装備しているため、独自スキルは提供していません。
 
 ## Codex CLI カスタムプロンプト
 
@@ -302,13 +257,12 @@ bash scripts/uninstall.sh --dry-run
 
 ### 保持されるファイル
 - `instructions/PROJECT.md` (プロジェクト固有設定)
-- `checkpoint.log` (チェックポイントログ)
 
 ## v1.xからの移行
 
 v1.x（モジュラー指示書システム）からの移行：
 
-1. `setup-project.sh`を再実行すると、`.claude/skills/`に4コアスキルが自動インストールされます
+1. `setup-project.sh`を再実行すると、`.claude/skills/`にコアスキル commit-safe が自動インストールされます
 2. 旧`.claude/commands/`は手動で削除してください
 3. 旧モジュラーシステムのコードは `archive/v1-modular` ブランチに保存されています
 4. Python依存（composer.py等）は不要になりました

@@ -12,15 +12,14 @@ Leverages installed skills to streamline work based on the task at hand.
 
 | Skill | Purpose | Auto-Suggestion |
 |-------|---------|-----------------|
-| checkpoint-manager | Task progress tracking | Suggests pending check at conversation start |
-| worktree-manager | Git worktree management | Suggests worktree creation for complex tasks |
-| auto-build | Project build automation | Suggests build after code changes |
 | commit-safe | Safe commits | Suggests file-specific commit after changes |
+
+> Use your AI tool's native features for task management, progress tracking, Git worktrees, and builds.
 
 ## Basic Workflow
 
 ```
-1. Check pending → 2. Start task → 3. Create worktree (optional) → 4. Work → 5. Commit → 6. Complete
+1. Work → 2. Track progress with native task management → 3. Commit safely with commit-safe
 ```
 
 ## If Skills Are Missing

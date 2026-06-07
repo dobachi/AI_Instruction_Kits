@@ -11,7 +11,7 @@ A lightweight framework for integrating AI instruction systems into your project
 
 | Before (v1) | After (v2.0) |
 |---|---|
-| MODULE_COMPOSER + composer.py + 271 modular files | 4 core skills + marketplace |
+| MODULE_COMPOSER + composer.py + 271 modular files | core skill: commit-safe (others via marketplace) |
 | 5-6 hop instruction synthesis pipeline | ~30-line skill orchestrator (ROOT_INSTRUCTION) |
 | Python dependency for preset generation | Pure shell — no Python required |
 | `.claude/commands/` with 8 command files | `.claude/skills/` with focused skill definitions |
@@ -49,23 +49,17 @@ CLAUDE.md
 
 ROOT_INSTRUCTION acts as a skill orchestrator: it discovers installed skills in `.claude/skills/`, delegates tasks to matching skills, and points users to the marketplace when a needed skill is missing.
 
-## Core Skills (4)
+For task management, progress tracking, Git worktree, and build detection, use your AI tool's native features (Claude Code's Todo, worktree, build detection).
 
-These skills ship with AI Instruction Kits and are installed by `setup-project.sh`:
+## Core Skill
+
+This skill ships with AI Instruction Kits and is installed by `setup-project.sh`:
 
 | Skill | Purpose | Auto-suggestion |
 |-------|---------|-----------------|
-| **checkpoint-manager** | Task progress tracking | Suggests pending check at session start |
-| **worktree-manager** | Git worktree lifecycle | Suggests worktree creation for complex tasks |
-| **auto-build** | Project build automation | Suggests build after code changes |
 | **commit-safe** | Safe file-specific commits | Suggests commit after changes |
 
-### Basic Workflow
-
-```
-1. Check pending tasks -> 2. Start task -> 3. Create worktree (optional)
--> 4. Work -> 5. Commit (commit-safe) -> 6. Complete
-```
+Install additional skills from the [marketplace](https://github.com/dobachi/claude-skills-marketplace).
 
 ## Additional Skills (Marketplace)
 
@@ -113,9 +107,7 @@ Example marketplace skills include role-based skills (web-api-dev, data-analyst,
 │   ├── setup-project.sh    # Project integration setup
 │   ├── install.sh          # One-liner installer
 │   ├── uninstall.sh        # Uninstaller
-│   ├── checkpoint.sh       # Checkpoint management
 │   ├── commit.sh           # Clean commit (no AI signature)
-│   ├── worktree-manager.sh # Git worktree management
 │   └── lib/
 │       └── i18n.sh         # Internationalization library
 └── .claude/           # Claude Code configuration
@@ -182,7 +174,7 @@ bash scripts/setup-project.sh --help
 1. Integrates the repository (copy/clone/submodule)
 2. Creates `instructions/PROJECT.md` and `PROJECT.en.md`
 3. Links `CLAUDE.md`, `GEMINI.md`, `CURSOR.md` to project instructions
-4. Installs the 4 core skills into `.claude/skills/`
+4. Installs the core skill (commit-safe) into `.claude/skills/`
 5. Sets up Git hooks (AI signature prevention)
 6. Displays marketplace URL for additional skills
 
@@ -192,12 +184,7 @@ Result:
 your-project/
 ├── .claude/
 │   └── skills/
-│       ├── checkpoint-manager/
-│       ├── worktree-manager/
-│       ├── auto-build/
 │       └── commit-safe/
-├── scripts/
-│   └── checkpoint.sh -> ../instructions/ai_instruction_kits/scripts/checkpoint.sh
 ├── instructions/
 │   ├── ai_instruction_kits/  # Submodule (this repository)
 │   ├── PROJECT.md            # Project-specific settings (Japanese)
@@ -252,7 +239,6 @@ curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scr
 
 ### Items Kept
 - `instructions/PROJECT.md` (project-specific configuration)
-- `checkpoint.log` (checkpoint log)
 
 For details, run `bash scripts/uninstall.sh --help`.
 
@@ -268,39 +254,9 @@ Supports automation of large-scale analysis and investigation tasks using Claude
 
 See [Claude Code Agent Usage Guide](instructions/en/system/CLAUDE_CODE_AGENT.md) for details.
 
-## Checkpoint Management
+## Task Management, Progress Tracking, and Worktree
 
-```bash
-# Start a task
-scripts/checkpoint.sh start "New feature implementation" 5
-
-# Track progress
-scripts/checkpoint.sh ai progress TASK-123 2 5 "Implementing" "Creating tests"
-
-# Complete a task
-scripts/checkpoint.sh complete TASK-123 "Done"
-
-# View pending tasks
-scripts/checkpoint.sh ai pending
-
-# Usage statistics
-scripts/checkpoint.sh stats
-```
-
-## Git Worktree Management
-
-For complex tasks, use dedicated worktrees:
-
-```bash
-# Create a worktree for a task
-scripts/worktree-manager.sh create TASK-123456-abc "feature-dev"
-
-# Work in the worktree
-cd .gitworktrees/ai-TASK-123456-abc-feature-dev/
-
-# Complete and clean up
-scripts/worktree-manager.sh complete TASK-123456-abc
-```
+For task management, progress tracking, Git worktree, and build detection, use your AI tool's native features (Claude Code's Todo, worktree, build detection). These are standard in modern AI agents, so no dedicated skills are provided.
 
 ## Migration from v1
 
@@ -310,7 +266,7 @@ If you were using the modular instruction system (v1):
 2. Presets have been replaced by marketplace skills (e.g., `web_api_production` -> `web-api-dev` skill)
 3. `.claude/commands/` is replaced by `.claude/skills/`
 4. No Python environment is needed
-5. Run `setup-project.sh` again to install the 4 core skills
+5. Run `setup-project.sh` again to install the core skill (commit-safe)
 
 ## Writing Instructions
 

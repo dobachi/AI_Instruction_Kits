@@ -69,10 +69,10 @@ Edit the generated `instructions/PROJECT.md`:
 claude "Create an e-commerce website"
 # → CLAUDE.md → ROOT_INSTRUCTION (skill orchestrator) activates
 # → Automatically selects optimal skills from .claude/skills/
-# → checkpoint-manager tracks progress automatically
+# → Task management and progress tracking use your AI tool's native features (e.g. Claude Code's Todo)
 
 claude "Write tests"
-# → auto-build skill supports build and test execution
+# → Build and test execution use your AI tool's native features (e.g. build detection)
 
 claude "Commit safely"
 # → commit-safe skill performs clean commits
@@ -139,15 +139,12 @@ bash setup-project.sh --submodule --force
 
 ## 📊 Progress Management
 
-Checkpoint feature automatically records your work:
+Use your AI tool's native features (e.g. Claude Code's Todo) for task management and progress tracking. Modern AI agents ship with built-in task breakdown and progress tracking, so no custom scripts are needed.
 
 ```bash
-# Check progress log
-cat checkpoint.log
-
-# Example output:
-[2024-01-05 10:00:00][TASK-abc123][START] Implement user authentication API (estimated 5 steps)
-[2024-01-05 10:30:00][TASK-abc123][COMPLETE] Result: Created 3 API endpoints, 15 tests
+# Just give tasks in natural language, and the AI manages progress
+claude "Implement user authentication API"
+# → Claude Code automatically generates a Todo list and tracks progress
 ```
 
 ## ❓ FAQ
@@ -156,7 +153,7 @@ cat checkpoint.log
 A: Minimal impact. Only adds:
 - `instructions/` directory
 - Symbolic links (CLAUDE.md, etc.)
-- Link to `scripts/checkpoint.sh`
+- `.claude/skills/` directory (commit-safe skill, etc.)
 
 ### Q: Is it Japanese only?
 A: Both Japanese and English are supported. Edit `PROJECT.en.md` for English version.

@@ -1,8 +1,9 @@
 # スキル仕分けと新アーキテクチャ設計
 
 > **移行完了**: 2026-03-14 にv2.0移行を実施。modular/は`archive/v1-modular`ブランチに退避済み。
-> コアスキル4個（checkpoint-manager, worktree-manager, auto-build, commit-safe）をローカル維持、
-> その他はdobachi/claude-skills-marketplaceへ移動予定。
+> コアスキルは commit-safe のみをローカル維持、その他はdobachi/claude-skills-marketplaceへ移動。
+> **更新**: checkpoint-manager / worktree-manager / auto-build は廃止（AIツールのネイティブ機能へ移行）。
+> 近年のAIエージェント（Claude Code等）がタスク管理（Todo）・進捗追跡・Git worktree・ビルド検出を標準装備しているため。
 
 ## 1. 背景・目的
 
@@ -34,7 +35,7 @@ AI_Instruction_Kitsは「モジュラー指示書合成システム」として�
 ### 現在のアーキテクチャ
 
 ```
-CLAUDE.md → ROOT_INSTRUCTION → CHECKPOINT_MANAGER / WORKTREE_MANAGER
+CLAUDE.md → ROOT_INSTRUCTION → 各種システム指示書
                               → MODULE_COMPOSER → composer.py → プリセット生成
                                                               → modular/ (271ファイル)
                                                               → presets/ → 生成済み指示書
@@ -78,22 +79,23 @@ CLAUDE.md → ROOT_INSTRUCTION（スキルオーケストレーター、~40行�
 
 | スキル名 | 現在パス | 同梱スクリプト |
 |----------|----------|----------------|
-| auto-build | `templates/claude-skills/ja/auto-build/` | なし |
-| checkpoint-manager | `templates/claude-skills/ja/checkpoint-manager/` | `scripts/checkpoint.sh` |
 | verify-content | `templates/claude-skills/ja/verify-content/` | なし |
+
+> **更新**: auto-build / checkpoint-manager は廃止（AIツールのネイティブ機能へ移行）。
+> 詳細は後述の DEPRECATE を参照。
 
 #### 既存コマンド（スキル化して移動）
 
 | コマンド名 | 現在パス | 同梱スクリプト |
 |------------|----------|----------------|
-| build | `templates/claude-commands/ja/build.md` | なし |
-| checkpoint | `templates/claude-commands/ja/checkpoint.md` | `checkpoint.sh`（共有） |
 | commit-and-report | `templates/claude-commands/ja/commit-and-report.md` | なし |
 | commit-safe | `templates/claude-commands/ja/commit-safe.md` | `scripts/commit.sh` |
 | github-issues | `templates/claude-commands/ja/github-issues.md` | なし |
 | reload-instructions | `templates/claude-commands/ja/reload-instructions.md` | なし |
 | reload-and-reset | `templates/claude-commands/ja/reload-and-reset.md` | なし |
 | evidence-check | `templates/claude-commands/ja/evidence-check.md` | fact-checkerに統合 |
+
+> **更新**: build / checkpoint コマンドは廃止（AIツールのネイティブなビルド検出・タスク管理へ移行）。
 
 #### プリセット → 役割スキル化
 
@@ -121,9 +123,8 @@ CLAUDE.md → ROOT_INSTRUCTION（スキルオーケストレーター、~40行�
 
 #### 新規スキル（独立スクリプトをスキル化）
 
-| スキル名（案） | 元 |
-|----------------|-----|
-| worktree-manager | `scripts/worktree-manager.sh` + `instructions/ja/system/WORKTREE_MANAGER.md` |
+> **更新**: worktree-manager（`scripts/worktree-manager.sh` + `instructions/ja/system/WORKTREE_MANAGER.md`）は
+> スキル化せず廃止（AIツールのネイティブな worktree 機能へ移行）。
 
 > **注**: 全て英語版（`en/`）も同様に扱う。
 
@@ -132,8 +133,10 @@ CLAUDE.md → ROOT_INSTRUCTION（スキルオーケストレーター、~40行�
 | 対象 | 理由 |
 |------|------|
 | `MODULE_COMPOSER.md` | マーケットプレイスで代替 |
-| `CHECKPOINT_MANAGER.md`（指示書版） | checkpoint-managerスキルで代替 |
-| `WORKTREE_MANAGER.md` | worktree-managerスキルで代替 |
+| `CHECKPOINT_MANAGER.md`（指示書版） | 廃止（AIツールのネイティブなタスク管理・Todoへ移行） |
+| checkpoint-manager スキル / `scripts/checkpoint.sh` | 廃止（AIツールのネイティブなタスク管理・Todoへ移行） |
+| auto-build スキル | 廃止（AIツールのネイティブなビルド検出へ移行） |
+| `WORKTREE_MANAGER.md` / worktree-manager スキル / `scripts/worktree-manager.sh` | 廃止（AIツールのネイティブな worktree 機能へ移行） |
 | `OPENHANDS_ROOT.md` | ニッチ。必要時にスキル化 |
 | `modular/` 全体（271ファイル + `composer.py`） | スキルマーケットプレイスで代替 |
 | `instructions/ja/presets/` 全体 | マーケットプレイスのスキルで代替 |
@@ -154,7 +157,7 @@ ROOT_INSTRUCTIONを~40行のスキルオーケストレーターとして再設�
 1. **インストール済みスキルの発見**: `.claude/skills/` 配下のスキルを自動検出し、タスクに応じて利用
 2. **マーケットプレイスの案内**: 不足するスキルがあれば `dobachi/claude-skills-marketplace` を案内
 3. **スキル作成の案内**: `/skill-creator` による不足スキルの自作を案内
-4. **オプション機能の委譲**: タスク追跡はcheckpoint-managerスキルがあれば使い、なければスキップ
+4. **オプション機能の委譲**: タスク追跡・進捗管理はAIツールのネイティブ機能（Claude Code の Todo など）に委譲
 
 ### 設計ポイント
 

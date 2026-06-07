@@ -12,13 +12,13 @@
 ### 通常のプロジェクトでの使用（サブモジュール経由）
 ```
 instructions/ai_instruction_kits/instructions/ja/system/ROOT_INSTRUCTION.md
-scripts/checkpoint.sh
+scripts/commit.sh
 ```
 
 ### このプロジェクト自体での使用
 ```
 instructions/ja/system/ROOT_INSTRUCTION.md
-scripts/checkpoint.sh
+scripts/commit.sh
 ```
 
 ### パス変換ルール
@@ -29,17 +29,16 @@ scripts/checkpoint.sh
 - **目的**: AIへの指示書を構造的に管理・提供するシステムの開発
 - **言語**: 日本語優先（英語版も同時メンテナンス）
 - **ライセンス**: Apache-2.0（個別指示書は各自のライセンス）
-- **アーキテクチャ**: スキルベース（v2.0） - コアスキル4個をローカル維持、その他はマーケットプレイスへ
+- **アーキテクチャ**: スキルベース（v2.0） - コアスキル commit-safe をローカル維持、その他はマーケットプレイスへ
 
 ## スキルベースアーキテクチャ（v2.0）
 
 ### コアスキル（ローカル維持）
 | スキル | 用途 |
 |--------|------|
-| checkpoint-manager | タスク進捗追跡・管理 |
-| worktree-manager | Git worktree管理 |
-| auto-build | プロジェクトビルド自動化 |
 | commit-safe | 安全なコミット |
+
+> タスク管理・進捗追跡・Git worktree・ビルドはAIツールのネイティブ機能を利用してください。
 
 ### 追加スキル
 マーケットプレイスからインストール: https://github.com/dobachi/claude-skills-marketplace
@@ -91,10 +90,8 @@ scripts/checkpoint.sh
 
 ## Codex CLIカスタムコマンド
 
-Codex CLI向けのカスタムプロンプトを`.codex/prompts/`に追加しました。ファイル名がそのまま`/コマンド名`として呼び出せます（例: `build.md` → `/build`）。必要に応じて自分の環境の`~/.codex/prompts/`へコピーし、CLIを再起動してください。
+Codex CLI向けのカスタムプロンプトを`.codex/prompts/`に追加しました。ファイル名がそのまま`/コマンド名`として呼び出せます（例: `commit-safe.md` → `/commit-safe`）。必要に応じて自分の環境の`~/.codex/prompts/`へコピーし、CLIを再起動してください。
 
-- `build` — プロジェクトの種類を判断してビルドを支援
-- `checkpoint` — `scripts/checkpoint.sh` の各サブコマンドを案内
 - `commit-and-report` — コミット・プッシュ・Issue報告の手順
 - `commit-safe` — ファイル指定型の安全なコミット手順
 - `github-issues` — GitHub Issueの取得と整理
@@ -130,31 +127,12 @@ Codex CLI向けのカスタムプロンプトを`.codex/prompts/`に追加しま
 # 統合テスト
 bash scripts/setup-project.sh
 
-# このプロジェクト自体でのcheckpoint実行
-bash scripts/checkpoint.sh
-
 # クリーンなコミット（AIメッセージなし）
 bash scripts/commit.sh "コミットメッセージ"
 ```
 
-## Git worktree運用（推奨）
-複雑なタスクや複数ファイルの変更時は、専用のworktreeで作業してください：
-
-```bash
-# タスク開始時
-scripts/checkpoint.sh start "機能開発" 3
-# → タスクID: TASK-123456-abc
-
-# worktree作成
-scripts/worktree-manager.sh create TASK-123456-abc "feature-dev"
-cd .gitworktrees/ai-TASK-123456-abc-feature-dev/
-
-# 作業実施...
-
-# 完了時
-scripts/checkpoint.sh complete TASK-123456-abc "完了"
-scripts/worktree-manager.sh complete TASK-123456-abc
-```
+## タスク管理・進捗追跡について
+タスク管理・進捗追跡・Git worktree・ビルドはAIツールのネイティブ機能を利用してください。
 
 ## ダウンストリームプロジェクト（downstream/）
 

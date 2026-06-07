@@ -35,57 +35,9 @@ claude "CLAUDE.mdを参照して、RESTful APIを設計して"
 
 ## 🎯 スキルベースワークフロー
 
-v2.0の中核は、`.claude/skills/` に配置された4つのコアスキルです。ROOT_INSTRUCTIONがタスクの内容に応じて自動的に適切なスキルを提案します。
+v2.0の中核は、`.claude/skills/` に配置されたコアスキル **commit-safe** です。ROOT_INSTRUCTIONがタスクの内容に応じて自動的に適切なスキルを提案します。
 
-### checkpoint-manager（タスク進捗管理）
-
-会話開始時に未完了タスクの確認を自動提案します。
-
-```bash
-# タスクの開始
-scripts/checkpoint.sh start "新機能開発" 5
-# → タスクID: TASK-123456-abc が発行される
-
-# 進捗報告
-scripts/checkpoint.sh progress TASK-123456-abc 2 5 "設計完了" "実装開始"
-
-# タスク完了
-scripts/checkpoint.sh complete TASK-123456-abc "5機能実装、テスト20個作成"
-```
-
-**自動提案タイミング**: 会話開始時にpendingタスクの確認を提案
-
-### worktree-manager（Git worktree管理）
-
-複雑なタスクや複数ファイルの変更時にworktree作成を提案します。
-
-```bash
-# worktree作成
-scripts/worktree-manager.sh create TASK-123456-abc "feature-auth"
-# → .gitworktrees/ai-TASK-123456-abc-feature-auth/ が作成される
-
-# 作業ディレクトリに移動
-cd .gitworktrees/ai-TASK-123456-abc-feature-auth/
-
-# 作業完了後
-scripts/worktree-manager.sh complete TASK-123456-abc
-```
-
-**自動提案タイミング**: 複雑なタスクでworktree作成を提案
-
-### auto-build（自動ビルド・テスト）
-
-プロジェクトの種類を自動判別し、適切なビルドコマンドを実行します。
-
-```bash
-# プロジェクトタイプを自動検出してビルド
-# package.json → npm run build
-# Cargo.toml → cargo build
-# go.mod → go build
-# など
-```
-
-**自動提案タイミング**: コード変更後にビルド・テスト実行を提案
+タスク管理（Todo）・進捗追跡・Git worktree・ビルド検出は、近年のAIエージェント（Claude Codeなど）が標準装備しているため、それらのネイティブ機能を活用します。独自スクリプトは不要です。
 
 ### commit-safe（安全なコミット）
 
@@ -98,10 +50,14 @@ scripts/commit.sh "feat: ユーザー認証機能を追加"
 
 **自動提案タイミング**: 変更後にファイル指定コミットを提案
 
+### タスク管理・worktree・ビルドはAIツールのネイティブ機能を利用
+
+進捗追跡やビルドの自動化は、お使いのAIツールのネイティブ機能（Claude Code の Todo / worktree / ビルド検出など）を利用してください。
+
 ### 基本ワークフロー
 
 ```
-1. pending確認 → 2. タスク開始 → 3. worktree作成(任意) → 4. 作業 → 5. コミット → 6. 完了
+1. タスクをAIに依頼 → 2. AIがネイティブ機能で進捗管理・作業 → 3. commit-safe でコミット
 ```
 
 ## 🛒 マーケットプレイススキル
@@ -142,84 +98,13 @@ cp -r path/to/code-reviewer .claude/skills/code-reviewer
 
 独自のスキルが必要な場合は、マーケットプレイスの skill-creator スキルを活用できます。スキルファイルを `.claude/skills/` に配置するだけで利用可能になります。
 
-## 📊 チェックポイント管理
+## 📊 タスク管理・進捗追跡
 
-`scripts/checkpoint.sh` はタスクの進捗を詳細に記録・管理するスクリプトです。
-
-### 主要コマンド
-
-| コマンド | 用途 | 例 |
-|---------|------|-----|
-| `start` | 新しいタスクを開始 | `scripts/checkpoint.sh start "API開発" 5` |
-| `progress` | 進捗を報告 | `scripts/checkpoint.sh progress TASK-xxx 2 5 "設計完了" "実装開始"` |
-| `complete` | タスクを完了 | `scripts/checkpoint.sh complete TASK-xxx "3エンドポイント実装"` |
-| `pending` | 未完了タスク一覧 | `scripts/checkpoint.sh pending` |
-| `summary` | タスク詳細表示 | `scripts/checkpoint.sh summary TASK-xxx` |
-| `error` | エラーを報告 | `scripts/checkpoint.sh error TASK-xxx "依存関係エラー"` |
-
-### スキル使用の追跡
-
-```bash
-# 指示書/スキル使用の開始を記録
-scripts/checkpoint.sh instruction-start ".claude/skills/auto-build" "API開発" TASK-xxx
-
-# 指示書/スキル使用の完了を記録
-scripts/checkpoint.sh instruction-complete ".claude/skills/auto-build" "3エンドポイント実装" TASK-xxx
-```
-
-### 進捗の可視化
-
-```bash
-# 未完了タスクの確認
-scripts/checkpoint.sh pending
-
-# タスクの詳細履歴
-scripts/checkpoint.sh summary TASK-xxx
-
-# ヘルプ表示
-scripts/checkpoint.sh help
-```
+タスク管理（Todo）や進捗追跡は、お使いのAIツールのネイティブ機能を利用してください。Claude Code の Todo 機能などが、会話の中でタスクの分解・進捗の可視化を自動的に行います。独自のチェックポイントスクリプトは不要になりました。
 
 ## 🌲 Git worktree運用
 
-複雑なタスクや複数ファイルにまたがる変更では、Git worktreeでの作業を推奨します。
-
-### 推奨フロー
-
-```bash
-# 1. タスク開始
-scripts/checkpoint.sh start "認証機能開発" 5
-# → TASK-123456-abc
-
-# 2. worktree作成
-scripts/worktree-manager.sh create TASK-123456-abc "feature-auth"
-
-# 3. worktreeに移動して作業
-cd .gitworktrees/ai-TASK-123456-abc-feature-auth/
-
-# 4. 作業実施・コミット
-scripts/commit.sh "feat: 認証機能を追加"
-
-# 5. タスク完了・worktreeクリーンアップ
-scripts/checkpoint.sh complete TASK-123456-abc "認証機能実装完了"
-scripts/worktree-manager.sh complete TASK-123456-abc
-```
-
-### worktree管理コマンド
-
-```bash
-# 一覧表示
-scripts/worktree-manager.sh list
-
-# 特定のworktreeに切り替え
-scripts/worktree-manager.sh switch TASK-xxx
-
-# 完了・クリーンアップ
-scripts/worktree-manager.sh complete TASK-xxx
-
-# 不要なworktreeを一括削除
-scripts/worktree-manager.sh clean
-```
+複雑なタスクや複数ファイルにまたがる変更では、Git worktreeでの作業を推奨します。worktree の作成・切り替え・クリーンアップは、お使いのAIツールのネイティブ機能（Claude Code の worktree 機能など）を利用してください。
 
 ## ⚙️ PROJECT.mdのカスタマイズ
 
@@ -260,8 +145,6 @@ AI Instruction Kitsは、Claude Code以外のAI CLIツールにも対応して�
 
 ```bash
 # 利用可能なコマンド例
-/build              # プロジェクトの種類を判断してビルド支援
-/checkpoint         # checkpoint.sh の各サブコマンドを案内
 /commit-safe        # AI署名なしの安全なコミット
 /commit-and-report  # コミット・プッシュ・Issue報告
 /reload-instructions # 指示書の再読み込み
@@ -284,7 +167,7 @@ AI Instruction Kitsは、Claude Code以外のAI CLIツールにも対応して�
 - チームメンバーと共有
 
 ### 3. フィードバックループ
-- チェックポイント機能で作業履歴を蓄積
+- AIツールのネイティブな進捗管理機能で作業履歴を把握
 - スキルの効果を評価し、必要に応じてカスタマイズ
 - 新しいスキルの作成やマーケットプレイスへの貢献を検討
 
@@ -302,26 +185,13 @@ ls .claude/skills/
 bash scripts/setup-project.sh
 ```
 
-### Q: チェックポイントログが見つからない場合は？
+### Q: タスクの進捗管理はどうすればいい？
 
-A: `checkpoint.log` はプロジェクトルートに作成されます。初回のタスク開始時に自動生成されます。
+A: お使いのAIツールのネイティブ機能（Claude Code の Todo など）を利用してください。会話の中でタスクの分解・進捗の可視化が自動的に行われます。
 
-```bash
-# 新しいタスクを開始してログを作成
-scripts/checkpoint.sh start "テストタスク" 1
-```
+### Q: worktreeを使いたい場合は？
 
-### Q: worktreeの作成に失敗する場合は？
-
-A: Gitリポジトリのルートディレクトリで実行しているか確認してください。
-
-```bash
-# リポジトリルートに移動
-cd $(git rev-parse --show-toplevel)
-
-# worktreeを作成
-scripts/worktree-manager.sh create TASK-xxx "description"
-```
+A: お使いのAIツールのネイティブな worktree 機能を利用してください。リポジトリのルートディレクトリで操作することを推奨します。
 
 ### Q: 指示の優先順位が分からない場合は？
 

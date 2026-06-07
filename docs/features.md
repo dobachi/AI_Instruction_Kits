@@ -23,23 +23,13 @@ v2.0で導入されたスキルベースアーキテクチャにより、タス�
 - **マーケットプレイス連携**：コミュニティ製スキルを簡単に追加
 - **最小構成で開始**：コアスキルだけですぐに利用可能
 
-### コアスキル（4種類）
+### コアスキル
 
-1. **checkpoint-manager**：タスク進捗管理
-   - タスクの開始・進捗・完了を自動追跡
-   - 並行タスクの管理、統計表示
-
-2. **worktree-manager**：Git worktree管理
-   - タスクごとの安全な作業ブランチを自動作成
-   - 完了時のマージ・クリーンアップ
-
-3. **auto-build**：自動ビルド・テスト
-   - プロジェクトの種類を判別して適切なビルドコマンドを実行
-   - テスト実行と結果のレポート
-
-4. **commit-safe**：安全なコミット
+- **commit-safe**：安全なコミット
    - AI署名なしのクリーンコミット
    - ファイル指定型の安全なコミット手順
+
+タスク管理（Todo）・進捗追跡・Git worktree・ビルド検出は、近年のAIエージェント（Claude Codeなど）が標準装備しているため、それらのネイティブ機能を活用します。
 
 ### マーケットプレイススキル
 
@@ -52,15 +42,8 @@ v2.0で導入されたスキルベースアーキテクチャにより、タス�
 # スキルオーケストレーターが自動でスキルを選択
 claude "新機能を実装してください"
 # → ROOT_INSTRUCTION がタスクを分析
-# → worktree-manager で安全な作業ブランチを作成
-# → checkpoint-manager で進捗を自動追跡
-# → auto-build でビルド・テストを実行
+# → AIツールのネイティブ機能で進捗管理・作業（Todo / worktree / ビルド検出）
 # → commit-safe でクリーンコミット
-
-# 進捗管理
-claude "タスクの進捗を確認して"
-# → checkpoint-manager スキルが起動
-# → 未完了タスクの一覧と統計を表示
 
 # 安全なコミット
 claude "変更をコミットして"
@@ -75,10 +58,9 @@ claude "変更をコミットして"
 ### コアスキル（`.claude/skills/`に配置）
 | スキル | 用途 | 自動提案タイミング |
 |--------|------|-------------------|
-| checkpoint-manager | タスク進捗追跡 | 会話開始時にpending確認 |
-| worktree-manager | Git worktree管理 | 複雑なタスクでworktree作成 |
-| auto-build | プロジェクトビルド自動化 | コード変更後にビルド |
 | commit-safe | 安全なコミット | 変更後にファイル指定コミット |
+
+タスク管理（Todo）・進捗追跡・Git worktree・ビルド検出は、AIツールのネイティブ機能を利用します。
 
 ### マーケットプレイススキル
 
@@ -100,27 +82,9 @@ claude "変更をコミットして"
 
 ## 🔧 コア機能
 
-### チェックポイント管理（拡張版）
+### タスク管理・進捗追跡
 
-作業の進捗と指示書の使用履歴を詳細に追跡
-
-```bash
-# タスク開始
-scripts/checkpoint.sh start "新機能実装" 5
-📌 タスクID: TASK-123456-abc123
-
-# 指示書使用の追跡（新機能）
-scripts/checkpoint.sh instruction-start "instructions/ja/system/ROOT_INSTRUCTION.md" "API開発" TASK-123456-abc123
-scripts/checkpoint.sh instruction-complete "instructions/ja/system/ROOT_INSTRUCTION.md" "3エンドポイント実装" TASK-123456-abc123
-
-# AI向け簡潔出力モード（新機能）
-scripts/checkpoint.sh ai pending
-scripts/checkpoint.sh ai progress TASK-123456-abc123 2 5 "実装中" "テスト作成"
-
-# 統計表示（新機能）
-scripts/checkpoint.sh stats
-scripts/checkpoint.sh history
-```
+作業の進捗や指示書の使用履歴は、お使いのAIツールのネイティブ機能（Claude Code の Todo など）で追跡します。会話の中でタスクの分解・進捗の可視化が自動的に行われるため、独自のチェックポイントスクリプトは不要です。
 
 ### Claude Codeエージェント機能
 
@@ -139,7 +103,6 @@ Claude Codeユーザー向けの効率化機能：
 
 | コマンド | 説明 | 使用例 |
 |----------|------|--------|
-| `/checkpoint` | チェックポイント管理 | `/checkpoint start "新機能実装" 5` |
 | `/commit-and-report` | コミット＆Issue報告 | `/commit-and-report "バグ修正完了"` |
 | `/commit-safe` | クリーンコミット（AI署名なし） | `/commit-safe "ドキュメント更新"` |
 | `/reload-instructions` | 指示書の再読み込み | `/reload-instructions` |
@@ -365,38 +328,6 @@ git commit -m "指示書をv1.1.0（安定版）にロールバック"
 
 ## 📊 利用統計とメトリクス
 
-### チェックポイントログ分析
-
-作業の進捗と成果を定量的に把握できます。
-
-#### 基本的な統計情報
-```bash
-# 完了したタスクの総数
-grep "COMPLETE" checkpoint.log | wc -l
-
-# 実行中のタスク（未完了）を確認
-grep "START" checkpoint.log | grep -v "COMPLETE"
-
-# 本日のタスク一覧
-grep "$(date +%Y-%m-%d)" checkpoint.log
-
-# エラーが発生したタスクを抽出
-grep "ERROR" checkpoint.log
-```
-
-#### タスク分析の例
-```bash
-# タスクIDごとの所要時間を計算するスクリプト例
-#!/bin/bash
-while read -r line; do
-    if [[ $line =~ \[TASK-([a-f0-9]+)\] ]]; then
-        task_id="${BASH_REMATCH[1]}"
-        # START/COMPLETEのペアを見つけて時間差を計算
-        # （実装例は省略）
-    fi
-done < checkpoint.log
-```
-
 ### プロジェクト別カスタマイズ分析
 
 PROJECT.mdの内容から、プロジェクトの特性を把握：
@@ -407,18 +338,6 @@ cat instructions/PROJECT.md | grep -E "(ビルドコマンド|リントコマン
 
 # カスタマイズされた項目数をカウント
 grep -v "^#" instructions/PROJECT.md | grep -v "^$" | grep -v "例：" | wc -l
-```
-
-### 成果物の定量化
-
-チェックポイントログから成果を抽出：
-
-```bash
-# 成果物のサマリーを生成
-grep "成果:" checkpoint.log | sed 's/.*成果: //' | sort | uniq -c | sort -nr
-
-# 作成されたファイル数、テスト数などを集計
-grep "成果:" checkpoint.log | grep -E "[0-9]+個|[0-9]+件|[0-9]+ファイル"
 ```
 
 ## 🚀 今後の展開

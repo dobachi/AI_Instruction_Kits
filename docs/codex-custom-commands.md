@@ -4,23 +4,7 @@
 
 ## 利用可能なコマンド
 
-### 1. `/checkpoint` - 進捗管理
-タスクの進捗状況を管理・報告するためのコマンドです。
-
-**使用例:**
-```
-/checkpoint
-/checkpoint start TASK-001 "新機能実装" 5
-/checkpoint progress TASK-001 "認証機能を実装中"
-/checkpoint complete TASK-001 "完了"
-```
-
-**機能:**
-- 現在のタスク一覧表示
-- 進捗状況の確認
-- タスクの開始・完了管理
-
-### 2. `/commit-and-report` - コミット＆進捗報告
+### 1. `/commit-and-report` - コミット＆進捗報告
 Gitコミットと同時に進捗報告を行うコマンドです。
 
 **使用例:**
@@ -34,7 +18,7 @@ Gitコミットと同時に進捗報告を行うコマンドです。
 - 進捗状況の更新
 - Issue番号への自動報告
 
-### 3. `/commit-safe` - 安全なコミット
+### 2. `/commit-safe` - 安全なコミット
 ファイル指定型の安全なコミットを行います。
 
 **使用例:**
@@ -48,7 +32,7 @@ Gitコミットと同時に進捗報告を行うコマンドです。
 - 変更内容の事前確認
 - 意図しないファイルのコミット防止
 
-### 4. `/github-issues` - GitHub Issue確認
+### 3. `/github-issues` - GitHub Issue確認
 GitHub Issueを確認し、やるべきタスクを整理します。
 
 **使用例:**
@@ -67,7 +51,7 @@ GitHub Issueを確認し、やるべきタスクを整理します。
 - GitHub CLI (`gh`) のインストール
 - `gh auth login` による認証
 
-### 5. `/reload-instructions` - 指示書更新
+### 4. `/reload-instructions` - 指示書更新
 AI指示書システムを最新版に更新します。
 
 **使用例:**
@@ -80,7 +64,7 @@ AI指示書システムを最新版に更新します。
 - ROOT_INSTRUCTIONの再読み込み
 - 最新の指示書システムへの更新
 
-### 6. `/reload-and-reset` - システムリセット
+### 5. `/reload-and-reset` - システムリセット
 AI指示書システムをリロードし、AIの振る舞いをリセットします。
 
 **使用例:**
@@ -100,28 +84,7 @@ AI指示書システムをリロードし、AIの振る舞いをリセットし�
 - 長時間の作業セッション後
 - 新しいタスクセッションを開始する前
 
-### 7. `/build` - スマートビルドシステム
-プロジェクトの構成を自動検出し、最適なビルドコマンドを実行します。
-
-**使用例:**
-```
-/build                    # 基本ビルド
-/build --clean           # クリーンビルド
-/build --prod            # プロダクションビルド
-/build --test            # テスト含むビルド
-/build --deps            # 依存関係のみインストール
-/build --check           # ビルド可能性チェック
-/build --verbose         # 詳細ログ出力
-/build --clean --prod    # 複数オプション組み合わせ
-```
-
-**対応プロジェクトタイプ:**
-- **フロントエンド**: Node.js、Vite、Next.js、React、Vue、Angular、Webpack
-- **バックエンド**: Rust、Go、Python、Java (Maven/Gradle)、C/C++、CMake
-- **モバイル**: Flutter、React Native
-- **その他**: Docker、Deno、WebAssembly
-
-### 8. `/evidence-check` - エビデンスチェック
+### 6. `/evidence-check` - エビデンスチェック
 レポートや論文の参考文献・引用の妥当性を検証します。
 
 **使用例:**

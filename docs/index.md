@@ -27,7 +27,7 @@ AIツール（Claude、ChatGPT、Gemini等）を使う際、こんな課題は�
 
 ### 🧩 v2.0 スキルベースアーキテクチャ
 - **スキルオーケストレーター（ROOT_INSTRUCTION）**がタスクに最適なスキルを自動選択
-- **4つのコアスキル**：checkpoint-manager、worktree-manager、auto-build、commit-safe
+- **コアスキル**：commit-safe（タスク管理・進捗追跡・worktree・ビルド検出はAIツールのネイティブ機能を利用）
 - **マーケットプレイス**：コミュニティ製スキルを追加可能（[claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace)）
 
 ### 📚 構造化された指示書ライブラリ
@@ -46,8 +46,8 @@ bash path/to/AI_Instruction_Kits/scripts/setup-project.sh
 - **クローンモード**: 独自カスタマイズ可能
 - **サブモジュールモード**: バージョン管理に最適
 
-### 📊 進捗管理機能
-チェックポイント機能で、AIとの作業進捗を自動追跡
+### 📊 進捗管理
+タスク管理・進捗追跡はAIツールのネイティブ機能（Claude Code の Todo など）を利用
 
 ### 🤖 Claude Codeエージェント対応
 Task tool（エージェント機能）を活用した大規模分析タスクの自動化
@@ -62,7 +62,7 @@ claude "CLAUDE.mdを参照して、ユーザー認証機能を実装して"
 # 自動的に以下が実行される：
 # 1. プロジェクト固有の設定を読み込み
 # 2. 適切な指示書を選択
-# 3. 進捗をチェックポイントに記録
+# 3. AIツールのネイティブ機能（Todo など）で進捗を追跡
 ```
 
 ### v2.0 スキルベースの方法
@@ -73,8 +73,7 @@ claude "Webサイトを作成してください"
 # スキルオーケストレーター（ROOT_INSTRUCTION）が以下を実行：
 # 1. タスクを分析して必要なスキルを特定
 # 2. .claude/skills/ から最適なスキルを選択
-# 3. checkpoint-manager でタスク進捗を自動追跡
-# 4. worktree-manager で安全な作業ブランチを管理
+# 3. タスク進捗の追跡や作業ブランチ管理はAIツールのネイティブ機能（Todo / worktree など）を利用
 ```
 
 ## 🛠️ 使用例

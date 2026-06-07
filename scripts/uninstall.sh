@@ -63,10 +63,8 @@ Description:
 
 Removed items:
     - instructions/ai_instruction_kits/ (サブモジュール/クローン/コピー)
-    - scripts/checkpoint.sh (シンボリックリンク)
     - scripts/commit.sh (シンボリックリンク)
     - scripts/lib/ (シンボリックリンク)
-    - scripts/worktree-manager.sh (シンボリックリンク)
     - CLAUDE.md, GEMINI.md, CURSOR.md (シンボリックリンク)
     - .claude/skills/ (スキル設定)
     - .openhands/microagents/repo.md (シンボリックリンク)
@@ -75,7 +73,6 @@ Removed items:
 Kept items (プロジェクト固有のファイルは保持):
     - instructions/PROJECT.md (プロジェクト設定)
     - instructions/PROJECT.en.md (英語版プロジェクト設定)
-    - checkpoint.log (チェックポイントログ)
     - .gitignore (変更を元に戻さない)
 
 Examples:
@@ -188,7 +185,6 @@ confirm_removal() {
         echo "【保持されるもの】"
         echo "  - instructions/PROJECT.md (プロジェクト固有設定)"
         echo "  - instructions/PROJECT.en.md"
-        echo "  - checkpoint.log (チェックポイントログ)"
         echo "  - instructions/CURRENT_INSTRUCTION.md (生成された指示書)"
         echo ""
         echo -e "${RED}❌ パイプ経由での対話的実行は安全のためサポートされていません${NC}"
@@ -231,7 +227,6 @@ confirm_removal() {
     echo "【保持されるもの】"
     echo "  - instructions/PROJECT.md (プロジェクト固有設定)"
     echo "  - instructions/PROJECT.en.md"
-    echo "  - checkpoint.log (チェックポイントログ)"
     echo "  - instructions/CURRENT_INSTRUCTION.md (生成された指示書)"
     echo ""
 
@@ -279,10 +274,8 @@ perform_uninstall() {
     fi
 
     # 2. scripts/ 配下のシンボリックリンク
-    if remove_symlink "scripts/checkpoint.sh" "Checkpoint manager"; then ((removed_count++)); fi
     if remove_symlink "scripts/commit.sh" "Commit script"; then ((removed_count++)); fi
     if remove_symlink "scripts/lib" "Library directory"; then ((removed_count++)); fi
-    if remove_symlink "scripts/worktree-manager.sh" "Worktree manager"; then ((removed_count++)); fi
 
     # 3. ルートディレクトリのシンボリックリンク
     if remove_symlink "CLAUDE.md" "Claude AI configuration"; then ((removed_count++)); fi
@@ -339,7 +332,6 @@ show_completion() {
     local kept_files=()
     [ -f "instructions/PROJECT.md" ] && kept_files+=("instructions/PROJECT.md")
     [ -f "instructions/PROJECT.en.md" ] && kept_files+=("instructions/PROJECT.en.md")
-    [ -f "checkpoint.log" ] && kept_files+=("checkpoint.log")
     [ -f "instructions/CURRENT_INSTRUCTION.md" ] && kept_files+=("instructions/CURRENT_INSTRUCTION.md")
     [ -d "instructions/modular/cache" ] && kept_files+=("instructions/modular/cache/")
 
@@ -373,7 +365,7 @@ main() {
 
     # インストール検出
     if [ ! -d "instructions/ai_instruction_kits" ] && \
-       [ ! -L "scripts/checkpoint.sh" ] && \
+       [ ! -L "scripts/commit.sh" ] && \
        [ ! -L "CLAUDE.md" ]; then
         echo -e "${YELLOW}⚠️  AI Instruction Kits installation not detected${NC}"
         echo "Nothing to uninstall."

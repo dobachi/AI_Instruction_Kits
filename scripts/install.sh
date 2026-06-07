@@ -407,8 +407,8 @@ show_completion() {
     fi
     
     echo -e "\n${BLUE}⚡ Quick commands:${NC}"
-    echo "  scripts/checkpoint.sh start \"task-name\" 3"
     echo "  scripts/commit.sh \"your commit message\""
+    echo "  # Use your AI tool's native task management for progress tracking"
 }
 
 # メイン処理

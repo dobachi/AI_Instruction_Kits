@@ -35,57 +35,9 @@ claude "Refer to CLAUDE.md and design a RESTful API"
 
 ## 🎯 Skill-Based Workflow
 
-The core of v2.0 is four core skills placed in `.claude/skills/`. ROOT_INSTRUCTION automatically suggests the appropriate skill based on the task at hand.
+The core of v2.0 is the **commit-safe** core skill placed in `.claude/skills/`. ROOT_INSTRUCTION automatically suggests the appropriate skill based on the task at hand.
 
-### checkpoint-manager (Task Progress Management)
-
-Automatically suggests checking pending tasks at the start of a conversation.
-
-```bash
-# Start a task
-scripts/checkpoint.sh start "New feature development" 5
-# → Task ID: TASK-123456-abc is issued
-
-# Report progress
-scripts/checkpoint.sh progress TASK-123456-abc 2 5 "Design complete" "Start implementation"
-
-# Complete task
-scripts/checkpoint.sh complete TASK-123456-abc "5 features implemented, 20 tests created"
-```
-
-**Auto-suggestion timing**: Suggests checking pending tasks at conversation start
-
-### worktree-manager (Git Worktree Management)
-
-Suggests creating a worktree for complex tasks or multi-file changes.
-
-```bash
-# Create worktree
-scripts/worktree-manager.sh create TASK-123456-abc "feature-auth"
-# → .gitworktrees/ai-TASK-123456-abc-feature-auth/ is created
-
-# Move to working directory
-cd .gitworktrees/ai-TASK-123456-abc-feature-auth/
-
-# After completing work
-scripts/worktree-manager.sh complete TASK-123456-abc
-```
-
-**Auto-suggestion timing**: Suggests worktree creation for complex tasks
-
-### auto-build (Automatic Build & Test)
-
-Automatically detects project type and runs the appropriate build command.
-
-```bash
-# Auto-detects project type and builds
-# package.json → npm run build
-# Cargo.toml → cargo build
-# go.mod → go build
-# etc.
-```
-
-**Auto-suggestion timing**: Suggests build/test execution after code changes
+For task management (Todo), progress tracking, Git worktree, and build detection, use your AI tool's native features (Claude Code's Todo, worktree, build detection), since modern AI agents ship with these built in. No custom scripts are required.
 
 ### commit-safe (Safe Commits)
 
@@ -98,10 +50,14 @@ scripts/commit.sh "feat: Add user authentication"
 
 **Auto-suggestion timing**: Suggests file-specific commits after changes
 
+### Task Management, Worktree, and Build Use Your AI Tool's Native Features
+
+For progress tracking and build automation, use your AI tool's native features (Claude Code's Todo, worktree, build detection).
+
 ### Basic Workflow
 
 ```
-1. Check pending → 2. Start task → 3. Create worktree (optional) → 4. Work → 5. Commit → 6. Complete
+1. Ask the AI for a task → 2. AI manages progress and works via native features → 3. Commit with commit-safe
 ```
 
 ## 🛒 Marketplace Skills
@@ -142,84 +98,13 @@ cp -r path/to/code-reviewer .claude/skills/code-reviewer
 
 If you need custom skills, use the skill-creator skill from the marketplace. Simply place skill files in `.claude/skills/` to make them available.
 
-## 📊 Checkpoint Management
+## 📊 Task Management & Progress Tracking
 
-`scripts/checkpoint.sh` is a script that records and manages task progress in detail.
-
-### Key Commands
-
-| Command | Purpose | Example |
-|---------|---------|---------|
-| `start` | Start a new task | `scripts/checkpoint.sh start "API development" 5` |
-| `progress` | Report progress | `scripts/checkpoint.sh progress TASK-xxx 2 5 "Design complete" "Start implementation"` |
-| `complete` | Complete a task | `scripts/checkpoint.sh complete TASK-xxx "3 endpoints implemented"` |
-| `pending` | List pending tasks | `scripts/checkpoint.sh pending` |
-| `summary` | Show task details | `scripts/checkpoint.sh summary TASK-xxx` |
-| `error` | Report an error | `scripts/checkpoint.sh error TASK-xxx "Dependency error"` |
-
-### Tracking Skill Usage
-
-```bash
-# Record skill usage start
-scripts/checkpoint.sh instruction-start ".claude/skills/auto-build" "API development" TASK-xxx
-
-# Record skill usage completion
-scripts/checkpoint.sh instruction-complete ".claude/skills/auto-build" "3 endpoints implemented" TASK-xxx
-```
-
-### Visualizing Progress
-
-```bash
-# Check pending tasks
-scripts/checkpoint.sh pending
-
-# View detailed task history
-scripts/checkpoint.sh summary TASK-xxx
-
-# Show help
-scripts/checkpoint.sh help
-```
+For task management (Todo) and progress tracking, use your AI tool's native features. Claude Code's Todo, for example, automatically breaks down tasks and visualizes progress during the conversation. A custom checkpoint script is no longer needed.
 
 ## 🌲 Git Worktree Workflow
 
-For complex tasks or changes spanning multiple files, working in a Git worktree is recommended.
-
-### Recommended Flow
-
-```bash
-# 1. Start task
-scripts/checkpoint.sh start "Auth feature development" 5
-# → TASK-123456-abc
-
-# 2. Create worktree
-scripts/worktree-manager.sh create TASK-123456-abc "feature-auth"
-
-# 3. Move to worktree and work
-cd .gitworktrees/ai-TASK-123456-abc-feature-auth/
-
-# 4. Work and commit
-scripts/commit.sh "feat: Add authentication feature"
-
-# 5. Complete task and clean up worktree
-scripts/checkpoint.sh complete TASK-123456-abc "Auth feature implemented"
-scripts/worktree-manager.sh complete TASK-123456-abc
-```
-
-### Worktree Management Commands
-
-```bash
-# List worktrees
-scripts/worktree-manager.sh list
-
-# Switch to a specific worktree
-scripts/worktree-manager.sh switch TASK-xxx
-
-# Complete and clean up
-scripts/worktree-manager.sh complete TASK-xxx
-
-# Bulk remove unused worktrees
-scripts/worktree-manager.sh clean
-```
+For complex tasks or changes spanning multiple files, working in a Git worktree is recommended. For creating, switching, and cleaning up worktrees, use your AI tool's native features (Claude Code's worktree, for example).
 
 ## ⚙️ Customizing PROJECT.md
 
@@ -260,8 +145,6 @@ Custom prompts are placed in `.codex/prompts/`. The filename becomes the `/comma
 
 ```bash
 # Available commands
-/build              # Detect project type and assist with build
-/checkpoint         # Guide through checkpoint.sh subcommands
 /commit-safe        # Safe commits without AI signatures
 /commit-and-report  # Commit, push, and report to Issues
 /reload-instructions # Reload instructions
@@ -284,7 +167,7 @@ TOML command definitions are placed in `.gemini/commands/`. The same command set
 - Share with team members
 
 ### 3. Feedback Loop
-- Accumulate work history with the checkpoint feature
+- Track work history with your AI tool's native progress features
 - Evaluate skill effectiveness and customize as needed
 - Consider creating new skills or contributing to the marketplace
 
@@ -302,26 +185,13 @@ ls .claude/skills/
 bash scripts/setup-project.sh
 ```
 
-### Q: Checkpoint log not found?
+### Q: How do I manage task progress?
 
-A: `checkpoint.log` is created in the project root. It is auto-generated when you start your first task.
+A: Use your AI tool's native features (Claude Code's Todo, for example). Task breakdown and progress visualization happen automatically during the conversation.
 
-```bash
-# Start a new task to create the log
-scripts/checkpoint.sh start "Test task" 1
-```
+### Q: I want to use a worktree?
 
-### Q: Worktree creation fails?
-
-A: Make sure you are running from the Git repository root directory.
-
-```bash
-# Navigate to repository root
-cd $(git rev-parse --show-toplevel)
-
-# Create worktree
-scripts/worktree-manager.sh create TASK-xxx "description"
-```
+A: Use your AI tool's native worktree feature. Operating from the repository root directory is recommended.
 
 ### Q: Unsure about instruction priority?
 

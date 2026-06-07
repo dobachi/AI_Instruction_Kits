@@ -29,7 +29,7 @@ By centralizing management of scattered AI instructions, it achieves:
 
 ### 🧩 v2.0 Skill-Based Architecture
 - **Skill Orchestrator (ROOT_INSTRUCTION)** automatically selects optimal skills for your task
-- **4 core skills**: checkpoint-manager, worktree-manager, auto-build, commit-safe
+- **Core skill**: commit-safe (use your AI tool's native features for task management, progress tracking, worktrees, and build detection)
 - **Marketplace**: Add community-built skills ([claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace))
 
 ### 1. One-command Setup
@@ -46,11 +46,12 @@ Just run this command to complete the setup. Choose from 3 integration modes to 
 - **Creative**: Support for creative tasks
 - **Agent-based**: Instructions to behave as specific experts
 
-### 3. Checkpoint System
-Automatically track work progress, enabling smooth task handover and continuity:
-```
-[2024-01-05 10:00:00][TASK-abc123][START] Implement user authentication API
-[2024-01-05 10:30:00][TASK-abc123][COMPLETE] Result: Created 3 API endpoints, 15 tests
+### 3. Progress Management
+Use your AI tool's native features (e.g. Claude Code's Todo) for task management and progress tracking. Modern AI agents ship with built-in task breakdown and progress tracking, enabling smooth task handover and continuity:
+```bash
+# Just give tasks in natural language, and the AI manages progress
+claude "Implement user authentication API"
+# → Claude Code automatically generates a Todo list and tracks progress
 ```
 
 ### 4. Claude Code Agent Support
