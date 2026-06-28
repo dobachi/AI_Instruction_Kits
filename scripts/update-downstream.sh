@@ -14,22 +14,27 @@ DOWNSTREAM_DIR="$PROJECT_ROOT/downstream"
 SUBMODULE_PATH="instructions/ai_instruction_kits"
 
 DRY_RUN=false
+MIGRATE=false
 TARGETS=()
 
 # 引数解析
 for arg in "$@"; do
   case "$arg" in
     --dry-run) DRY_RUN=true ;;
+    --migrate) MIGRATE=true ;;
     --help|-h)
-      echo "Usage: $(basename "$0") [--dry-run] [repo_name ...]"
+      echo "Usage: $(basename "$0") [--dry-run] [--migrate] [repo_name ...]"
       echo ""
       echo "Options:"
       echo "  --dry-run    変更内容を確認するのみ（コミット・プッシュしない）"
+      echo "  --migrate    サブモジュール更新後に旧構成の移行＋最新構成の再適用を行う"
+      echo "               （migrate-skills.sh で廃止物を掃除し、setup-project.sh --force で再導入）"
       echo "  repo_name    更新対象のリポジトリ名（省略時は全リポジトリ）"
       echo ""
       echo "Examples:"
       echo "  $(basename "$0")                    # 全リポジトリを更新"
       echo "  $(basename "$0") --dry-run          # ドライラン"
+      echo "  $(basename "$0") --migrate          # 更新＋構成移行を一括適用"
       echo "  $(basename "$0") ResearchTemplate   # 指定リポジトリのみ"
       exit 0
       ;;
@@ -110,6 +115,10 @@ for repo in "${repos[@]}"; do
 
   if $DRY_RUN; then
     echo "  [dry-run] コミット・プッシュはスキップします"
+    if $MIGRATE && [ -f "$SUBMODULE_PATH/scripts/migrate-skills.sh" ]; then
+      echo "  [dry-run] 構成移行プレビュー:"
+      bash "$SUBMODULE_PATH/scripts/migrate-skills.sh" --dry-run 2>/dev/null | sed 's/^/    /' || true
+    fi
     SUCCESS=$((SUCCESS + 1))
     echo ""
     continue
@@ -117,14 +126,34 @@ for repo in "${repos[@]}"; do
 
   # サブモジュールを更新
   git -C "$SUBMODULE_PATH" checkout "$latest"
-  git add "$SUBMODULE_PATH"
+
+  # 構成移行（--migrate指定時）: 廃止物を掃除し、最新構成を非対話で再適用
+  migrate_msg=""
+  if $MIGRATE; then
+    if [ -f "$SUBMODULE_PATH/scripts/migrate-skills.sh" ]; then
+      echo "  構成移行を実行中..."
+      bash "$SUBMODULE_PATH/scripts/migrate-skills.sh" | sed 's/^/    /' || true
+    fi
+    if [ -f "$SUBMODULE_PATH/scripts/setup-project.sh" ]; then
+      echo "  最新構成を再適用中 (setup-project.sh --force)..."
+      bash "$SUBMODULE_PATH/scripts/setup-project.sh" --force | sed 's/^/    /' || true
+    fi
+    migrate_msg=" + 構成移行"
+  fi
+
+  # ステージング: --migrate時は構成変更も含めて全体を、通常はサブモジュールのみ
+  if $MIGRATE; then
+    git add -A
+  else
+    git add "$SUBMODULE_PATH"
+  fi
 
   # 変更がある場合のみコミット
   if git diff --cached --quiet; then
     echo "  ステージされた変更がありません。スキップします。"
     SKIPPED=$((SKIPPED + 1))
   else
-    git commit -m "chore: update ai_instruction_kits submodule to $short_latest"
+    git commit -m "chore: update ai_instruction_kits submodule to $short_latest$migrate_msg"
     git push
     echo "  更新完了"
     SUCCESS=$((SUCCESS + 1))

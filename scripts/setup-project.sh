@@ -1175,6 +1175,80 @@ setup_codex_cli() {
     echo "✅ $MSG_CODEX_CREATED"
 }
 
+# Antigravity CLIスキルの同期（.agents/skills/<name>/SKILL.md形式）
+sync_antigravity_skills() {
+    MSG_SYNC_AGY=$(get_message "sync_agy_skills_msg" "Syncing Antigravity CLI skills" "Antigravity CLIスキルを同期中")
+    echo "📦 $MSG_SYNC_AGY..."
+
+    local agy_src=""
+    if [ -d "instructions/ai_instruction_kits/.agents/skills" ]; then
+        agy_src="instructions/ai_instruction_kits/.agents/skills"
+    elif [ -d "$SCRIPT_DIR/../.agents/skills" ]; then
+        agy_src="$SCRIPT_DIR/../.agents/skills"
+    else
+        MSG_AGY_SRC_NOT_FOUND=$(get_message "agy_src_not_found" "Antigravity skills source not found" "Antigravityスキルのソースが見つかりません")
+        echo "⚠️  $MSG_AGY_SRC_NOT_FOUND"
+        return
+    fi
+
+    [ ! -d ".agents/skills" ] && { [ "$DRY_RUN" = true ] && dry_echo "mkdir -p .agents/skills" || mkdir -p .agents/skills; }
+
+    local updated_count=0
+    local skipped_count=0
+
+    for skill_dir in "$agy_src"/*/; do
+        [ -d "$skill_dir" ] || continue
+        local skill_name=$(basename "$skill_dir")
+        local src="$skill_dir/SKILL.md"
+        [ -f "$src" ] || continue
+        local dst_dir=".agents/skills/$skill_name"
+        local dst="$dst_dir/SKILL.md"
+
+        if [ -f "$dst" ] && diff -q "$src" "$dst" > /dev/null 2>&1; then
+            MSG_UP_TO_DATE=$(get_message "up_to_date" "is up to date" "は最新です")
+            echo "✓ $skill_name $MSG_UP_TO_DATE"
+            skipped_count=$((skipped_count + 1))
+            continue
+        fi
+
+        if [ "$DRY_RUN" = true ]; then
+            dry_echo "mkdir -p $dst_dir && cp -L $src $dst"
+        else
+            mkdir -p "$dst_dir"
+            [ -f "$dst" ] && backup_file "$dst"
+            # symlink先も実体としてコピー（下流でリンク切れを防ぐ）
+            cp -L "$src" "$dst"
+        fi
+        MSG_UPDATED=$(get_message "updated" "updated" "を更新しました")
+        echo "✅ $skill_name $MSG_UPDATED"
+        updated_count=$((updated_count + 1))
+    done
+
+    echo ""
+    MSG_SYNC_COMPLETE=$(get_message "sync_complete" "Sync complete" "同期完了")
+    MSG_UPDATED_COUNT=$(get_message "updated_count" "updated" "更新")
+    MSG_SKIPPED_COUNT=$(get_message "skipped_count" "skipped" "スキップ")
+    echo "📊 $MSG_SYNC_COMPLETE: $MSG_UPDATED_COUNT $updated_count 件、$MSG_SKIPPED_COUNT $skipped_count 件"
+}
+
+# Antigravity CLI設定のセットアップ（グループ化）
+setup_antigravity_cli() {
+    local agy_items=(
+        ".agents/skills/"
+    )
+
+    if ! confirm_group "antigravity" "${agy_items[@]}"; then
+        MSG_SKIP_AGY=$(get_message "skip_antigravity" "Skipping Antigravity CLI configuration" "Antigravity CLI設定をスキップ")
+        echo "⏭️  $MSG_SKIP_AGY"
+        return 1
+    fi
+
+    sync_antigravity_skills
+
+    MSG_AGY_CREATED=$(get_message "antigravity_created" "Antigravity CLI configuration installed" "Antigravity CLI設定をインストールしました")
+    echo "✅ $MSG_AGY_CREATED"
+}
+
 # --sync-claude-commands は v2.0 で廃止（スキルに統合済み）
 if [ "$SYNC_CLAUDE_COMMANDS_ONLY" = true ]; then
     echo "⚠️  --sync-claude-commands は廃止されました。スキルは .claude/skills/ で管理されます。"
@@ -1390,8 +1464,8 @@ fi  # SKIP_INSTRUCTIONSのif文を閉じる
 echo ""
 MSG_CREATE_AI_SYMLINKS=$(get_message "create_ai_symlinks" "Creating symbolic links for AI products" "AI製品別のシンボリックリンクを作成")
 
-ai_files=("CLAUDE.md" "GEMINI.md" "CURSOR.md" "CODEX.md")
-ai_files_en=("CLAUDE.en.md" "GEMINI.en.md" "CURSOR.en.md" "CODEX.en.md")
+ai_files=("CLAUDE.md" "GEMINI.md" "CURSOR.md" "CODEX.md" "AGENTS.md")
+ai_files_en=("CLAUDE.en.md" "GEMINI.en.md" "CURSOR.en.md" "CODEX.en.md" "AGENTS.en.md")
 
 # グループ確認用の配列を準備
 ai_symlink_items=()
@@ -1480,6 +1554,13 @@ MSG_SETUP_CODEX=$(get_message "setup_codex" "Setting up Codex CLI configuration"
 echo "📦 $MSG_SETUP_CODEX..."
 setup_codex_cli
 CODEX_INSTALLED=$?
+
+# Antigravity CLI設定のセットアップ（グループ化）
+echo ""
+MSG_SETUP_AGY=$(get_message "setup_antigravity" "Setting up Antigravity CLI configuration" "Antigravity CLI設定を設定")
+echo "📦 $MSG_SETUP_AGY..."
+setup_antigravity_cli
+ANTIGRAVITY_INSTALLED=$?
 
 # Git設定のセットアップ（グループ化）
 echo ""

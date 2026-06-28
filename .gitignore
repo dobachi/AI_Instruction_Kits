@@ -57,3 +57,5 @@ ENV/
 # Git worktree directories
 .gitworktrees/
 gitworktrees/
+# migrate-skills.sh のバックアップ
+.migration-backup/
