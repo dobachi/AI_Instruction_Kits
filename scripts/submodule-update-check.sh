@@ -182,6 +182,32 @@ show_recommended_actions() {
     echo ""
 }
 
+# バージョン突合による未適用マイグレーションをAI向けに通知
+show_migration_status() {
+    local runner="$SUBMODULE_PATH/scripts/run-migrations.sh"
+    [ -f "$runner" ] || return 0
+
+    local out
+    out=$(bash "$runner" --dry-run 2>/dev/null || true)
+
+    # 「適用対象:」行があれば未適用の移行がある
+    if echo "$out" | grep -q "適用対象:"; then
+        echo ""
+        separator
+        highlight "🤖 AI向け: 未適用のマイグレーションがあります"
+        separator
+        echo "$out" | grep -E "適用済みバージョン|適用対象:" | sed 's/^/  /'
+        echo ""
+        echo "  AIは以下を順に実施してください（詳細: $SUBMODULE_PATH/docs/UPGRADING.md）:"
+        echo "    1. bash $SUBMODULE_PATH/scripts/run-migrations.sh"
+        echo "       （未適用のバージョン別移行を順次適用。バックアップ付き）"
+        echo "    2. bash $SUBMODULE_PATH/scripts/setup-project.sh --auto --skip-instructions --submodule"
+        echo "       （最新構成を導入。PROJECT.md は上書きしない）"
+        echo "    3. *.backup.* はコミットしない。commit-safe で安全にコミットする"
+        echo ""
+    fi
+}
+
 # メイン処理
 main() {
     # サブモジュールが存在しない場合は静かに終了
@@ -197,6 +223,8 @@ main() {
     # 更新チェック
     if ! check_updates_available; then
         info "AI指示書システムは最新です"
+        # サブモジュール自体は最新でも、未適用のバージョン別移行が残る場合がある
+        show_migration_status
         exit 0
     fi
 
@@ -221,6 +249,9 @@ main() {
         # 推奨アクションを表示
         show_recommended_actions
     fi
+
+    # 更新後、バージョン突合による未適用マイグレーションを通知
+    show_migration_status
 }
 
 # スクリプト実行
