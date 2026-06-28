@@ -115,9 +115,13 @@ for repo in "${repos[@]}"; do
 
   if $DRY_RUN; then
     echo "  [dry-run] コミット・プッシュはスキップします"
-    if $MIGRATE && [ -f "$SUBMODULE_PATH/scripts/migrate-skills.sh" ]; then
+    if $MIGRATE; then
       echo "  [dry-run] 構成移行プレビュー:"
-      bash "$SUBMODULE_PATH/scripts/migrate-skills.sh" --dry-run 2>/dev/null | sed 's/^/    /' || true
+      if [ -f "$SUBMODULE_PATH/scripts/run-migrations.sh" ]; then
+        bash "$SUBMODULE_PATH/scripts/run-migrations.sh" --dry-run 2>/dev/null | sed 's/^/    /' || true
+      elif [ -f "$SUBMODULE_PATH/scripts/migrate-skills.sh" ]; then
+        bash "$SUBMODULE_PATH/scripts/migrate-skills.sh" --dry-run 2>/dev/null | sed 's/^/    /' || true
+      fi
     fi
     SUCCESS=$((SUCCESS + 1))
     echo ""
@@ -130,8 +134,13 @@ for repo in "${repos[@]}"; do
   # 構成移行（--migrate指定時）: 廃止物を掃除し、最新構成を非対話で再適用
   migrate_msg=""
   if $MIGRATE; then
-    if [ -f "$SUBMODULE_PATH/scripts/migrate-skills.sh" ]; then
-      echo "  構成移行を実行中..."
+    if [ -f "$SUBMODULE_PATH/scripts/run-migrations.sh" ]; then
+      # バージョン突合で未適用の移行のみを適用し、適用済みバージョンを記録
+      echo "  バージョン別移行を適用中 (run-migrations.sh)..."
+      bash "$SUBMODULE_PATH/scripts/run-migrations.sh" | sed 's/^/    /' || true
+    elif [ -f "$SUBMODULE_PATH/scripts/migrate-skills.sh" ]; then
+      # 旧版フォールバック（run-migrations.sh が無い世代）
+      echo "  構成移行を実行中 (migrate-skills.sh)..."
       bash "$SUBMODULE_PATH/scripts/migrate-skills.sh" | sed 's/^/    /' || true
     fi
     if [ -f "$SUBMODULE_PATH/scripts/setup-project.sh" ]; then
