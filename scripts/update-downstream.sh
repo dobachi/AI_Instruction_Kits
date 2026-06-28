@@ -135,14 +135,18 @@ for repo in "${repos[@]}"; do
       bash "$SUBMODULE_PATH/scripts/migrate-skills.sh" | sed 's/^/    /' || true
     fi
     if [ -f "$SUBMODULE_PATH/scripts/setup-project.sh" ]; then
-      echo "  最新構成を再適用中 (setup-project.sh --force)..."
-      bash "$SUBMODULE_PATH/scripts/setup-project.sh" --force | sed 's/^/    /' || true
+      # --skip-instructions: 下流のPROJECT.md（プロジェクト固有設定）を上書きしない
+      echo "  最新構成を再適用中 (setup-project.sh --force --skip-instructions)..."
+      bash "$SUBMODULE_PATH/scripts/setup-project.sh" --force --skip-instructions | sed 's/^/    /' || true
     fi
     migrate_msg=" + 構成移行"
   fi
 
   # ステージング: --migrate時は構成変更も含めて全体を、通常はサブモジュールのみ
   if $MIGRATE; then
+    # setup-project.sh が生成した *.backup.<timestamp> はコミット対象外にする
+    find . -path ./instructions/ai_instruction_kits -prune -o \
+      -type f -name "*.backup.[0-9]*" -print -delete 2>/dev/null | sed 's/^/    🧹 backup除去: /' || true
     git add -A
   else
     git add "$SUBMODULE_PATH"
