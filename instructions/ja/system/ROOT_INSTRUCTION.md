@@ -27,6 +27,12 @@
 追加スキルはマーケットプレイスからインストール：
 https://github.com/dobachi/claude-skills-marketplace
 
+## 更新・移行の確認
+
+1. `bash instructions/ai_instruction_kits/scripts/run-migrations.sh --dry-run` で未適用の移行を確認
+2. 未適用があれば `run-migrations.sh` を実行し、`setup-project.sh --skip-instructions` で最新構成を導入
+3. 詳細は `docs/UPGRADING.md` を参照。`*.backup.*` はコミットしない
+
 ---
 ## ライセンス情報
 - **ライセンス**: Apache-2.0

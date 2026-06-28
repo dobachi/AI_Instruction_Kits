@@ -27,6 +27,12 @@ Leverages installed skills to streamline work based on the task at hand.
 Install additional skills from the marketplace:
 https://github.com/dobachi/claude-skills-marketplace
 
+## Checking for Updates / Migrations
+
+1. Run `bash instructions/ai_instruction_kits/scripts/run-migrations.sh --dry-run` to check for pending migrations
+2. If any are pending, run `run-migrations.sh`, then install the latest structure with `setup-project.sh --skip-instructions`
+3. See `docs/UPGRADING.md` for details. Never commit `*.backup.*`
+
 ---
 ## License Information
 - **License**: Apache-2.0

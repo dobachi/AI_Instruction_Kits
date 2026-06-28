@@ -233,19 +233,23 @@ Antigravity CLI（`agy`）ユーザー向けに、ルートの `AGENTS.md`（指
 
 `setup-project.sh`実行時に自動的に設定されます。読み込み状況は `agy inspect` で確認できます。
 
-## 旧バージョンからの移行
+## バージョン管理と移行
 
-旧バージョンの本キットを利用していたプロジェクトには、廃止スキル（checkpoint-manager / worktree-manager / auto-build）やレガシー形式のスキルが残っている場合があります。以下で安全に移行できます（バックアップを取得した上で掃除し、最新構成を再導入）。
+キットの現行バージョンは `VERSION`、利用側プロジェクトの適用済みバージョンは `instructions/.ai_ik_applied_version` で管理します。`run-migrations.sh` が両者を突合し、未適用の `migrations/<version>.sh` のみを順次適用します。SessionStartフックが pull/セッション開始時に突合し、未適用があればAIへ手順を提示します。
 
 ```bash
-# 単一プロジェクトでの移行（バックアップ付き）
-bash instructions/ai_instruction_kits/scripts/migrate-skills.sh --dry-run  # 確認
-bash instructions/ai_instruction_kits/scripts/migrate-skills.sh            # 実行
-bash instructions/ai_instruction_kits/scripts/setup-project.sh             # 最新構成を再導入
+# 未適用の移行を確認・適用（バックアップ付き）
+bash instructions/ai_instruction_kits/scripts/run-migrations.sh --dry-run
+bash instructions/ai_instruction_kits/scripts/run-migrations.sh
+
+# 最新構成を導入（PROJECT.md は上書きしない）
+bash instructions/ai_instruction_kits/scripts/setup-project.sh --skip-instructions
 
 # downstream配下のプロジェクト群を一括で更新＋移行
 bash scripts/update-downstream.sh --migrate
 ```
+
+バージョン別の移行内容は [docs/UPGRADING.md](docs/UPGRADING.md) を参照してください。
 
 ## Claude Code エージェント機能
 

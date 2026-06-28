@@ -1,0 +1,60 @@
+# Upgrade Guide (for projects using AI Instruction Kits)
+
+Steps and per-version migration log for projects that use this kit **as a submodule** (template-derived or direct).
+
+## Version reconciliation
+
+- The kit's current version lives in the `VERSION` file (single source of truth).
+- Each consuming project records its applied version in `instructions/.ai_ik_applied_version`.
+- `scripts/run-migrations.sh` reconciles the two and applies only the pending `migrations/<version>.sh` in semver order (each migration is idempotent and takes backups).
+- The SessionStart hook (`submodule-update-check.sh`) reconciles at pull/session start and surfaces the steps to the AI when migrations are pending.
+
+```bash
+# Preview pending migrations
+bash instructions/ai_instruction_kits/scripts/run-migrations.sh --dry-run
+
+# Apply pending migrations and record the applied version
+bash instructions/ai_instruction_kits/scripts/run-migrations.sh
+```
+
+## Standard procedure for AI agents
+
+When pending migrations or legacy structures are detected, run the following in order.
+
+```bash
+# 1. Apply per-version migrations (cleanup etc., with backups)
+bash instructions/ai_instruction_kits/scripts/run-migrations.sh
+
+# 2. Install the latest structure (never overwrites PROJECT.md)
+bash instructions/ai_instruction_kits/scripts/setup-project.sh --auto --skip-instructions --submodule
+```
+
+Notes:
+
+- Never commit `*.backup.*` files (backups created by migrate / setup).
+- `instructions/PROJECT.md` holds project-specific config. **Never overwrite it** (always use `--skip-instructions`).
+- Review changes, then commit with commit-safe or `scripts/commit.sh`.
+
+## Per-version migration log
+
+When adding a new version, append the range and steps here and provide a matching idempotent `migrations/<version>.sh`.
+
+### → 2.1.0 (Antigravity CLI support / core skill consolidation)
+
+| Type | Detail |
+|------|--------|
+| Removed | Skills checkpoint-manager / worktree-manager / auto-build; commands checkpoint / build |
+| Migrated | Legacy flat `.claude/skills/*.md` → `<name>/SKILL.md` format |
+| Added | Antigravity CLI support (`AGENTS.md`, `.agents/skills/`) |
+| Added | Plugin marketplace (`.claude-plugin/`, optional) |
+
+Migration script: `migrations/2.1.0.sh` (delegates cleanup to `migrate-skills.sh`). Installing the Antigravity structure and marketplace is handled by `setup-project.sh --skip-instructions`.
+
+## Plugin usage (optional)
+
+To use the core skill as a Claude Code plugin:
+
+```text
+/plugin marketplace add dobachi/AI_Instruction_Kits
+/plugin install ai-instruction-kits-core@ai-instruction-kits
+```

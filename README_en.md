@@ -254,19 +254,23 @@ For Antigravity CLI (`agy`) users, the kit provides a root `AGENTS.md` (instruct
 
 These are configured automatically when running `setup-project.sh`. Run `agy inspect` to verify what is loaded.
 
-## Migrating from older versions
+## Versioning and migrations
 
-Projects that used an older version of this kit may still contain deprecated skills (checkpoint-manager / worktree-manager / auto-build) or legacy-format skills. Migrate safely (backup, clean up, then re-install the latest structure):
+The kit's current version lives in `VERSION`; each consuming project records its applied version in `instructions/.ai_ik_applied_version`. `run-migrations.sh` reconciles the two and applies only the pending `migrations/<version>.sh` in order. The SessionStart hook reconciles at pull/session start and surfaces the steps to the AI when migrations are pending.
 
 ```bash
-# Single project (with backup)
-bash instructions/ai_instruction_kits/scripts/migrate-skills.sh --dry-run  # preview
-bash instructions/ai_instruction_kits/scripts/migrate-skills.sh            # apply
-bash instructions/ai_instruction_kits/scripts/setup-project.sh             # re-install latest structure
+# Preview and apply pending migrations (with backups)
+bash instructions/ai_instruction_kits/scripts/run-migrations.sh --dry-run
+bash instructions/ai_instruction_kits/scripts/run-migrations.sh
+
+# Install the latest structure (never overwrites PROJECT.md)
+bash instructions/ai_instruction_kits/scripts/setup-project.sh --skip-instructions
 
 # Update + migrate all projects under downstream/ at once
 bash scripts/update-downstream.sh --migrate
 ```
+
+See [docs/UPGRADING.md](docs/UPGRADING_en.md) for per-version migration details.
 
 ## Claude Code Agent Feature
 
