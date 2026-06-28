@@ -99,7 +99,12 @@ rm install.sh
 │   └── en/            # 英語テンプレート
 ├── .claude/           # Claude Code スキル
 │   └── skills/        # スキル定義（コアスキル: commit-safe）
-│       └── commit-safe.md
+│       └── commit-safe/SKILL.md
+├── .claude-plugin/    # プラグインマーケットプレイス定義（/plugin で導入可能）
+│   ├── marketplace.json
+│   └── plugin.json
+├── .agents/           # Antigravity CLI スキル（AGENTS.md と併用）
+│   └── skills/        # <name>/SKILL.md 形式（Agent Skills標準）
 ├── .codex/            # Codex CLI カスタムプロンプト
 │   └── prompts/       # カスタムプロンプト定義
 ├── downstream/        # サブモジュール利用プロジェクトのクローン（.gitignore対象）
@@ -221,6 +226,26 @@ AIエージェントはROOT_INSTRUCTIONを読み込むと、自動的にイン�
 Codex CLIユーザー向けの専用カスタムプロンプトを提供。`.codex/prompts/`に配置されます。
 
 `setup-project.sh`実行時に自動的に設定されます。
+
+## Antigravity CLI スキル
+
+Antigravity CLI（`agy`）ユーザー向けに、ルートの `AGENTS.md`（指示書）と `.agents/skills/<name>/SKILL.md`（スキル/スラッシュコマンド）を提供。`AGENTS.md` は Codex 等とも共有されるクロスツール標準で、`.agents/skills/` は Claude Code と同じ Agent Skills 標準を採用しています。
+
+`setup-project.sh`実行時に自動的に設定されます。読み込み状況は `agy inspect` で確認できます。
+
+## 旧バージョンからの移行
+
+旧バージョンの本キットを利用していたプロジェクトには、廃止スキル（checkpoint-manager / worktree-manager / auto-build）やレガシー形式のスキルが残っている場合があります。以下で安全に移行できます（バックアップを取得した上で掃除し、最新構成を再導入）。
+
+```bash
+# 単一プロジェクトでの移行（バックアップ付き）
+bash instructions/ai_instruction_kits/scripts/migrate-skills.sh --dry-run  # 確認
+bash instructions/ai_instruction_kits/scripts/migrate-skills.sh            # 実行
+bash instructions/ai_instruction_kits/scripts/setup-project.sh             # 最新構成を再導入
+
+# downstream配下のプロジェクト群を一括で更新＋移行
+bash scripts/update-downstream.sh --migrate
+```
 
 ## Claude Code エージェント機能
 

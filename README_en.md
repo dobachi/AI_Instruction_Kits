@@ -110,8 +110,14 @@ Example marketplace skills include role-based skills (web-api-dev, data-analyst,
 │   ├── commit.sh           # Clean commit (no AI signature)
 │   └── lib/
 │       └── i18n.sh         # Internationalization library
-└── .claude/           # Claude Code configuration
-    └── settings.json  # Hook and attribution settings
+├── .claude/           # Claude Code configuration
+│   ├── settings.json  # Hook and attribution settings
+│   └── skills/        # Core skill (commit-safe)
+├── .claude-plugin/    # Plugin marketplace definition (installable via /plugin)
+│   ├── marketplace.json
+│   └── plugin.json
+└── .agents/           # Antigravity CLI skills (used with AGENTS.md)
+    └── skills/        # <name>/SKILL.md (Agent Skills standard)
 ```
 
 ## Key Files
@@ -241,6 +247,26 @@ curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scr
 - `instructions/PROJECT.md` (project-specific configuration)
 
 For details, run `bash scripts/uninstall.sh --help`.
+
+## Antigravity CLI Skills
+
+For Antigravity CLI (`agy`) users, the kit provides a root `AGENTS.md` (instructions) and `.agents/skills/<name>/SKILL.md` (skills / slash commands). `AGENTS.md` is a cross-tool standard also read by Codex, and `.agents/skills/` uses the same Agent Skills standard as Claude Code.
+
+These are configured automatically when running `setup-project.sh`. Run `agy inspect` to verify what is loaded.
+
+## Migrating from older versions
+
+Projects that used an older version of this kit may still contain deprecated skills (checkpoint-manager / worktree-manager / auto-build) or legacy-format skills. Migrate safely (backup, clean up, then re-install the latest structure):
+
+```bash
+# Single project (with backup)
+bash instructions/ai_instruction_kits/scripts/migrate-skills.sh --dry-run  # preview
+bash instructions/ai_instruction_kits/scripts/migrate-skills.sh            # apply
+bash instructions/ai_instruction_kits/scripts/setup-project.sh             # re-install latest structure
+
+# Update + migrate all projects under downstream/ at once
+bash scripts/update-downstream.sh --migrate
+```
 
 ## Claude Code Agent Feature
 
