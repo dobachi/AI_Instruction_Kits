@@ -1,0 +1,14 @@
+{
+  "name": "ai-instruction-kits-core",
+  "description": "AI指示書キットのコアスキル（安全なコミット等）",
+  "version": "2.1.0",
+  "author": {
+    "name": "dobachi",
+    "url": "https://github.com/dobachi"
+  },
+  "homepage": "https://github.com/dobachi/AI_Instruction_Kits",
+  "repository": "https://github.com/dobachi/AI_Instruction_Kits",
+  "license": "MIT",
+  "keywords": ["commit", "git", "instruction-kit"],
+  "skills": "./templates/claude-skills/ja"
+}
