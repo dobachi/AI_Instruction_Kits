@@ -98,6 +98,17 @@ Codex CLI向けのカスタムプロンプトを`.codex/prompts/`に追加しま
 - `reload-instructions` — 指示書サブモジュールの更新と再読込
 - `reload-and-reset` — 指示書更新とルール再確認
 
+## Antigravity CLIスキル
+
+Antigravity CLI（`agy`）向けに、ルートの `AGENTS.md`（`PROJECT_META.md`へのsymlink）を指示書として読み込みます。スキルは `.agents/skills/<name>/SKILL.md` 形式（Claude Codeと共通の Agent Skills 標準）で配置し、TUIで `/<name>` のスラッシュコマンドとして利用できます。読み込み状況は `agy inspect` で確認できます。
+
+- `commit-safe` — ファイル指定型の安全なコミット（`templates/claude-skills/ja` を参照）
+- `commit-and-report` — コミット・プッシュ・Issue報告の手順
+- `github-issues` — GitHub Issueの取得と整理
+- `reload-instructions` — 指示書サブモジュールの更新と再読込
+- `reload-and-reset` — 指示書更新とルール再確認
+- `evidence-check` — 参考文献・引用の妥当性検証
+
 ## プロジェクト固有の指示
 
 ### コーディング規約
