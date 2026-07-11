@@ -20,22 +20,25 @@ Analyzes tasks and automatically selects the optimal skills from `.claude/skills
 **Key Features:**
 - **Automatic task analysis**: Just input tasks in natural language
 - **Intelligent selection**: Selects optimal skills based on task content
-- **Marketplace integration**: Easily add community-built skills
-- **Start with minimal config**: Get started with just the core skills
+- **Marketplace integration**: Install skills from the marketplace
+- **Start with minimal config**: Get started with just commit-safe
 
-### Core Skills
+### Skills come from the marketplace
+
+All skills, including commit-safe, are installed from the [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace). This repository ships no skills of its own.
+
+```text
+/plugin marketplace add dobachi/claude-skills-marketplace
+/plugin install commit-safe@dobachi-skills
+```
 
 - **commit-safe**: Safe commits
-   - Clean commits without AI signatures
+   - Clean commits without AI signatures (bundles a self-contained commit.sh)
    - File-specific safe commit workflow
 
 For task management (Todo), progress tracking, Git worktree, and build detection, use your AI tool's native features (Claude Code's Todo, worktree, build detection), since modern AI agents ship with these built in.
 
-### Marketplace Skills
-
-Add community-created skills from [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace).
-
-Skills become available simply by placing them in `.claude/skills/`.
+Installed skills are auto-selected and used from `.claude/skills/`.
 
 ### Usage Examples
 ```bash
@@ -55,7 +58,7 @@ claude "Commit my changes"
 ### System Instructions
 - **ROOT_INSTRUCTION.md** - Skill orchestrator (auto-selects optimal skills from `.claude/skills/`)
 
-### Core Skills (placed in `.claude/skills/`)
+### Skills (installed from the marketplace)
 | Skill | Purpose | Auto-suggestion Timing |
 |-------|---------|----------------------|
 | commit-safe | Safe commits | Suggest file-specific commit after changes |
@@ -97,17 +100,17 @@ Use Claude Code's Task tool to run sub-agents that perform parallel analysis in 
 
 Track work progress and instruction usage history with your AI tool's native features (Claude Code's Todo, for example). Task breakdown and progress visualization happen automatically during the conversation, so a custom checkpoint script is no longer needed.
 
-### Claude Code Custom Commands (New Feature)
+### Example Marketplace Skills
 
-Efficiency features for Claude Code users:
+Representative skills you can install from the [marketplace](https://github.com/dobachi/claude-skills-marketplace) (invoked by skill name / auto-triggered once installed):
 
-| Command | Description | Example |
-|---------|-------------|------|
-| `/commit-and-report` | Commit & Issue report | `/commit-and-report "Bug fix complete"` |
-| `/commit-safe` | Clean commit (no AI signature) | `/commit-safe "Documentation update"` |
-| `/reload-instructions` | Reload instructions | `/reload-instructions` |
-| `/github-issues` 🆕 | Check GitHub issues and organize tasks | `/github-issues` |
-| `/reload-and-reset` 🆕 | Reset AI system and reload instructions | `/reload-and-reset` |
+| Skill | Description | Example |
+|-------|-------------|------|
+| `commit-and-report` | Commit & Issue report | `commit-and-report "Bug fix complete"` |
+| `commit-safe` | Clean commit (no AI signature) | `commit-safe "Documentation update"` |
+| `reload-instructions` | Reload instructions | `reload-instructions` |
+| `github-issues` | Check GitHub issues and organize tasks | `github-issues` |
+| `reload-and-reset` | Reset AI system and reload instructions | `reload-and-reset` |
 
 ### Integration Modes
 

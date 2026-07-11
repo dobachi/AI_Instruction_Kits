@@ -27,8 +27,7 @@ AIツール（Claude、ChatGPT、Gemini等）を使う際、こんな課題は�
 
 ### 🧩 v2.0 スキルベースアーキテクチャ
 - **スキルオーケストレーター（ROOT_INSTRUCTION）**がタスクに最適なスキルを自動選択
-- **コアスキル**：commit-safe（タスク管理・進捗追跡・worktree・ビルド検出はAIツールのネイティブ機能を利用）
-- **マーケットプレイス**：コミュニティ製スキルを追加可能（[claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace)）
+- **マーケットプレイスからスキルを導入**：commit-safe を含む全スキルを [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) から導入（タスク管理・進捗追跡・worktree・ビルド検出はAIツールのネイティブ機能を利用）
 
 ### 📚 構造化された指示書ライブラリ
 - `.claude/skills/` でスキルを管理

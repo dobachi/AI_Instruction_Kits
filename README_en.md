@@ -11,7 +11,7 @@ A lightweight framework for integrating AI instruction systems into your project
 
 | Before (v1) | After (v2.0) |
 |---|---|
-| MODULE_COMPOSER + composer.py + 271 modular files | core skill: commit-safe (others via marketplace) |
+| MODULE_COMPOSER + composer.py + 271 modular files | all skills (incl. commit-safe) via the marketplace |
 | 5-6 hop instruction synthesis pipeline | ~30-line skill orchestrator (ROOT_INSTRUCTION) |
 | Python dependency for preset generation | Pure shell — no Python required |
 | `.claude/commands/` with 8 command files | `.claude/skills/` with focused skill definitions |
@@ -51,29 +51,24 @@ ROOT_INSTRUCTION acts as a skill orchestrator: it discovers installed skills in 
 
 For task management, progress tracking, Git worktree, and build detection, use your AI tool's native features (Claude Code's Todo, worktree, build detection).
 
-## Core Skill
+## Skills (Marketplace)
 
-This skill ships with AI Instruction Kits and is installed by `setup-project.sh`:
-
-| Skill | Purpose | Auto-suggestion |
-|-------|---------|-----------------|
-| **commit-safe** | Safe file-specific commits | Suggests commit after changes |
-
-Install additional skills from the [marketplace](https://github.com/dobachi/claude-skills-marketplace).
-
-## Additional Skills (Marketplace)
-
-Browse and install additional skills from the marketplace:
+All skills — including the core **commit-safe** — are distributed via the marketplace. This repository no longer ships or installs skills itself; `setup-project.sh` points you to the marketplace at the end of setup.
 
 **https://github.com/dobachi/claude-skills-marketplace**
-
-Example marketplace skills include role-based skills (web-api-dev, data-analyst, technical-writer, etc.), utility skills (fact-checker, code-reviewer, etc.), and more.
 
 ```bash
 # Install via Claude Code's /plugin command
 /plugin marketplace add dobachi/claude-skills-marketplace
-/plugin install code-reviewer@dobachi-skills
+/plugin install commit-safe@dobachi-skills    # safe commits (core skill)
+/plugin install code-reviewer@dobachi-skills  # example: another skill
 ```
+
+| Skill | Purpose | Auto-suggestion |
+|-------|---------|-----------------|
+| **commit-safe** | Safe file-specific commits (bundles a self-contained commit.sh) | Suggests commit after changes |
+
+Example marketplace skills include role-based skills (web-api-dev, data-analyst, technical-writer, etc.), utility skills (fact-checker, code-reviewer, etc.), and more.
 
 ## Directory Structure
 
@@ -100,7 +95,6 @@ Example marketplace skills include role-based skills (web-api-dev, data-analyst,
 │   ├── en/            # English templates
 │   │   ├── instruction_template.md
 │   │   └── PROJECT_TEMPLATE.md
-│   ├── claude-skills/ # Core skill templates
 │   └── git-hooks/     # Git hook templates
 ├── downstream/        # Clones of projects using this as submodule (.gitignored)
 ├── scripts/           # Tools and utilities
@@ -111,13 +105,8 @@ Example marketplace skills include role-based skills (web-api-dev, data-analyst,
 │   └── lib/
 │       └── i18n.sh         # Internationalization library
 ├── .claude/           # Claude Code configuration
-│   ├── settings.json  # Hook and attribution settings
-│   └── skills/        # Core skill (commit-safe)
-├── .claude-plugin/    # Plugin marketplace definition (installable via /plugin)
-│   ├── marketplace.json
-│   └── plugin.json
-└── .agents/           # Antigravity CLI skills (used with AGENTS.md)
-    └── skills/        # <name>/SKILL.md (Agent Skills standard)
+│   └── settings.json  # Hook and attribution settings (skills come from the marketplace)
+└── AGENTS.md / CODEX.md / GEMINI.md  # Per-CLI instruction files (symlinks to PROJECT_META)
 ```
 
 ## Key Files
@@ -180,17 +169,16 @@ bash scripts/setup-project.sh --help
 1. Integrates the repository (copy/clone/submodule)
 2. Creates `instructions/PROJECT.md` and `PROJECT.en.md`
 3. Links `CLAUDE.md`, `GEMINI.md`, `CURSOR.md` to project instructions
-4. Installs the core skill (commit-safe) into `.claude/skills/`
+4. Deploys `.claude/settings.json` (hooks) and `gh-setup.sh`
 5. Sets up Git hooks (AI signature prevention)
-6. Displays marketplace URL for additional skills
+6. Prints marketplace install instructions (incl. commit-safe) at the end
 
 Result:
 
 ```
 your-project/
 ├── .claude/
-│   └── skills/
-│       └── commit-safe/
+│   └── settings.json         # skills are installed from the marketplace
 ├── instructions/
 │   ├── ai_instruction_kits/  # Submodule (this repository)
 │   ├── PROJECT.md            # Project-specific settings (Japanese)
@@ -248,11 +236,18 @@ curl -sSL https://raw.githubusercontent.com/dobachi/AI_Instruction_Kits/main/scr
 
 For details, run `bash scripts/uninstall.sh --help`.
 
-## Antigravity CLI Skills
+## Multi-CLI support (Codex / Gemini / Antigravity)
 
-For Antigravity CLI (`agy`) users, the kit provides a root `AGENTS.md` (instructions) and `.agents/skills/<name>/SKILL.md` (skills / slash commands). `AGENTS.md` is a cross-tool standard also read by Codex, and `.agents/skills/` uses the same Agent Skills standard as Claude Code.
+Each CLI gets its own instruction file (`CODEX.md` / `GEMINI.md` / `AGENTS.md`, all symlinks to `PROJECT_META.md`), configured by `setup-project.sh`.
 
-These are configured automatically when running `setup-project.sh`. Run `agy inspect` to verify what is loaded.
+**All skills are consolidated in the external marketplace.** Since Codex, Gemini, and Antigravity share the Agent Skills standard (`~/.agents/skills/<name>/SKILL.md`), running the [marketplace](https://github.com/dobachi/claude-skills-marketplace) `install.sh` once makes the skills available across every CLI.
+
+```bash
+git clone https://github.com/dobachi/claude-skills-marketplace
+bash claude-skills-marketplace/install.sh
+```
+
+For Antigravity, run `agy inspect` to verify what is loaded.
 
 ## Versioning and migrations
 
@@ -296,7 +291,7 @@ If you were using the modular instruction system (v1):
 2. Presets have been replaced by marketplace skills (e.g., `web_api_production` -> `web-api-dev` skill)
 3. `.claude/commands/` is replaced by `.claude/skills/`
 4. No Python environment is needed
-5. Run `setup-project.sh` again to install the core skill (commit-safe)
+5. Install skills from the marketplace (`/plugin marketplace add dobachi/claude-skills-marketplace` → `/plugin install commit-safe@dobachi-skills`); `setup-project.sh` prints these instructions at the end
 
 ## Writing Instructions
 

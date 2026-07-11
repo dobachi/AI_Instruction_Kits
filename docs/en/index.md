@@ -29,8 +29,7 @@ By centralizing management of scattered AI instructions, it achieves:
 
 ### 🧩 v2.0 Skill-Based Architecture
 - **Skill Orchestrator (ROOT_INSTRUCTION)** automatically selects optimal skills for your task
-- **Core skill**: commit-safe (use your AI tool's native features for task management, progress tracking, worktrees, and build detection)
-- **Marketplace**: Add community-built skills ([claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace))
+- **Skills from the marketplace**: install all skills, including commit-safe, from the [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) (use your AI tool's native features for task management, progress tracking, worktrees, and build detection)
 
 ### 1. One-command Setup
 ```bash

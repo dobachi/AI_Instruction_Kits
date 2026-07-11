@@ -147,22 +147,29 @@ claude "ユーザー認証APIを実装してください"
 # → Claude Code が Todo リストを自動生成し、進捗を追跡
 ```
 
-## 🆕 Claude Code カスタムコマンド
+## 🛒 マーケットプレイスのスキル
 
-Claude Codeユーザーは専用コマンドが利用可能：
+commit-safe を含むスキルは[マーケットプレイス](https://github.com/dobachi/claude-skills-marketplace)から導入します。導入後はスキル名で呼び出せます（自動起動）：
 
 ```bash
 # コミット＆Issue報告
-/commit-and-report "バグ修正完了"
+commit-and-report "バグ修正完了"
 
 # クリーンコミット（AI署名なし）
-/commit-safe "ドキュメント更新"
+commit-safe "ドキュメント更新"
 
 # 指示書の再読み込み
-/reload-instructions
+reload-instructions
 ```
 
-これらのコマンドは `setup-project.sh` 実行時に自動的に設定されます。
+導入方法（Claude Code）：
+
+```text
+/plugin marketplace add dobachi/claude-skills-marketplace
+/plugin install commit-safe@dobachi-skills
+```
+
+Codex / Gemini / Antigravity では、マーケットの `install.sh`（`~/.agents/skills` へ配置）で同じスキルが使えます。
 
 ## ❓ よくある質問
 
@@ -170,7 +177,7 @@ Claude Codeユーザーは専用コマンドが利用可能：
 A: 最小限の影響で導入できます。追加されるのは：
 - `instructions/` ディレクトリ
 - シンボリックリンク（CLAUDE.md等）
-- `.claude/skills/` ディレクトリ（commit-safe スキル等）
+- `.claude/settings.json`（スキルはマーケットプレイスから別途導入）
 
 ### Q: 指示書は日本語のみですか？
 A: 日本語と英語の両方に対応しています。`PROJECT.en.md`を編集すれば英語版も利用できます。

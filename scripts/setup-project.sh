@@ -117,12 +117,8 @@ $MSG_OPTIONS:
   --auto           $(get_message "auto_setup" "Auto-setup mode: only confirm PROJECT.md, auto-install everything else" "自動セットアップモード: PROJECT.mdのみ確認、他は自動配置")
   --skip-instructions
                    $(get_message "skip_instructions" "Skip PROJECT.md installation (can combine with --auto)" "PROJECT.mdをスキップ（--autoと組み合わせ可能）")
-  --sync-claude-commands, --sync-claude
-                   $(get_message "sync_claude_commands" "Sync Claude Code custom commands only" "Claude Codeカスタムコマンドの同期のみ実行")
-  --sync-codex-commands, --sync-codex
-                   $(get_message "sync_codex_commands" "Sync Codex CLI custom prompts only" "Codex CLIカスタムプロンプトの同期のみ実行")
-  --sync-gemini-commands, --sync-gemini
-                   $(get_message "sync_gemini_commands" "Sync Gemini CLI custom commands only" "Gemini CLIカスタムコマンドの同期のみ実行")
+  --sync-claude-commands, --sync-codex-commands, --sync-gemini-commands
+                   $(get_message "sync_commands_deprecated" "Deprecated: skills are now installed from the marketplace (dobachi/claude-skills-marketplace)" "廃止: スキルはマーケットプレイスから導入します（dobachi/claude-skills-marketplace）")
   -h, --help       $MSG_SHOW_HELP
 
 $MSG_MODE_DETAILS:
@@ -250,15 +246,6 @@ confirm_group() {
         claude)
             MSG_GROUP_TITLE=$(get_message "group_claude" "Claude Code Configuration" "Claude Code設定")
             ;;
-        skills)
-            MSG_GROUP_TITLE=$(get_message "group_skills" "Claude Code Skills" "Claude Codeスキル")
-            ;;
-        gemini)
-            MSG_GROUP_TITLE=$(get_message "group_gemini" "Gemini CLI Configuration" "Gemini CLI設定")
-            ;;
-        codex)
-            MSG_GROUP_TITLE=$(get_message "group_codex" "Codex CLI Configuration" "Codex CLI設定")
-            ;;
         git)
             MSG_GROUP_TITLE=$(get_message "group_git" "Git Configuration" "Git設定")
             ;;
@@ -342,13 +329,8 @@ setup_openhands() {
 # Claude Code設定のセットアップ（グループ化）
 setup_claude_code() {
     local claude_items=(
-        ".claude/skills/"
-        ".claude/skills/commit-and-report.md"
-        ".claude/skills/commit-safe.md"
-        ".claude/skills/reload-instructions.md"
-        ".claude/skills/github-issues.md"
-        ".claude/skills/reload-and-reset.md"
-        ".claude/skills/evidence-check.md"
+        ".claude/settings.json"
+        "scripts/gh-setup.sh"
     )
 
     # グループ確認
@@ -358,56 +340,14 @@ setup_claude_code() {
         return 1
     fi
 
-    # .claude/skillsディレクトリ作成
-    if [ ! -d ".claude/skills" ]; then
+    # .claudeディレクトリ作成
+    if [ ! -d ".claude" ]; then
         if [ "$DRY_RUN" = true ]; then
-            dry_echo "mkdir -p .claude/skills"
+            dry_echo "mkdir -p .claude"
         else
-            mkdir -p .claude/skills
+            mkdir -p .claude
         fi
     fi
-
-    # コマンドファイルをコピー
-    local commands=("commit-and-report.md" "commit-safe.md" "reload-instructions.md" "github-issues.md" "reload-and-reset.md" "evidence-check.md")
-    local lang=$(get_current_language)
-
-    for cmd_file in "${commands[@]}"; do
-        local src=""
-        local dst=".claude/skills/$cmd_file"
-
-        # ソースファイルの検索（言語別ファイルを優先）
-        if [ -f "instructions/ai_instruction_kits/templates/claude-skills/$lang/$cmd_file" ]; then
-            src="instructions/ai_instruction_kits/templates/claude-skills/$lang/$cmd_file"
-        elif [ -f "$SCRIPT_DIR/../templates/claude-skills/$lang/$cmd_file" ]; then
-            src="$SCRIPT_DIR/../templates/claude-skills/$lang/$cmd_file"
-        elif [ -f "instructions/ai_instruction_kits/templates/claude-skills/$cmd_file" ]; then
-            src="instructions/ai_instruction_kits/templates/claude-skills/$cmd_file"
-        elif [ -f "$SCRIPT_DIR/../templates/claude-skills/$cmd_file" ]; then
-            src="$SCRIPT_DIR/../templates/claude-skills/$cmd_file"
-        fi
-
-        if [ -n "$src" ] && [ -f "$src" ]; then
-            # 既存ファイルのバックアップ
-            if [ -e "$dst" ] && [ ! -L "$dst" ]; then
-                backup_file "$dst"
-                [ "$DRY_RUN" = false ] && rm "$dst"
-            fi
-
-            # シンボリックリンクの場合は削除してファイルコピー
-            if [ -L "$dst" ]; then
-                [ "$DRY_RUN" = false ] && rm "$dst"
-            fi
-
-            # コピー
-            if [ ! -e "$dst" ]; then
-                if [ "$DRY_RUN" = true ]; then
-                    dry_echo "cp $src $dst"
-                else
-                    cp "$src" "$dst"
-                fi
-            fi
-        fi
-    done
 
     # gh-setup.shスクリプトのコピー
     local gh_setup_src=""
@@ -467,93 +407,6 @@ setup_claude_code() {
 
     MSG_CLAUDE_CREATED=$(get_message "claude_created" "Claude Code configuration installed" "Claude Code設定をインストールしました")
     echo "✅ $MSG_CLAUDE_CREATED"
-}
-
-# Claude Code Skillsのセットアップ（グループ化）
-setup_claude_skills() {
-    # 利用可能なスキルを検索
-    local skills_src_dir=""
-    local lang=$(get_current_language)
-
-    if [ -d "instructions/ai_instruction_kits/templates/claude-skills/$lang" ]; then
-        skills_src_dir="instructions/ai_instruction_kits/templates/claude-skills/$lang"
-    elif [ -d "${SCRIPT_DIR}/../templates/claude-skills/$lang" ]; then
-        skills_src_dir="${SCRIPT_DIR}/../templates/claude-skills/$lang"
-    elif [ -d "instructions/ai_instruction_kits/templates/claude-skills/en" ]; then
-        skills_src_dir="instructions/ai_instruction_kits/templates/claude-skills/en"
-    elif [ -d "${SCRIPT_DIR}/../templates/claude-skills/en" ]; then
-        skills_src_dir="${SCRIPT_DIR}/../templates/claude-skills/en"
-    fi
-
-    # スキルディレクトリが見つからない場合はスキップ
-    if [ -z "$skills_src_dir" ] || [ ! -d "$skills_src_dir" ]; then
-        MSG_NO_SKILLS=$(get_message "no_skills" "No skills templates found, skipping" "スキルテンプレートが見つかりません、スキップします")
-        echo "⏭️  $MSG_NO_SKILLS"
-        return 1
-    fi
-
-    # 利用可能なスキルをリストアップ
-    local skill_items=(".claude/skills/")
-    local available_skills=()
-    for skill_dir in "$skills_src_dir"/*/; do
-        if [ -d "$skill_dir" ] && [ -f "$skill_dir/SKILL.md" ]; then
-            local skill_name=$(basename "$skill_dir")
-            available_skills+=("$skill_name")
-            skill_items+=(".claude/skills/$skill_name/")
-        fi
-    done
-
-    # スキルがない場合はスキップ
-    if [ ${#available_skills[@]} -eq 0 ]; then
-        MSG_NO_SKILLS=$(get_message "no_skills" "No skills templates found, skipping" "スキルテンプレートが見つかりません、スキップします")
-        echo "⏭️  $MSG_NO_SKILLS"
-        return 1
-    fi
-
-    # グループ確認
-    if ! confirm_group "skills" "${skill_items[@]}"; then
-        MSG_SKIP_SKILLS=$(get_message "skip_skills" "Skipping Claude Code Skills" "Claude Codeスキルをスキップ")
-        echo "⏭️  $MSG_SKIP_SKILLS"
-        return 1
-    fi
-
-    # .claude/skillsディレクトリ作成
-    if [ ! -d ".claude/skills" ]; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "mkdir -p .claude/skills"
-        else
-            mkdir -p .claude/skills
-        fi
-    fi
-
-    # 各スキルをコピー
-    for skill_name in "${available_skills[@]}"; do
-        local src="$skills_src_dir/$skill_name"
-        local dst=".claude/skills/$skill_name"
-
-        # 既存ディレクトリのバックアップ
-        if [ -d "$dst" ] && [ ! -L "$dst" ]; then
-            backup_file "$dst"
-            [ "$DRY_RUN" = false ] && rm -rf "$dst"
-        fi
-
-        # シンボリックリンクの場合は削除
-        if [ -L "$dst" ]; then
-            [ "$DRY_RUN" = false ] && rm "$dst"
-        fi
-
-        # コピー
-        if [ ! -e "$dst" ]; then
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "cp -r $src $dst"
-            else
-                cp -r "$src" "$dst"
-            fi
-        fi
-    done
-
-    MSG_SKILLS_CREATED=$(get_message "skills_created" "Claude Code Skills installed" "Claude Codeスキルをインストールしました")
-    echo "✅ $MSG_SKILLS_CREATED"
 }
 
 # Git設定のセットアップ（グループ化）
@@ -625,7 +478,6 @@ setup_git_config() {
 setup_script_tools() {
     local script_items=(
         "scripts/lib/"
-        "scripts/gemini/"
         "scripts/commit.sh"
         "scripts/submodule-update-check.sh"
     )
@@ -645,8 +497,7 @@ setup_script_tools() {
         
         # ディレクトリ
         cp -r "$copy_source_path/lib" "scripts/"
-        cp -r "$copy_source_path/gemini" "scripts/"
-        
+
         # ファイル
         local scripts_to_copy=("commit.sh" "submodule-update-check.sh")
         for script in "${scripts_to_copy[@]}"; do
@@ -669,19 +520,6 @@ setup_script_tools() {
             dry_echo "ln -sf $base_script_path/lib scripts/lib"
         else
             ln -sf "$base_script_path/lib" scripts/lib
-        fi
-    fi
-
-    # scripts/gemini/
-    if [ -e "scripts/gemini" ] && [ ! -L "scripts/gemini" ]; then
-        backup_file "scripts/gemini"
-        [ "$DRY_RUN" = false ] && rm -rf scripts/gemini
-    fi
-    if [ ! -e "scripts/gemini" ]; then
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "ln -sf $base_script_path/gemini scripts/gemini"
-        else
-            ln -sf "$base_script_path/gemini" scripts/gemini
         fi
     fi
 
@@ -907,363 +745,13 @@ setup_submodule_mode() {
 
 # sync_claude_commands() は v2.0 で削除（スキルに統合済み）
 
-# Gemini CLIコマンドの同期
-sync_gemini_commands() {
-    MSG_SYNC_GEMINI=$(get_message "sync_gemini_commands_msg" "Syncing Gemini CLI custom commands" "Gemini CLIカスタムコマンドを同期中")
-    echo "♊ $MSG_SYNC_GEMINI..."
-    
-    if [ ! -d ".gemini/commands" ]; then
-        MSG_CREATE_GEMINI_DIR=$(get_message "create_gemini_dir" "Create .gemini/commands directory for Gemini CLI?" "Gemini CLI用の.gemini/commandsディレクトリを作成しますか？")
-        if confirm "$MSG_CREATE_GEMINI_DIR"; then
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "mkdir -p .gemini/commands"
-            else
-                mkdir -p .gemini/commands
-                MSG_GEMINI_DIR_CREATED=$(get_message "gemini_dir_created" ".gemini/commands directory created" ".gemini/commandsディレクトリを作成しました")
-                echo "✅ $MSG_GEMINI_DIR_CREATED"
-            fi
-        else
-            return
-        fi
-    fi
-    
-    local gemini_commands_src=""
-    if [ -d "instructions/ai_instruction_kits/.gemini/commands" ]; then
-        gemini_commands_src="instructions/ai_instruction_kits/.gemini/commands"
-    elif [ -d "$SCRIPT_DIR/../.gemini/commands" ]; then
-        gemini_commands_src="$SCRIPT_DIR/../.gemini/commands"
-    else
-        MSG_GEMINI_SRC_NOT_FOUND=$(get_message "gemini_src_not_found" "Gemini command source directory not found" "Geminiコマンドのソースディレクトリが見つかりません")
-        echo "⚠️  $MSG_GEMINI_SRC_NOT_FOUND"
-        return
-    fi
-    
-    # ls と xargs を使って .toml ファイルのみを対象にする
-    local gemini_commands=()
-    if [ -d "$gemini_commands_src" ]; then
-        gemini_commands=($(ls "$gemini_commands_src"/*.toml 2>/dev/null | xargs -n 1 basename))
-    fi
 
-    if [ ${#gemini_commands[@]} -eq 0 ]; then
-        MSG_NO_GEMINI_COMMANDS=$(get_message "no_gemini_commands" "No Gemini command templates found to sync" "同期するGeminiコマンドテンプレートが見つかりません")
-        echo "ℹ️ $MSG_NO_GEMINI_COMMANDS"
-        return
-    fi
-    
-    local updated_count=0
-    local skipped_count=0
-    
-    for cmd_file in "${gemini_commands[@]}"; do
-        local src="$gemini_commands_src/$cmd_file"
-        local dst=".gemini/commands/$cmd_file"
-        
-        if [ ! -f "$src" ]; then continue; fi
-
-        if [ -e "$dst" ]; then
-            if diff -q "$src" "$dst" > /dev/null 2>&1; then
-                MSG_UP_TO_DATE=$(get_message "up_to_date" "is up to date" "は最新です")
-                echo "✓ $cmd_file $MSG_UP_TO_DATE"
-                skipped_count=$((skipped_count + 1))
-                continue
-            fi
-            
-            echo ""
-            MSG_UPDATE_AVAILABLE=$(get_message "update_available" "has updates" "に更新があります")
-            echo "📝 $cmd_file $MSG_UPDATE_AVAILABLE"
-            MSG_UPDATE_FILE=$(get_message "update_file" "Update?" "更新しますか？")
-            if confirm "$MSG_UPDATE_FILE"; then
-                backup_file "$dst"
-                if [ "$DRY_RUN" = true ]; then
-                    dry_echo "cp $src $dst"
-                else
-                    cp "$src" "$dst"
-                fi
-                MSG_UPDATED=$(get_message "updated" "updated" "を更新しました")
-                echo "✅ $cmd_file $MSG_UPDATED"
-                updated_count=$((updated_count + 1))
-            else
-                MSG_UPDATE_SKIPPED=$(get_message "update_skipped" "update skipped" "の更新をスキップしました")
-                echo "⏭️  $cmd_file $MSG_UPDATE_SKIPPED"
-                skipped_count=$((skipped_count + 1))
-            fi
-        else
-            MSG_NOT_EXISTS=$(get_message "not_exists" "does not exist" "が存在しません")
-            echo "📝 $cmd_file $MSG_NOT_EXISTS"
-            MSG_CREATE_FILE=$(get_message "create_file" "Create?" "作成しますか？")
-            if confirm "$MSG_CREATE_FILE"; then
-                if [ "$DRY_RUN" = true ]; then
-                    dry_echo "cp $src $dst"
-                else
-                    cp "$src" "$dst"
-                fi
-                MSG_CREATED=$(get_message "created" "created" "を作成しました")
-                echo "✅ $cmd_file $MSG_CREATED"
-                updated_count=$((updated_count + 1))
-            fi
-        fi
-    done
-    
-    echo ""
-    MSG_SYNC_COMPLETE=$(get_message "sync_complete" "Sync complete" "同期完了")
-    MSG_UPDATED_COUNT=$(get_message "updated_count" "updated" "更新")
-    MSG_SKIPPED_COUNT=$(get_message "skipped_count" "skipped" "スキップ")
-    echo "📊 $MSG_SYNC_COMPLETE: $MSG_UPDATED_COUNT $updated_count 件、$MSG_SKIPPED_COUNT $skipped_count 件"
-}
-
-# Gemini CLI設定のセットアップ（グループ化）
-setup_gemini_cli() {
-    local gemini_items=(
-        ".gemini/commands/"
-        "scripts/gemini/"
-    )
-
-    if ! confirm_group "gemini" "${gemini_items[@]}"; then
-        MSG_SKIP_GEMINI=$(get_message "skip_gemini" "Skipping Gemini CLI configuration" "Gemini CLI設定をスキップ")
-        echo "⏭️  $MSG_SKIP_GEMINI"
-        return 1
-    fi
-    
-    # .gemini/commandsディレクトリ作成と同期
-    sync_gemini_commands
-
-    # .gemini/ディレクトリをgitignoreに追加
-    if [ -f ".gitignore" ]; then
-        if ! grep -q "^\.gemini/$" .gitignore 2>/dev/null;
- then
-             if [ "$DRY_RUN" = true ]; then
-                dry_echo "echo '.gemini/' >> .gitignore"
-            else
-                echo '.gemini/' >> .gitignore
-            fi
-        fi
-    fi
-
-    MSG_GEMINI_CREATED=$(get_message "gemini_created" "Gemini CLI configuration installed" "Gemini CLI設定をインストールしました")
-    echo "✅ $MSG_GEMINI_CREATED"
-}
-
-# Codex CLIコマンドの同期
-sync_codex_commands() {
-    MSG_SYNC_CODEX=$(get_message "sync_codex_commands_msg" "Syncing Codex CLI custom prompts" "Codex CLIカスタムプロンプトを同期中")
-    echo "📦 $MSG_SYNC_CODEX..."
-
-    if [ ! -d ".codex/prompts" ]; then
-        MSG_CREATE_CODEX_DIR=$(get_message "create_codex_dir" "Create .codex/prompts directory for Codex CLI?" "Codex CLI用の.codex/promptsディレクトリを作成しますか？")
-        if confirm "$MSG_CREATE_CODEX_DIR"; then
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "mkdir -p .codex/prompts"
-            else
-                mkdir -p .codex/prompts
-                MSG_CODEX_DIR_CREATED=$(get_message "codex_dir_created" ".codex/prompts directory created" ".codex/promptsディレクトリを作成しました")
-                echo "✅ $MSG_CODEX_DIR_CREATED"
-            fi
-        else
-            return
-        fi
-    fi
-
-    local codex_prompts_src=""
-    if [ -d "instructions/ai_instruction_kits/.codex/prompts" ]; then
-        codex_prompts_src="instructions/ai_instruction_kits/.codex/prompts"
-    elif [ -d "$SCRIPT_DIR/../.codex/prompts" ]; then
-        codex_prompts_src="$SCRIPT_DIR/../.codex/prompts"
-    else
-        MSG_CODEX_SRC_NOT_FOUND=$(get_message "codex_src_not_found" "Codex prompts source directory not found" "Codexプロンプトのソースディレクトリが見つかりません")
-        echo "⚠️  $MSG_CODEX_SRC_NOT_FOUND"
-        return
-    fi
-
-    # ls と xargs を使って .md ファイルのみを対象にする
-    local codex_prompts=()
-    if [ -d "$codex_prompts_src" ]; then
-        codex_prompts=($(ls "$codex_prompts_src"/*.md 2>/dev/null | xargs -n 1 basename))
-    fi
-
-    if [ ${#codex_prompts[@]} -eq 0 ]; then
-        MSG_NO_CODEX_PROMPTS=$(get_message "no_codex_prompts" "No Codex prompt templates found to sync" "同期するCodexプロンプトテンプレートが見つかりません")
-        echo "ℹ️ $MSG_NO_CODEX_PROMPTS"
-        return
-    fi
-
-    local updated_count=0
-    local skipped_count=0
-
-    for prompt_file in "${codex_prompts[@]}"; do
-        local src="$codex_prompts_src/$prompt_file"
-        local dst=".codex/prompts/$prompt_file"
-
-        if [ ! -f "$src" ]; then continue; fi
-
-        if [ -e "$dst" ]; then
-            if diff -q "$src" "$dst" > /dev/null 2>&1; then
-                MSG_UP_TO_DATE=$(get_message "up_to_date" "is up to date" "は最新です")
-                echo "✓ $prompt_file $MSG_UP_TO_DATE"
-                skipped_count=$((skipped_count + 1))
-                continue
-            fi
-
-            echo ""
-            MSG_UPDATE_AVAILABLE=$(get_message "update_available" "has updates" "に更新があります")
-            echo "📝 $prompt_file $MSG_UPDATE_AVAILABLE"
-            MSG_UPDATE_FILE=$(get_message "update_file" "Update?" "更新しますか？")
-            if confirm "$MSG_UPDATE_FILE"; then
-                backup_file "$dst"
-                if [ "$DRY_RUN" = true ]; then
-                    dry_echo "cp $src $dst"
-                else
-                    cp "$src" "$dst"
-                fi
-                MSG_UPDATED=$(get_message "updated" "updated" "を更新しました")
-                echo "✅ $prompt_file $MSG_UPDATED"
-                updated_count=$((updated_count + 1))
-            else
-                MSG_UPDATE_SKIPPED=$(get_message "update_skipped" "update skipped" "の更新をスキップしました")
-                echo "⏭️  $prompt_file $MSG_UPDATE_SKIPPED"
-                skipped_count=$((skipped_count + 1))
-            fi
-        else
-            MSG_NOT_EXISTS=$(get_message "not_exists" "does not exist" "が存在しません")
-            echo "📝 $prompt_file $MSG_NOT_EXISTS"
-            MSG_CREATE_FILE=$(get_message "create_file" "Create?" "作成しますか？")
-            if confirm "$MSG_CREATE_FILE"; then
-                if [ "$DRY_RUN" = true ]; then
-                    dry_echo "cp $src $dst"
-                else
-                    cp "$src" "$dst"
-                fi
-                MSG_CREATED=$(get_message "created" "created" "を作成しました")
-                echo "✅ $prompt_file $MSG_CREATED"
-                updated_count=$((updated_count + 1))
-            fi
-        fi
-    done
-
-    echo ""
-    MSG_SYNC_COMPLETE=$(get_message "sync_complete" "Sync complete" "同期完了")
-    MSG_UPDATED_COUNT=$(get_message "updated_count" "updated" "更新")
-    MSG_SKIPPED_COUNT=$(get_message "skipped_count" "skipped" "スキップ")
-    echo "📊 $MSG_SYNC_COMPLETE: $MSG_UPDATED_COUNT $updated_count 件、$MSG_SKIPPED_COUNT $skipped_count 件"
-}
-
-# Codex CLI設定のセットアップ（グループ化）
-setup_codex_cli() {
-    local codex_items=(
-        ".codex/prompts/"
-    )
-
-    if ! confirm_group "codex" "${codex_items[@]}"; then
-        MSG_SKIP_CODEX=$(get_message "skip_codex" "Skipping Codex CLI configuration" "Codex CLI設定をスキップ")
-        echo "⏭️  $MSG_SKIP_CODEX"
-        return 1
-    fi
-
-    # .codex/promptsディレクトリ作成と同期
-    sync_codex_commands
-
-    # .codex/ディレクトリをgitignoreに追加
-    if [ -f ".gitignore" ]; then
-        if ! grep -q "^\.codex/$" .gitignore 2>/dev/null; then
-            if [ "$DRY_RUN" = true ]; then
-                dry_echo "echo '.codex/' >> .gitignore"
-            else
-                echo '.codex/' >> .gitignore
-            fi
-        fi
-    fi
-
-    MSG_CODEX_CREATED=$(get_message "codex_created" "Codex CLI configuration installed" "Codex CLI設定をインストールしました")
-    echo "✅ $MSG_CODEX_CREATED"
-}
-
-# Antigravity CLIスキルの同期（.agents/skills/<name>/SKILL.md形式）
-sync_antigravity_skills() {
-    MSG_SYNC_AGY=$(get_message "sync_agy_skills_msg" "Syncing Antigravity CLI skills" "Antigravity CLIスキルを同期中")
-    echo "📦 $MSG_SYNC_AGY..."
-
-    local agy_src=""
-    if [ -d "instructions/ai_instruction_kits/.agents/skills" ]; then
-        agy_src="instructions/ai_instruction_kits/.agents/skills"
-    elif [ -d "$SCRIPT_DIR/../.agents/skills" ]; then
-        agy_src="$SCRIPT_DIR/../.agents/skills"
-    else
-        MSG_AGY_SRC_NOT_FOUND=$(get_message "agy_src_not_found" "Antigravity skills source not found" "Antigravityスキルのソースが見つかりません")
-        echo "⚠️  $MSG_AGY_SRC_NOT_FOUND"
-        return
-    fi
-
-    [ ! -d ".agents/skills" ] && { [ "$DRY_RUN" = true ] && dry_echo "mkdir -p .agents/skills" || mkdir -p .agents/skills; }
-
-    local updated_count=0
-    local skipped_count=0
-
-    for skill_dir in "$agy_src"/*/; do
-        [ -d "$skill_dir" ] || continue
-        local skill_name=$(basename "$skill_dir")
-        local src="$skill_dir/SKILL.md"
-        [ -f "$src" ] || continue
-        local dst_dir=".agents/skills/$skill_name"
-        local dst="$dst_dir/SKILL.md"
-
-        if [ -f "$dst" ] && diff -q "$src" "$dst" > /dev/null 2>&1; then
-            MSG_UP_TO_DATE=$(get_message "up_to_date" "is up to date" "は最新です")
-            echo "✓ $skill_name $MSG_UP_TO_DATE"
-            skipped_count=$((skipped_count + 1))
-            continue
-        fi
-
-        if [ "$DRY_RUN" = true ]; then
-            dry_echo "mkdir -p $dst_dir && cp -L $src $dst"
-        else
-            mkdir -p "$dst_dir"
-            [ -f "$dst" ] && backup_file "$dst"
-            # symlink先も実体としてコピー（下流でリンク切れを防ぐ）
-            cp -L "$src" "$dst"
-        fi
-        MSG_UPDATED=$(get_message "updated" "updated" "を更新しました")
-        echo "✅ $skill_name $MSG_UPDATED"
-        updated_count=$((updated_count + 1))
-    done
-
-    echo ""
-    MSG_SYNC_COMPLETE=$(get_message "sync_complete" "Sync complete" "同期完了")
-    MSG_UPDATED_COUNT=$(get_message "updated_count" "updated" "更新")
-    MSG_SKIPPED_COUNT=$(get_message "skipped_count" "skipped" "スキップ")
-    echo "📊 $MSG_SYNC_COMPLETE: $MSG_UPDATED_COUNT $updated_count 件、$MSG_SKIPPED_COUNT $skipped_count 件"
-}
-
-# Antigravity CLI設定のセットアップ（グループ化）
-setup_antigravity_cli() {
-    local agy_items=(
-        ".agents/skills/"
-    )
-
-    if ! confirm_group "antigravity" "${agy_items[@]}"; then
-        MSG_SKIP_AGY=$(get_message "skip_antigravity" "Skipping Antigravity CLI configuration" "Antigravity CLI設定をスキップ")
-        echo "⏭️  $MSG_SKIP_AGY"
-        return 1
-    fi
-
-    sync_antigravity_skills
-
-    MSG_AGY_CREATED=$(get_message "antigravity_created" "Antigravity CLI configuration installed" "Antigravity CLI設定をインストールしました")
-    echo "✅ $MSG_AGY_CREATED"
-}
-
-# --sync-claude-commands は v2.0 で廃止（スキルに統合済み）
-if [ "$SYNC_CLAUDE_COMMANDS_ONLY" = true ]; then
-    echo "⚠️  --sync-claude-commands は廃止されました。スキルは .claude/skills/ で管理されます。"
-    exit 0
-fi
-
-# --sync-codex-commands が指定された場合
-if [ "$SYNC_CODEX_COMMANDS_ONLY" = true ]; then
-    sync_codex_commands
-    exit 0
-fi
-
-# --sync-gemini-commands が指定された場合
-if [ "$SYNC_GEMINI_COMMANDS_ONLY" = true ]; then
-    sync_gemini_commands
+# --sync-claude-commands / --sync-codex-commands / --sync-gemini-commands は廃止。
+# スキルは外部マーケットプレイスに集約済み（dobachi/claude-skills-marketplace）。
+if [ "$SYNC_CLAUDE_COMMANDS_ONLY" = true ] || [ "$SYNC_CODEX_COMMANDS_ONLY" = true ] || [ "$SYNC_GEMINI_COMMANDS_ONLY" = true ]; then
+    echo "⚠️  --sync-*-commands は廃止されました。スキルは外部マーケットプレイスから導入してください:"
+    echo "    /plugin marketplace add dobachi/claude-skills-marketplace"
+    echo "    または: git clone https://github.com/dobachi/claude-skills-marketplace && bash claude-skills-marketplace/install.sh"
     exit 0
 fi
 
@@ -1534,33 +1022,9 @@ echo "⚡ $MSG_SETUP_CLAUDE..."
 setup_claude_code
 CLAUDE_INSTALLED=$?
 
-# Claude Codeスキルのセットアップ（グループ化）
-echo ""
-MSG_SETUP_SKILLS=$(get_message "setup_skills" "Setting up Claude Code Skills" "Claude Codeスキルを設定")
-echo "🎯 $MSG_SETUP_SKILLS..."
-setup_claude_skills
-SKILLS_INSTALLED=$?
-
-# Gemini CLI設定のセットアップ（グループ化）
-echo ""
-MSG_SETUP_GEMINI=$(get_message "setup_gemini" "Setting up Gemini CLI configuration" "Gemini CLI設定を設定")
-echo "♊ $MSG_SETUP_GEMINI..."
-setup_gemini_cli
-GEMINI_INSTALLED=$?
-
-# Codex CLI設定のセットアップ（グループ化）
-echo ""
-MSG_SETUP_CODEX=$(get_message "setup_codex" "Setting up Codex CLI configuration" "Codex CLI設定を設定")
-echo "📦 $MSG_SETUP_CODEX..."
-setup_codex_cli
-CODEX_INSTALLED=$?
-
-# Antigravity CLI設定のセットアップ（グループ化）
-echo ""
-MSG_SETUP_AGY=$(get_message "setup_antigravity" "Setting up Antigravity CLI configuration" "Antigravity CLI設定を設定")
-echo "📦 $MSG_SETUP_AGY..."
-setup_antigravity_cli
-ANTIGRAVITY_INSTALLED=$?
+# Gemini / Codex / Antigravity 向けのスキルは外部マーケットプレイスに集約したため、
+# ここでのローカル配布（.gemini/commands・.codex/prompts・.agents/skills）は廃止。
+# 各CLIは末尾で案内するマーケットプレイスの install.sh（~/.agents/skills 等）から導入する。
 
 # Git設定のセットアップ（グループ化）
 echo ""
@@ -1616,46 +1080,6 @@ else
         echo "        └── repo.md → ../../instructions/PROJECT.md"
     fi
 
-    # スキルが実際にインストールされた場合のみ表示
-    if [ "${SKILLS_INSTALLED:-1}" -eq 0 ]; then
-        echo "  .claude/"
-        echo "    └── skills/"
-        echo "        └── commit-safe/"
-        echo "            └── SKILL.md"
-        echo ""
-
-        MSG_SKILLS_AVAILABLE=$(get_message "skills_available" "Available Claude Code Skills (auto-invoked)" "利用可能なClaude Codeスキル（自動呼び出し）")
-        echo "🎯 $MSG_SKILLS_AVAILABLE:"
-        echo "  commit-safe         - $(get_message "skill_commit_safe" "Safe file-specific commits" "ファイル指定の安全なコミット")"
-        echo ""
-        echo "🛒 $(get_message "marketplace_info" "Additional skills available at" "追加スキルは以下から入手可能"):"
-        echo "  https://github.com/dobachi/claude-skills-marketplace"
-        echo ""
-    fi
-
-    # Codex CLIが実際にインストールされた場合のみ表示
-    if [ "${CODEX_INSTALLED:-1}" -eq 0 ]; then
-        echo "  .codex/"
-        echo "    └── prompts/"
-        echo "        ├── commit-and-report.md"
-        echo "        ├── commit-safe.md"
-        echo "        ├── github-issues.md"
-        echo "        ├── reload-instructions.md"
-        echo "        ├── reload-and-reset.md"
-        echo "        └── evidence-check.md"
-        echo ""
-
-        MSG_CODEX_COMMANDS_AVAILABLE=$(get_message "codex_commands_available" "Available Codex CLI commands" "利用可能なCodex CLIコマンド")
-        echo "📦 $MSG_CODEX_COMMANDS_AVAILABLE:"
-        echo "  /commit-and-report \"$(get_message "commit_message" "commit message" "コミットメッセージ")\" [Issue$(get_message "number" "number" "番号")]"
-        echo "  /commit-safe \"$(get_message "commit_message" "commit message" "コミットメッセージ")\""
-        echo "  /github-issues"
-        echo "  /reload-instructions"
-        echo "  /reload-and-reset"
-        echo "  /evidence-check [file-path]"
-        echo ""
-    fi
-
     # モード別の次のステップ
     MSG_NEXT_STEPS=$(get_message "next_steps" "Next steps" "次のステップ")
     echo "🔗 $MSG_NEXT_STEPS:"
@@ -1688,4 +1112,22 @@ else
     echo "⚠️  $MSG_IMPORTANT:"
     echo "  • $MSG_NATIVE_TASK_MGMT"
     echo "  • $MSG_AI_AUTO_PATH"
+    echo ""
+
+    # スキルマーケットプレイスの案内（commit-safe を含む全スキルはこちらから）
+    MSG_MARKET_TITLE=$(get_message "market_title" "Recommended: install skills from the marketplace" "推奨: スキルはマーケットプレイスから導入")
+    MSG_MARKET_DESC=$(get_message "market_desc" "commit-safe and all other skills are distributed via the marketplace (auto-invoked once installed):" "commit-safe を含む全スキルはマーケットプレイスで配布しています（導入後は自動起動）:")
+    MSG_MARKET_ONELINER=$(get_message "market_oneliner" "One-liner (from a repo clone):" "ワンライナー（マーケットのクローンから）:")
+    MSG_MARKET_IN_CLAUDE=$(get_message "market_in_claude" "Or inside Claude Code:" "または Claude Code セッション内で:")
+    echo "🛒 $MSG_MARKET_TITLE"
+    echo "  $MSG_MARKET_DESC"
+    echo ""
+    echo "  $MSG_MARKET_IN_CLAUDE"
+    echo "    /plugin marketplace add dobachi/claude-skills-marketplace"
+    echo "    /plugin install commit-safe@dobachi-skills"
+    echo ""
+    echo "  $MSG_MARKET_ONELINER"
+    echo "    git clone https://github.com/dobachi/claude-skills-marketplace && bash claude-skills-marketplace/install.sh"
+    echo ""
+    echo "  https://github.com/dobachi/claude-skills-marketplace"
 fi

@@ -29,19 +29,17 @@ scripts/commit.sh
 - **目的**: AIへの指示書を構造的に管理・提供するシステムの開発
 - **言語**: 日本語優先（英語版も同時メンテナンス）
 - **ライセンス**: Apache-2.0（個別指示書は各自のライセンス）
-- **アーキテクチャ**: スキルベース（v2.0） - コアスキル commit-safe をローカル維持、その他はマーケットプレイスへ
+- **アーキテクチャ**: スキルベース（v2.0） - スキルは全てマーケットプレイスへ集約（本リポジトリはスキルを同梱しない）
 
 ## スキルベースアーキテクチャ（v2.0）
 
-### コアスキル（ローカル維持）
-| スキル | 用途 |
-|--------|------|
-| commit-safe | 安全なコミット |
+### スキルの配布
+commit-safe を含む全スキルは外部マーケットプレイスで配布します。本リポジトリはマーケットではなく、指示書本体の管理に専念します。
+
+- マーケットプレイス: https://github.com/dobachi/claude-skills-marketplace
+- 導入: `/plugin marketplace add dobachi/claude-skills-marketplace` → `/plugin install commit-safe@dobachi-skills`
 
 > タスク管理・進捗追跡・Git worktree・ビルドはAIツールのネイティブ機能を利用してください。
-
-### 追加スキル
-マーケットプレイスからインストール: https://github.com/dobachi/claude-skills-marketplace
 
 ## 開発原則
 
@@ -88,26 +86,23 @@ scripts/commit.sh
 - 依存関係の分析
 - ドキュメントとコードの整合性確認
 
-## Codex CLIカスタムコマンド
+## マルチCLIでのスキル利用（Codex / Gemini / Antigravity）
 
-Codex CLI向けのカスタムプロンプトを`.codex/prompts/`に追加しました。ファイル名がそのまま`/コマンド名`として呼び出せます（例: `commit-safe.md` → `/commit-safe`）。必要に応じて自分の環境の`~/.codex/prompts/`へコピーし、CLIを再起動してください。
+指示書ファイルはツールごとに用意しています（いずれも `PROJECT_META.md` へのsymlink）:
 
-- `commit-and-report` — コミット・プッシュ・Issue報告の手順
-- `commit-safe` — ファイル指定型の安全なコミット手順
-- `github-issues` — GitHub Issueの取得と整理
-- `reload-instructions` — 指示書サブモジュールの更新と再読込
-- `reload-and-reset` — 指示書更新とルール再確認
+- Claude Code → `CLAUDE.md`
+- Codex CLI → `CODEX.md`
+- Gemini CLI → `GEMINI.md`
+- Antigravity CLI（`agy`）→ `AGENTS.md`
 
-## Antigravity CLIスキル
+**スキルは全て外部マーケットプレイスに集約**しました。このリポジトリは `.codex/prompts/`・`.gemini/commands/`・`.agents/skills/` をローカル配布しません。各CLIは Agent Skills 標準（`~/.agents/skills/<name>/SKILL.md`）を共有して読み込むため、マーケットプレイスの `install.sh` を一度実行すれば Claude Code・Codex・Gemini・Antigravity すべてで利用できます。
 
-Antigravity CLI（`agy`）向けに、ルートの `AGENTS.md`（`PROJECT_META.md`へのsymlink）を指示書として読み込みます。スキルは `.agents/skills/<name>/SKILL.md` 形式（Claude Codeと共通の Agent Skills 標準）で配置し、TUIで `/<name>` のスラッシュコマンドとして利用できます。読み込み状況は `agy inspect` で確認できます。
+```bash
+git clone https://github.com/dobachi/claude-skills-marketplace
+bash claude-skills-marketplace/install.sh
+```
 
-- `commit-safe` — ファイル指定型の安全なコミット（`templates/claude-skills/ja` を参照）
-- `commit-and-report` — コミット・プッシュ・Issue報告の手順
-- `github-issues` — GitHub Issueの取得と整理
-- `reload-instructions` — 指示書サブモジュールの更新と再読込
-- `reload-and-reset` — 指示書更新とルール再確認
-- `evidence-check` — 参考文献・引用の妥当性検証
+Claude Code のみプラグイン方式でも導入できます: `/plugin marketplace add dobachi/claude-skills-marketplace` → `/plugin install commit-safe@dobachi-skills`。
 
 ## プロジェクト固有の指示
 

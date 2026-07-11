@@ -29,19 +29,17 @@ scripts/commit.sh
 - **Purpose**: Development of a system to structurally manage and provide instructions to AI
 - **Language**: Japanese priority (maintaining English version simultaneously)
 - **License**: Apache-2.0 (individual instructions have their own licenses)
-- **Architecture**: Skill-based (v2.0) - core skill commit-safe maintained locally, others via marketplace
+- **Architecture**: Skill-based (v2.0) - all skills consolidated in the marketplace (this repo ships no skills)
 
 ## Skill-Based Architecture (v2.0)
 
-### Core Skills (maintained locally)
-| Skill | Purpose |
-|-------|---------|
-| commit-safe | Safe commits |
+### Skill Distribution
+All skills — including commit-safe — are distributed via the external marketplace. This repository is not a marketplace; it focuses on the instruction set itself.
+
+- Marketplace: https://github.com/dobachi/claude-skills-marketplace
+- Install: `/plugin marketplace add dobachi/claude-skills-marketplace` → `/plugin install commit-safe@dobachi-skills`
 
 > Use your AI tool's native features for task management, progress tracking, Git worktrees, and builds.
-
-### Additional Skills
-Install from marketplace: https://github.com/dobachi/claude-skills-marketplace
 
 ## Development Principles
 
@@ -88,15 +86,23 @@ For project analysis and large-scale investigation tasks, actively use the Agent
 - Dependency analysis
 - Documentation and code consistency verification
 
-## Codex CLI Custom Commands
+## Using skills across CLIs (Codex / Gemini / Antigravity)
 
-Codex-specific prompt files live in `.codex/prompts/`. The file name becomes the `/command` (for example `commit-safe.md` → `/commit-safe`). Copy the files to your local `~/.codex/prompts/` and restart the CLI to make them available.
+Each tool has its own instruction file (all symlinks to `PROJECT_META.md`):
 
-- `commit-and-report` — guides commit, push, and optional issue updates
-- `commit-safe` — walks through safe, file-scoped commits
-- `github-issues` — gathers and summarizes open GitHub issues
-- `reload-instructions` — updates the instruction submodule and reloads ROOT_INSTRUCTION
-- `reload-and-reset` — refreshes instructions and reiterates the operating rules
+- Claude Code → `CLAUDE.md`
+- Codex CLI → `CODEX.md`
+- Gemini CLI → `GEMINI.md`
+- Antigravity CLI (`agy`) → `AGENTS.md`
+
+**All skills are consolidated in the external marketplace.** This repository no longer ships local `.codex/prompts/`, `.gemini/commands/`, or `.agents/skills/`. Because these CLIs share the Agent Skills standard (`~/.agents/skills/<name>/SKILL.md`), running the marketplace `install.sh` once makes the skills available to Claude Code, Codex, Gemini, and Antigravity alike.
+
+```bash
+git clone https://github.com/dobachi/claude-skills-marketplace
+bash claude-skills-marketplace/install.sh
+```
+
+Claude Code can also use the plugin flow: `/plugin marketplace add dobachi/claude-skills-marketplace` → `/plugin install commit-safe@dobachi-skills`.
 
 ## Project-Specific Instructions
 

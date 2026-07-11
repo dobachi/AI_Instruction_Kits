@@ -20,22 +20,25 @@ v2.0で導入されたスキルベースアーキテクチャにより、タス�
 **主な特徴：**
 - **自動タスク分析**：自然言語でタスクを入力するだけ
 - **インテリジェントな選択**：タスク内容に基づいて最適なスキルを選択
-- **マーケットプレイス連携**：コミュニティ製スキルを簡単に追加
-- **最小構成で開始**：コアスキルだけですぐに利用可能
+- **マーケットプレイス連携**：スキルはマーケットプレイスから導入
+- **最小構成で開始**：commit-safe を入れるだけですぐに利用可能
 
-### コアスキル
+### スキルはマーケットプレイスから
+
+commit-safe を含む全スキルは [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) から導入します。本リポジトリはスキルを同梱しません。
+
+```text
+/plugin marketplace add dobachi/claude-skills-marketplace
+/plugin install commit-safe@dobachi-skills
+```
 
 - **commit-safe**：安全なコミット
-   - AI署名なしのクリーンコミット
+   - AI署名なしのクリーンコミット（自己完結の commit.sh を同梱）
    - ファイル指定型の安全なコミット手順
 
 タスク管理（Todo）・進捗追跡・Git worktree・ビルド検出は、近年のAIエージェント（Claude Codeなど）が標準装備しているため、それらのネイティブ機能を活用します。
 
-### マーケットプレイススキル
-
-コミュニティが作成したスキルを [claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) から追加できます。
-
-スキルは `.claude/skills/` に配置するだけで利用可能になります。
+導入したスキルは `.claude/skills/` から自動的に選択・利用されます。
 
 ### 使用例
 ```bash
@@ -55,7 +58,7 @@ claude "変更をコミットして"
 ### システム指示書
 - **ROOT_INSTRUCTION.md** - スキルオーケストレーター（`.claude/skills/`から最適なスキルを自動選択）
 
-### コアスキル（`.claude/skills/`に配置）
+### スキル（マーケットプレイスから導入）
 | スキル | 用途 | 自動提案タイミング |
 |--------|------|-------------------|
 | commit-safe | 安全なコミット | 変更後にファイル指定コミット |
@@ -97,17 +100,17 @@ Task tool（エージェント機能）を活用した大規模分析タスク�
 
 Claude CodeのTask toolを使用すると、サブエージェントが独立したコンテキストで並行分析を実行できます。CLAUDE.mdの「Claude Codeエージェント機能の活用」セクションを参照してください。
 
-### Claude Code カスタムコマンド（新機能）
+### マーケットプレイスのスキル例
 
-Claude Codeユーザー向けの効率化機能：
+[マーケットプレイス](https://github.com/dobachi/claude-skills-marketplace)から導入できる代表的なスキル（導入後はスキル名で呼び出し・自動起動）：
 
-| コマンド | 説明 | 使用例 |
-|----------|------|--------|
-| `/commit-and-report` | コミット＆Issue報告 | `/commit-and-report "バグ修正完了"` |
-| `/commit-safe` | クリーンコミット（AI署名なし） | `/commit-safe "ドキュメント更新"` |
-| `/reload-instructions` | 指示書の再読み込み | `/reload-instructions` |
-| `/github-issues` 🆕 | GitHub Issueを確認してタスク整理 | `/github-issues` |
-| `/reload-and-reset` 🆕 | AIシステムをリセットして指示書再読み込み | `/reload-and-reset` |
+| スキル | 説明 | 使用例 |
+|--------|------|--------|
+| `commit-and-report` | コミット＆Issue報告 | `commit-and-report "バグ修正完了"` |
+| `commit-safe` | クリーンコミット（AI署名なし） | `commit-safe "ドキュメント更新"` |
+| `reload-instructions` | 指示書の再読み込み | `reload-instructions` |
+| `github-issues` | GitHub Issueを確認してタスク整理 | `github-issues` |
+| `reload-and-reset` | AIシステムをリセットして指示書再読み込み | `reload-and-reset` |
 
 ### 統合モード
 

@@ -35,7 +35,7 @@ claude "CLAUDE.mdを参照して、RESTful APIを設計して"
 
 ## 🎯 スキルベースワークフロー
 
-v2.0の中核は、`.claude/skills/` に配置されたコアスキル **commit-safe** です。ROOT_INSTRUCTIONがタスクの内容に応じて自動的に適切なスキルを提案します。
+v2.0の中核は、マーケットプレイスから導入する **commit-safe** スキルです（`/plugin install commit-safe@dobachi-skills`）。導入後は ROOT_INSTRUCTION がタスクの内容に応じて自動的に適切なスキルを提案します。
 
 タスク管理（Todo）・進捗追跡・Git worktree・ビルド検出は、近年のAIエージェント（Claude Codeなど）が標準装備しているため、それらのネイティブ機能を活用します。独自スクリプトは不要です。
 
@@ -135,24 +135,16 @@ cp -r path/to/code-reviewer .claude/skills/code-reviewer
 3. スキルによる自動判断
 ```
 
-## 🤖 Codex CLI / Gemini CLI
+## 🤖 Codex CLI / Gemini CLI / Antigravity CLI
 
-AI Instruction Kitsは、Claude Code以外のAI CLIツールにも対応しています。
+AI Instruction Kitsは、Claude Code以外のAI CLIツールにも対応しています。各ツール向けの指示書（`CODEX.md` / `GEMINI.md` / `AGENTS.md`、いずれも `PROJECT_META.md` へのsymlink）を用意しています。
 
-### Codex CLI
-
-`.codex/prompts/` にカスタムプロンプトを配置しています。ファイル名がそのまま `/コマンド名` として呼び出せます。
+**スキルは全て外部マーケットプレイスに集約**しました。Codex・Gemini・Antigravity は Agent Skills 標準（`~/.agents/skills/<name>/SKILL.md`）を共有するため、マーケットプレイスの `install.sh` を一度実行すれば、全CLIで commit-safe などのスキルが利用できます。
 
 ```bash
-# 利用可能なコマンド例
-/commit-safe        # AI署名なしの安全なコミット
-/commit-and-report  # コミット・プッシュ・Issue報告
-/reload-instructions # 指示書の再読み込み
+git clone https://github.com/dobachi/claude-skills-marketplace
+bash claude-skills-marketplace/install.sh
 ```
-
-### Gemini CLI
-
-`.gemini/commands/` にTOML形式のコマンド定義を配置しています。Codex CLIと同様のコマンドセットが利用可能です。
 
 ## 🎯 ベストプラクティス
 

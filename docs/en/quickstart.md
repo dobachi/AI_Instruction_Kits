@@ -153,7 +153,7 @@ claude "Implement user authentication API"
 A: Minimal impact. Only adds:
 - `instructions/` directory
 - Symbolic links (CLAUDE.md, etc.)
-- `.claude/skills/` directory (commit-safe skill, etc.)
+- `.claude/settings.json` (skills are installed separately from the marketplace)
 
 ### Q: Is it Japanese only?
 A: Both Japanese and English are supported. Edit `PROJECT.en.md` for English version.

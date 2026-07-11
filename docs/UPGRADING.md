@@ -46,15 +46,17 @@ bash instructions/ai_instruction_kits/scripts/setup-project.sh --auto --skip-ins
 | 廃止 | スキル checkpoint-manager / worktree-manager / auto-build、コマンド checkpoint / build |
 | 移行 | レガシーなフラット形式 `.claude/skills/*.md` → `<name>/SKILL.md` 形式 |
 | 追加 | Antigravity CLI対応（`AGENTS.md`・`.agents/skills/`） |
-| 追加 | プラグインマーケットプレイス（`.claude-plugin/`、任意） |
+| 追加 | プラグインマーケットプレイス（`.claude-plugin/`、任意）※後に外部マーケットへ集約（下記参照） |
 
-移行スクリプト: `migrations/2.1.0.sh`（廃止物の掃除を `migrate-skills.sh` に委譲）。Antigravity構成・marketplace の導入は `setup-project.sh --skip-instructions` が担当。
+移行スクリプト: `migrations/2.1.0.sh`（廃止物の掃除を `migrate-skills.sh` に委譲）。
 
-## プラグイン利用（任意）
+> **その後の変更（マーケット集約）**: 本リポジトリのプラグインマーケット（`.claude-plugin/`）と、各CLI向けのローカルスキル配布（`.claude/skills/`・`.agents/skills/`・`.codex/prompts/`・`.gemini/commands/`）を廃止し、commit-safe を含む全スキルを外部マーケット [dobachi/claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) に集約しました。`setup-project.sh` はスキルを配布せず、末尾で導入方法を案内します。Codex・Gemini・Antigravity は Agent Skills 標準（`~/.agents/skills`）を共有するため、マーケットの `install.sh` を一度実行すれば全CLIで利用できます。指示書ファイル（`CLAUDE.md`・`CODEX.md`・`GEMINI.md`・`AGENTS.md`）は従来どおり `setup-project.sh` が設定します。
 
-Claude Codeでコアスキルをプラグインとして使う場合:
+## プラグイン利用
+
+commit-safe を含むスキルは外部マーケットプレイスから導入します:
 
 ```text
-/plugin marketplace add dobachi/AI_Instruction_Kits
-/plugin install ai-instruction-kits-core@ai-instruction-kits
+/plugin marketplace add dobachi/claude-skills-marketplace
+/plugin install commit-safe@dobachi-skills
 ```

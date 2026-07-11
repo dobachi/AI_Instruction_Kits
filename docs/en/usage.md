@@ -35,7 +35,7 @@ claude "Refer to CLAUDE.md and design a RESTful API"
 
 ## 🎯 Skill-Based Workflow
 
-The core of v2.0 is the **commit-safe** core skill placed in `.claude/skills/`. ROOT_INSTRUCTION automatically suggests the appropriate skill based on the task at hand.
+The core of v2.0 is the **commit-safe** skill, installed from the marketplace (`/plugin install commit-safe@dobachi-skills`). Once installed, ROOT_INSTRUCTION automatically suggests the appropriate skill based on the task at hand.
 
 For task management (Todo), progress tracking, Git worktree, and build detection, use your AI tool's native features (Claude Code's Todo, worktree, build detection), since modern AI agents ship with these built in. No custom scripts are required.
 
@@ -135,24 +135,16 @@ Centralize project-specific settings in PROJECT.md.
 3. Skill auto-selection
 ```
 
-## 🤖 Codex CLI / Gemini CLI
+## 🤖 Codex CLI / Gemini CLI / Antigravity CLI
 
-AI Instruction Kits supports AI CLI tools beyond Claude Code.
+AI Instruction Kits supports AI CLI tools beyond Claude Code. Each tool has its own instruction file (`CODEX.md` / `GEMINI.md` / `AGENTS.md`, all symlinks to `PROJECT_META.md`).
 
-### Codex CLI
-
-Custom prompts are placed in `.codex/prompts/`. The filename becomes the `/command-name` you can invoke.
+**All skills are consolidated in the external marketplace.** Since Codex, Gemini, and Antigravity share the Agent Skills standard (`~/.agents/skills/<name>/SKILL.md`), running the marketplace `install.sh` once makes skills such as commit-safe available across every CLI.
 
 ```bash
-# Available commands
-/commit-safe        # Safe commits without AI signatures
-/commit-and-report  # Commit, push, and report to Issues
-/reload-instructions # Reload instructions
+git clone https://github.com/dobachi/claude-skills-marketplace
+bash claude-skills-marketplace/install.sh
 ```
-
-### Gemini CLI
-
-TOML command definitions are placed in `.gemini/commands/`. The same command set as Codex CLI is available.
 
 ## 🎯 Best Practices
 

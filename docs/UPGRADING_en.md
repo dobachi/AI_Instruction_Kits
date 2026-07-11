@@ -46,15 +46,17 @@ When adding a new version, append the range and steps here and provide a matchin
 | Removed | Skills checkpoint-manager / worktree-manager / auto-build; commands checkpoint / build |
 | Migrated | Legacy flat `.claude/skills/*.md` → `<name>/SKILL.md` format |
 | Added | Antigravity CLI support (`AGENTS.md`, `.agents/skills/`) |
-| Added | Plugin marketplace (`.claude-plugin/`, optional) |
+| Added | Plugin marketplace (`.claude-plugin/`, optional) — later consolidated into the external marketplace (see below) |
 
-Migration script: `migrations/2.1.0.sh` (delegates cleanup to `migrate-skills.sh`). Installing the Antigravity structure and marketplace is handled by `setup-project.sh --skip-instructions`.
+Migration script: `migrations/2.1.0.sh` (delegates cleanup to `migrate-skills.sh`).
 
-## Plugin usage (optional)
+> **Later change (marketplace consolidation)**: This repository's plugin marketplace (`.claude-plugin/`) and all per-CLI local skill distribution (`.claude/skills/`, `.agents/skills/`, `.codex/prompts/`, `.gemini/commands/`) were removed; all skills, including commit-safe, are now consolidated in the external marketplace [dobachi/claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace). `setup-project.sh` no longer distributes skills — it prints install instructions at the end. Because Codex, Gemini, and Antigravity share the Agent Skills standard (`~/.agents/skills`), running the marketplace `install.sh` once covers every CLI. The instruction files (`CLAUDE.md`, `CODEX.md`, `GEMINI.md`, `AGENTS.md`) are still set up by `setup-project.sh`.
 
-To use the core skill as a Claude Code plugin:
+## Plugin usage
+
+Install skills, including commit-safe, from the external marketplace:
 
 ```text
-/plugin marketplace add dobachi/AI_Instruction_Kits
-/plugin install ai-instruction-kits-core@ai-instruction-kits
+/plugin marketplace add dobachi/claude-skills-marketplace
+/plugin install commit-safe@dobachi-skills
 ```

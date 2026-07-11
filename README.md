@@ -8,10 +8,9 @@ v2.0では、従来のモジュラー合成方式から**スキルベースア�
 ## v2.0の主な変更点
 
 - **ROOT_INSTRUCTIONがスキルオーケストレーターに**: 約30行のシンプルな構成で、インストール済みスキルを自動的に活用
-- **コアスキル: commit-safe（その他はマーケットプレイス）**: タスク管理・進捗追跡・worktree・ビルドは近年のAIエージェント（Claude Code等）が標準装備しているため、コアスキルは commit-safe のみに集約
-- **スキルマーケットプレイス**: 追加スキルは [dobachi/claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) から取得
+- **スキルは全てマーケットプレイスで配布**: commit-safe を含む全スキルを [dobachi/claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) に集約。本リポジトリはスキルを同梱せず、指示書本体に専念します（タスク管理・進捗追跡・worktree・ビルドは近年のAIエージェントが標準装備）
 - **Python依存の廃止**: composer.py, select-instruction.py 等は不要に
-- **`.claude/skills/`**: 従来の `.claude/commands/` に代わるスキル配置先
+- **`.claude/skills/`**: 従来の `.claude/commands/` に代わるスキル配置先（マーケットから導入）
 - **旧モジュラーシステム**: `archive/v1-modular` ブランチにアーカイブ済み
 
 ## クイックスタート
@@ -56,23 +55,20 @@ rm install.sh
 
 タスク管理・進捗追跡・Git worktree・ビルド検出などは、AIツールのネイティブ機能（Claude Code の Todo / worktree / ビルド検出など）を利用してください。
 
-### コアスキル
-
-| スキル | 用途 | 自動提案 |
-|--------|------|----------|
-| **commit-safe** | 安全なコミット | 変更後にファイル指定コミットを提案 |
-
-その他のスキルは [マーケットプレイス](https://github.com/dobachi/claude-skills-marketplace) からインストールできます。
-
 ### スキルマーケットプレイス
 
-追加スキルは [マーケットプレイス](https://github.com/dobachi/claude-skills-marketplace) からインストールできます：
+commit-safe を含む全てのスキルは [マーケットプレイス](https://github.com/dobachi/claude-skills-marketplace) からインストールします：
 
 ```bash
 # Claude Codeの /plugin コマンドでインストール
 /plugin marketplace add dobachi/claude-skills-marketplace
-/plugin install code-reviewer@dobachi-skills
+/plugin install commit-safe@dobachi-skills   # 安全なコミット（コアスキル）
+/plugin install code-reviewer@dobachi-skills  # 例: その他のスキル
 ```
+
+| スキル | 用途 | 自動提案 |
+|--------|------|----------|
+| **commit-safe** | 安全なコミット（自己完結の commit.sh を同梱） | 変更後にファイル指定コミットを提案 |
 
 カスタムスキルが必要な場合は、マーケットプレイスの skill-creator スキルを利用してください。
 
@@ -97,20 +93,13 @@ rm install.sh
 ├── templates/         # 各種テンプレート
 │   ├── ja/            # 日本語テンプレート
 │   └── en/            # 英語テンプレート
-├── .claude/           # Claude Code スキル
-│   └── skills/        # スキル定義（コアスキル: commit-safe）
-│       └── commit-safe/SKILL.md
-├── .claude-plugin/    # プラグインマーケットプレイス定義（/plugin で導入可能）
-│   ├── marketplace.json
-│   └── plugin.json
-├── .agents/           # Antigravity CLI スキル（AGENTS.md と併用）
-│   └── skills/        # <name>/SKILL.md 形式（Agent Skills標準）
-├── .codex/            # Codex CLI カスタムプロンプト
-│   └── prompts/       # カスタムプロンプト定義
+├── .claude/           # Claude Code 設定
+│   └── settings.json  # 設定（スキルはマーケットプレイスから導入）
+├── AGENTS.md / CODEX.md / GEMINI.md  # 各CLI向け指示書（PROJECT_METAへのsymlink）
 ├── downstream/        # サブモジュール利用プロジェクトのクローン（.gitignore対象）
 ├── reports/           # フィードバック・レポート
 └── scripts/           # ツール・ユーティリティ
-    ├── setup-project.sh        # プロジェクト統合用セットアップ（コアスキルをインストール）
+    ├── setup-project.sh        # プロジェクト統合用セットアップ（マーケット導入を案内）
     ├── setup-metaproject.sh    # メタプロジェクト化セットアップ
     ├── install-metaproject.sh  # メタプロジェクト化ワンライナー
     ├── install.sh              # ワンライナーインストール
@@ -187,7 +176,8 @@ bash scripts/setup-project.sh --help
 │   ├── PROJECT.md            # プロジェクト固有の設定（日本語）
 │   └── PROJECT.en.md         # プロジェクト固有の設定（英語）
 ├── .claude/
-│   └── skills/               # コアスキル commit-safe が自動インストール
+│   ├── settings.json         # Claude Code 設定
+│   └── skills/               # マーケットから導入したスキル（任意）
 ├── CLAUDE.md → instructions/PROJECT.md
 ├── GEMINI.md → instructions/PROJECT.md
 └── CURSOR.md → instructions/PROJECT.md
@@ -221,17 +211,18 @@ AIエージェントはROOT_INSTRUCTIONを読み込むと、自動的にイン�
 
 タスク管理・進捗追跡・Git worktree・ビルド検出などは、AIツールのネイティブ機能（Claude Code の Todo / worktree / ビルド検出など）を利用してください。これらは近年のAIエージェントが標準装備しているため、独自スキルは提供していません。
 
-## Codex CLI カスタムプロンプト
+## マルチCLI対応（Codex / Gemini / Antigravity）
 
-Codex CLIユーザー向けの専用カスタムプロンプトを提供。`.codex/prompts/`に配置されます。
+各CLI向けに指示書ファイル（`CODEX.md` / `GEMINI.md` / `AGENTS.md`、いずれも `PROJECT_META.md` へのsymlink）を提供します。`setup-project.sh` 実行時に設定されます。
 
-`setup-project.sh`実行時に自動的に設定されます。
+**スキルは全て外部マーケットプレイスに集約**しました。Codex・Gemini・Antigravity は Agent Skills 標準（`~/.agents/skills/<name>/SKILL.md`）を共有するため、[マーケットプレイス](https://github.com/dobachi/claude-skills-marketplace)の `install.sh` を一度実行すれば全CLIで利用できます。
 
-## Antigravity CLI スキル
+```bash
+git clone https://github.com/dobachi/claude-skills-marketplace
+bash claude-skills-marketplace/install.sh
+```
 
-Antigravity CLI（`agy`）ユーザー向けに、ルートの `AGENTS.md`（指示書）と `.agents/skills/<name>/SKILL.md`（スキル/スラッシュコマンド）を提供。`AGENTS.md` は Codex 等とも共有されるクロスツール標準で、`.agents/skills/` は Claude Code と同じ Agent Skills 標準を採用しています。
-
-`setup-project.sh`実行時に自動的に設定されます。読み込み状況は `agy inspect` で確認できます。
+Antigravity は `agy inspect` で読み込み状況を確認できます。
 
 ## バージョン管理と移行
 
@@ -291,7 +282,7 @@ bash scripts/uninstall.sh --dry-run
 
 v1.x（モジュラー指示書システム）からの移行：
 
-1. `setup-project.sh`を再実行すると、`.claude/skills/`にコアスキル commit-safe が自動インストールされます
+1. スキルはマーケットプレイスから導入します（`/plugin marketplace add dobachi/claude-skills-marketplace` → `/plugin install commit-safe@dobachi-skills`）。`setup-project.sh` は末尾で導入方法を案内します
 2. 旧`.claude/commands/`は手動で削除してください
 3. 旧モジュラーシステムのコードは `archive/v1-modular` ブランチに保存されています
 4. Python依存（composer.py等）は不要になりました
