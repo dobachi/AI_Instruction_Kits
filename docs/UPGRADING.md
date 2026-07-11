@@ -39,18 +39,35 @@ bash instructions/ai_instruction_kits/scripts/setup-project.sh --auto --skip-ins
 
 新しいバージョンを追加する際は、ここに区間と手順を追記し、対応する `migrations/<version>.sh`（冪等）を用意する。
 
+### → 2.2.0（全スキルを外部マーケットプレイスへ集約）
+
+| 区分 | 内容 |
+|------|------|
+| 廃止 | 自前プラグインマーケット（`.claude-plugin/`） |
+| 廃止 | 各CLI向けローカルスキル配布（`.claude/skills/`・`.agents/skills/`・`.codex/prompts/`・`.gemini/commands/`・`scripts/gemini/`） |
+| 集約 | commit-safe を含む全スキルを外部マーケット [dobachi/claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) へ |
+
+移行スクリプト: `migrations/2.2.0.sh`（キット配布スキルのローカルコピーをバックアップの上で掃除。ユーザー自作スキルには触れない）。
+
+`setup-project.sh` はスキルを配布せず、末尾で導入方法を案内します。Codex・Gemini・Antigravity は Agent Skills 標準（`~/.agents/skills`）を共有するため、マーケットの `install.sh` を一度実行すれば全CLIで利用できます。指示書ファイル（`CLAUDE.md`・`CODEX.md`・`GEMINI.md`・`AGENTS.md`）は従来どおり `setup-project.sh` が設定します。
+
+導入:
+
+```bash
+git clone https://github.com/dobachi/claude-skills-marketplace
+bash claude-skills-marketplace/install.sh
+```
+
 ### → 2.1.0（Antigravity CLI対応・コアスキル整理）
 
 | 区分 | 内容 |
 |------|------|
 | 廃止 | スキル checkpoint-manager / worktree-manager / auto-build、コマンド checkpoint / build |
 | 移行 | レガシーなフラット形式 `.claude/skills/*.md` → `<name>/SKILL.md` 形式 |
-| 追加 | Antigravity CLI対応（`AGENTS.md`・`.agents/skills/`） |
-| 追加 | プラグインマーケットプレイス（`.claude-plugin/`、任意）※後に外部マーケットへ集約（下記参照） |
+| 追加 | Antigravity CLI対応（`AGENTS.md`・`.agents/skills/`）※2.2.0で外部マーケットへ集約 |
+| 追加 | プラグインマーケットプレイス（`.claude-plugin/`、任意）※2.2.0で廃止 |
 
 移行スクリプト: `migrations/2.1.0.sh`（廃止物の掃除を `migrate-skills.sh` に委譲）。
-
-> **その後の変更（マーケット集約）**: 本リポジトリのプラグインマーケット（`.claude-plugin/`）と、各CLI向けのローカルスキル配布（`.claude/skills/`・`.agents/skills/`・`.codex/prompts/`・`.gemini/commands/`）を廃止し、commit-safe を含む全スキルを外部マーケット [dobachi/claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) に集約しました。`setup-project.sh` はスキルを配布せず、末尾で導入方法を案内します。Codex・Gemini・Antigravity は Agent Skills 標準（`~/.agents/skills`）を共有するため、マーケットの `install.sh` を一度実行すれば全CLIで利用できます。指示書ファイル（`CLAUDE.md`・`CODEX.md`・`GEMINI.md`・`AGENTS.md`）は従来どおり `setup-project.sh` が設定します。
 
 ## プラグイン利用
 

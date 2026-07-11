@@ -39,18 +39,35 @@ Notes:
 
 When adding a new version, append the range and steps here and provide a matching idempotent `migrations/<version>.sh`.
 
+### → 2.2.0 (all skills consolidated into the external marketplace)
+
+| Type | Detail |
+|------|--------|
+| Removed | In-repo plugin marketplace (`.claude-plugin/`) |
+| Removed | Per-CLI local skill distribution (`.claude/skills/`, `.agents/skills/`, `.codex/prompts/`, `.gemini/commands/`, `scripts/gemini/`) |
+| Consolidated | All skills, including commit-safe, into the external marketplace [dobachi/claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace) |
+
+Migration script: `migrations/2.2.0.sh` (backs up and removes the kit-distributed skill copies; leaves user-authored skills untouched).
+
+`setup-project.sh` no longer distributes skills — it prints install instructions at the end. Because Codex, Gemini, and Antigravity share the Agent Skills standard (`~/.agents/skills`), running the marketplace `install.sh` once covers every CLI. The instruction files (`CLAUDE.md`, `CODEX.md`, `GEMINI.md`, `AGENTS.md`) are still set up by `setup-project.sh`.
+
+Install:
+
+```bash
+git clone https://github.com/dobachi/claude-skills-marketplace
+bash claude-skills-marketplace/install.sh
+```
+
 ### → 2.1.0 (Antigravity CLI support / core skill consolidation)
 
 | Type | Detail |
 |------|--------|
 | Removed | Skills checkpoint-manager / worktree-manager / auto-build; commands checkpoint / build |
 | Migrated | Legacy flat `.claude/skills/*.md` → `<name>/SKILL.md` format |
-| Added | Antigravity CLI support (`AGENTS.md`, `.agents/skills/`) |
-| Added | Plugin marketplace (`.claude-plugin/`, optional) — later consolidated into the external marketplace (see below) |
+| Added | Antigravity CLI support (`AGENTS.md`, `.agents/skills/`) — consolidated into the external marketplace in 2.2.0 |
+| Added | Plugin marketplace (`.claude-plugin/`, optional) — removed in 2.2.0 |
 
 Migration script: `migrations/2.1.0.sh` (delegates cleanup to `migrate-skills.sh`).
-
-> **Later change (marketplace consolidation)**: This repository's plugin marketplace (`.claude-plugin/`) and all per-CLI local skill distribution (`.claude/skills/`, `.agents/skills/`, `.codex/prompts/`, `.gemini/commands/`) were removed; all skills, including commit-safe, are now consolidated in the external marketplace [dobachi/claude-skills-marketplace](https://github.com/dobachi/claude-skills-marketplace). `setup-project.sh` no longer distributes skills — it prints install instructions at the end. Because Codex, Gemini, and Antigravity share the Agent Skills standard (`~/.agents/skills`), running the marketplace `install.sh` once covers every CLI. The instruction files (`CLAUDE.md`, `CODEX.md`, `GEMINI.md`, `AGENTS.md`) are still set up by `setup-project.sh`.
 
 ## Plugin usage
 
