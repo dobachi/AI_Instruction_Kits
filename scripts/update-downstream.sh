@@ -157,6 +157,8 @@ for repo in "${repos[@]}"; do
     find . -path ./instructions/ai_instruction_kits -prune -o \
       -type f -name "*.backup.[0-9]*" -print -delete 2>/dev/null | sed 's/^/    🧹 backup除去: /' || true
     git add -A
+    # 移行スクリプトの退避先 .migration-backup/ はコミットしない（ディスク上には残す）
+    git reset -q -- .migration-backup 2>/dev/null || true
   else
     git add "$SUBMODULE_PATH"
   fi

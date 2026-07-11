@@ -449,7 +449,7 @@ setup_git_config() {
     # .gitignore更新
     local gitignore_entries=()
     [ "$SELECTED_MODE" = "submodule" ] && gitignore_entries+=("instructions/ai_instruction_kits/")
-    gitignore_entries+=(".openhands/" ".claude/" ".gemini/" ".gitworktrees/" "gitworktrees/")
+    gitignore_entries+=(".openhands/" ".claude/" ".gemini/" ".gitworktrees/" "gitworktrees/" ".migration-backup/")
 
     for entry in "${gitignore_entries[@]}"; do
         if [ -f ".gitignore" ]; then
